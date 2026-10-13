@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru" class="no-js">
 <head>
 <meta charset="utf-8">
@@ -23,14 +23,12 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" type="image/webp" href="assets/img/gen-hero-collage-640.webp"
       imagesrcset="assets/img/gen-hero-collage-640.webp 640w, assets/img/gen-hero-collage-1000.webp 1000w"
       imagesizes="(max-width: 760px) 92vw, 560px" fetchpriority="high">
-<!-- шрифты грузятся без блокировки отрисовки: на медленном интернете текст виден сразу -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Oswald:wght@500;600;700&display=swap"></noscript>
+<!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/oswald-600-cyrillic.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/cormorant-garamond-400-cyrillic.woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
@@ -170,7 +168,7 @@
         <img src="assets/img/gen-journey.jpg" alt="Телефон с картой клиник: пациент сравнивает рейтинг, отзывы и сайт, а затем звонит в клинику" width="1000" height="534" loading="lazy" decoding="async">
       </picture>
     </div>
-    <div class="journey__steps">
+    <section class="journey__steps" tabindex="0" aria-label="Шаги пациента, листаются в сторону">
       <svg class="journey__path" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M20 60 C 200 0, 360 120, 600 60 S 1000 0, 1180 60" /></svg>
       <article class="step reveal">
         <span class="step__num">01</span>
@@ -196,7 +194,7 @@
         <p>Звонит, пишет или записывается онлайн. Мы видим, из какого канала пришло обращение.</p>
         <span class="step__tag">учёт обращений</span>
       </article>
-    </div>
+    </section>
   </div>
 </section>
 
@@ -241,10 +239,10 @@
     <p class="eyebrow">Узнаёте свою ситуацию?</p>
     <h2 class="h2" data-split>Для каждого случая есть свой первый шаг.</h2>
     <div class="tabs" role="tablist" aria-label="Ситуация клиники">
-      <button class="tab is-active" role="tab" aria-selected="true" data-tab="0">Новая клиника</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="1">Клиника работает несколько лет</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="2">Несколько подрядчиков</button>
-      <button class="tab" role="tab" aria-selected="false" data-tab="3">Два-три адреса</button>
+      <button type="button" class="tab is-active" role="tab" aria-selected="true" data-tab="0">Новая клиника</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-tab="1">Клиника работает несколько лет</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-tab="2">Несколько подрядчиков</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-tab="3">Два-три адреса</button>
     </div>
     <div class="tabpanels">
       <div class="tabpanel is-active" role="tabpanel">
@@ -362,7 +360,7 @@
         <source type="image/webp" srcset="assets/img/gen-report-640.webp 640w, assets/img/gen-report-1000.webp 1000w" sizes="(max-width: 1100px) 92vw, 580px">
         <img src="assets/img/gen-report.jpg" alt="Бумажный ежемесячный отчёт для стоматологии с диаграммами, скрепкой и штампом" class="report__img" width="1000" height="1000" loading="lazy" decoding="async">
       </picture>
-      <div class="chart paper" aria-label="Пример: обращения по каналам">
+      <div class="chart paper" role="img" aria-label="Пример: обращения по каналам">
         <div class="chart__head"><b>Обращения по каналам</b><small>пример, данные условные</small></div>
         <div class="chart__bars">
           <div class="bar" style="--v:.78"><span>Карты</span><i></i></div>
@@ -380,7 +378,7 @@
   <div class="wrap">
     <p class="eyebrow">Стоимость продвижения</p>
     <h2 class="h2" data-split>Одна цена за месяц. Без «от» и скрытых платежей.</h2>
-    <div class="tariffs" data-carousel>
+    <section class="tariffs" data-carousel tabindex="0" aria-label="Тарифы">
       <article class="tariff paper reveal" data-tilt-card>
         <span class="tape tape--card" aria-hidden="true"></span>
         <h3>Карты</h3>
@@ -405,7 +403,7 @@
         <ul class="ticks ticks--sm"><li>Всё из тарифа «Карты + SEO»</li><li>Новый сайт или доработка текущего</li><li>Развитие сайта по плану</li><li>Единый отчёт по всем каналам</li><li>Один ответственный менеджер</li></ul>
         <a href="#diagnostics" class="btn btn--cyan">Начать с диагностики</a>
       </article>
-    </div>
+    </section>
     <div class="dots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>
     <div class="prices__notes">
       <p><b>Цена за одну клинику и один адрес.</b> Дополнительный адрес считаем отдельно.</p>
@@ -422,7 +420,7 @@
     <h2 class="h2" data-split>Чем это отличается от ваших вариантов.</h2>
     <div class="table-wrap">
       <table class="cmp">
-        <thead><tr><th></th><th>Штатный маркетолог</th><th>Несколько подрядчиков</th><th>Агентство «под заявки»</th><th class="is-us">МедВектор</th></tr></thead>
+        <thead><tr><th scope="col"><span class="sr">Критерий</span></th><th scope="col">Штатный маркетолог</th><th scope="col">Несколько подрядчиков</th><th scope="col">Агентство «под заявки»</th><th scope="col" class="is-us">МедВектор</th></tr></thead>
         <tbody>
           <tr><td>Карты, площадки и отзывы</td><td data-label="Маркетолог">как успеет</td><td data-label="Подрядчики">отдельный подрядчик</td><td data-label="Агентство «под заявки»">редко</td><td class="is-us" data-label="МедВектор">в основе работы</td></tr>
           <tr><td>Сайт и SEO</td><td data-label="Маркетолог">нужны подрядчики</td><td data-label="Подрядчики">отдельный подрядчик</td><td data-label="Агентство «под заявки»">посадочная под рекламу</td><td class="is-us" data-label="МедВектор">в общем плане</td></tr>
@@ -541,40 +539,45 @@
     </form>
   </div>
 </section>
+<!-- нижняя кнопка на телефоне -->
+<a href="#diagnostics" class="mcta"><span>Бесплатная диагностика клиники</span><i aria-hidden="true">→</i></a>
 </main>
 
-<!-- ============ 15. ФУТЕР ============ -->
+<!-- ============ 15. ФУТЕР (по мотивам medvectoragency.ru: рваный край, крупный знак «Мед Вектор», прицелы) ============ -->
 <footer class="footer">
-  <div class="wrap footer__grid">
-    <img src="assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy" class="footer__logo">
-    <div>
-      <p class="footer__title">Услуги</p>
-      <nav class="footer__nav" aria-label="Услуги">
-        <a href="#system">SEO-продвижение стоматологии</a>
-        <a href="#site">Сайт для стоматологии</a>
-        <a href="#system">Яндекс Карты и 2ГИС для клиники</a>
-        <a href="#system">ПроДокторов и отзывы</a>
-        <a href="#system">Контекстная реклама для стоматологии</a>
-      </nav>
+  <div class="footer__tear" aria-hidden="true"></div>
+  <span class="footer__watermark" aria-hidden="true"><img src="assets/img/medvector-logo-inverse.webp" alt="" width="720" height="255" loading="lazy"></span>
+  <div class="footer__registers" aria-hidden="true"><span class="cross cross--cyan"></span><span class="footer__coords">II × 55.7539°</span><span class="cross cross--cyan"></span></div>
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy" class="footer__logo">
+        <p class="footer__tagline">Маркетинг для стоматологий</p>
+        <span class="footer__dots" aria-hidden="true"></span>
+      </div>
+      <div class="footer__actions">
+        <nav class="footer__main" aria-label="Навигация в подвале">
+          <a href="#system">Услуги</a><a href="#launch">Подход</a><a href="#prices">Цены</a><a href="#diagnostics">Контакты</a>
+        </nav>
+        <a href="#top" class="footer__up">Наверх <span aria-hidden="true">↑</span></a>
+      </div>
     </div>
-    <div>
-      <p class="footer__title">Агентство</p>
-      <nav class="footer__nav" aria-label="Агентство">
-        <a href="#launch">Как работаем</a><a href="#prices">Цены</a><a href="#trust">О нас</a><a href="#faq">Вопросы</a><a href="#diagnostics">Диагностика</a>
-      </nav>
-    </div>
-    <div class="footer__meta">
-      <p>Маркетинг для стоматологий</p>
-      <p class="placeholder">контакты — уточнить</p>
-      <p><a href="#">Политика обработки персональных данных</a></p>
+    <nav class="footer__services" aria-label="Услуги">
+      <a href="#system">SEO-продвижение стоматологии</a>
+      <a href="#site">Сайт для стоматологии</a>
+      <a href="#system">Яндекс Карты и 2ГИС для клиники</a>
+      <a href="#system">ПроДокторов и отзывы</a>
+      <a href="#system">Контекстная реклама для стоматологии</a>
+    </nav>
+    <div class="footer__divider" aria-hidden="true"></div>
+    <div class="footer__legal">
+      <a href="#">Политика конфиденциальности</a>
+      <span class="placeholder">контакты — уточнить</span>
       <p>© 2026 МедВектор</p>
-      <a href="#top" class="footer__up">Наверх ↑</a>
     </div>
   </div>
 </footer>
 
-<!-- нижняя кнопка на телефоне -->
-<a href="#diagnostics" class="mcta" aria-hidden="true" tabindex="-1"><span>Бесплатная диагностика клиники</span><i>→</i></a>
 
 <script src="assets/js/main.js" defer></script>
 </body>

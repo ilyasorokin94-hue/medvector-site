@@ -4,13 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test-suite.js http://127.0.0.1:8099/ ../screenshots/tests",
+    "validate": "html-validate --config .htmlvalidate.json ../index.html",
+    "serve": "python -m http.server 8099 --bind 127.0.0.1 --directory ..",
+    "fonts": "node fonts.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "axe-core": "^4.14.0",
+    "html-validate": "^8.29.0",
+    "lighthouse": "^12.8.2",
+    "playwright": "^1.48.2",
     "playwright-core": "^1.48.2"
   }
 }

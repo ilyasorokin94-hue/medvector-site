@@ -12,13 +12,16 @@
   const mcta = $('.mcta');
   const diag = $('#diagnostics');
   const hero = $('.hero');
-  let lastY = scrollY, ticking = false, menuOpen = false, diagVisible = false;
+  let lastY = scrollY, ticking = false, menuOpen = false, diagVisible = false, keepHeader = 0;
+  // после перехода по пункту меню шапка остаётся на месте, чтобы меню было под рукой
+  document.addEventListener('click', e => { if (e.target.closest('a[href^="#"]')) keepHeader = performance.now() + 1500; });
 
   const onScroll = () => {
     const y = scrollY;
     const max = document.documentElement.scrollHeight - innerHeight;
     header.classList.toggle('is-compact', y > 60);
-    if (!menuOpen) header.classList.toggle('is-hidden', y > 400 && y > lastY + 4);
+    // прячем только при явной прокрутке вниз; мелкие сдвиги в конце плавной прокрутки шапку не трогают
+    if (!menuOpen && y > 400 && y > lastY + 4 && performance.now() > keepHeader) header.classList.add('is-hidden');
     if (y < lastY - 4 || y < 400) header.classList.remove('is-hidden');
     progress.style.setProperty('--p', max > 0 ? y / max : 0);
     if (mcta) mcta.classList.toggle('is-on', y > hero.offsetHeight * .8 && !diagVisible && !menuOpen);
@@ -159,7 +162,7 @@
     io.unobserve(el);
   }), { threshold: .15, rootMargin: '0px 0px -5% 0px' });
   $$('.reveal').forEach((el, i) => { el.style.transitionDelay = `${(i % 4) * 80}ms`; io.observe(el); });
-  $$('.chart, [data-split]').forEach(el => io.observe(el));
+  $$('.chart, [data-split], .footer__divider').forEach(el => io.observe(el));
   $$('[data-tear]').forEach(el => io.observe(el.parentElement));
   if (!reduce) $$('.num').forEach(el => io.observe(el));
 
@@ -213,7 +216,7 @@
   const wheel = $('.wheel'), ans = $('.faq__text'), ansQ = $('.faq__q'), count = $('.wheel-nav__count b');
   const N = faq.length, R = 300, C = 300, seg = 360 / N;
   const pt = (a, r) => [C + r * Math.sin(a * Math.PI / 180), C - r * Math.cos(a * Math.PI / 180)];
-  let svg = '<svg viewBox="0 0 600 600" aria-hidden="true">';
+  let svg = '<svg viewBox="0 0 600 600" role="presentation">';
   faq.forEach(([q], i) => {
     const a0 = i * seg, a1 = a0 + seg, [x0, y0] = pt(a0, R), [x1, y1] = pt(a1, R), [tx, ty] = pt(a0 + seg / 2, R * .6);
     const lines = q.toUpperCase().match(/.{1,14}(\s|$)/g).map(s => s.trim());
@@ -238,7 +241,7 @@
     ans.classList.add('is-out'); setTimeout(show, 220);
   };
   segs.forEach((g, i) => {
-    g.setAttribute('role', 'tab'); g.setAttribute('tabindex', '0'); g.setAttribute('aria-label', faq[i][0]);
+    g.setAttribute('role', 'tab'); g.setAttribute('tabindex', '0');
     g.addEventListener('click', () => pick(i));
     g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(i); } });
   });
@@ -265,6 +268,10 @@
     if (ok) form.classList.add('is-sent');
   });
   $$('input', form).forEach(inp => inp.addEventListener('input', () => inp.classList.remove('is-bad')));
+
+  /* ---------- пауза анимаций вне экрана (меньше нагрузка на телефон) ---------- */
+  const animIO = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('is-offscreen', !e.isIntersecting)));
+  $$('.hero, .ticker, .system__visual, .faq__panel, .footer').forEach(el => animIO.observe(el));
 
   onScroll();
 })();
