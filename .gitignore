@@ -1,0 +1,5 @@
+_tools/node_modules/
+_tools/package-lock.json
+screenshots/
+*.zip
+/medvector-*.png
