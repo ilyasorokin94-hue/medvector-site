@@ -1,0 +1,23 @@
+# MedVector: основной адрес https://medvector.pro/
+# med-vector.ru, med-vector.online и www-варианты ведут сюда 301-редиректом.
+Options -Indexes
+AddDefaultCharset utf-8
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !^medvector\.pro$ [NC]
+RewriteRule ^ https://medvector.pro%{REQUEST_URI} [R=301,L]
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^ https://medvector.pro%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+<FilesMatch "\.(css|js|woff2|webp|jpg|png|svg)$">
+Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>
