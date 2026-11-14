@@ -883,7 +883,7 @@ p { margin: 0; }
   .strip__t { font-size: 28px; }
   .strip__price { font-size: 36px; margin-top: 4px; }
   .strips__line, .strip__dot { left: 30px; }
-  .js .strip.reveal, .js .strip.reveal:nth-child(odd) { translate: 0 20px; }
+  .js .strip.reveal:not(.is-in), .js .strip.reveal:nth-child(odd):not(.is-in) { translate: 0 20px; }
   .rhythm { font-size: 20px !important; }
   .complex__note { margin-top: 28px; }
 
