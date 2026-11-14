@@ -1,5 +1,7 @@
-﻿// Полный прогон тестов прототипа. node test-suite.js <url> <outdir>
+﻿// Полный прогон тестов главной. node test-suite.js <url> <outdir>
 // Браузеры: Chromium (Chrome), Firefox, WebKit (движок Safari на iPhone).
+// CHROME_PATH — путь к установленному Chrome; без него берётся Chromium из Playwright.
+// Движок, который не установлен на машине, не запускается и попадает в отчёт как «ПРОПУСК», а не как пройденный.
 const pw = require('playwright');
 const { devices } = pw;
 const fs = require('fs');
@@ -7,8 +9,11 @@ const path = require('path');
 const axe = fs.readFileSync(require.resolve('axe-core/axe.min.js'), 'utf8');
 const [url, out] = process.argv.slice(2);
 fs.mkdirSync(out, { recursive: true });
-const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+const WIN_CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+const CHROME = process.env.CHROME_PATH || (fs.existsSync(WIN_CHROME) ? WIN_CHROME : '');
+const chromeOpts = CHROME ? { executablePath: CHROME } : {};
 const results = [];
+const skipped = [];
 const log = (group, name, ok, detail = '') => { results.push({ group, name, ok, detail }); console.log(`${ok ? 'OK  ' : 'FAIL'} [${group}] ${name}${detail ? ' — ' + detail : ''}`); };
 
 const settle = async page => {
@@ -35,7 +40,9 @@ const overflowCheck = page => page.evaluate(() => {
     ['Firefox · Android', 'firefox', { viewport: { width: 412, height: 915 }, hasTouch: true }],
   ];
   for (const [label, engine, opts] of engines) {
-    const browser = await pw[engine].launch(engine === 'chromium' ? { executablePath: CHROME } : {});
+    let browser;
+    try { browser = await pw[engine].launch(engine === 'chromium' ? chromeOpts : {}); }
+    catch (e) { skipped.push(label); console.log(`ПРОПУСК [Браузеры] ${label}: движок ${engine} не установлен на этой машине`); continue; }
     const ctx = await browser.newContext(opts);
     const page = await ctx.newPage();
     const errors = [];
@@ -62,7 +69,7 @@ const overflowCheck = page => page.evaluate(() => {
     await browser.close();
   }
 
-  const chrome = await pw.chromium.launch({ executablePath: CHROME });
+  const chrome = await pw.chromium.launch(chromeOpts);
 
   /* ---------- 2. Адаптивность: 8 ширин экрана ---------- */
   for (const w of [320, 360, 390, 414, 768, 1024, 1280, 1920]) {
@@ -98,13 +105,15 @@ const overflowCheck = page => page.evaluate(() => {
     await page.evaluate(() => document.querySelector('#diagnostics').scrollIntoView()); await page.waitForTimeout(700);
     log('Функции', 'Нижняя кнопка прячется у формы', !(await page.$eval('.mcta', el => el.classList.contains('is-on'))));
     // вкладки
-    await page.evaluate(() => document.querySelector('#cases').scrollIntoView()); await page.waitForTimeout(300);
+    await page.evaluate(() => document.querySelector('#paths .tabs').scrollIntoView({ block: 'center' })); await page.waitForTimeout(300);
     await page.click('.tab[data-tab="2"]'); await page.waitForTimeout(400);
-    log('Функции', 'Вкладки ситуаций переключаются', await page.evaluate(() => document.querySelectorAll('.tabpanel')[2].classList.contains('is-active')));
+    log('Функции', 'Вкладки «С чего начать» переключаются', await page.evaluate(() => document.querySelectorAll('.tabpanel')[2].classList.contains('is-active') && document.querySelectorAll('.tabpanel.is-active').length === 1));
+    // карусель услуг
+    log('Функции', 'Услуги на телефоне листаются в ряд', await page.evaluate(() => { const r = document.querySelector('.svc-row'); return r.scrollWidth > r.clientWidth + 40; }));
     // переворот карточки
     await page.evaluate(() => document.querySelector('.flip').scrollIntoView({ block: 'center' })); await page.waitForTimeout(400);
     await page.tap('.flip'); await page.waitForTimeout(900);
-    log('Функции', 'Карточка «потерь» переворачивается по нажатию', await page.$eval('.flip', el => el.classList.contains('is-flipped')));
+    log('Функции', 'Карточка принципов переворачивается по нажатию', await page.$eval('.flip', el => el.classList.contains('is-flipped')));
     // колесо
     await page.evaluate(() => document.querySelector('#faq').scrollIntoView()); await page.waitForTimeout(400);
     const a0 = await page.$eval('.faq__text', el => el.textContent);
@@ -135,10 +144,42 @@ const overflowCheck = page => page.evaluate(() => {
     log('Функции', 'Шапка возвращается при прокрутке вверх', !(await page.$eval('.header', el => el.classList.contains('is-hidden'))));
     log('Функции', 'Индикатор прочтения двигается', await page.$eval('.progress', el => parseFloat(el.style.getPropertyValue('--p')) > 0));
     await page.hover('.flip'); await page.waitForTimeout(900);
-    log('Функции', 'Карточка «потерь» переворачивается при наведении', await page.$eval('.flip .flip__in', el => getComputedStyle(el).transform !== 'none'));
-    // клавиатура
-    await page.evaluate(() => scrollTo(0, 0)); await page.keyboard.press('Tab'); await page.keyboard.press('Tab');
-    log('Функции', 'Навигация с клавиатуры: фокус виден', await page.evaluate(() => { const el = document.activeElement; const cs = getComputedStyle(el); return el !== document.body && cs.outlineStyle !== 'none'; }));
+    log('Функции', 'Карточка принципов переворачивается при наведении', await page.$eval('.flip .flip__in', el => getComputedStyle(el).transform !== 'none'));
+    // выпадающий список услуг
+    await page.evaluate(() => scrollTo(0, 0)); await page.waitForTimeout(700);
+    await page.hover('.nav__item--drop .nav__link'); await page.waitForTimeout(600);
+    log('Функции', 'Список услуг в шапке раскрывается при наведении', await page.evaluate(() => { const d = document.querySelector('.drop'); const cs = getComputedStyle(d); return cs.visibility === 'visible' && +cs.opacity > .9 && document.querySelector('.nav__item--drop .nav__link').getAttribute('aria-expanded') === 'true'; }));
+    await page.click('.drop a[href="#complex"]'); await page.waitForTimeout(1400);
+    log('Функции', 'Пункт списка ведёт к блоку услуги и закрывает список', await page.evaluate(() => { const r = document.querySelector('#complex').getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0 && document.querySelector('.nav__item--drop .nav__link').getAttribute('aria-expanded') === 'false'; }));
+    log('Функции', 'В шапке подсвечен раздел, который сейчас на экране', await page.evaluate(() => document.querySelector('.nav__link.is-active')?.getAttribute('href') === '#services'));
+    // развилка управляет вкладками
+    await page.evaluate(() => document.querySelector('.fork').scrollIntoView({ block: 'center' })); await page.waitForTimeout(900);
+    await page.click('.fork__node--b'); await page.waitForTimeout(400);
+    log('Функции', 'Развилка «реклама или основа» переключает вкладку', await page.evaluate(() => document.querySelector('#panel-1').classList.contains('is-active') && document.querySelector('.fork').dataset.active === '1'));
+    log('Функции', 'Линии развилки дорисованы', await page.evaluate(() => [...document.querySelectorAll('.fork__path')].every(p => parseFloat(p.style.strokeDashoffset) < 2)));
+    // план запуска по дням
+    await page.evaluate(() => document.querySelector('.days').scrollIntoView({ block: 'center' })); await page.waitForTimeout(1900);
+    log('Функции', 'План запуска: семь дней раскрываются', await page.evaluate(() => { const d = [...document.querySelectorAll('.day')]; return d.length === 7 && d.every(el => getComputedStyle(el).opacity === '1'); }));
+    // клавиатура: проходим Tab по всей странице, на каждой остановке должен быть видимый фокус
+    await page.reload({ waitUntil: 'networkidle' }); await page.evaluate(() => document.documentElement.style.scrollBehavior = 'auto'); await page.waitForTimeout(1500);
+    const noFocus = []; let stops = 0, firstStop = null;
+    for (let i = 0; i < 200; i++) {
+      await page.keyboard.press('Tab'); await page.waitForTimeout(40);
+      const probe = () => page.evaluate(() => {
+        const el = document.activeElement; if (!el || el === document.body) return null;
+        const cs = getComputedStyle(el), r = el.getBoundingClientRect();
+        const shown = r.width > 0 && r.height > 0 && el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true });
+        // сектор колеса вопросов показывает фокус заливкой, остальные элементы рамкой
+        const ring = (cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) >= 2) || el.matches('.seg');
+        return { key: `${el.tagName.toLowerCase()}.${String(el.className.baseVal ?? el.className).split(' ')[0]} «${el.textContent.trim().slice(0, 24)}»`, ok: shown && ring };
+      });
+      let st = await probe();
+      // блок мог ещё проявляться после прокрутки к нему: даём анимации закончиться и смотрим снова
+      if (st && !st.ok) { await page.waitForTimeout(1100); st = await probe(); }
+      if (!st || st.key === firstStop) break;
+      firstStop ??= st.key; stops++; if (!st.ok) noFocus.push(st.key);
+    }
+    log('Функции', 'Навигация с клавиатуры: фокус виден на каждой остановке', stops > 20 && noFocus.length === 0, `${stops} остановок` + (noFocus.length ? ', без видимого фокуса: ' + noFocus.slice(0, 4).join('; ') : ''));
     // якоря
     const anchors = await page.evaluate(() => [...document.querySelectorAll('a[href^="#"]')].map(a => a.getAttribute('href')).filter(h => h.length > 1 && !document.querySelector(h)));
     log('Ссылки', 'Все внутренние ссылки ведут на существующие блоки', anchors.length === 0, [...new Set(anchors)].join(', '));
@@ -152,8 +193,9 @@ const overflowCheck = page => page.evaluate(() => {
     const ctx = await chrome.newContext({ javaScriptEnabled: false, viewport: { width: 1440, height: 900 } });
     const page = await ctx.newPage();
     await page.goto(url, { waitUntil: 'networkidle' }); await page.evaluate(() => document.documentElement.style.scrollBehavior = 'auto');
-    const hidden = await page.evaluate(() => [...document.querySelectorAll('h2, .step, .tariff, .flip')].filter(el => getComputedStyle(el).opacity === '0').length);
+    const hidden = await page.evaluate(() => [...document.querySelectorAll('h1, h2, .svc, .day, .strip, .tariff, .flip, .checklist__row, .tabpanel, .faq__list dt, .faq__list dd')].filter(el => { const cs = getComputedStyle(el); return cs.opacity === '0' || cs.display === 'none' || cs.visibility === 'hidden'; }).length);
     log('Устойчивость', 'Без JavaScript весь текст виден', hidden === 0, hidden ? `${hidden} скрытых блоков` : '');
+    log('Устойчивость', 'Без JavaScript вопросы и ответы показаны списком', await page.evaluate(() => document.querySelectorAll('.faq__list dt').length === 6 && getComputedStyle(document.querySelector('.wheel-box')).display === 'none'));
     await page.screenshot({ path: path.join(out, 'no-js.png'), fullPage: false });
     await ctx.close();
     const ctx2 = await chrome.newContext({ reducedMotion: 'reduce', viewport: { width: 1440, height: 900 } });
@@ -171,6 +213,7 @@ const overflowCheck = page => page.evaluate(() => {
     const page = await ctx.newPage();
     await page.goto(url, { waitUntil: 'networkidle' }); await page.evaluate(() => document.documentElement.style.scrollBehavior = 'auto');
     await settle(page);
+    await page.waitForTimeout(2500); // ждём, пока закончатся анимации появления: иначе контраст меряется на полупрозрачном тексте
     await page.addScriptTag({ content: axe });
     const res = await page.evaluate(() => axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21aa', 'best-practice'] }));
     const v = res.violations.map(x => ({ id: x.id, impact: x.impact, n: x.nodes.length, help: x.help, targets: x.nodes.slice(0, 4).map(n => n.target.join(' ')) }));
@@ -190,16 +233,25 @@ const overflowCheck = page => page.evaluate(() => {
       const levels = [...document.querySelectorAll('h1,h2,h3')].map(h => +h.tagName[1]);
       let skip = false; levels.reduce((p, c) => { if (c > p + 1) skip = true; return c; }, 1);
       let ld = []; document.querySelectorAll('script[type="application/ld+json"]').forEach(s => { try { ld.push(JSON.parse(s.textContent)); } catch (e) { ld.push('ERROR'); } });
-      return { t, tl: t.length, dl: d.length, h1, skip, ld: ld.includes('ERROR') ? 'ERROR' : 'ok', og: !!document.querySelector('meta[property="og:image"]'), lang: document.documentElement.lang, vp: !!document.querySelector('meta[name=viewport]'), robots: document.querySelector('meta[name=robots]')?.content };
+      const norm = x => x.replace(/\s+/g, ' ').trim();
+      const graph = ld.flatMap(x => x && x['@graph'] ? x['@graph'] : [x]);
+      const faqLd = (graph.find(x => x && x['@type'] === 'FAQPage')?.mainEntity || []).map(q => norm(q.name) + '|' + norm(q.acceptedAnswer.text));
+      const faqDom = [...document.querySelectorAll('.faq__list > div')].map(x => norm(x.querySelector('dt').textContent) + '|' + norm(x.querySelector('dd').textContent));
+      const offers = graph.flatMap(x => x?.hasOfferCatalog?.itemListElement || []).map(o => o.price).filter(Boolean).map(String);
+      const text = norm(document.body.innerText).replace(/\u00a0/g, ' ');
+      return { faqSame: faqLd.length > 0 && faqLd.length === faqDom.length && faqLd.every((x, i) => x === faqDom[i]), faqN: faqLd.length, pricesShown: offers.length > 0 && offers.every(p => text.includes(Number(p).toLocaleString('ru-RU').replace(/\u00a0/g, ' '))), offers,
+        t, tl: t.length, dl: d.length, h1, skip, ld: ld.includes('ERROR') ? 'ERROR' : 'ok', og: !!document.querySelector('meta[property="og:image"]'), lang: document.documentElement.lang, vp: !!document.querySelector('meta[name=viewport]'), robots: document.querySelector('meta[name=robots]')?.content };
     });
     log('SEO', 'Заголовок страницы 30–70 символов', seo.tl >= 30 && seo.tl <= 75, `${seo.tl}: ${seo.t}`);
     log('SEO', 'Описание страницы 120–200 символов', seo.dl >= 120 && seo.dl <= 220, `${seo.dl}`);
     log('SEO', 'Ровно один H1', seo.h1 === 1);
     log('SEO', 'Иерархия заголовков без пропусков', !seo.skip);
     log('SEO', 'Разметка schema.org читается без ошибок', seo.ld === 'ok');
+    log('SEO', 'Вопросы в разметке совпадают с текстом на странице', seo.faqSame, `${seo.faqN} вопросов`);
+    log('SEO', 'Цены в разметке совпадают с ценами на странице', seo.pricesShown, seo.offers.join(', '));
     log('SEO', 'Есть превью для соцсетей (Open Graph)', seo.og);
     log('SEO', 'Указан язык страницы и viewport', seo.lang === 'ru' && seo.vp);
-    log('SEO', 'Запрет индексации включён (прототип)', /noindex/.test(seo.robots || ''), seo.robots);
+    log('SEO', 'Запрет индексации включён (до запуска)', /noindex/.test(seo.robots || ''), seo.robots);
     await page.close();
   }
 
@@ -223,8 +275,10 @@ const overflowCheck = page => page.evaluate(() => {
   }
   await chrome.close();
 
-  fs.writeFileSync(path.join(out, 'results.json'), JSON.stringify(results, null, 1));
+  fs.writeFileSync(path.join(out, 'results.json'), JSON.stringify({ results, skipped }, null, 1));
   const failed = results.filter(r => !r.ok).length;
   console.log(`\nИТОГО: ${results.length - failed} из ${results.length} проверок пройдено`);
+  if (skipped.length) console.log(`НЕ ЗАПУСКАЛИСЬ (движок не установлен): ${skipped.join('; ')}`);
+  process.exitCode = failed ? 1 : 0;
 })();
 
