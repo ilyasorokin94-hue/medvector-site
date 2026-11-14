@@ -1,1 +1,80 @@
-<!-- варианты блока diagnostics -->
+<!-- Диагностика: варианты 2–5. Форма та же, с теми же полями и проверкой -->
+<style>
+/* бумажная анкета: общая для вариантов 2 и 5 */
+#diagnostics[data-v="2"] .form, #diagnostics[data-v="5"] .form { clip-path: none; overflow: visible; background: var(--paper); padding-top: 70px; box-shadow: 0 34px 54px -26px rgba(6,27,79,.6), 0 1px 0 rgba(0,0,0,.04); }
+#diagnostics[data-v="2"] .form::before, #diagnostics[data-v="5"] .form::before { content: ""; position: absolute; left: 50%; top: -15px; width: 140px; height: 32px; margin-left: -70px; background: rgba(233,222,196,.92); box-shadow: 0 1px 2px rgba(0,0,0,.12); rotate: -2.5deg; }
+#diagnostics[data-v="2"] .form::after, #diagnostics[data-v="5"] .form::after { content: "бесплатно"; position: absolute; right: 24px; top: 24px; padding: 7px 11px 6px; border: 3px solid var(--coral); color: var(--coral-ink); font: 700 15px/1 var(--cond); letter-spacing: .16em; text-transform: uppercase; rotate: 5deg; }
+#diagnostics[data-v="2"] .form label, #diagnostics[data-v="5"] .form label { color: var(--navy); }
+#diagnostics[data-v="2"] .form label small, #diagnostics[data-v="5"] .form label small, #diagnostics[data-v="2"] .form__after, #diagnostics[data-v="5"] .form__after { color: var(--muted); }
+#diagnostics[data-v="2"] .form input[type=text], #diagnostics[data-v="2"] .form input[type=url], #diagnostics[data-v="5"] .form input[type=text], #diagnostics[data-v="5"] .form input[type=url] { border: 0; border-bottom: 2px solid var(--navy); padding: 12px 4px; color: var(--navy); }
+#diagnostics[data-v="2"] .form input::placeholder, #diagnostics[data-v="5"] .form input::placeholder { color: var(--muted); }
+#diagnostics[data-v="2"] .form :focus-visible, #diagnostics[data-v="5"] .form :focus-visible { outline-color: var(--cyan-ink); }
+#diagnostics[data-v="2"] .form input:focus, #diagnostics[data-v="5"] .form input:focus { background: rgba(8,174,234,.12); }
+#diagnostics[data-v="2"] .form input.is-bad, #diagnostics[data-v="5"] .form input.is-bad { border-color: var(--coral-btn); box-shadow: inset 0 -2px 0 var(--coral-btn); }
+@media (max-width: 900px) { #diagnostics[data-v="2"] .form, #diagnostics[data-v="5"] .form { position: relative; top: auto; } }
+@media (max-width: 760px) { #diagnostics[data-v="2"] .form, #diagnostics[data-v="5"] .form { padding-top: 66px; } #diagnostics[data-v="2"] .form::after, #diagnostics[data-v="5"] .form::after { right: 16px; top: 20px; } }
+
+/* ---------- 2. Бумажная анкета слева, текст справа ---------- */
+@media (min-width: 901px) {
+  #diagnostics[data-v="2"] .diag__grid { grid-template-columns: minmax(0, .9fr) minmax(0, 1fr); }
+  #diagnostics[data-v="2"] .form { order: -1; rotate: -1deg; }
+}
+
+/* ---------- 3. Тёмная панель: синий фон, голубая форма ---------- */
+#diagnostics[data-v="3"] .diag__grid, #diagnostics[data-v="5"] .diag__grid { max-width: 1400px; padding: 84px 64px 92px; border-radius: 60px; }
+#diagnostics[data-v="3"] .diag__grid { color: var(--cream); background-color: var(--navy); background-image: radial-gradient(rgba(255,255,255,.055) 1px, transparent 1.4px); background-size: 6px 6px; }
+#diagnostics[data-v="3"] .eyebrow { color: var(--cyan); }
+#diagnostics[data-v="3"] .h2 { color: var(--cream); }
+#diagnostics[data-v="3"] .lead { color: rgba(247,242,233,.82); }
+#diagnostics[data-v="3"] .ticks li::before { border-color: var(--cyan); }
+#diagnostics[data-v="3"] .diag__img, #diagnostics[data-v="5"] .diag__img { width: 66%; margin: 46px 0 0 12px; mix-blend-mode: normal; -webkit-mask-image: none; mask-image: none; box-shadow: 0 0 0 10px var(--cream), 0 30px 50px -22px rgba(0,0,0,.65); }
+#diagnostics[data-v="3"] .form { background: var(--cyan); }
+#diagnostics[data-v="3"] .form label, #diagnostics[data-v="3"] .form__after { color: var(--navy); }
+#diagnostics[data-v="3"] .form input[type=text], #diagnostics[data-v="3"] .form input[type=url] { border-color: var(--navy); color: var(--navy); }
+#diagnostics[data-v="3"] .form input::placeholder { color: rgba(6,27,79,.62); }
+#diagnostics[data-v="3"] .form :focus-visible { outline-color: var(--navy); }
+#diagnostics[data-v="3"] .form input:focus { background: rgba(255,255,255,.28); }
+#diagnostics[data-v="3"] .form input.is-bad { border-color: #fff; box-shadow: inset 0 0 0 1.5px #fff; }
+@media (max-width: 760px) {
+  #diagnostics[data-v="3"] .diag__grid, #diagnostics[data-v="5"] .diag__grid { margin: 0 8px; padding: 52px 18px 60px; border-radius: 30px; }
+  #diagnostics[data-v="3"] .diag__img, #diagnostics[data-v="5"] .diag__img { width: 88%; margin-left: 10px; }
+}
+
+/* ---------- 4. Талон: текст в две колонки, форма широким билетом с отрывным корешком ---------- */
+#diagnostics[data-v="4"] .diag__grid { grid-template-columns: minmax(0, 1fr); gap: 54px; }
+#diagnostics[data-v="4"] .diag__text picture { display: none; }
+#diagnostics[data-v="4"] .form { position: relative; top: auto; }
+@media (min-width: 901px) {
+  #diagnostics[data-v="4"] .diag__text { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "eb ticks" "h2 ticks" "lead ticks"; grid-template-rows: auto auto 1fr; gap: 0 72px; }
+  #diagnostics[data-v="4"] .eyebrow { grid-area: eb; }
+  #diagnostics[data-v="4"] .h2 { grid-area: h2; }
+  #diagnostics[data-v="4"] .lead { grid-area: lead; }
+  #diagnostics[data-v="4"] .diag__text .ticks { grid-area: ticks; align-self: end; margin: 0; padding: 30px 34px; background: var(--paper); box-shadow: var(--shadow); rotate: .8deg; }
+  #diagnostics[data-v="4"] .form {
+    clip-path: none; overflow: visible; border-radius: 22px; padding: 46px 0 42px 52px; gap: 22px 26px; align-items: end;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 330px;
+    background: linear-gradient(rgba(255,255,255,.8) 55%, transparent 0) right 342px top / 2px 14px repeat-y #0a77a6;
+    box-shadow: 0 34px 54px -28px rgba(6,27,79,.6);
+  }
+  #diagnostics[data-v="4"] .form::before, #diagnostics[data-v="4"] .form::after { content: ""; position: absolute; right: 325px; width: 36px; height: 36px; border-radius: 50%; background: var(--cream); }
+  #diagnostics[data-v="4"] .form::before { top: -18px; }
+  #diagnostics[data-v="4"] .form::after { bottom: -18px; }
+  #diagnostics[data-v="4"] .form label:nth-of-type(1) { grid-area: 1 / 1; }
+  #diagnostics[data-v="4"] .form label:nth-of-type(2) { grid-area: 1 / 2; }
+  #diagnostics[data-v="4"] .form label:nth-of-type(3) { grid-area: 2 / 1; }
+  #diagnostics[data-v="4"] .form label:nth-of-type(4) { grid-area: 2 / 2; }
+  #diagnostics[data-v="4"] .form .form__consent { grid-area: 3 / 1 / 4 / 3; align-self: center; }
+  #diagnostics[data-v="4"] .btn-tape--form { grid-area: 1 / 3 / 3 / 4; justify-self: center; align-self: center; padding: 26px 34px; }
+  #diagnostics[data-v="4"] .form__after { grid-area: 3 / 3; align-self: center; padding: 0 34px; text-align: center; }
+  #diagnostics[data-v="4"] .form__ok { grid-column: 1 / -1; margin-right: 52px; }
+}
+
+/* ---------- 5. Коралловая панель: бумажная анкета слева ---------- */
+#diagnostics[data-v="5"] .diag__grid { color: #fff; background-color: var(--coral-btn); background-image: radial-gradient(rgba(255,255,255,.08) 1px, transparent 1.4px); background-size: 6px 6px; }
+#diagnostics[data-v="5"] .eyebrow, #diagnostics[data-v="5"] .h2, #diagnostics[data-v="5"] .lead { color: #fff; }
+#diagnostics[data-v="5"] .ticks li::before { border-color: #fff; }
+@media (min-width: 901px) {
+  #diagnostics[data-v="5"] .diag__grid { grid-template-columns: minmax(0, .9fr) minmax(0, 1fr); }
+  #diagnostics[data-v="5"] .form { order: -1; rotate: -1deg; }
+}
+</style>
