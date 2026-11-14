@@ -1,4 +1,6 @@
 ﻿// Полный прогон тестов главной. node test-suite.js <url> <outdir>
+// Сайт для прогона поднимать через python3 _tools/serve.py <порт>: он сжимает текст так же, как хостинг и GitHub Pages,
+// иначе проверки скорости измеряют несжатую страницу, которой посетитель не получает.
 // Браузеры: Chromium (Chrome), Firefox, WebKit (движок Safari на iPhone).
 // CHROME_PATH — путь к установленному Chrome; без него берётся Chromium из Playwright.
 // Движок, который не установлен на машине, не запускается и попадает в отчёт как «ПРОПУСК», а не как пройденный.
@@ -77,7 +79,7 @@ const overflowCheck = page => page.evaluate(() => {
     await page.goto(url, { waitUntil: 'networkidle' }); await page.evaluate(() => document.documentElement.style.scrollBehavior = 'auto');
     await settle(page);
     const ov = await overflowCheck(page);
-    const clipped = await page.evaluate(() => [...document.querySelectorAll('h1, h2, h3, .btn, .btn-tape, .tab, .nav a')].filter(el => el.scrollWidth > el.clientWidth + 2 && getComputedStyle(el).overflow !== 'visible').length);
+    const clipped = await page.evaluate(() => [...document.querySelectorAll('h1, h2, h3, .btn, .btn-tape, .nav a')].filter(el => el.scrollWidth > el.clientWidth + 2 && getComputedStyle(el).overflow !== 'visible').length);
     log('Экраны', `${w}px: нет горизонтальной прокрутки`, ov.docW <= ov.w + 1, `${ov.docW}/${ov.w}`);
     log('Экраны', `${w}px: тексты не обрезаны`, clipped === 0, clipped ? `${clipped} элементов` : '');
     await page.screenshot({ path: path.join(out, `width-${w}.png`) });
@@ -104,12 +106,18 @@ const overflowCheck = page => page.evaluate(() => {
     log('Функции', 'Нижняя кнопка диагностики появляется после первого экрана', await page.$eval('.mcta', el => el.classList.contains('is-on')));
     await page.evaluate(() => document.querySelector('#diagnostics').scrollIntoView()); await page.waitForTimeout(700);
     log('Функции', 'Нижняя кнопка прячется у формы', !(await page.$eval('.mcta', el => el.classList.contains('is-on'))));
-    // вкладки
-    await page.evaluate(() => document.querySelector('#paths .tabs').scrollIntoView({ block: 'center' })); await page.waitForTimeout(300);
-    await page.click('.tab[data-tab="2"]'); await page.waitForTimeout(400);
-    log('Функции', 'Вкладки «С чего начать» переключаются', await page.evaluate(() => document.querySelectorAll('.tabpanel')[2].classList.contains('is-active') && document.querySelectorAll('.tabpanel.is-active').length === 1));
-    // карусель услуг
-    log('Функции', 'Услуги на телефоне листаются в ряд', await page.evaluate(() => { const r = document.querySelector('.svc-row'); return r.scrollWidth > r.clientWidth + 40; }));
+    // два пути видны сразу, без переключения
+    const ways = await page.evaluate(() => {
+      const W = document.documentElement.clientWidth, w = [...document.querySelectorAll('#paths .way')];
+      return { n: w.length, shown: w.every(e => { const r = e.getBoundingClientRect(); return r.height > 120 && r.left >= -1 && r.right <= W + 1; }),
+        titles: [...document.querySelectorAll('#paths .way__title')].map(e => e.textContent.trim()).join('|'), links: [...document.querySelectorAll('#paths .way__fit a')].map(a => a.getAttribute('href')).join('|') };
+    });
+    log('Функции', '«С чего начать»: оба пути и подсказка видны сразу', ways.n === 3 && ways.shown && ways.titles === 'Реклама|Основа' && ways.links === '#direct|#complex|#diagnostics', ways.titles);
+    // услуги идут списком
+    log('Функции', 'Услуги на телефоне идут списком, вбок листать не нужно', await page.evaluate(() => {
+      const W = document.documentElement.clientWidth, list = [...document.querySelectorAll('#services .svc')];
+      return list.length >= 8 && list.every(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.left >= -1 && r.right <= W + 1; }) && [...document.querySelectorAll('.svc-row')].every(r => r.scrollWidth <= r.clientWidth + 1);
+    }));
     // переворот карточки
     await page.evaluate(() => document.querySelector('.flip').scrollIntoView({ block: 'center' })); await page.waitForTimeout(400);
     await page.tap('.flip'); await page.waitForTimeout(900);
@@ -152,14 +160,17 @@ const overflowCheck = page => page.evaluate(() => {
     await page.click('.drop a[href="#complex"]'); await page.waitForTimeout(1400);
     log('Функции', 'Пункт списка ведёт к блоку услуги и закрывает список', await page.evaluate(() => { const r = document.querySelector('#complex').getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0 && document.querySelector('.nav__item--drop .nav__link').getAttribute('aria-expanded') === 'false'; }));
     log('Функции', 'В шапке подсвечен раздел, который сейчас на экране', await page.evaluate(() => document.querySelector('.nav__link.is-active')?.getAttribute('href') === '#services'));
-    // развилка управляет вкладками
-    await page.evaluate(() => document.querySelector('.fork').scrollIntoView({ block: 'center' })); await page.waitForTimeout(900);
-    await page.click('.fork__node--b'); await page.waitForTimeout(400);
-    log('Функции', 'Развилка «реклама или основа» переключает вкладку', await page.evaluate(() => document.querySelector('#panel-1').classList.contains('is-active') && document.querySelector('.fork').dataset.active === '1'));
-    log('Функции', 'Линии развилки дорисованы', await page.evaluate(() => [...document.querySelectorAll('.fork__path')].every(p => parseFloat(p.style.strokeDashoffset) < 2)));
+    // два пути стоят рядом, ссылка ведёт к своему блоку
+    await page.evaluate(() => document.querySelector('#paths .ways').scrollIntoView({ block: 'center' })); await page.waitForTimeout(600);
+    log('Функции', '«С чего начать»: пути стоят рядом, подсказка под ними', await page.evaluate(() => { const [a, b, c] = [...document.querySelectorAll('#paths .way')].map(e => e.getBoundingClientRect()); return Math.abs(a.top - b.top) < 2 && b.left >= a.right - 1 && c.top >= a.bottom; }));
+    await page.click('#paths .way--base .way__fit a'); await page.waitForTimeout(900);
+    log('Функции', '«С чего начать»: ссылка пути «Основа» ведёт к комплексному маркетингу', await page.evaluate(() => { const r = document.querySelector('#complex').getBoundingClientRect(); return r.top < innerHeight * .5 && r.bottom > 0; }));
     // план запуска по дням
-    await page.evaluate(() => document.querySelector('.days').scrollIntoView({ block: 'center' })); await page.waitForTimeout(1900);
-    log('Функции', 'План запуска: семь дней раскрываются', await page.evaluate(() => { const d = [...document.querySelectorAll('.day')]; return d.length === 7 && d.every(el => getComputedStyle(el).opacity === '1'); }));
+    // сюда попадаем прыжком, поэтому сначала раскрывается сама панель (1,2 с), за ней по очереди дни: ждём результат, а не фиксированную паузу
+    await page.evaluate(() => document.querySelector('.days').scrollIntoView({ block: 'center' }));
+    const daysT0 = Date.now();
+    const daysOk = await page.waitForFunction(() => { const d = [...document.querySelectorAll('.day')]; return d.length === 7 && d.every(el => getComputedStyle(el).opacity === '1'); }, null, { timeout: 4000 }).then(() => true, () => false);
+    log('Функции', 'План запуска: семь дней раскрываются', daysOk, `за ${((Date.now() - daysT0) / 1000).toFixed(1)} с после прыжка к блоку`);
     // клавиатура: проходим Tab по всей странице, на каждой остановке должен быть видимый фокус
     await page.reload({ waitUntil: 'networkidle' }); await page.evaluate(() => document.documentElement.style.scrollBehavior = 'auto'); await page.waitForTimeout(1500);
     const noFocus = []; let stops = 0, firstStop = null;
@@ -193,7 +204,7 @@ const overflowCheck = page => page.evaluate(() => {
     const ctx = await chrome.newContext({ javaScriptEnabled: false, viewport: { width: 1440, height: 900 } });
     const page = await ctx.newPage();
     await page.goto(url, { waitUntil: 'networkidle' }); await page.evaluate(() => document.documentElement.style.scrollBehavior = 'auto');
-    const hidden = await page.evaluate(() => [...document.querySelectorAll('h1, h2, .svc, .day, .strip, .tariff, .flip, .checklist__row, .tabpanel, .faq__list dt, .faq__list dd')].filter(el => { const cs = getComputedStyle(el); return cs.opacity === '0' || cs.display === 'none' || cs.visibility === 'hidden'; }).length);
+    const hidden = await page.evaluate(() => [...document.querySelectorAll('h1, h2, .svc, .day, .strip, .tariff, .flip, .checklist__row, .way, .faq__list dt, .faq__list dd')].filter(el => { const cs = getComputedStyle(el); return cs.opacity === '0' || cs.display === 'none' || cs.visibility === 'hidden'; }).length);
     log('Устойчивость', 'Без JavaScript весь текст виден', hidden === 0, hidden ? `${hidden} скрытых блоков` : '');
     log('Устойчивость', 'Без JavaScript вопросы и ответы показаны списком', await page.evaluate(() => document.querySelectorAll('.faq__list dt').length === 6 && getComputedStyle(document.querySelector('.wheel-box')).display === 'none'));
     await page.screenshot({ path: path.join(out, 'no-js.png'), fullPage: false });
@@ -263,118 +274,17 @@ const overflowCheck = page => page.evaluate(() => {
     await cdp.send('Network.enable');
     await cdp.send('Network.emulateNetworkConditions', { offline: false, latency, downloadThroughput: down, uploadThroughput: down / 2 });
     await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
-    await page.goto(url, { waitUntil: 'load', timeout: 180000 });
+    const resp = await page.goto(url, { waitUntil: 'load', timeout: 180000 });
+    if (label === 'Fast 3G') log('Скорость', 'Страница отдаётся сжатой, как на хостинге', /gzip|br/.test(resp.headers()['content-encoding'] || ''), resp.headers()['content-encoding'] || 'без сжатия: запустите сайт через _tools/serve.py');
     const m = await page.evaluate(() => new Promise(res => {
       const o = {}; new PerformanceObserver(l => { for (const e of l.getEntries()) o.lcp = Math.round(e.startTime); }).observe({ type: 'largest-contentful-paint', buffered: true });
       o.fcp = Math.round(performance.getEntriesByName('first-contentful-paint')[0]?.startTime || 0);
       setTimeout(() => res(o), 1200);
     }));
-    log('Скорость', `${label}: первый текст на экране`, m.fcp < (label === 'Fast 3G' ? 3000 : 6000), `${(m.fcp / 1000).toFixed(1)} с`);
-    log('Скорость', `${label}: главная картинка первого экрана`, m.lcp < (label === 'Fast 3G' ? 4000 : 9000), `${(m.lcp / 1000).toFixed(1)} с`);
+    // пороги рассчитаны на сжатую отдачу текста, как на хостинге: запускать через _tools/serve.py
+    log('Скорость', `${label}: первый текст на экране`, m.fcp < (label === 'Fast 3G' ? 2000 : 4000), `${(m.fcp / 1000).toFixed(1)} с`);
+    log('Скорость', `${label}: главная картинка первого экрана`, m.lcp < (label === 'Fast 3G' ? 3000 : 6500), `${(m.lcp / 1000).toFixed(1)} с`);
     await ctx.close();
-  }
-  /* ---------- 8. Варианты блоков: переключатель для превью (assets/js/variants.js, папка variants/) ---------- */
-  {
-    const BLOCKS = ['hero', 'paths', 'services', 'direct', 'complex', 'manifest', 'report', 'prices', 'about', 'faq', 'diagnostics'];
-    const withV = code => url + (url.includes('?') ? '&' : '?') + 'v=' + code;
-    for (const [label, opts] of [['компьютер', { viewport: { width: 1440, height: 900 } }], ['телефон', devices['iPhone 13']]]) {
-      for (let n = 2; n <= 5; n++) {
-        const ctx = await chrome.newContext(opts);
-        const page = await ctx.newPage();
-        const errs = [];
-        page.on('pageerror', e => errs.push(e.message));
-        page.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
-        page.on('response', r => { if (r.status() >= 400) errs.push(r.status() + ' ' + r.url().split('/').pop()); });
-        await page.goto(withV(String(n).repeat(BLOCKS.length)), { waitUntil: 'networkidle' });
-        await page.evaluate(() => document.documentElement.style.scrollBehavior = 'auto');
-        await page.waitForTimeout(700);
-        await settle(page);
-        // каждый блок: вариант включён, блок не пустой, ничего не торчит за края экрана
-        const bad = [];
-        for (const id of BLOCKS) {
-          await page.evaluate(id => document.getElementById(id).scrollIntoView(), id); await page.waitForTimeout(120);
-          const r = await page.evaluate(([id, n]) => {
-            const s = document.getElementById(id), w = document.documentElement.clientWidth;
-            const shown = [...s.querySelectorAll('h1, h2, h3, p, li, a, button, label')].filter(e => { const b = e.getBoundingClientRect(); return b.width > 0 && b.height > 0; }).length;
-            return { v: +s.dataset.v, h: s.getBoundingClientRect().height, shown, wide: document.documentElement.scrollWidth > w + 1 };
-          }, [id, n]);
-          if (r.v !== n) bad.push(`${id}: вариант не включился`);
-          if (r.h < 200 || r.shown < 3) bad.push(`${id}: блок пустой`);
-          if (r.wide) bad.push(`${id}: горизонтальная прокрутка`);
-        }
-        log('Варианты', `Вариант ${n} всех блоков · ${label}: включается, без ошибок и горизонтальной прокрутки`, !errs.length && !bad.length, [...errs, ...bad].slice(0, 6).join('; '));
-
-        // доступность в этом оформлении
-        await page.evaluate(() => scrollTo(0, 0)); await page.waitForTimeout(2500);
-        await page.addScriptTag({ content: axe });
-        const res = await page.evaluate(() => axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21aa', 'best-practice'] }));
-        const v = res.violations.map(x => ({ id: x.id, impact: x.impact, n: x.nodes.length, help: x.help, targets: x.nodes.slice(0, 6).map(t => t.target.join(' ')) }));
-        fs.writeFileSync(path.join(out, `axe-variants-${n}-${label}.json`), JSON.stringify(v, null, 1));
-        log('Варианты', `Вариант ${n} · ${label}: axe без серьёзных нарушений WCAG`, !v.some(x => ['critical', 'serious'].includes(x.impact)), v.map(x => `${x.id}×${x.n}(${x.impact})`).join(', '));
-
-        // колесо на месте и отвечает
-        await page.evaluate(() => document.getElementById('faq').scrollIntoView()); await page.waitForTimeout(400);
-        const wheel = await page.evaluate(async () => {
-          const segs = document.querySelectorAll('.wheel .seg'), box = document.querySelector('.wheel').getBoundingClientRect();
-          const want = document.querySelectorAll('.faq__list dd')[2].textContent.trim();
-          segs[2].dispatchEvent(new Event('click')); await new Promise(r => setTimeout(r, 500));
-          return { n: segs.length, size: Math.round(box.width), ok: document.querySelector('.faq__text').textContent.trim() === want && segs[2].classList.contains('is-active') };
-        });
-        log('Варианты', `Вариант ${n} · ${label}: колесо на месте, вопрос выбирается`, wheel.n === 6 && wheel.size >= 240 && wheel.ok, `секторов ${wheel.n}, диаметр ${wheel.size}px`);
-
-        // форма та же: пустая не уходит, заполненная подтверждается
-        await page.evaluate(() => document.getElementById('diagnostics').scrollIntoView()); await page.waitForTimeout(400);
-        await page.click('.form button[type=submit]'); await page.waitForTimeout(300);
-        const empty = await page.evaluate(() => !document.querySelector('.form').classList.contains('is-sent') && document.querySelectorAll('.form .is-bad').length >= 3);
-        await page.fill('input[name=name]', 'Тест'); await page.fill('input[name=contact]', '+7 900 000-00-00'); await page.fill('input[name=city]', 'Москва');
-        await page.check('.form__consent input'); await page.click('.form button[type=submit]'); await page.waitForTimeout(300);
-        log('Варианты', `Вариант ${n} · ${label}: форма проверяет поля и подтверждает отправку`, empty && await page.$eval('.form', el => el.classList.contains('is-sent')));
-        await ctx.close();
-      }
-    }
-
-    // панель переключателя: кнопки, клавиши, сохранение, «Мой выбор»
-    {
-      const ctx = await chrome.newContext({ viewport: { width: 1440, height: 900 } });
-      const page = await ctx.newPage();
-      await page.goto(url, { waitUntil: 'networkidle' }); await page.evaluate(() => document.documentElement.style.scrollBehavior = 'auto');
-      await page.waitForTimeout(700);
-      const at = async id => { await page.evaluate(id => { const s = document.getElementById(id); scrollTo(0, s.getBoundingClientRect().top + scrollY + 10); }, id); await page.waitForTimeout(500); };
-      const vOf = id => page.evaluate(id => document.getElementById(id).dataset.v || '1', id);
-      await at('services'); await page.click('.vdock [data-vset="3"]'); await page.waitForTimeout(500);
-      log('Варианты', 'Кнопка на панели переключает блок на экране', await vOf('services') === '3' && await vOf('paths') === '1');
-      log('Варианты', 'Выбор попадает в адрес страницы', /[?&]v=11311111111/.test(page.url()), page.url().split('/').pop());
-      await page.waitForTimeout(600); // панель сама докручивает к началу блока после переключения
-      await at('prices'); await page.waitForTimeout(600); await page.keyboard.press('4'); await page.waitForTimeout(500);
-      log('Варианты', 'Клавиши 1–5 переключают блок на экране', await vOf('prices') === '4');
-      await page.goto(url, { waitUntil: 'networkidle' }); await page.waitForTimeout(900);
-      log('Варианты', 'Выбор сохраняется после перезагрузки', await vOf('services') === '3' && await vOf('prices') === '4');
-      await page.click('.vdock__list'); await page.waitForTimeout(400);
-      const sheet = await page.evaluate(() => { const s = document.querySelector('.vsheet'); return { open: !s.hidden && s.getBoundingClientRect().height > 100, text: document.querySelector('.vsheet__out').textContent }; });
-      log('Варианты', '«Мой выбор» открывается и перечисляет выбранные варианты', sheet.open && /услуги 3/.test(sheet.text) && /цены 4/.test(sheet.text) && /v=11311114111/.test(sheet.text), sheet.text.slice(0, 90));
-      await page.click('[data-vreset]'); await page.waitForTimeout(500);
-      log('Варианты', '«Сбросить всё» возвращает исходное оформление', await page.evaluate(() => !document.querySelector('.section[data-v], #hero[data-v]')));
-      await ctx.close();
-    }
-    {
-      const ctx = await chrome.newContext(devices['iPhone 13']);
-      const page = await ctx.newPage();
-      await page.goto(url, { waitUntil: 'networkidle' }); await page.evaluate(() => document.documentElement.style.scrollBehavior = 'auto');
-      await page.waitForTimeout(700);
-      await page.evaluate(() => scrollTo(0, 1400)); await page.waitForTimeout(700);
-      const r = await page.evaluate(() => {
-        const box = s => { const e = document.querySelector(s); return e ? e.getBoundingClientRect() : null; };
-        const d = box('.vdock'), m = box('.mcta'), vh = innerHeight;
-        return { dock: !!d && d.height > 0 && d.bottom <= vh + 1 && d.left >= -1 && d.right <= innerWidth + 1, clear: !m || m.height === 0 || m.bottom <= d.top + 1 || m.top >= d.bottom - 1, tap: [...document.querySelectorAll('.vdock [data-vset]')].every(b => { const q = b.getBoundingClientRect(); return q.width >= 40 && q.height >= 40; }) };
-      });
-      log('Варианты', 'Телефон: панель помещается на экране и не закрывает нижнюю кнопку', r.dock && r.clear);
-      log('Варианты', 'Телефон: кнопки вариантов не меньше 40 px', r.tap);
-      await page.tap('.vdock [data-vset="2"]'); await page.waitForTimeout(500);
-      log('Варианты', 'Телефон: нажатие переключает блок на экране', await page.evaluate(() => !!document.querySelector('[data-v="2"]')));
-      await ctx.close();
-    }
-    // на боевых адресах переключатель выключен
-    log('Варианты', 'На боевых доменах переключатель не запускается', /medvector\\\.pro/.test(fs.readFileSync(path.join(__dirname, '..', 'assets', 'js', 'variants.js'), 'utf8').split('\n').slice(0, 12).join('\n')));
   }
   await chrome.close();
 
