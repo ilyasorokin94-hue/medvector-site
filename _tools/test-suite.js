@@ -273,6 +273,109 @@ const overflowCheck = page => page.evaluate(() => {
     log('Скорость', `${label}: главная картинка первого экрана`, m.lcp < (label === 'Fast 3G' ? 4000 : 9000), `${(m.lcp / 1000).toFixed(1)} с`);
     await ctx.close();
   }
+  /* ---------- 8. Варианты блоков: переключатель для превью (assets/js/variants.js, папка variants/) ---------- */
+  {
+    const BLOCKS = ['hero', 'paths', 'services', 'direct', 'complex', 'manifest', 'report', 'prices', 'about', 'faq', 'diagnostics'];
+    const withV = code => url + (url.includes('?') ? '&' : '?') + 'v=' + code;
+    for (const [label, opts] of [['компьютер', { viewport: { width: 1440, height: 900 } }], ['телефон', devices['iPhone 13']]]) {
+      for (let n = 2; n <= 5; n++) {
+        const ctx = await chrome.newContext(opts);
+        const page = await ctx.newPage();
+        const errs = [];
+        page.on('pageerror', e => errs.push(e.message));
+        page.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
+        page.on('response', r => { if (r.status() >= 400) errs.push(r.status() + ' ' + r.url().split('/').pop()); });
+        await page.goto(withV(String(n).repeat(BLOCKS.length)), { waitUntil: 'networkidle' });
+        await page.evaluate(() => document.documentElement.style.scrollBehavior = 'auto');
+        await page.waitForTimeout(700);
+        await settle(page);
+        // каждый блок: вариант включён, блок не пустой, ничего не торчит за края экрана
+        const bad = [];
+        for (const id of BLOCKS) {
+          await page.evaluate(id => document.getElementById(id).scrollIntoView(), id); await page.waitForTimeout(120);
+          const r = await page.evaluate(([id, n]) => {
+            const s = document.getElementById(id), w = document.documentElement.clientWidth;
+            const shown = [...s.querySelectorAll('h1, h2, h3, p, li, a, button, label')].filter(e => { const b = e.getBoundingClientRect(); return b.width > 0 && b.height > 0; }).length;
+            return { v: +s.dataset.v, h: s.getBoundingClientRect().height, shown, wide: document.documentElement.scrollWidth > w + 1 };
+          }, [id, n]);
+          if (r.v !== n) bad.push(`${id}: вариант не включился`);
+          if (r.h < 200 || r.shown < 3) bad.push(`${id}: блок пустой`);
+          if (r.wide) bad.push(`${id}: горизонтальная прокрутка`);
+        }
+        log('Варианты', `Вариант ${n} всех блоков · ${label}: включается, без ошибок и горизонтальной прокрутки`, !errs.length && !bad.length, [...errs, ...bad].slice(0, 6).join('; '));
+
+        // доступность в этом оформлении
+        await page.evaluate(() => scrollTo(0, 0)); await page.waitForTimeout(2500);
+        await page.addScriptTag({ content: axe });
+        const res = await page.evaluate(() => axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21aa', 'best-practice'] }));
+        const v = res.violations.map(x => ({ id: x.id, impact: x.impact, n: x.nodes.length, help: x.help, targets: x.nodes.slice(0, 6).map(t => t.target.join(' ')) }));
+        fs.writeFileSync(path.join(out, `axe-variants-${n}-${label}.json`), JSON.stringify(v, null, 1));
+        log('Варианты', `Вариант ${n} · ${label}: axe без серьёзных нарушений WCAG`, !v.some(x => ['critical', 'serious'].includes(x.impact)), v.map(x => `${x.id}×${x.n}(${x.impact})`).join(', '));
+
+        // колесо на месте и отвечает
+        await page.evaluate(() => document.getElementById('faq').scrollIntoView()); await page.waitForTimeout(400);
+        const wheel = await page.evaluate(async () => {
+          const segs = document.querySelectorAll('.wheel .seg'), box = document.querySelector('.wheel').getBoundingClientRect();
+          const want = document.querySelectorAll('.faq__list dd')[2].textContent.trim();
+          segs[2].dispatchEvent(new Event('click')); await new Promise(r => setTimeout(r, 500));
+          return { n: segs.length, size: Math.round(box.width), ok: document.querySelector('.faq__text').textContent.trim() === want && segs[2].classList.contains('is-active') };
+        });
+        log('Варианты', `Вариант ${n} · ${label}: колесо на месте, вопрос выбирается`, wheel.n === 6 && wheel.size >= 240 && wheel.ok, `секторов ${wheel.n}, диаметр ${wheel.size}px`);
+
+        // форма та же: пустая не уходит, заполненная подтверждается
+        await page.evaluate(() => document.getElementById('diagnostics').scrollIntoView()); await page.waitForTimeout(400);
+        await page.click('.form button[type=submit]'); await page.waitForTimeout(300);
+        const empty = await page.evaluate(() => !document.querySelector('.form').classList.contains('is-sent') && document.querySelectorAll('.form .is-bad').length >= 3);
+        await page.fill('input[name=name]', 'Тест'); await page.fill('input[name=contact]', '+7 900 000-00-00'); await page.fill('input[name=city]', 'Москва');
+        await page.check('.form__consent input'); await page.click('.form button[type=submit]'); await page.waitForTimeout(300);
+        log('Варианты', `Вариант ${n} · ${label}: форма проверяет поля и подтверждает отправку`, empty && await page.$eval('.form', el => el.classList.contains('is-sent')));
+        await ctx.close();
+      }
+    }
+
+    // панель переключателя: кнопки, клавиши, сохранение, «Мой выбор»
+    {
+      const ctx = await chrome.newContext({ viewport: { width: 1440, height: 900 } });
+      const page = await ctx.newPage();
+      await page.goto(url, { waitUntil: 'networkidle' }); await page.evaluate(() => document.documentElement.style.scrollBehavior = 'auto');
+      await page.waitForTimeout(700);
+      const at = async id => { await page.evaluate(id => { const s = document.getElementById(id); scrollTo(0, s.getBoundingClientRect().top + scrollY + 10); }, id); await page.waitForTimeout(500); };
+      const vOf = id => page.evaluate(id => document.getElementById(id).dataset.v || '1', id);
+      await at('services'); await page.click('.vdock [data-vset="3"]'); await page.waitForTimeout(500);
+      log('Варианты', 'Кнопка на панели переключает блок на экране', await vOf('services') === '3' && await vOf('paths') === '1');
+      log('Варианты', 'Выбор попадает в адрес страницы', /[?&]v=11311111111/.test(page.url()), page.url().split('/').pop());
+      await page.waitForTimeout(600); // панель сама докручивает к началу блока после переключения
+      await at('prices'); await page.waitForTimeout(600); await page.keyboard.press('4'); await page.waitForTimeout(500);
+      log('Варианты', 'Клавиши 1–5 переключают блок на экране', await vOf('prices') === '4');
+      await page.goto(url, { waitUntil: 'networkidle' }); await page.waitForTimeout(900);
+      log('Варианты', 'Выбор сохраняется после перезагрузки', await vOf('services') === '3' && await vOf('prices') === '4');
+      await page.click('.vdock__list'); await page.waitForTimeout(400);
+      const sheet = await page.evaluate(() => { const s = document.querySelector('.vsheet'); return { open: !s.hidden && s.getBoundingClientRect().height > 100, text: document.querySelector('.vsheet__out').textContent }; });
+      log('Варианты', '«Мой выбор» открывается и перечисляет выбранные варианты', sheet.open && /услуги 3/.test(sheet.text) && /цены 4/.test(sheet.text) && /v=11311114111/.test(sheet.text), sheet.text.slice(0, 90));
+      await page.click('[data-vreset]'); await page.waitForTimeout(500);
+      log('Варианты', '«Сбросить всё» возвращает исходное оформление', await page.evaluate(() => !document.querySelector('.section[data-v], #hero[data-v]')));
+      await ctx.close();
+    }
+    {
+      const ctx = await chrome.newContext(devices['iPhone 13']);
+      const page = await ctx.newPage();
+      await page.goto(url, { waitUntil: 'networkidle' }); await page.evaluate(() => document.documentElement.style.scrollBehavior = 'auto');
+      await page.waitForTimeout(700);
+      await page.evaluate(() => scrollTo(0, 1400)); await page.waitForTimeout(700);
+      const r = await page.evaluate(() => {
+        const box = s => { const e = document.querySelector(s); return e ? e.getBoundingClientRect() : null; };
+        const d = box('.vdock'), m = box('.mcta'), vh = innerHeight;
+        return { dock: !!d && d.height > 0 && d.bottom <= vh + 1 && d.left >= -1 && d.right <= innerWidth + 1, clear: !m || m.height === 0 || m.bottom <= d.top + 1 || m.top >= d.bottom - 1, tap: [...document.querySelectorAll('.vdock [data-vset]')].every(b => { const q = b.getBoundingClientRect(); return q.width >= 40 && q.height >= 40; }) };
+      });
+      log('Варианты', 'Телефон: панель помещается на экране и не закрывает нижнюю кнопку', r.dock && r.clear);
+      log('Варианты', 'Телефон: кнопки вариантов не меньше 40 px', r.tap);
+      await page.tap('.vdock [data-vset="2"]'); await page.waitForTimeout(500);
+      log('Варианты', 'Телефон: нажатие переключает блок на экране', await page.evaluate(() => !!document.querySelector('[data-v="2"]')));
+      await ctx.close();
+    }
+    // на боевых адресах переключатель выключен
+    log('Варианты', 'На боевых доменах переключатель не запускается', /medvector\\\.pro/.test(fs.readFileSync(path.join(__dirname, '..', 'assets', 'js', 'variants.js'), 'utf8').split('\n').slice(0, 12).join('\n')));
+  }
   await chrome.close();
 
   fs.writeFileSync(path.join(out, 'results.json'), JSON.stringify({ results, skipped }, null, 1));
