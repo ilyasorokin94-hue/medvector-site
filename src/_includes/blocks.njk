@@ -85,7 +85,7 @@
 
 {# ---------- что входит: светлая панель, тёмный лист с перечнем ---------- #}
 {% macro incl(d) %}
-<section class="section incl" id="incl">
+<section class="section incl" id="{{ d.id or 'incl' }}">
   <div class="incl__panel" data-tear>
     <div class="incl__head">
       {{ head({ eyebrow: d.eyebrow or 'Что входит', title: d.title, lead: d.lead }) }}
@@ -122,7 +122,7 @@
 {# ---------- как идёт работа: лента этапов зигзагом ---------- #}
 {% macro steps(s) %}
 {% set tones = ['paper', 'cyan', 'paper', 'coral', 'navy'] %}
-<section class="section steps" id="steps">
+<section class="section steps" id="{{ s.id or 'steps' }}">
   <div class="wrap">
     {{ head({ eyebrow: s.eyebrow or 'Как идёт работа', title: s.title, lead: s.lead }) }}
   </div>
@@ -234,10 +234,13 @@
 {% endmacro %}
 
 {% macro related(r) %}
-<section class="section rel" id="related">
+<section class="section rel" id="{{ r.id or 'related' }}">
   <div class="wrap">
     {{ head({ eyebrow: r.eyebrow or 'Связанные услуги', title: r.title, lead: r.lead }) }}
     {{ rows(r.keys, false) }}
+{% if r.note %}
+    <p class="note">{{ r.note | t | safe }}</p>
+{% endif %}
   </div>
 </section>
 {% endmacro %}
