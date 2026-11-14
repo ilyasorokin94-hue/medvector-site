@@ -55,7 +55,7 @@
 
 {# ---------- кому подходит и кому пока рано ---------- #}
 {% macro fit(f) %}
-<section class="section fit" id="fit">
+<section class="section fit" id="{{ f.id or 'fit' }}">
   <div class="wrap">
     {{ head({ eyebrow: f.eyebrow or 'Кому подходит', title: f.title, lead: f.lead }) }}
     <div class="fit__grid">
@@ -308,4 +308,111 @@
 </section>
 <!-- нижняя кнопка на телефоне -->
 <a href="#diagnostics" class="mcta"><span>Бесплатная диагностика клиники</span><i aria-hidden="true">→</i></a>
+{% endmacro %}
+
+{# ---------- карточки-пункты: особенности, что проверяем ---------- #}
+{% macro points(p) %}
+<section class="section points" id="{{ p.id or 'points' }}">
+  <div class="wrap">
+    {{ head(p) }}
+    <div class="points__grid">
+{% for i in p.items %}
+      <article class="point reveal">
+        <span class="point__n">{{ loop.index }}</span>
+        <h3>{{ i.title | t | safe }}</h3>
+        <p>{{ i.text | t | safe }}</p>
+      </article>
+{% endfor %}
+    </div>
+{% if p.note %}
+    <p class="note">{{ p.note | t | safe }}</p>
+{% endif %}
+  </div>
+</section>
+{% endmacro %}
+
+{# ---------- списки в колонках ---------- #}
+{% macro lists(l) %}
+<section class="section lists" id="{{ l.id or 'lists' }}">
+  <div class="wrap">
+    {{ head(l) }}
+    <div class="lists__grid">
+{% for c in l.cols %}
+      <div class="reveal">
+        <h3>{{ c.title | t | safe }}</h3>
+        <ul class="{% if c.kind == 'dash' %}dashes{% elif c.kind == 'cross' %}crosses{% else %}ticks ticks--sm{% endif %}">
+{% for i in c.items %}
+          <li>{{ i | t | safe }}</li>
+{% endfor %}
+        </ul>
+      </div>
+{% endfor %}
+    </div>
+{% if l.note %}
+    <p class="note">{{ l.note | t | safe }}</p>
+{% endif %}
+  </div>
+</section>
+{% endmacro %}
+
+{# ---------- нумерованный перечень на бумаге: что нужно от клиники, что получает клиника ---------- #}
+{% macro need(n) %}
+<section class="section need" id="{{ n.id or 'need' }}">
+  <div class="wrap need__grid">
+    <div class="need__head">
+      {{ head(n) }}
+    </div>
+    <ol class="proofs">
+{% for i in n.items %}
+      <li class="reveal"><b>{{ i.b | t | safe }}</b> {{ i.t | t | safe }}</li>
+{% endfor %}
+    </ol>
+  </div>
+</section>
+{% endmacro %}
+
+{# ---------- самопроверка: пять признаков готовности к рекламе ---------- #}
+{% macro signs(s) %}
+<section class="section signs" id="signs">
+  <div class="wrap signs__grid">
+    <div class="signs__head">
+      {{ head(s) }}
+      <p class="signs__result" data-signs-result aria-live="polite">Отметьте, что уже есть в&nbsp;клинике. Если двух признаков не&nbsp;хватает, начинать лучше с&nbsp;основы.</p>
+    </div>
+    <ol class="signs__list">
+{% for i in s.items %}
+      <li class="reveal"><label><input type="checkbox"><span class="signs__box" aria-hidden="true"></span><span><b>{{ i.b | t | safe }}</b> {{ i.t | t | safe }}</span></label></li>
+{% endfor %}
+    </ol>
+  </div>
+</section>
+{% endmacro %}
+
+{# ---------- таблица: первая колонка заголовок строки, на телефоне строки становятся карточками ---------- #}
+{% macro table(tb) %}
+<table class="tbl{% if tb.kind %} tbl--{{ tb.kind }}{% endif %}">
+{% if tb.caption %}
+  <caption class="sr-only">{{ tb.caption }}</caption>
+{% endif %}
+  <thead>
+    <tr>
+{% for h in tb.head %}
+      <th scope="col">{{ h | t | safe }}</th>
+{% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+{% for r in tb.rows %}
+    <tr class="reveal">
+{% for c in r %}
+{% if loop.first %}
+      <th scope="row">{{ c | t | safe }}</th>
+{% else %}
+      <td data-label="{{ tb.head[loop.index0] }}"{% if tb.price == loop.index0 %} class="tbl__price"{% endif %}>{{ c | t | safe }}</td>
+{% endif %}
+{% endfor %}
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
 {% endmacro %}

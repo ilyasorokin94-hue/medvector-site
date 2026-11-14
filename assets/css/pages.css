@@ -205,6 +205,7 @@
   .incl__panel { grid-template-columns: minmax(0, 1fr); padding: 80px 40px 130px; }
   .incl__head, .qa__head { position: static; }
   .cost__grid { grid-template-columns: minmax(0, 1fr); gap: 56px; }
+  .cost__text { order: -1; }
   .why__grid { grid-template-columns: minmax(0, 1fr); gap: 34px; }
   .cost__tag { max-width: 440px; }
   .qa__panel { grid-template-columns: minmax(0, 1fr); padding: 72px 40px 80px; }
@@ -290,3 +291,79 @@
 @media (prefers-reduced-motion: reduce) {
   .js .tl__item.reveal, .js .tl__item.reveal:nth-child(odd), .js .row.reveal { translate: 0 0; }
 }
+
+/* ============ КАРТОЧКИ-ПУНКТЫ ============ */
+.points__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 52px; }
+.point { position: relative; padding: 26px 26px 30px; background: var(--paper); box-shadow: var(--shadow); transition: transform .25s, box-shadow .25s; }
+.point__n { display: grid; place-items: center; width: 38px; height: 38px; margin-bottom: 20px; background: var(--navy); color: #fff; font: 700 20px/1 var(--cond); }
+.point:nth-child(3n + 2) .point__n { background: var(--cyan); color: var(--navy); }
+.point:nth-child(3n) .point__n { background: var(--coral); color: var(--navy); }
+.point h3 { font: 700 23px/1.08 var(--cond); text-transform: uppercase; color: var(--navy); margin-bottom: 10px; }
+.point p { font-size: 15.5px; line-height: 1.5; color: var(--muted); }
+@media (hover: hover) { .point:hover { transform: translateY(-4px) rotate(-.5deg); box-shadow: 0 18px 30px -16px rgba(6,27,79,.45); } }
+
+/* ============ СПИСКИ В КОЛОНКАХ ============ */
+.lists__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 34px 48px; margin-top: 52px; }
+.lists__grid h3 { font: 700 20px/1.1 var(--cond); letter-spacing: .04em; text-transform: uppercase; color: var(--navy); padding-bottom: 12px; margin-bottom: 16px; border-bottom: 3px solid var(--navy); }
+.lists__grid .dashes, .lists__grid .crosses { font-size: 15px; gap: 9px; }
+
+/* ============ ПЕРЕЧЕНЬ НА БУМАГЕ ============ */
+.need__grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 64px; align-items: start; }
+.need .proofs { margin-top: 6px; }
+
+/* ============ САМОПРОВЕРКА ============ */
+.signs__grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 64px; align-items: start; }
+.signs__head { position: sticky; top: 120px; }
+.signs__result { margin-top: 30px; padding: 20px 22px; background: var(--navy); color: var(--cream); font: 400 23px/1.25 var(--serif); position: relative; }
+.signs__result::before { content: "итог"; position: absolute; right: 16px; top: -15px; padding: 6px 10px; background: var(--cream); border: 2px solid var(--coral); color: var(--coral-ink); font: 600 13px/1 var(--cond); letter-spacing: .14em; text-transform: uppercase; rotate: 5deg; }
+.signs__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+.signs__list label { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; align-items: start; padding: 20px 22px; background: var(--paper); box-shadow: var(--shadow); color: var(--muted); cursor: pointer; transition: background .25s, color .25s; }
+.signs__list b { color: var(--navy); }
+.signs__list input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.signs__box { position: relative; width: 30px; height: 30px; border: 2.5px solid var(--navy); background: #fff; transition: background .2s, border-color .2s; }
+.signs__box::after { content: ""; position: absolute; left: 6px; top: 6px; width: 14px; height: 8px; border-left: 3px solid var(--navy); border-bottom: 3px solid var(--navy); rotate: -45deg; scale: 0; transition: scale .25s var(--ease); }
+.signs__list input:checked ~ .signs__box { background: var(--cyan); }
+.signs__list input:checked ~ .signs__box::after { scale: 1; }
+.signs__list label:has(input:checked) { background: #e4f4fb; color: var(--navy); }
+.signs__list input:focus-visible ~ .signs__box { outline: 3px solid var(--cyan); outline-offset: 3px; }
+
+/* ============ ТАБЛИЦЫ ============ */
+.tbl { width: 100%; border-collapse: collapse; margin-top: 52px; }
+.tbl th, .tbl td { text-align: left; vertical-align: top; padding: 24px 20px; border-bottom: 1.5px solid rgba(6,27,79,.28); }
+.tbl thead th { padding-top: 16px; padding-bottom: 16px; font: 700 18px/1.1 var(--cond); letter-spacing: .08em; text-transform: uppercase; color: var(--coral-ink); border-bottom: 4px solid var(--navy); }
+.tbl tbody th { width: 24%; font: 700 clamp(22px, 2.1vw, 30px)/1.04 var(--cond); text-transform: uppercase; color: var(--navy); }
+.tbl td { font-size: 16px; line-height: 1.5; color: var(--navy); }
+.tbl .tbl__price { font: 700 30px/1.05 var(--cond); letter-spacing: -.01em; white-space: nowrap; }
+.tbl .tbl__price small { display: block; margin-top: 6px; font: 400 14px/1.3 var(--sans); letter-spacing: 0; color: var(--muted); white-space: normal; }
+.js .tbl tr.reveal { translate: 0 18px; }
+.js .tbl tr.reveal.is-in { translate: 0 0; }
+/* сравнение двух линий: колонки в цветах линий */
+.tbl--cmp thead th:nth-child(2) { background: var(--cyan); color: var(--navy); border-bottom-color: var(--cyan); font-size: 26px; }
+.tbl--cmp thead th:nth-child(3) { background-color: var(--navy); color: #fff; font-size: 26px; background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1.4px); background-size: 6px 6px; }
+.tbl--cmp tbody th { width: 20%; font-size: 20px; letter-spacing: .04em; color: var(--coral-ink); }
+.tbl--cmp td { width: 40%; }
+.tbl--cmp td:nth-child(2) { background: rgba(8,174,234,.1); }
+
+@media (max-width: 1100px) {
+  .need__grid, .signs__grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .signs__head { position: static; }
+}
+@media (max-width: 760px) {
+  .points__grid, .lists__grid { margin-top: 34px; }
+  .point { padding: 22px 20px 24px; }
+  .signs__result { font-size: 20px; }
+  .signs__list label { padding: 16px 16px; gap: 14px; }
+  .tbl { margin-top: 34px; }
+  .tbl thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .tbl, .tbl tbody, .tbl tr, .tbl th, .tbl td { display: block; }
+  .tbl tr { padding: 20px 0 22px; border-bottom: 1.5px solid rgba(6,27,79,.28); }
+  .tbl tbody tr:first-child { border-top: 4px solid var(--navy); }
+  .tbl th, .tbl td { padding: 0; border: 0; width: auto; }
+  .tbl tbody th { font-size: 26px; }
+  .tbl td { margin-top: 12px; }
+  .tbl td::before { content: attr(data-label); display: block; margin-bottom: 3px; font: 600 12px/1.3 var(--cond); letter-spacing: .16em; text-transform: uppercase; color: var(--coral-ink); }
+  .tbl--cmp tbody th { width: auto; font-size: 22px; color: var(--navy); }
+  .tbl--cmp td { width: auto; padding: 12px 14px; }
+  .tbl--cmp td:nth-child(3) { background: rgba(6,27,79,.06); }
+}
+@media (prefers-reduced-motion: reduce) { .js .tbl tr.reveal { translate: 0 0; } }

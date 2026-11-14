@@ -280,6 +280,19 @@
   });
   if (form) $$('input', form).forEach(inp => inp.addEventListener('input', () => inp.classList.remove('is-bad')));
 
+  /* ---------- самопроверка: сколько признаков готовности к рекламе отмечено ---------- */
+  const signsOut = $('[data-signs-result]'), signs = $$('.signs__list input');
+  if (signsOut && signs.length) {
+    const say = () => {
+      const n = signs.filter(i => i.checked).length, all = signs.length;
+      signsOut.textContent = n === 0 ? 'Отметьте, что уже есть в клинике. Если двух признаков не хватает, начинать лучше с основы.'
+        : n === all ? `Отмечено ${n} из ${all}. Клиника готова к Яндекс Директу: на диагностике посчитаем бюджет на тест.`
+        : n === all - 1 ? `Отмечено ${n} из ${all}. До рекламы один шаг: на диагностике посмотрим, чего не хватает.`
+        : `Отмечено ${n} из ${all}. Начинать лучше с основы: реклама пока обойдётся дорого.`;
+    };
+    signs.forEach(i => i.addEventListener('change', say));
+  }
+
   /* ---------- пауза анимаций вне экрана (меньше нагрузка на телефон) ---------- */
   const animIO = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('is-offscreen', !e.isIntersecting)));
   $$('.hero, .ticker, .complex__visual, .faq__panel, .footer').forEach(el => animIO.observe(el));
