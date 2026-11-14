@@ -115,8 +115,6 @@
   if (fine && !reduce) {
     const art = $('[data-tilt]');
     if (art) tilt(art, hero, 9);
-    const tri = $('[data-tilt-follow]');
-    if (tri) tilt(tri, hero, 16);
     $$('[data-tilt-soft]').forEach(el => tilt(el, el, 6));
     $$('[data-tilt-card]').forEach(card => {
       card.addEventListener('mousemove', e => {
@@ -190,23 +188,16 @@
   $$('[data-tear]').forEach(el => io.observe(el.parentElement));
   if (!reduce) $$('.num').forEach(el => io.observe(el));
 
-  /* развилка «реклама или основа» и линия первого месяца рисуются при прокрутке */
-  const fork = $('.fork'), forkPaths = $$('.fork__path');
+  /* линия первого месяца рисуется при прокрутке */
   const line = $('.strips__line'), strips = $('.strips');
-  forkPaths.forEach(p => { p._len = p.getTotalLength(); p.style.strokeDasharray = p._len; p.style.strokeDashoffset = reduce ? 0 : p._len; });
   const prog = el => {
     const r = el.getBoundingClientRect();
     return Math.min(1, Math.max(0, (innerHeight * .85 - r.top) / (r.height + innerHeight * .3)));
   };
   function drawLines() {
-    if (fork && !reduce && fork.offsetParent) {
-      const k = Math.min(1, prog(fork) * 2.4);
-      // сначала ствол от диагностики, потом обе ветки
-      forkPaths.forEach((p, i) => { const part = i ? Math.max(0, (k - .3) / .7) : Math.min(1, k / .3); p.style.strokeDashoffset = p._len * (1 - part); });
-    }
     if (line) line.style.setProperty('--grow', Math.min(1, prog(strips) * 1.3));
   }
-  // на телефоне линии тоже должны дорисовываться
+  // на телефоне линия тоже должна дорисовываться
   addEventListener('scroll', () => { if (mobile()) drawLines(); }, { passive: true });
 
   /* ---------- карточки манифеста: переворот по нажатию на телефоне ---------- */
@@ -214,19 +205,6 @@
     f.addEventListener('click', () => { if (!fine) f.classList.toggle('is-flipped'); });
     f.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); f.classList.toggle('is-flipped'); } });
   });
-
-  /* ---------- вкладки «С чего начать»: вместе с вкладкой подсвечивается ветка развилки ---------- */
-  const tabs = $$('.tab'), panels = $$('.tabpanel');
-  const setTab = i => {
-    tabs.forEach((x, j) => { x.classList.toggle('is-active', i === j); x.setAttribute('aria-selected', i === j); });
-    panels.forEach((p, j) => p.classList.toggle('is-active', i === j));
-    if (fork) fork.dataset.active = i;
-  };
-  tabs.forEach((t, i) => t.addEventListener('click', () => {
-    setTab(i);
-    if (mobile()) t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
-  }));
-  $$('.fork__node').forEach(n => n.addEventListener('click', () => setTab(+n.dataset.go)));
 
   /* ---------- точки под каруселью тарифов ---------- */
   const car = $('[data-carousel]'), dots = $$('.dots i');

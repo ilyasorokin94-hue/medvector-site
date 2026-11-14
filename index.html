@@ -169,18 +169,6 @@
     </ul>
   </div>
 
-  <div class="hero__signal" aria-hidden="true" data-parallax="-0.12">
-    <span class="signal__line"></span>
-    <span class="cross cross--s1"></span>
-    <span class="cross cross--s2"></span>
-    <div class="tri3d" data-tilt-follow>
-      <div class="tri3d__in">
-        <i class="tri3d__layer tri3d__layer--c"></i>
-        <i class="tri3d__layer tri3d__layer--b"></i>
-        <div class="tri3d__layer signal__tri"><small>Ваша</small><strong>Клиника</strong></div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <div class="ticker" aria-hidden="true">
@@ -197,37 +185,23 @@
     <h2 class="h2" data-split>Сначала вектор, потом бюджет.</h2>
     <p class="lead">Клиники разные, и первый шаг у них разный. Бесплатная диагностика показывает, что принесёт обращения раньше: реклама или основа.</p>
 
-    <div class="fork" aria-hidden="true" data-active="0">
-      <svg class="fork__svg" viewBox="0 0 1200 240" preserveAspectRatio="none">
-        <path class="fork__path fork__path--trunk" d="M150 120 H380"/>
-        <path class="fork__path fork__path--a" d="M380 120 C 500 120, 510 52, 660 52 H 1000"/>
-        <path class="fork__path fork__path--b" d="M380 120 C 500 120, 510 188, 660 188 H 1000"/>
-      </svg>
-      <span class="fork__node fork__node--start" data-go="2"><i class="cross"></i><b>Диагностика</b><small>бесплатно</small></span>
-      <span class="fork__node fork__node--a" data-go="0"><b>Реклама</b><small>Яндекс Директ: имплантация и All-on-4</small></span>
-      <span class="fork__node fork__node--b" data-go="1"><b>Основа</b><small>сайт, Яндекс Карты, SEO</small></span>
-    </div>
-
-    <div class="tabs" role="tablist" aria-label="Ситуация клиники">
-      <button type="button" class="tab is-active" role="tab" id="tab-0" aria-controls="panel-0" aria-selected="true" data-tab="0">Клиника готова к рекламе</button>
-      <button type="button" class="tab" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="false" data-tab="1">Нужна основа</button>
-      <button type="button" class="tab" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" data-tab="2">Не уверены</button>
-    </div>
-    <div class="tabpanels">
-      <div class="tabpanel is-active" role="tabpanel" id="panel-0" aria-labelledby="tab-0">
-        <div class="tabpanel__q">«Есть сайт, администраторы берут трубку, рекламу уже пробовали».</div>
+    <div class="ways">
+      <article class="way way--ads">
+        <h3 class="way__title">Реклама</h3>
+        <div class="way__q">«Есть сайт, администраторы берут трубку, рекламу уже пробовали».</div>
         <ul class="ticks"><li>Запускаем Яндекс Директ на имплантацию или All-on-4</li><li>Делаем отдельный лендинг под каждый оффер</li><li>Запуск за 7&nbsp;рабочих дней после получения доступов и согласования оффера</li><li>Один менеджер ведёт клинику и отвечает на вопросы</li></ul>
-        <p class="tabpanel__fit">Ваш путь: <a href="#direct">Яндекс Директ</a>.</p>
-      </div>
-      <div class="tabpanel" role="tabpanel" id="panel-1" aria-labelledby="tab-1">
-        <div class="tabpanel__q">«Клиника новая, или пациенты приходят только по рекомендациям».</div>
+        <p class="way__fit">Ваш путь: <a href="#direct">Яндекс Директ</a>.</p>
+      </article>
+      <article class="way way--base">
+        <h3 class="way__title">Основа</h3>
+        <div class="way__q">«Клиника новая, или пациенты приходят только по рекомендациям».</div>
         <ul class="ticks"><li>За первый этап делаем сайт и подключаем учёт обращений</li><li>Упаковываем Яндекс Карты, при необходимости 2ГИС и ПроДокторов</li><li>Дальше ведём SEO, сайт и карты по подписке</li><li>Рекламу подключаем позже, когда клиника к ней готова</li></ul>
-        <p class="tabpanel__fit">Ваш путь: <a href="#complex">комплексный маркетинг</a>, первый этап 85&nbsp;000&nbsp;₽.</p>
-      </div>
-      <div class="tabpanel" role="tabpanel" id="panel-2" aria-labelledby="tab-2">
-        <div class="tabpanel__q">«Непонятно, во что вкладывать деньги в первую очередь».</div>
+        <p class="way__fit">Ваш путь: <a href="#complex">комплексный маркетинг</a>, первый этап 85&nbsp;000&nbsp;₽.</p>
+      </article>
+      <div class="way way--ask">
+        <div class="way__q">«Непонятно, во что вкладывать деньги в первую очередь».</div>
         <ul class="ticks"><li>Смотрим сайт, карты, отзывы и обработку заявок</li><li>Сравниваем клинику с соседями по району</li><li>Говорим прямо, с чего начать и сколько это стоит</li><li>Если реклама пока не окупится, так и скажем</li></ul>
-        <p class="tabpanel__fit">Начните с <a href="#diagnostics">бесплатной диагностики</a>.</p>
+        <p class="way__fit">Начните с <a href="#diagnostics">бесплатной диагностики</a>.</p>
       </div>
     </div>
   </div>
@@ -248,21 +222,18 @@
       <div class="svc-row">
         <article class="svc paper reveal" data-tilt-card>
           <span class="svc__n">01</span>
-          <span class="svc__ico" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="22" cy="26" r="17"/><circle cx="22" cy="26" r="9"/><circle class="a" cx="22" cy="26" r="2.5"/><path class="a" d="M22 26 40 8M33 8h7v7"/></svg></span>
           <h3>Яндекс Директ для стоматологии</h3>
           <p>Ведём рекламу в Яндексе для клиник, которые готовы принимать заявки.</p>
           <a href="#direct" class="svc__link">Как запускаем</a>
         </article>
         <article class="svc paper reveal" data-tilt-card>
           <span class="svc__n">02</span>
-          <span class="svc__ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M13 9c4-3 8 1 11 1s7-4 11-1c4 3 2 10-1 13H14c-3-3-5-10-1-13z"/><path d="M19 22v4h10v-4"/><path class="a" d="M24 26v18M18 31h12M19 36h10M21 41h6"/></svg></span>
           <h3>Реклама имплантации</h3>
           <p>Отдельный лендинг и кампании под имплантацию: цены, врачи, этапы лечения.</p>
           <a href="#direct" class="svc__link">Как запускаем</a>
         </article>
         <article class="svc paper reveal" data-tilt-card>
           <span class="svc__n">03</span>
-          <span class="svc__ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M6 24v-4C6 12 14 7 24 7s18 5 18 13v4z"/><path class="a" d="M12 24v13M20 24v17M28 24v17M36 24v13"/></svg></span>
           <h3>Реклама All-on-4</h3>
           <p>Оффер, лендинг и кампании под восстановление зубов на четырёх имплантах.</p>
           <a href="#direct" class="svc__link">Как запускаем</a>
@@ -278,7 +249,6 @@
       <div class="svc-row">
         <article class="svc svc--main reveal" data-tilt-card>
           <span class="svc__n">04</span>
-          <span class="svc__ico" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="6" y="6" width="15" height="15"/><rect x="27" y="6" width="15" height="15"/><rect x="6" y="27" width="15" height="15"/><rect class="a" x="27" y="27" width="15" height="15"/></svg></span>
           <h3>Комплексный маркетинг</h3>
           <p>Сайт, Яндекс Карты, SEO и поддержка учёта заявок одной командой.</p>
           <a href="#complex" class="svc__link">Что входит</a>
@@ -286,28 +256,24 @@
         </article>
         <article class="svc paper reveal" data-tilt-card>
           <span class="svc__n">05</span>
-          <span class="svc__ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 44S10 30 10 19a14 14 0 0 1 28 0c0 11-14 25-14 25z"/><circle class="a" cx="24" cy="19" r="5"/></svg></span>
           <h3>Яндекс Карты</h3>
           <p>Упаковываем карточку клиники: услуги, цены, фото, врачи, отзывы. Наша специализация.</p>
           <a href="#diagnostics" class="svc__link">Узнать цену</a>
         </article>
         <article class="svc paper reveal" data-tilt-card>
           <span class="svc__n">06</span>
-          <span class="svc__ico" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="5" y="8" width="38" height="32"/><path d="M5 16h38"/><path class="a" d="M11 23h12v11H11zM28 24h9M28 29h9M28 34h6"/></svg></span>
           <h3>Сайт для стоматологии</h3>
           <p>Сайт с нуля: страницы услуг, врачи, цены, запись. Доступы остаются у клиники.</p>
           <a href="#diagnostics" class="svc__link">Узнать цену</a>
         </article>
         <article class="svc paper reveal" data-tilt-card>
           <span class="svc__n">07</span>
-          <span class="svc__ico" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="20" cy="20" r="14"/><path d="M30 30l12 12"/><path class="a" d="M14 25v-4M20 25v-10M26 25v-7"/></svg></span>
           <h3>SEO-продвижение</h3>
           <p>Страницы и статьи под запросы пациентов в вашем городе.</p>
           <a href="#diagnostics" class="svc__link">Узнать цену</a>
         </article>
         <article class="svc paper reveal" data-tilt-card>
           <span class="svc__n">08</span>
-          <span class="svc__ico" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M6 8h36v26H22l-10 8v-8H6z"/><path class="a" d="M24 13l2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg></span>
           <h3>Площадки и отзывы</h3>
           <p>2ГИС, ПроДокторов, Zoon: профили клиники и честная работа с отзывами.</p>
           <a href="#diagnostics" class="svc__link">Узнать цену</a>
@@ -500,7 +466,6 @@
     </div>
     <section class="tariffs" data-carousel tabindex="0" aria-label="Цены, листаются в сторону">
       <article class="tariff paper reveal" data-tilt-card>
-        <span class="tape tape--card" aria-hidden="true"></span>
         <h3>Первый этап</h3>
         <p class="tariff__price"><span class="num" data-count="85">85</span>&nbsp;000&nbsp;₽<small>один раз</small></p>
         <p class="tariff__for">Около месяца: собираем основу клиники.</p>
@@ -516,7 +481,6 @@
         <a href="#diagnostics" class="btn btn--cyan">Начать с диагностики</a>
       </article>
       <article class="tariff paper reveal" data-tilt-card>
-        <span class="tape tape--card" aria-hidden="true"></span>
         <h3>Яндекс Директ</h3>
         <p class="tariff__price tariff__price--text">после диагностики</p>
         <p class="tariff__for">Для клиник, готовых к рекламе.</p>
@@ -538,7 +502,6 @@
 <section class="section about" id="about">
   <div class="wrap about__grid">
     <div class="founder paper" data-tilt-card>
-      <span class="tape tape--card" aria-hidden="true"></span>
       <div class="founder__photo" role="img" aria-label="Место для фото основателя"><span>фото основателя</span></div>
       <h3>Илья Сорокин</h3>
       <p class="founder__role">основатель МедВектор</p>
