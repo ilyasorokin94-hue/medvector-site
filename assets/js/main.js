@@ -1,4 +1,4 @@
-// МедВектор — живые элементы главной
+// МедВектор — живые элементы страниц: шапка, меню, появление блоков, колесо вопросов на главной, форма
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -11,7 +11,7 @@
   const progress = $('.progress');
   const mcta = $('.mcta');
   const diag = $('#diagnostics');
-  const hero = $('.hero');
+  const hero = $('.hero, .phero');
   let lastY = scrollY, ticking = false, menuOpen = false, diagVisible = false, keepHeader = 0;
   // после перехода по пункту меню шапка остаётся на месте, чтобы меню было под рукой
   document.addEventListener('click', e => { if (e.target.closest('a[href^="#"]')) keepHeader = performance.now() + 1500; });
@@ -24,7 +24,7 @@
     if (!menuOpen && y > 400 && y > lastY + 4 && performance.now() > keepHeader) header.classList.add('is-hidden');
     if (y < lastY - 4 || y < 400) header.classList.remove('is-hidden');
     progress.style.setProperty('--p', max > 0 ? y / max : 0);
-    if (mcta) mcta.classList.toggle('is-on', y > hero.offsetHeight * .8 && !diagVisible && !menuOpen);
+    if (mcta) mcta.classList.toggle('is-on', y > (hero ? hero.offsetHeight * .8 : 400) && !diagVisible && !menuOpen);
     lastY = y;
     parallax();
     ticking = false;
@@ -34,8 +34,9 @@
 
   if (diag && mcta) new IntersectionObserver(([e]) => { diagVisible = e.isIntersecting; onScroll(); }, { threshold: .05 }).observe(diag);
 
-  /* активный пункт меню */
+  /* активный пункт меню: на главной подсвечивается по прокрутке, на внутренних страницах отмечен в разметке */
   const navLinks = $$('.nav__link');
+  const anchorNav = navLinks.some(a => a.getAttribute('href').startsWith('#'));
   // блоки Директа и комплекса относятся к пункту «Услуги»; на остальных блоках подсветка снимается
   const navOf = { direct: 'services', complex: 'services' };
   const navIO = new IntersectionObserver(entries => entries.forEach(e => {
@@ -43,7 +44,7 @@
     const id = navOf[e.target.id] || e.target.id;
     navLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + id));
   }), { rootMargin: '-45% 0px -50% 0px' });
-  $$('main > section[id]').forEach(s => navIO.observe(s));
+  if (anchorNav) $$('main > section[id]').forEach(s => navIO.observe(s));
 
   /* ---------- выпадающий список услуг ---------- */
   const dropItem = $('.nav__item--drop');
@@ -220,53 +221,55 @@
   // вопросы и ответы берём из списка в разметке: он же остаётся на странице, если JavaScript выключен
   const faq = $$('.faq__list > div').map(d => [$('dt', d).textContent.trim(), $('dd', d).textContent.trim()]);
   const wheel = $('.wheel'), ans = $('.faq__text'), ansQ = $('.faq__q'), count = $('.wheel-nav__count b');
-  const N = faq.length, R = 300, C = 300, seg = 360 / N;
-  const pt = (a, r) => [C + r * Math.sin(a * Math.PI / 180), C - r * Math.cos(a * Math.PI / 180)];
-  let svg = '<svg viewBox="0 0 600 600" role="presentation">';
-  faq.forEach(([q], i) => {
-    const a0 = i * seg, a1 = a0 + seg, [x0, y0] = pt(a0, R), [x1, y1] = pt(a1, R), [tx, ty] = pt(a0 + seg / 2, R * .6);
-    const lines = q.toUpperCase().match(/.{1,14}(\s|$)/g).map(s => s.trim());
-    svg += `<g class="seg"><path d="M${C} ${C} L${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1} Z"/>` +
-      `<text data-x="${tx.toFixed(1)}" data-y="${ty.toFixed(1)}" text-anchor="middle">` +
-      lines.map((l, k) => `<tspan x="0" dy="${k ? 22 : -(lines.length - 1) * 11 + 7}">${l}</tspan>`).join('') + '</text></g>';
-  });
-  wheel.innerHTML = svg + '</svg>';
-  const segs = $$('.seg', wheel);
-  let cur = 0, turn = 0;
-  const pick = (i, first) => {
-    // куда смотрит выбранный сектор: по умолчанию влево, к ответу; оформление может задать свой угол через --point
-    const point = parseFloat(getComputedStyle(wheel).getPropertyValue('--point'));
-    const target = (isNaN(point) ? 270 : point) - (i * seg + seg / 2);
-    // вращаем кратчайшим путём, чтобы колесо не раскручивалось назад через полный круг
-    let d = ((target - turn) % 360 + 540) % 360 - 180;
-    turn += d; cur = i;
-    wheel.style.transform = `rotate(${turn}deg)`;
-    $$('text', wheel).forEach(t => t.style.transform = `translate(${t.dataset.x}px, ${t.dataset.y}px) rotate(${-turn}deg)`);
-    segs.forEach((g, j) => { g.classList.toggle('is-active', i === j); g.setAttribute('aria-selected', i === j); });
-    if (count) count.textContent = i + 1;
-    const show = () => { ans.textContent = faq[i][1]; ansQ.textContent = faq[i][0]; ans.classList.remove('is-out'); };
-    if (first) return show();
-    ans.classList.add('is-out'); setTimeout(show, 220);
-  };
-  segs.forEach((g, i) => {
-    g.setAttribute('role', 'tab'); g.setAttribute('tabindex', '0');
-    g.addEventListener('click', () => pick(i));
-    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(i); } });
-  });
-  $$('.wheel-nav__btn').forEach(b => b.addEventListener('click', () => pick((cur + +b.dataset.step + N) % N)));
-  // свайп по колесу на телефоне поворачивает к следующему вопросу
-  let sx = null;
-  wheel.addEventListener('touchstart', e => sx = e.touches[0].clientX, { passive: true });
-  wheel.addEventListener('touchend', e => {
-    if (sx === null) return;
-    const dx = e.changedTouches[0].clientX - sx; sx = null;
-    if (Math.abs(dx) > 40) pick((cur + (dx < 0 ? 1 : -1) + N) % N);
-  });
-  pick(0, true);
+  if (wheel) {
+    const N = faq.length, R = 300, C = 300, seg = 360 / N;
+    const pt = (a, r) => [C + r * Math.sin(a * Math.PI / 180), C - r * Math.cos(a * Math.PI / 180)];
+    let svg = '<svg viewBox="0 0 600 600" role="presentation">';
+    faq.forEach(([q], i) => {
+      const a0 = i * seg, a1 = a0 + seg, [x0, y0] = pt(a0, R), [x1, y1] = pt(a1, R), [tx, ty] = pt(a0 + seg / 2, R * .6);
+      const lines = q.toUpperCase().match(/.{1,14}(\s|$)/g).map(s => s.trim());
+      svg += `<g class="seg"><path d="M${C} ${C} L${x0} ${y0} A${R} ${R} 0 0 1 ${x1} ${y1} Z"/>` +
+        `<text data-x="${tx.toFixed(1)}" data-y="${ty.toFixed(1)}" text-anchor="middle">` +
+        lines.map((l, k) => `<tspan x="0" dy="${k ? 22 : -(lines.length - 1) * 11 + 7}">${l}</tspan>`).join('') + '</text></g>';
+    });
+    wheel.innerHTML = svg + '</svg>';
+    const segs = $$('.seg', wheel);
+    let cur = 0, turn = 0;
+    const pick = (i, first) => {
+      // куда смотрит выбранный сектор: по умолчанию влево, к ответу; оформление может задать свой угол через --point
+      const point = parseFloat(getComputedStyle(wheel).getPropertyValue('--point'));
+      const target = (isNaN(point) ? 270 : point) - (i * seg + seg / 2);
+      // вращаем кратчайшим путём, чтобы колесо не раскручивалось назад через полный круг
+      let d = ((target - turn) % 360 + 540) % 360 - 180;
+      turn += d; cur = i;
+      wheel.style.transform = `rotate(${turn}deg)`;
+      $$('text', wheel).forEach(t => t.style.transform = `translate(${t.dataset.x}px, ${t.dataset.y}px) rotate(${-turn}deg)`);
+      segs.forEach((g, j) => { g.classList.toggle('is-active', i === j); g.setAttribute('aria-selected', i === j); });
+      if (count) count.textContent = i + 1;
+      const show = () => { ans.textContent = faq[i][1]; ansQ.textContent = faq[i][0]; ans.classList.remove('is-out'); };
+      if (first) return show();
+      ans.classList.add('is-out'); setTimeout(show, 220);
+    };
+    segs.forEach((g, i) => {
+      g.setAttribute('role', 'tab'); g.setAttribute('tabindex', '0');
+      g.addEventListener('click', () => pick(i));
+      g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(i); } });
+    });
+    $$('.wheel-nav__btn').forEach(b => b.addEventListener('click', () => pick((cur + +b.dataset.step + N) % N)));
+    // свайп по колесу на телефоне поворачивает к следующему вопросу
+    let sx = null;
+    wheel.addEventListener('touchstart', e => sx = e.touches[0].clientX, { passive: true });
+    wheel.addEventListener('touchend', e => {
+      if (sx === null) return;
+      const dx = e.changedTouches[0].clientX - sx; sx = null;
+      if (Math.abs(dx) > 40) pick((cur + (dx < 0 ? 1 : -1) + N) % N);
+    });
+    pick(0, true);
+  }
 
   /* ---------- форма (прототип: никуда не отправляет) ---------- */
   const form = $('.form');
-  form.addEventListener('submit', e => {
+  if (form) form.addEventListener('submit', e => {
     e.preventDefault();
     let ok = true;
     $$('input[required]', form).forEach(inp => {
@@ -275,7 +278,7 @@
     });
     if (ok) form.classList.add('is-sent');
   });
-  $$('input', form).forEach(inp => inp.addEventListener('input', () => inp.classList.remove('is-bad')));
+  if (form) $$('input', form).forEach(inp => inp.addEventListener('input', () => inp.classList.remove('is-bad')));
 
   /* ---------- пауза анимаций вне экрана (меньше нагрузка на телефон) ---------- */
   const animIO = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('is-offscreen', !e.isIntersecting)));

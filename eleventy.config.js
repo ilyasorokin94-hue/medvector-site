@@ -40,9 +40,11 @@ const esc = s => String(s).replace(/&(?!(?:[a-z]+|#\d+);)/g, '&amp;').replace(/<
 const glue = s => s
   .replace(/(\d) (?=\d{3}(?!\d))/g, '$1&nbsp;')
   .replace(/(\d) (₽|%|рабоч|дн|мес|недел|минут|час|страниц|счёт|счета|этап|оффер|клиник|лет|год)/g, '$1&nbsp;$2')
-  .replace(/(^|[\s(«"„>])([А-Яа-яЁё]{1,2}) (?=\S)/g, '$1$2&nbsp;')
+  // частицы «ли», «же», «бы» держатся за предыдущее слово, остальные короткие слова за следующее
+  .replace(/ (ли|же|бы|б|ж)(?=[\s,.!?:;»)]|$)/g, '&nbsp;$1')
+  .replace(/(^|[\s(«"„>])(?!(?:ли|же|бы|б|ж) )([А-Яа-яЁё]{1,2}) (?=\S)/g, '$1$2&nbsp;')
   .replace(/ (—|–) /g, '&nbsp;$1 ');
-const typo = s => (s == null ? '' : glue(esc(s)));
+const typo = s => (s == null ? '' : glue(esc(s)).replace(/All-on-(\d)/g, '<span class="nw">All-on-$1</span>'));
 // Тот же текст без разметки: для JSON-LD и атрибутов.
 const plain = s => String(s == null ? '' : s).replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/ /g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
 
@@ -71,6 +73,7 @@ module.exports = function (cfg) {
   cfg.addGlobalData('year', () => new Date().getFullYear());
   cfg.addNunjucksGlobal('href', href);
   cfg.addNunjucksGlobal('jsonld', jsonld);
+  cfg.addNunjucksGlobal('services', require('./src/_data/services.js'));
   cfg.addFilter('t', typo);
   cfg.addFilter('plain', plain);
   cfg.addFilter('json', v => JSON.stringify(v));

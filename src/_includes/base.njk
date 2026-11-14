@@ -27,7 +27,7 @@
 
 {% block preload %}{% endblock %}
 <!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/oswald-600-cyrillic.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/oswald-{{ '600' if home else '700' }}-cyrillic.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/cormorant-garamond-400-cyrillic.woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 {% if not home %}
