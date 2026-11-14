@@ -134,7 +134,9 @@
   document.body.appendChild(dock);
   const $ = s => dock.querySelector(s), $$ = s => [...dock.querySelectorAll(s)];
   const nameSmall = $('.vdock__name small'), nameB = $('.vdock__name b'), sheet = $('.vsheet'), listBtn = $('.vdock__list');
-  let cur = 0, lockUntil = 0, fixTimer = 0;
+  let cur = 0, lockUntil = 0, fixTimer = 0, lockTimer = 0;
+  // пока страница сама едет к блоку, текущий блок не пересчитываем; после остановки сверяемся ещё раз
+  const lock = ms => { lockUntil = performance.now() + ms; clearTimeout(lockTimer); lockTimer = setTimeout(() => detect(), ms + 40); };
 
   const summary = () => 'Мой выбор: ' + BLOCKS.map(([id, name]) => `${name.toLowerCase().replace('яндекс директ', 'Яндекс Директ')} ${sel[id]}`).join(', ') + '. Ссылка: ' + link();
   const render = () => {
@@ -156,9 +158,11 @@
   };
   let tick = false;
   addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(() => { tick = false; detect(); }); } }, { passive: true });
+  // человек сам крутит страницу: сразу следим за блоком на экране
+  ['wheel', 'touchmove'].forEach(t => addEventListener(t, () => { lockUntil = 0; }, { passive: true }));
 
   const goTo = (i, smooth) => {
-    cur = i; lockUntil = performance.now() + 900; render();
+    cur = i; lock(900); render();
     const top = sec[BLOCKS[i][0]].getBoundingClientRect().top + scrollY - (i ? 64 : 0);
     scrollTo({ top, behavior: smooth && !reduce ? 'smooth' : 'instant' });
     // нижние блоки дорисовываются по мере прокрутки и меняют высоту: после остановки проверяем, что попали в начало блока
@@ -166,14 +170,14 @@
     fixTimer = setTimeout(() => {
       if (cur !== i) return;
       const off = sec[BLOCKS[i][0]].getBoundingClientRect().top - (i ? 64 : 0);
-      if (Math.abs(off) > 24) { lockUntil = performance.now() + 300; scrollTo({ top: scrollY + off, behavior: 'instant' }); }
+      if (Math.abs(off) > 24) { lock(300); scrollTo({ top: scrollY + off, behavior: 'instant' }); }
     }, smooth && !reduce ? 800 : 80);
   };
   const set = async n => {
     const id = BLOCKS[cur][0];
     if (sel[id] === n) return;
     sel[id] = n; save(); render();
-    lockUntil = performance.now() + 700;
+    lock(700);
     await apply(id);
     // если блок начат выше экрана, возвращаемся к его началу: новый вариант видно с первой строки
     const top = sec[id].getBoundingClientRect().top;
