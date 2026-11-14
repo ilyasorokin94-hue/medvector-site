@@ -256,7 +256,9 @@
   const segs = $$('.seg', wheel);
   let cur = 0, turn = 0;
   const pick = (i, first) => {
-    const target = 270 - (i * seg + seg / 2);
+    // куда смотрит выбранный сектор: по умолчанию влево, к ответу; оформление может задать свой угол через --point
+    const point = parseFloat(getComputedStyle(wheel).getPropertyValue('--point'));
+    const target = (isNaN(point) ? 270 : point) - (i * seg + seg / 2);
     // вращаем кратчайшим путём, чтобы колесо не раскручивалось назад через полный круг
     let d = ((target - turn) % 360 + 540) % 360 - 180;
     turn += d; cur = i;

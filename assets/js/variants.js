@@ -77,6 +77,8 @@
     if (n === 1) { s.removeAttribute('data-v'); s.removeAttribute('data-vmode'); }
     else { s.dataset.v = n; s.dataset.vmode = (map[n] || []).some(t => t.dataset.mode === 'swap') ? 'swap' : 'css'; }
     syncWheel();
+    // колесо доворачивается под новое расположение ответа
+    if (id === 'faq' && wheel) { const g = wheel.querySelector('.seg.is-active'); if (g) g.dispatchEvent(new Event('click')); }
     dispatchEvent(new Event('resize')); // основной скрипт пересчитывает шапку, линии и параллакс
   };
 
