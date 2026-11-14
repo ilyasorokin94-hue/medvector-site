@@ -1,0 +1,46 @@
+<!-- ============ ШАПКА: крупный логотип на бумажной карточке, меню с выпадающим списком услуг ============ -->
+<header class="header" id="top">
+  <a href="{{ '#top' if home else '/' }}" class="logo" aria-label="МедВектор — на главную">
+    <img src="/assets/img/medvector-logo-transparent.webp" alt="МедВектор" width="720" height="255">
+  </a>
+  <nav class="nav" aria-label="Основное меню">
+    <div class="nav__item nav__item--drop">
+      <a href="{{ href('services') }}" class="nav__link{% if section == 'services' %} is-active{% endif %}">Услуги<span class="nav__caret" aria-hidden="true"></span></a>
+      <div class="drop"><div class="drop__in">
+        <div class="drop__col">
+          <p class="drop__title">Реклама</p>
+          <a href="{{ href('direct') }}">Яндекс Директ для стоматологии</a>
+          <a href="{{ href('implant') }}">Реклама имплантации</a>
+          <a href="{{ href('allon4') }}">Реклама All-on-4</a>
+        </div>
+        <div class="drop__col">
+          <p class="drop__title">Основа</p>
+          <a href="{{ href('complex') }}">Комплексный маркетинг</a>
+          <a href="{{ href('maps') }}">Яндекс Карты</a>
+          <a href="{{ href('website') }}">Сайт для стоматологии</a>
+          <a href="{{ href('seo') }}">SEO-продвижение</a>
+          <a href="{{ href('listings') }}">Площадки и отзывы</a>
+        </div>
+      </div></div>
+    </div>
+    <a href="{{ href('prices') }}" class="nav__link{% if section == 'prices' %} is-active{% endif %}">Цены</a>
+    <a href="{{ href('process') }}" class="nav__link{% if section == 'process' %} is-active{% endif %}">Как работаем</a>
+    <a href="{{ href('about') }}" class="nav__link{% if section == 'about' %} is-active{% endif %}">Об агентстве</a>
+  </nav>
+  <a href="{{ '#diagnostics' if home or form != false else href('diagnostics') }}" class="btn btn--header" data-magnetic>Получить диагностику</a>
+  <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
+  <span class="progress" aria-hidden="true"><i></i></span>
+</header>
+
+<!-- мобильное меню на весь экран -->
+<div class="mnav" id="mnav" aria-hidden="true">
+  <nav aria-label="Мобильное меню">
+    <a href="{{ href('services') }}" tabindex="-1"><small>01</small>Услуги</a>
+    <a href="{{ href('process') }}" tabindex="-1"><small>02</small>Как работаем</a>
+    <a href="{{ href('prices') }}" tabindex="-1"><small>03</small>Цены</a>
+    <a href="{{ href('about') }}" tabindex="-1"><small>04</small>Об агентстве</a>
+    <a href="/#faq" tabindex="-1"><small>05</small>Вопросы</a>
+  </nav>
+  <a href="{{ '#diagnostics' if home or form != false else href('diagnostics') }}" class="btn-tape mnav__cta" tabindex="-1"><span>Получить диагностику клиники</span></a>
+  <p class="mnav__note">Бесплатно и без обязательств</p>
+</div>

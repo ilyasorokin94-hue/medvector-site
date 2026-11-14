@@ -3,3 +3,4 @@ _tools/package-lock.json
 screenshots/
 *.zip
 /medvector-*.png
+node_modules/
