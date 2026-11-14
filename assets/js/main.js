@@ -1,4 +1,4 @@
-// МедВектор — живые элементы прототипа
+// МедВектор — живые элементы главной
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -35,12 +35,33 @@
   if (diag && mcta) new IntersectionObserver(([e]) => { diagVisible = e.isIntersecting; onScroll(); }, { threshold: .05 }).observe(diag);
 
   /* активный пункт меню */
-  const navLinks = $$('.nav a');
+  const navLinks = $$('.nav__link');
+  // блоки Директа и комплекса относятся к пункту «Услуги»; на остальных блоках подсветка снимается
+  const navOf = { direct: 'services', complex: 'services' };
   const navIO = new IntersectionObserver(entries => entries.forEach(e => {
     if (!e.isIntersecting) return;
-    navLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + e.target.id));
+    const id = navOf[e.target.id] || e.target.id;
+    navLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + id));
   }), { rootMargin: '-45% 0px -50% 0px' });
-  navLinks.forEach(a => { const s = $(a.getAttribute('href')); if (s) navIO.observe(s); });
+  $$('main > section[id]').forEach(s => navIO.observe(s));
+
+  /* ---------- выпадающий список услуг ---------- */
+  const dropItem = $('.nav__item--drop');
+  if (dropItem) {
+    const dropLink = $('.nav__link', dropItem);
+    const setDrop = open => { dropItem.classList.toggle('is-open', open); dropLink.setAttribute('aria-expanded', open); };
+    dropLink.setAttribute('aria-haspopup', 'true'); dropLink.setAttribute('aria-expanded', 'false');
+    dropItem.addEventListener('mouseenter', () => { dropItem.classList.remove('is-closed'); dropLink.setAttribute('aria-expanded', 'true'); });
+    dropItem.addEventListener('mouseleave', () => { dropItem.classList.remove('is-closed'); setDrop(false); });
+    dropItem.addEventListener('focusin', () => dropLink.setAttribute('aria-expanded', 'true'));
+    dropItem.addEventListener('focusout', e => { if (!dropItem.contains(e.relatedTarget)) setDrop(false); });
+    // на планшете без мыши первое касание открывает список, второе ведёт к услугам
+    dropLink.addEventListener('click', e => { if (!fine && !dropItem.classList.contains('is-open')) { e.preventDefault(); setDrop(true); } });
+    // после выбора пункта список закрывается
+    $$('.drop a', dropItem).forEach(a => a.addEventListener('click', () => { dropItem.classList.add('is-closed'); setDrop(false); a.blur(); }));
+    document.addEventListener('click', e => { if (!dropItem.contains(e.target)) setDrop(false); });
+    addEventListener('keydown', e => { if (e.key === 'Escape') { setDrop(false); if (dropItem.contains(document.activeElement)) document.activeElement.blur(); } });
+  }
 
   /* ---------- мобильное меню на весь экран ---------- */
   const burger = $('.burger'), mnav = $('#mnav');
@@ -63,7 +84,8 @@
   /* ---------- заголовки по словам ---------- */
   $$('[data-split]').forEach(h => {
     let i = 0;
-    h.innerHTML = h.textContent.trim().split(/\s+/).map(w => `<span class="w"><span style="--i:${i++}">${w}</span></span>`).join(' ');
+    // делим только по обычным пробелам: неразрывные держат цену и «7 рабочих дней» вместе
+    h.innerHTML = h.textContent.trim().split(/[ \n\t\r]+/).map(w => `<span class="w"><span style="--i:${i++}">${w}</span></span>`).join(' ');
     h.classList.add('reveal-words');
   });
 
@@ -93,6 +115,8 @@
   if (fine && !reduce) {
     const art = $('[data-tilt]');
     if (art) tilt(art, hero, 9);
+    const tri = $('[data-tilt-follow]');
+    if (tri) tilt(tri, hero, 16);
     $$('[data-tilt-soft]').forEach(el => tilt(el, el, 6));
     $$('[data-tilt-card]').forEach(card => {
       card.addEventListener('mousemove', e => {
@@ -127,7 +151,7 @@
   }
 
   /* ---------- параллакс и дрейф ---------- */
-  const para = $$('[data-parallax]'), drift = $('[data-drift]');
+  const para = $$('[data-parallax]'), drifts = $$('[data-drift]');
   function parallax() {
     if (reduce || mobile()) return;
     para.forEach(el => {
@@ -135,10 +159,10 @@
       if (r.bottom < 0 || r.top > innerHeight) return;
       el.style.translate = `0 ${((r.top + r.height / 2) - innerHeight / 2) * +el.dataset.parallax}px`;
     });
-    if (drift) {
+    drifts.forEach((drift, i) => {
       const r = drift.parentElement.getBoundingClientRect();
-      if (r.bottom > 0 && r.top < innerHeight) drift.style.setProperty('--drift', `${(r.top / innerHeight) * 120}px`);
-    }
+      if (r.bottom > 0 && r.top < innerHeight) drift.style.setProperty('--drift', `${(r.top / innerHeight) * 120 * (i % 2 ? 1 : -1)}px`);
+    });
     drawLines();
   }
 
@@ -161,38 +185,48 @@
     else el.classList.add('is-in');
     io.unobserve(el);
   }), { threshold: .15, rootMargin: '0px 0px -5% 0px' });
-  $$('.reveal').forEach((el, i) => { el.style.transitionDelay = `${(i % 4) * 80}ms`; io.observe(el); });
-  $$('.chart, [data-split], .footer__divider').forEach(el => io.observe(el));
+  $$('.reveal').forEach((el, i) => { el.style.transitionDelay = el.style.animationDelay = `${(i % 4) * 80}ms`; io.observe(el); });
+  $$('.chart, .days, [data-split], .footer__divider').forEach(el => io.observe(el));
   $$('[data-tear]').forEach(el => io.observe(el.parentElement));
   if (!reduce) $$('.num').forEach(el => io.observe(el));
 
-  /* линия пути пациента и линия месяца запуска рисуются при прокрутке */
-  const path = $('.journey__path path'), steps = $('.journey__steps');
+  /* развилка «реклама или основа» и линия первого месяца рисуются при прокрутке */
+  const fork = $('.fork'), forkPaths = $$('.fork__path');
   const line = $('.strips__line'), strips = $('.strips');
+  forkPaths.forEach(p => { p._len = p.getTotalLength(); p.style.strokeDasharray = p._len; p.style.strokeDashoffset = reduce ? 0 : p._len; });
   const prog = el => {
     const r = el.getBoundingClientRect();
     return Math.min(1, Math.max(0, (innerHeight * .85 - r.top) / (r.height + innerHeight * .3)));
   };
   function drawLines() {
-    if (path) path.style.setProperty('--draw', 1400 * (1 - Math.min(1, prog(steps) * 1.6)));
+    if (fork && !reduce && fork.offsetParent) {
+      const k = Math.min(1, prog(fork) * 2.4);
+      // сначала ствол от диагностики, потом обе ветки
+      forkPaths.forEach((p, i) => { const part = i ? Math.max(0, (k - .3) / .7) : Math.min(1, k / .3); p.style.strokeDashoffset = p._len * (1 - part); });
+    }
     if (line) line.style.setProperty('--grow', Math.min(1, prog(strips) * 1.3));
   }
   // на телефоне линии тоже должны дорисовываться
   addEventListener('scroll', () => { if (mobile()) drawLines(); }, { passive: true });
 
-  /* ---------- карточки потерь: переворот по нажатию на телефоне ---------- */
+  /* ---------- карточки манифеста: переворот по нажатию на телефоне ---------- */
   $$('.flip').forEach(f => {
     f.addEventListener('click', () => { if (!fine) f.classList.toggle('is-flipped'); });
     f.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); f.classList.toggle('is-flipped'); } });
   });
 
-  /* ---------- вкладки «Узнаёте свою ситуацию?» ---------- */
+  /* ---------- вкладки «С чего начать»: вместе с вкладкой подсвечивается ветка развилки ---------- */
   const tabs = $$('.tab'), panels = $$('.tabpanel');
-  tabs.forEach((t, i) => t.addEventListener('click', () => {
+  const setTab = i => {
     tabs.forEach((x, j) => { x.classList.toggle('is-active', i === j); x.setAttribute('aria-selected', i === j); });
     panels.forEach((p, j) => p.classList.toggle('is-active', i === j));
-    t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+    if (fork) fork.dataset.active = i;
+  };
+  tabs.forEach((t, i) => t.addEventListener('click', () => {
+    setTab(i);
+    if (mobile()) t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
   }));
+  $$('.fork__node').forEach(n => n.addEventListener('click', () => setTab(+n.dataset.go)));
 
   /* ---------- точки под каруселью тарифов ---------- */
   const car = $('[data-carousel]'), dots = $$('.dots i');
@@ -205,14 +239,8 @@
   }, { passive: true });
 
   /* ---------- колесо вопросов (как на текущем лендинге) ---------- */
-  const faq = [
-    ['Гарантируете пациентов?', 'Нет, и честно говорим об этом. В договоре закрепляем то, что зависит от нас: состав работ, сроки и дату отчёта. Число пациентов зависит и от клиники: цен, врачей, работы администраторов.'],
-    ['Когда будут первые изменения?', 'Карточки на картах и профили на площадках меняются сразу после заполнения. Поиск — накопительный канал, сдвиги видны через несколько месяцев. Прогноз для вашей клиники даём после диагностики.'],
-    ['Что нужно от клиники?', 'Ответственный человек, доступы к сайту и кабинетам, фото и данные врачей, а ещё обратная связь: какие обращения дошли до записи.'],
-    ['Реклама входит в стоимость?', 'Нет. Яндекс Директ — отдельный модуль. Предлагаем его, когда он окупается, а бюджет вы платите площадке напрямую.'],
-    ['Сайт уже есть. Нужен новый?', 'Не обязательно. Диагностика покажет, что выгоднее: доработать текущий или сделать новый. В тарифе «Всё присутствие» сайт входит в стоимость.'],
-    ['Кому принадлежат доступы?', 'Клинике. Сайт, кабинеты карт, Метрику и площадки оформляем на вас. Если перестанем работать вместе, всё останется у клиники.'],
-  ];
+  // вопросы и ответы берём из списка в разметке: он же остаётся на странице, если JavaScript выключен
+  const faq = $$('.faq__list > div').map(d => [$('dt', d).textContent.trim(), $('dd', d).textContent.trim()]);
   const wheel = $('.wheel'), ans = $('.faq__text'), ansQ = $('.faq__q'), count = $('.wheel-nav__count b');
   const N = faq.length, R = 300, C = 300, seg = 360 / N;
   const pt = (a, r) => [C + r * Math.sin(a * Math.PI / 180), C - r * Math.cos(a * Math.PI / 180)];
@@ -271,7 +299,7 @@
 
   /* ---------- пауза анимаций вне экрана (меньше нагрузка на телефон) ---------- */
   const animIO = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('is-offscreen', !e.isIntersecting)));
-  $$('.hero, .ticker, .system__visual, .faq__panel, .footer').forEach(el => animIO.observe(el));
+  $$('.hero, .ticker, .complex__visual, .faq__panel, .footer').forEach(el => animIO.observe(el));
 
   onScroll();
 })();
