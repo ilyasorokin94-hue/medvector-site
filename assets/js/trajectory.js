@@ -7,6 +7,8 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const fmt = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  const pad2 = n => String(n).padStart(2, '0');
   let vh = innerHeight;
 
   /* ---------- плавная прокрутка ---------- */
@@ -79,7 +81,7 @@
     let top = null, line = -1;
     $$('.wm', el).forEach(w => { const t = Math.round(w.offsetTop); if (t !== top) { top = t; line++; } w.style.setProperty('--l', line); });
   };
-  const heads = reduce ? [] : $$('.h1, main .h2, .svc__title, .work__title');
+  const heads = reduce ? [] : $$('.h1, main .h2');
   heads.forEach(splitWords);
 
   /* ---------- появление блоков ---------- */
@@ -123,29 +125,121 @@
     if (!track || reduce) return;
     const r = track.getBoundingClientRect();
     const p = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
-    const s = 0.06 + 0.94 * clamp(p / 0.55, 0, 1) ** 1.6;
+    const s = clamp(p / 0.62, 0, 1) ** 1.7;
     disc.style.setProperty('--s', s.toFixed(4));
-    cin.style.setProperty('--o', clamp((p - 0.42) / 0.25, 0, 1).toFixed(3));
+    cin.style.setProperty('--o', clamp((p - 0.48) / 0.25, 0, 1).toFixed(3));
   };
-
-  /* ---------- кейсы: картинка раскрывается из узкой полосы ---------- */
-  const pics = $$('.work__pic');
-  const onPics = () => pics.forEach(el => {
-    if (reduce) return;
-    const r = el.getBoundingClientRect();
-    const p = clamp((vh - r.top) / (vh * 0.75), 0, 1);
-    el.style.setProperty('--cx', ((1 - p) * 18).toFixed(2) + '%');
-  });
 
   /* ---------- счётчики ---------- */
   const cio = new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return;
     cio.unobserve(e.target);
     const el = e.target, end = +el.dataset.count, t0 = performance.now(), dur = 1200;
-    const tick = t => { const k = clamp((t - t0) / dur, 0, 1); el.textContent = Math.round(end * (1 - (1 - k) ** 3)); if (k < 1) requestAnimationFrame(tick); };
+    const tick = t => { const k = clamp((t - t0) / dur, 0, 1), v = Math.round(end * (1 - (1 - k) ** 3)); el.textContent = 'sep' in el.dataset ? fmt(v) : v; if (k < 1) requestAnimationFrame(tick); };
     requestAnimationFrame(tick);
   }), { threshold: 0.6 });
   if (!reduce) $$('[data-count]').forEach(el => { if (+el.dataset.count > 1) { el.textContent = '0'; cio.observe(el); } });
+
+  /* ---------- запрос в образце печатается по буквам ---------- */
+  if (!reduce) $$('[data-type]').forEach(el => {
+    const txt = el.dataset.type;
+    el.textContent = '';
+    const o = new IntersectionObserver(es => {
+      if (!es[0].isIntersecting) return;
+      o.disconnect();
+      let i = 0;
+      setTimeout(() => { const t = setInterval(() => { el.textContent = txt.slice(0, ++i); if (i >= txt.length) clearInterval(t); }, 65); }, 600);
+    }, { threshold: 0.8 });
+    o.observe(el);
+  });
+
+  /* ---------- калькулятор тестового месяца ---------- */
+  const plural = (n, f) => { const a = n % 100, b = n % 10; return a > 10 && a < 20 ? f[2] : b === 1 ? f[0] : b > 1 && b < 5 ? f[1] : f[2]; };
+  $$('[data-calc]').forEach(c => {
+    const inp = n => $(`input[name="${n}"]`, c), out = n => $(`[data-out="${n}"]`, c), res = n => $(`[data-res="${n}"]`, c);
+    const words = {
+      clicks: ['переход на страницу услуги', 'перехода на страницу услуги', 'переходов на страницу услуги'],
+      leads: ['заявка', 'заявки', 'заявок'],
+      books: ['запись на консультацию', 'записи на консультацию', 'записей на консультацию'],
+    };
+    const shown = {};
+    const show = (key, to, text) => {
+      const el = res(key), from = shown[key] == null ? to : shown[key], t0 = performance.now();
+      shown[key] = to;
+      cancelAnimationFrame(el._raf);
+      const tick = t => {
+        const k = reduce ? 1 : clamp((t - t0) / 450, 0, 1), v = from + (to - from) * (1 - (1 - k) ** 3);
+        el.textContent = text ? text(v) : fmt(v);
+        if (k < 1) el._raf = requestAnimationFrame(tick);
+      };
+      tick(t0);
+    };
+    const upd = () => {
+      const b = +inp('budget').value, cpc = +inp('cpc').value, cr = +inp('cr').value, bk = +inp('book').value;
+      const clicks = Math.round(b / cpc), leads = Math.round(clicks * cr / 100), books = Math.round(leads * bk / 10);
+      out('budget').textContent = `${fmt(b)} ₽`;
+      out('cpc').textContent = `${fmt(cpc)} ₽`;
+      out('cr').textContent = String(cr).replace('.', ',');
+      out('book').textContent = bk;
+      inp('budget').setAttribute('aria-valuetext', `${fmt(b)} рублей`);
+      inp('cpc').setAttribute('aria-valuetext', `${cpc} рублей`);
+      ['clicks', 'leads', 'books'].forEach(k => {
+        const v = { clicks, leads, books }[k];
+        show(k, v);
+        res(k).nextElementSibling.textContent = plural(v, words[k]);
+      });
+      const r100 = v => Math.round(v / 100) * 100;
+      show('cpl', leads ? r100(b / leads) : 0);
+      show('cpb', books ? r100(b / books) : 0);
+      const bars = $$('.flow__bar', c);
+      bars[1].style.setProperty('--w', `${clamp((leads / clicks) ** 0.4 * 100, 6, 100).toFixed(1)}%`);
+      bars[2].style.setProperty('--w', `${clamp((books / clicks) ** 0.4 * 100, 4, 100).toFixed(1)}%`);
+      $$('input[type="range"]', c).forEach(r => r.style.setProperty('--p', `${((r.value - r.min) / (r.max - r.min) * 100).toFixed(1)}%`));
+    };
+    c.addEventListener('input', upd);
+    upd();
+  });
+
+  /* ---------- колесо вопросов: на широком экране собирается из раскрывающегося списка ---------- */
+  const qaw = $('[data-wheel]');
+  if (qaw) {
+    const items = $$('.qa__item', qaw).map(d => ({ q: $('.qa__q', d).innerHTML, a: $('.qa__a', d).innerHTML }));
+    const N = items.length, STEP = 26;
+    const wheel = document.createElement('div');
+    wheel.className = 'wheel';
+    wheel.innerHTML = `<div class="wheel__dial"><div class="wheel__ring"><i aria-hidden="true"></i><i aria-hidden="true"></i><div class="wheel__tabs" role="tablist" aria-label="Вопросы" aria-orientation="vertical">${items.map((it, i) => `<button type="button" class="wheel__q" role="tab" id="wq-${i}" aria-controls="wheel-panel" style="--a: ${i * STEP}deg">${it.q}</button>`).join('')}</div></div><span class="wheel__ptr" aria-hidden="true"></span><p class="wheel__count" aria-hidden="true"><b></b><span>/ ${pad2(N)}</span></p></div><div class="wheel__panel" role="tabpanel" id="wheel-panel" tabindex="0"><h3 class="wheel__title"></h3><div class="wheel__a"></div><div class="wheel__nav"><button type="button" class="wheel__btn" data-step="-1" aria-label="Предыдущий вопрос">←</button><button type="button" class="wheel__btn" data-step="1" aria-label="Следующий вопрос">→</button></div></div>`;
+    qaw.after(wheel);
+    const ring = $('.wheel__ring', wheel), tabs = $$('.wheel__q', wheel), panel = $('.wheel__panel', wheel);
+    const title = $('.wheel__title', wheel), ans = $('.wheel__a', wheel), count = $('.wheel__count b', wheel);
+    let cur = -1, swap;
+    const pick = (i, focus) => {
+      i = (i + N) % N;
+      if (i === cur) return;
+      const first = cur < 0;
+      cur = i;
+      ring.style.setProperty('--rot', `${-cur * STEP}deg`);
+      tabs.forEach((t, k) => { const on = k === cur; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; t.classList.toggle('is-far', Math.abs(k - cur) > 2); });
+      panel.setAttribute('aria-labelledby', tabs[cur].id);
+      count.textContent = pad2(cur + 1);
+      const fill = () => { title.innerHTML = items[cur].q; ans.innerHTML = items[cur].a; panel.classList.remove('is-swap'); };
+      clearTimeout(swap);
+      if (first || reduce) fill(); else { panel.classList.add('is-swap'); swap = setTimeout(fill, 220); }
+      if (focus) tabs[cur].focus({ preventScroll: true });
+    };
+    tabs.forEach((t, k) => t.addEventListener('click', () => pick(k)));
+    $$('.wheel__btn', wheel).forEach(b => b.addEventListener('click', () => pick(cur + +b.dataset.step)));
+    $('.wheel__tabs', wheel).addEventListener('keydown', e => {
+      const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+      if (step) { e.preventDefault(); pick(cur + step, true); }
+      else if (e.key === 'Home') { e.preventDefault(); pick(0, true); }
+      else if (e.key === 'End') { e.preventDefault(); pick(N - 1, true); }
+    });
+    pick(0);
+    const wide = matchMedia('(min-width: 1021px)');
+    const syncWheel = () => qaw.parentElement.classList.toggle('has-wheel', wide.matches);
+    wide.addEventListener('change', syncWheel);
+    syncWheel();
+  }
 
   /* ---------- линия-вектор: от стрелки в заголовке до кнопки формы ---------- */
   const main = $('main');
@@ -189,7 +283,7 @@
     const L = wrap.l + gut / 2, Rx = wrap.r - gut / 2;
     const a = rel(vStart), btn = rel(vEnd);
     const hero = rel($('.hero'));
-    const dots = $$('[data-vpoint]').map(d => { const r = rel(d); return { el: d.closest('.step') || d, x: r.l + r.w / 2, y: r.t + r.h / 2 }; });
+    const dots = $$('[data-vpoint]').filter(d => d.offsetParent).map(d => { const r = rel(d); return { el: d.closest('.jr__st') || d, x: r.l + r.w / 2, y: r.t + r.h / 2 }; });
     let pts;
     if (W <= 720) {
       // телефон: простая вертикальная линия слева
@@ -271,7 +365,7 @@
   let ticking = false;
   const frame = () => {
     ticking = false;
-    onHeader(); onFill(); onCircle(); onPics(); lineTarget();
+    onHeader(); onFill(); onCircle(); lineTarget();
   };
   const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
   addEventListener('scroll', onScroll, { passive: true });

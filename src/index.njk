@@ -1,400 +1,232 @@
 ---
 title: "МедВектор: Яндекс Директ, сайты и Яндекс Карты для стоматологий"
-description: "Яндекс Директ, сайты и Яндекс Карты только для стоматологий. Тест Директа без оплаты нашей работы или сайт бесплатно при старте на 3 месяца."
-ogTitle: "МедВектор: маркетинг только для стоматологий"
+description: "Реклама имплантации и All-on-4 в Яндекс Директе для частных стоматологий. Первый месяц работаем бесплатно: клиника платит только бюджет Яндексу."
+ogTitle: "МедВектор: Яндекс Директ для стоматологий, первый месяц бесплатно"
 permalink: /
 home: true
 design: trajectory
-mctaText: "Запустить тест бесплатно"
+mctaText: "Запустить тестовый месяц"
 
-services:
-  - key: direct
-    kind: ads
-    kicker: "Реклама"
-    title: "Яндекс Директ"
-    for: "Для клиник, которым нужны пациенты на имплантацию и All-on-4 сейчас."
-    free: "за нашу работу в тестовый месяц"
-    rows:
-      - ["Что входит", "Лендинг под направление, кампании, учёт заявок до записи, отчёт каждую неделю"]
-      - ["Вы платите", "**Рекламный бюджет Яндексу: 150 000 ₽** на тестовый месяц, напрямую со своего кабинета"]
-      - ["Остаётся у вас", "Рекламный кабинет и все данные"]
-      - ["После теста", "Продолжаем на ведении или расходимся. Стоимость ведения называем на разборе"]
-    cta: "Запустить тест"
-    more: "Подробнее о Директе"
-  - key: complex
-    kind: base
-    kicker: "Основа"
-    title: "Сайт и комплексный маркетинг"
-    for: "Для клиник, которые ставят маркетинг с нуля: сайт, SEO, Яндекс Карты и площадки."
-    free: "за сайт под ключ при старте на 3 месяца"
-    rows:
-      - ["Что входит", "SEO-сайт, Яндекс Карты, 2ГИС и ПроДокторов, работа с отзывами в белую"]
-      - ["Вы платите", "**Первый месяц 80 000 ₽** двумя платежами по 40 000 ₽, месяцы 2 и 3 по 65 000 ₽"]
-      - ["Остаётся у вас", "Сайт, домен и карточки. Абонентской платы за сайт нет"]
-      - ["Дальше", "Ведение 65 000 ₽ в месяц или подключаем Директ"]
-    cta: "Получить сайт бесплатно"
-    more: "Подробнее о комплексе"
+journey:
+  - title: "Ищет в Яндексе"
+    text: "Человек набирает запрос про имплантацию. Рекламу показываем по запросам, за которыми стоит желание лечиться."
+    art: query
+  - title: "Видит ваше объявление"
+    text: "В нём цена, врач и условия вашей клиники. Тексты проходят модерацию медицинской рекламы."
+    art: ad
+  - title: "Открывает страницу услуги"
+    text: "Отдельная страница про одну услугу: врач, этапы, полная цена и запись. Собираем её за 7 рабочих дней."
+    art: phone
+  - title: "Оставляет заявку"
+    text: "Заявка сразу уходит администратору. В учёте видно, по какому запросу человек пришёл."
+    art: lead
+  - title: "Записывается к врачу"
+    text: "Администратор отмечает запись. В отчёте вы видите цену заявки и цену записи."
+    art: book
 
-choose:
-  - if: "Есть сайт и карточка с отзывами. Нужны пациенты на имплантацию и All-on-4"
-    then: "Яндекс Директ"
-    note: "Тестовый месяц без оплаты нашей работы"
-    to: direct
-  - if: "Клиника новая, сайта нет или он старый, карточка на Картах слабая"
-    then: "Сайт и комплексный маркетинг"
-    note: "Сайт бесплатно при старте на 3 месяца"
-    to: complex
-  - if: "Нужно и то и другое"
-    then: "Сначала основа, потом реклама"
-    note: "Сайт и Карты в первый месяц, Директ, когда клиника готова"
-    to: start
+offer:
+  inclTitle: "Что мы делаем за этот месяц"
+  incl:
+    - ["Разбираем клинику и считаем бюджет", "За 2 рабочих дня смотрим сайт, карточку на Картах и рекламу, если она уже идёт."]
+    - ["Делаем страницу под услугу", "Имплантация или All-on-4: врач, этапы, полная цена и запись на консультацию."]
+    - ["Запускаем кампании и учёт заявок", "Через 7 рабочих дней после того, как получим доступы и согласуем с вами цены и условия."]
+    - ["Ведём рекламу четыре недели", "Убираем запросы, которые не приводят пациентов, и каждую неделю присылаем отчёт."]
+  afterTitle: "Через месяц решаете вы"
+  after:
+    - ["Заявки вас устроили", "Остаёмся на ведении. Его стоимость называем на разборе, до старта теста, чтобы вы знали её заранее."]
+    - ["Не устроили", "Расходимся, и вы нам ничего не должны. Рекламный кабинет, кампании и статистика остаются у клиники."]
+  why: "Зачем нам работать месяц бесплатно? Мы зарабатываем на ведении, поэтому нам нужен месяц, после которого вы захотите остаться. Если на разборе видим, что реклама у клиники пока не окупится, говорим об этом и тест не запускаем."
 
-principles:
-  - icon: tooth
-    title: "Только стоматологии"
-    text: "Не распыляемся на другие ниши. Знаем пациента имплантации и All-on-4, его запросы и страхи."
-  - icon: shield
-    title: "Работаем в белую"
-    text: "Не накручиваем отзывы и переходы, не пишем отзывы за пациентов. Тексты рекламы проходят модерацию медицинской рекламы."
-  - icon: key
-    title: "Всё оформлено на клинику"
-    text: "Рекламный кабинет, Метрика, сайт, домен и карточки принадлежат вам. Уйдёте от нас, и всё останется у вас."
-  - icon: chart
-    title: "Считаем записи, а не клики"
-    text: "В отчёте заявки, записи и их цена. Визиты и выручку показываем, если клиника отмечает их в CRM."
+site:
+  rows:
+    - ["Сайт клиники под ключ", "Страница на каждую услугу, врачи, цены и запись. С учётом требований к сайтам медицинских организаций.", "0 ₽"]
+    - ["Яндекс Карты", "Услуги и цены, фото, витрина и ответы на отзывы от имени клиники.", ""]
+    - ["2ГИС и ПроДокторов", "Те же цены, врачи и адрес, что на сайте и в Картах.", ""]
+    - ["Отзывы", "Учим администраторов просить об отзыве после визита. Отзывы не покупаем и не пишем за пациентов.", ""]
+  plan:
+    - ["Месяц 1", "80 000 ₽", "Сайт и карточки. Два платежа по 40 000 ₽: до начала работ и после сдачи сайта.", "100%"]
+    - ["Месяц 2", "65 000 ₽", "Продвижение сайта в поиске, новые страницы, отзывы.", "81%"]
+    - ["Месяц 3", "65 000 ₽", "Первые цифры по сайту и Картам, план на следующие месяцы.", "81%"]
 
-cases:
-  - meta: ["Яндекс Директ", "All-on-4"]
-    title: "All-on-4 в городе-миллионнике: записи на консультацию за 3 месяца"
-    was: "Реклама вела на общую страницу имплантации, заявки на All-on-4 терялись среди остальных."
-    did: "Отдельный лендинг, кампании без смешивания с одиночной имплантацией, учёт до записи."
-    nums: [["48", "записей на консультацию"], ["3 мес.", "период"]]
-    src: "В настоящем кейсе здесь будут период, источник цифр и определение записи."
-    kind: direct
-    chart: { label: "Записи на консультацию по неделям", from: "1 неделя", to: "12 неделя", pts: [1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7] }
-  - meta: ["Сайт и Карты", "новая клиника"]
-    title: "Новая клиника: сайт и карточка за первый месяц"
-    was: "Клиника открылась, сайта нет, карточка на Картах пустая, отзывов мало."
-    did: "Сайт с нуля, упаковка Карт, 2ГИС и ПроДокторов, схема отзывов для администраторов."
-    nums: [["×2", "звонков из карточки"], ["4,8", "рейтинг на Картах"]]
-    src: "В настоящем кейсе здесь будут период, источник цифр и скриншоты до и после."
-    kind: site maps
-    chart: { label: "Звонки из карточки по месяцам", from: "до старта", to: "3 месяц", pts: [18, 22, 29, 36] }
-  - meta: ["Яндекс Директ", "имплантация"]
-    title: "Имплантация: дешевле заявка после чистки запросов"
-    was: "Показы на весь город, треть бюджета уходила на запросы без намерения лечиться."
-    did: "Радиус вокруг клиники, чистка запросов каждую неделю, цена по этапам на лендинге."
-    nums: [["−30%", "цена заявки"], ["2 мес.", "период"]]
-    src: "В настоящем кейсе здесь будут период, источник цифр и определение заявки."
-    kind: direct
-    chart: { label: "Цена заявки по неделям, ₽", from: "1 неделя", to: "8 неделя", pts: [3900, 3750, 3500, 3300, 3100, 2950, 2800, 2730], down: true }
+contract:
+  - "Рекламный кабинет, Метрика, сайт и домен оформлены на клинику"
+  - "Отчёт каждую неделю: заявки, записи и цена каждой"
+  - "Запуск рекламы через 7 рабочих дней после получения доступов"
+  - "Отзывы и переходы не накручиваем"
 
-steps:
-  - title: "Заявка"
-    text: "Выбираете в форме тест Директа или сайт и Карты. Ответим в рабочее время."
-  - title: "Разбор и расчёт"
-    text: "За 2 рабочих дня смотрим сайт, Карты и рекламу. Называем бюджет и ожидаемую цену заявки."
-  - title: "Запуск"
-    text: "Лендинг и кампании за 7 рабочих дней после доступов и согласования оффера. Или сайт и Карты в первый месяц."
-  - title: "Отчёт и ваше решение"
-    text: "Видите заявки, записи и что сделано. Решаете, продолжать ли с нами."
+works:
+  - { art: phone, title: "Страница услуги", text: "Одна услуга, один врач, полная цена и запись." }
+  - { art: report, title: "Отчёт за неделю", text: "Заявки, записи, цена каждой и что мы сделали." }
+  - { art: map, title: "Карточка на Картах", text: "Цены, врачи, фото и ответы на отзывы." }
 
 faq:
   - q: "В чём подвох?"
-    a: "Подвоха нет, условия открыты. В тестовом месяце Директа мы не берём оплату за работу: вы платите только рекламный бюджет Яндексу со своего кабинета. Сайт бесплатный при старте комплексного маркетинга на 3 месяца: первый месяц 80 000 ₽, затем 65 000 ₽ в месяц. Нам выгодно, чтобы после старта вы остались с нами на ведении."
-  - q: "Чей сайт и кабинет?"
-    a: "Ваш. Рекламный кабинет, счётчик Метрики, домен и карточки оформляем на клинику. Сайт с полными правами передаём после оплаты стартового пакета, абонентской платы за сайт нет."
+    a: "В первый месяц мы действительно работаем без оплаты. Расчёт простой: нам выгодно, чтобы после теста вы остались на ведении, поэтому за месяц мы должны показать заявки. Рекламный бюджет вы платите Яндексу сами, со своего кабинета."
+  - q: "Сколько стоит потом?"
+    a: "Стоимость ведения называем на разборе, до старта теста, чтобы вы знали её заранее. Рекламный бюджет после теста от 100 000 ₽ в месяц, его вы по-прежнему платите Яндексу напрямую."
+  - q: "Чей кабинет и сайт?"
+    a: "Ваши. Рекламный кабинет, счётчик Метрики, домен и карточки оформляем на клинику с первого дня. Сайт с полными правами передаём после оплаты стартового пакета, абонентской платы за него нет."
+  - q: "Когда пойдут заявки?"
+    a: "Рекламу включаем через 7 рабочих дней после получения доступов, показы идут с первого дня. Первые две недели кампании набирают статистику, поэтому результат оцениваем по итогам месяца. Пациент All-on-4 думает дольше, там смотрим второй и третий месяц."
   - q: "Что нужно от клиники?"
-    a: "Лицензия, врач со свободными часами, понятные цены и человек, который перезванивает по заявке в рабочее время. Для Директа ещё отметки записей в CRM или таблице: без них не видно, сколько стоит запись."
-  - q: "Когда первые заявки?"
-    a: "Рекламу запускаем за 7 рабочих дней после получения доступов и согласования оффера, показы начинаются в день запуска. Первые недели кампании обучаются, поэтому о результате судим по месяцу, а по All-on-4 по второму и третьему. Сайт и SEO дают обращения медленнее, Карты быстрее."
-  - q: "Как выйти из договора?"
-    a: "Тест Директа длится месяц: после него продолжаем на ведении или расходимся, кабинет и данные остаются у вас. Стартовый пакет сайта и Карт заключается на 3 месяца, дальше ведение можно остановить. Порядок выхода записан в договоре."
+    a: "Лицензия на услугу, врач со свободным временем для консультаций и администратор, который перезванивает по заявке в течение 15 минут. Ещё нужны отметки о записях в CRM или в общей таблице: без них не посчитать цену записи."
   - q: "Гарантируете пациентов?"
-    a: "Нет, и говорим об этом прямо. Число пациентов зависит и от клиники: цен, врачей, скорости ответа на заявку. Мы отвечаем за то, что делаем сами: состав работ, сроки запуска и отчёт."
+    a: "Число пациентов не гарантируем. Оно зависит и от цен клиники, и от врача, и от того, как быстро отвечают на заявку. В договоре закрепляем то, за что отвечаем сами: состав работ, срок запуска и еженедельный отчёт."
+  - q: "Как расстаться?"
+    a: "После тестового месяца можно просто не продолжать: кабинет и данные остаются у вас. Пакет по сайту и Картам заключается на 3 месяца, дальше ведение можно остановить. Порядок записан в договоре."
 ---
 {% extends "base.njk" %}
 
-
-{% macro chart(c) %}
-{%- set lo = (c.pts | sort) | first -%}{%- set hi = (c.pts | sort) | last -%}
-{%- set n = c.pts | length -%}
-<svg class="chart" viewBox="0 0 1200 440" role="img" aria-label="{{ c.label }}: {{ c.pts | join(', ') }}. Пример, данные условные">
-  <g class="chart__grid" aria-hidden="true">
-{% for k in [0, 1, 2, 3] %}
-    <line x1="40" x2="1160" y1="{{ 60 + k * 100 }}" y2="{{ 60 + k * 100 }}"/>
-{% endfor %}
-  </g>
-  <path class="chart__line" pathLength="1" d="{% for v in c.pts %}{{ 'M' if loop.first else 'L' }}{{ (40 + loop.index0 * 1120 / (n - 1)) | round(1) }} {{ (360 - (v - lo) / (hi - lo) * 280) | round(1) }} {% endfor %}"/>
-{% for v in c.pts %}
-  {%- set x = (40 + loop.index0 * 1120 / (n - 1)) | round(1) -%}{%- set y = (360 - (v - lo) / (hi - lo) * 280) | round(1) %}
-  <path class="chart__pt" style="--i: {{ loop.index0 }}" d="M{{ x - 9 }} {{ y }}h18M{{ x }} {{ y - 9 }}v18"/>
-{% endfor %}
-  <text class="chart__ax" x="40" y="420">{{ c.from }}</text>
-  <text class="chart__ax" x="1160" y="420" text-anchor="end">{{ c.to }}</text>
-</svg>
-{% endmacro %}
-
 {% block main %}
-<!-- ============ 1. ПЕРВЫЙ ЭКРАН: заголовок лесенкой, из его стрелки начинается линия-вектор ============ -->
+{% import "t.njk" as b %}
+<!-- ============ 1. ПЕРВЫЙ ЭКРАН: оффер. Из стрелки в заголовке начинается линия-вектор ============ -->
 <section class="hero" id="intro">
   <div class="wrap">
-    <p class="label hero__label">Маркетинг только для стоматологий</p>
+    <p class="label hero__label">Агентство для частных стоматологий</p>
     <h1 class="h1 hero__title">
-      <span class="ln">Яндекс Директ, сайты</span>
-      <span class="ln ln--in">и&nbsp;Яндекс Карты<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></span>
-      <span class="ln">для&nbsp;стоматологий.</span>
-      <span class="ln ln--in2">Начать <em>бесплатно</em>.</span>
+      <span class="ln">Яндекс Директ</span>
+      <span class="ln ln--in">для&nbsp;стоматологий<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></span>
+      <span class="ln">Первый месяц</span>
+      <span class="ln ln--in2">работаем <em>бесплатно</em>.</span>
     </h1>
     <div class="hero__foot">
-      <p class="hero__sub">Тестовый месяц рекламы без оплаты нашей работы или сайт под&nbsp;ключ бесплатно при старте на&nbsp;3&nbsp;месяца. Условия и&nbsp;цены видны сразу, до&nbsp;разговора с&nbsp;менеджером.</p>
+      <p class="hero__sub">Запускаем рекламу имплантации и&nbsp;<span class="nw">All-on-4</span>: делаем страницу под услугу, настраиваем кампании и&nbsp;считаем заявки до&nbsp;записи к&nbsp;врачу. В&nbsp;первый месяц вы&nbsp;платите только рекламный бюджет Яндексу. Нашу работу оплачиваете со&nbsp;второго месяца, если заявки вас устроят.</p>
       <div class="hero__acts">
-        <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить тест бесплатно <span class="btn__arr" aria-hidden="true">→</span></a>
-        <a href="#start" class="link" data-pick="site">Получить сайт бесплатно</a>
+        <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить тестовый месяц <span class="btn__arr" aria-hidden="true">→</span></a>
+        <a href="#site" class="link">Нет сайта? Сделаем бесплатно</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ 2. ТЁМНЫЙ ЭКРАН: одна фраза и две услуги ============ -->
-<section class="dark sheet" id="services" data-dark>
+<!-- ============ 2. ПУТЬ ПАЦИЕНТА: линия проходит через пять остановок ============ -->
+<section class="sec journey" id="how">
   <div class="wrap">
-    <p class="statement" data-fill>Клик ничего не&nbsp;значит, пока пациент не&nbsp;<em>записался</em>. Поэтому мы&nbsp;ведём каждое направление до&nbsp;записи и&nbsp;показываем, сколько она стоит.</p>
-    <div class="shead shead--dark">
-      <div>
-        <p class="label">Две услуги</p>
-        <h2 class="h2">Реклама или основа. У&nbsp;каждой свой бесплатный вход.</h2>
-      </div>
-      <p class="shead__note">Цены и&nbsp;условия видны сразу. Всё подробное на&nbsp;странице услуги, все условия повторяем в&nbsp;договоре.</p>
-    </div>
-    <div class="svc">
-{% for s in services %}
-      <article class="svc__card reveal">
-        <svg class="svc__vec" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 20H586M572 8l14 12-14 12"/></svg>
-        <p class="svc__n">{{ loop.index | pad2 }}<span>{{ s.kicker }}</span></p>
-        <h3 class="svc__title">{{ s.title | t | safe }}</h3>
-        <p class="svc__for">{{ s.for | t | safe }}</p>
-        <p class="svc__free"><b>0&nbsp;₽</b><span>{{ s.free | t | safe }}</span></p>
-        <dl class="svc__rows">
-{% for r in s.rows %}
-          <div><dt>{{ r[0] }}</dt><dd>{{ r[1] | t | safe }}</dd></div>
-{% endfor %}
-        </dl>
-        <div class="svc__acts">
-          <a href="#start" class="btn btn--line" data-pick="{{ 'direct' if s.key == 'direct' else 'site' }}">{{ s.cta }} <span class="btn__arr" aria-hidden="true">→</span></a>
-          <a href="{{ href(s.key) }}" class="link link--light">{{ s.more }}</a>
+    {{ b.shead({ label: 'Как это работает', title: 'Путь пациента от запроса в Яндексе до *записи* к врачу.', note: 'Мы строим и ведём этот путь целиком. Каждую неделю вы видите, сколько человек дошли до заявки и до записи и сколько стоил каждый.' }) }}
+    <ol class="jr">
+{% for s in journey %}
+      <li class="jr__st reveal">
+        <span class="jr__dot" data-vpoint aria-hidden="true"></span>
+        <span class="jr__n">{{ loop.index | pad2 }}</span>
+        <div class="jr__art">
+{% if s.art == 'query' %}{{ b.a_query() }}{% elif s.art == 'ad' %}{{ b.a_ad() }}{% elif s.art == 'phone' %}{{ b.a_phone() }}{% elif s.art == 'lead' %}{{ b.a_lead() }}{% else %}{{ b.a_book() }}{% endif %}
         </div>
-      </article>
-{% endfor %}
-    </div>
-    <p class="svc__foot">Стоимость ведения Директа после теста называем на&nbsp;разборе.</p>
-  </div>
-</section>
-
-<!-- ============ 3. ЧТО ВЫБРАТЬ: строки ============ -->
-<section class="sec sheet" id="choose">
-  <div class="wrap">
-    <div class="shead">
-      <div>
-        <p class="label">Что выбрать</p>
-        <h2 class="h2">С чего начать вашей <em>клинике</em>.</h2>
-      </div>
-      <p class="shead__note">Три ситуации, с&nbsp;которыми к&nbsp;нам приходят чаще всего. Если не&nbsp;уверены, разберём клинику и&nbsp;подскажем.</p>
-    </div>
-    <div class="rows">
-{% for c in choose %}
-      <a class="row reveal" href="{{ '#start' if c.to == 'start' else href(c.to) }}"{% if c.to == 'start' %} data-pick="unsure"{% endif %}>
-        <span class="row__n">{{ loop.index | pad2 }}</span>
-        <span class="row__if"><small>Если</small>{{ c.if | t | safe }}</span>
-        <span class="row__then">{{ c.then | t | safe }}<small>{{ c.note | t | safe }}</small></span>
-        <span class="row__go" aria-hidden="true">→</span>
-      </a>
-{% endfor %}
-    </div>
-  </div>
-</section>
-
-<!-- ============ 4. КАК НАЧИНАЕМ: линия проходит через четыре шага ============ -->
-<section class="sec" id="how">
-  <div class="wrap">
-    <div class="shead">
-      <div>
-        <p class="label">Как начинаем</p>
-        <h2 class="h2">От заявки до&nbsp;первого отчёта.</h2>
-      </div>
-      <p class="shead__note">Рекламу запускаем за&nbsp;7&nbsp;рабочих дней после получения доступов и&nbsp;согласования оффера.</p>
-    </div>
-    <ol class="steps">
-{% for s in steps %}
-      <li class="step reveal">
-        <span class="step__dot" data-vpoint aria-hidden="true"></span>
-        <span class="step__n">{{ loop.index | pad2 }}</span>
         <h3 class="h3">{{ s.title | t | safe }}</h3>
         <p>{{ s.text | t | safe }}</p>
       </li>
 {% endfor %}
     </ol>
+    <p class="jr__demo"><span class="tag">Объявление, страница и заявка на картинках сделаны для вымышленной клиники</span></p>
   </div>
 </section>
 
-<!-- ============ 5. КРУГ: растёт до тёмного экрана, внутри принципы ============ -->
-<section class="circle" id="principles" aria-labelledby="principles-title">
+<!-- ============ 3. ТЕСТОВЫЙ МЕСЯЦ: ноль растёт до тёмного экрана ============ -->
+<section class="circle" id="test" aria-labelledby="test-title">
   <div class="circle__track">
     <div class="circle__stage">
+      <p class="circle__zero" aria-hidden="true"><span>0</span><b>₽</b><small>стоит наша работа в&nbsp;тестовый месяц</small></p>
       <span class="circle__disc" aria-hidden="true"></span>
       <div class="circle__in">
-        <p class="label">Как мы работаем</p>
-        <h2 class="h2" id="principles-title">Четыре правила, которые <em>не&nbsp;меняются</em>.</h2>
+        <p class="label">Тестовый месяц</p>
+        <h2 class="h2" id="test-title">Первый месяц вы&nbsp;платите только <em>Яндексу</em>.</h2>
+        <p class="circle__lead">Бюджет идёт на&nbsp;рекламу напрямую с&nbsp;кабинета клиники. Через нас деньги не&nbsp;проходят.</p>
       </div>
     </div>
   </div>
   <div class="dark circle__body" data-dark>
     <div class="wrap">
-      <ol class="princ">
-{% for p in principles %}
-        <li class="reveal"><h3 class="h3">{{ p.title | t | safe }}</h3><p>{{ p.text | t | safe }}</p></li>
-{% endfor %}
-      </ol>
-    </div>
-    <p class="sr">Инструменты: Яндекс Директ, Метрика, Яндекс Карты, 2ГИС, ПроДокторов.</p>
-    <div class="marquee">
-      <div class="marquee__in" aria-hidden="true">
-{% for k in [1, 2] %}
-        <span>Яндекс Директ</span><span>Метрика</span><span>Яндекс Карты</span><span>2ГИС</span><span>ПроДокторов</span>
-{% endfor %}
-      </div>
+      {{ b.offer(offer) }}
     </div>
   </div>
 </section>
 
-<!-- ============ 6. КЕЙСЫ: заголовок слева, описание справа, график на всю ширину ============ -->
-<section class="sec sheet" id="cases">
+<!-- ============ 4. КАЛЬКУЛЯТОР ============ -->
+<section class="sec sheet" id="calc">
   <div class="wrap">
-    <div class="shead">
-      <div>
-        <p class="label">Кейсы</p>
-        <h2 class="h2">Что было, что сделали, что <em>изменилось</em>.</h2>
-      </div>
-      <p class="shead__note">Так будут выглядеть наши кейсы: с&nbsp;периодом, источником цифр и&nbsp;тем, что считаем записью. Пока это пример, данные условные.</p>
-    </div>
-{% for c in cases %}
-    <article class="work reveal">
-      <div class="work__head">
-        <p class="work__meta">{{ loop.index | pad2 }}<span>{{ c.meta | join(' · ') }}</span><span class="tag">пример, данные условные</span></p>
-        <h3 class="work__title">{{ c.title | t | safe }}</h3>
-      </div>
-      <div class="work__text">
-        <p><b>Было.</b> {{ c.was | t | safe }}</p>
-        <p><b>Сделали.</b> {{ c.did | t | safe }}</p>
-        <dl class="work__nums">
-{% for nn in c.nums %}
-          <div><dt>{{ nn[1] }}</dt><dd>{{ nn[0] }}</dd></div>
-{% endfor %}
-        </dl>
-        <p class="work__src">{{ c.src | t | safe }}</p>
-      </div>
-      <figure class="work__pic">
-        {{ chart(c.chart) }}
-        <figcaption>{{ c.chart.label }}. Пример, данные условные</figcaption>
-      </figure>
-    </article>
-{% endfor %}
-    <p class="more-row"><a class="link" href="{{ href('cases') }}">Все примеры работ и&nbsp;кейсы</a></p>
+    {{ b.shead({ label: 'Расчёт', title: 'Что даст тестовый месяц *вашей* клинике.', note: 'Подвиньте ползунки под свой город. Точные цифры по вашей услуге считаем на разборе, по данным Яндекса.' }) }}
+    {{ b.calc() }}
   </div>
 </section>
 
-<!-- ============ 7. КТО ВЕДЁТ ============ -->
-<section class="sec sec--fog" id="team">
-  <div class="wrap team">
-    <div class="team__photo" role="img" aria-label="Место для фото основателя"><span>Здесь будет фото основателя</span></div>
-    <div class="team__text">
+<!-- ============ 5. САЙТ И КАРТЫ ============ -->
+<section class="sec sec--fog" id="site">
+  <div class="wrap">
+    {{ b.shead({ label: 'Сайт и Карты', title: 'Нет сильного сайта? Сделаем его *бесплатно*.', note: 'Для клиник, которые открываются или давно не занимались сайтом и карточками. Сайт входит в стартовый пакет на 3 месяца.' }) }}
+    <div class="pack">
+      <div class="pack__what">
+        <h3 class="pack__h">В первый месяц</h3>
+        <ul class="spec">
+{% for r in site.rows %}
+          <li class="reveal"><h4>{{ r[0] | t | safe }}</h4><p>{{ r[1] | t | safe }}</p>{% if r[2] %}<b>{{ r[2] | t | safe }}</b>{% endif %}</li>
+{% endfor %}
+        </ul>
+      </div>
+      <div class="pack__plan">
+        <h3 class="pack__h">Сколько это стоит</h3>
+        <ol class="plan">
+{% for p in site.plan %}
+          <li class="reveal"><span class="plan__m">{{ p[0] }}</span><b class="plan__sum">{{ p[1] | t | safe }}</b><span class="plan__bar" style="--w: {{ p[3] }}" aria-hidden="true"></span><p>{{ p[2] | t | safe }}</p></li>
+{% endfor %}
+        </ol>
+        <p class="pack__own">Сайт, домен и&nbsp;карточки оформлены на&nbsp;клинику и&nbsp;остаются у&nbsp;вас, даже если мы&nbsp;перестанем работать вместе.</p>
+        <div class="pack__acts">
+          <a href="#start" class="btn" data-magnetic data-pick="site">Получить сайт бесплатно <span class="btn__arr" aria-hidden="true">→</span></a>
+          <a href="{{ href('complex') }}" class="link">Что входит в&nbsp;пакет</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. КТО ВЕДЁТ ============ -->
+<section class="sec" id="team">
+  <div class="wrap lead2">
+    <div class="lead2__main">
       <p class="label">Кто ведёт</p>
-      <h2 class="h2">Ваш проект ведёт тот, с&nbsp;кем вы&nbsp;<em>договаривались</em>.</h2>
-      <p class="lead">Илья Сорокин, основатель МедВектора, лично ведёт запуск каждого направления: разбор, оффер, лендинг и&nbsp;первый отчёт. Дальше подключается команда по&nbsp;ролям.</p>
+      <h2 class="h2">Вашу клинику ведёт <em>основатель</em> агентства.</h2>
+      <p class="lead">Илья Сорокин сам разбирает клинику, согласует с&nbsp;вами цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт. Кампании ведёт директолог, страницы собирает разработчик, карточками занимается специалист по&nbsp;Картам.</p>
       <dl class="facts">
         <div><dt>в&nbsp;маркетинге, из&nbsp;них 5–6 в&nbsp;медицине</dt><dd><span data-count="8">8</span> лет</dd></div>
-        <div><dt>клиник в&nbsp;опыте команды</dt><dd><span data-count="50">50</span>+</dd></div>
-        <div><dt>ниша: только стоматологии</dt><dd><span data-count="1">1</span></dd></div>
+        <div><dt>клиник вели за&nbsp;это время</dt><dd><span data-count="50">50</span>+</dd></div>
       </dl>
-      <ul class="plist roles">
-        <li><span><b>Директолог</b> кампании, чистка запросов, отчёт</span></li>
-        <li><span><b>SEO-специалист</b> структура сайта, страницы и&nbsp;статьи</span></li>
-        <li><span><b>Специалист по&nbsp;Картам</b> карточки, площадки, отзывы</span></li>
-        <li><span><b>Разработчик</b> сайты, лендинги, формы и&nbsp;учёт</span></li>
+    </div>
+    <div class="lead2__side">
+      <h3 class="pack__h">В договоре записано</h3>
+      <ul class="plist plist--lg">
+{% for c in contract %}
+        <li class="reveal"><span>{{ c | t | safe }}</span></li>
+{% endfor %}
       </ul>
       <p><a class="link" href="{{ href('about') }}">О нас и&nbsp;контакты</a></p>
     </div>
   </div>
 </section>
 
-<!-- ============ 8. ВОПРОСЫ: крупный аккордеон ============ -->
-<section class="sec" id="faq">
+<!-- ============ 7. ПРИМЕРЫ ============ -->
+<section class="sec sec--fog" id="works">
   <div class="wrap">
-    <div class="shead">
-      <div>
-        <p class="label">Вопросы</p>
-        <h2 class="h2">Что спрашивают владельцы <em>клиник</em>.</h2>
-      </div>
-      <p class="shead__note">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
-    </div>
-    <div class="qa">
-{% for f in faq %}
-      <details class="qa__item"{% if loop.first %} open{% endif %}>
-        <summary><span class="qa__n" aria-hidden="true">{{ loop.index | pad2 }}</span><span class="qa__q">{{ f.q | t | safe }}</span><span class="qa__ic" aria-hidden="true"></span></summary>
-        <div class="qa__a"><p>{{ f.a | t | safe }}</p></div>
-      </details>
+    {{ b.shead({ label: 'Примеры', title: 'Что вы получаете на&nbsp;руки.', note: 'Первые кейсы с цифрами опубликуем после тестовых месяцев, с согласия клиник. Пока показываем образцы для вымышленной клиники.' }) }}
+    <div class="tiles">
+{% for w in works %}
+      <a class="tile reveal" href="{{ href('cases') }}">
+        <span class="tile__pic">{% if w.art == 'phone' %}{{ b.a_phone('allon4') }}{% elif w.art == 'map' %}{{ b.a_map() }}{% else %}<span class="art art--mini" aria-hidden="true"><span class="art__top">Отчёт за неделю<span>образец</span></span><span class="mini__kpi"><b>9</b>заявок</span><span class="mini__kpi"><b>4</b>записи</span><span class="mini__kpi"><b>9&nbsp;375&nbsp;₽</b>цена записи</span></span>{% endif %}</span>
+        <span class="tile__t">{{ w.title | t | safe }}</span>
+        <span class="tile__p">{{ w.text | t | safe }}</span>
+      </a>
 {% endfor %}
     </div>
+    <p class="more-row"><a class="link" href="{{ href('cases') }}">Все примеры работ</a></p>
+  </div>
+</section>
+
+<!-- ============ 8. ВОПРОСЫ: на широком экране колесо, на телефоне список ============ -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    {{ b.shead({ label: 'Вопросы', title: 'Что владельцы клиник спрашивают до *старта*.', note: 'Не нашли ответ? Задайте вопрос в заявке, ответим в рабочее время.' }) }}
+    {{ b.qa(faq, true) }}
   </div>
 </section>
 
 <!-- ============ 9. ФИНАЛ: тёмный экран с формой, линия заканчивается у кнопки ============ -->
-<section class="dark sheet start" id="start" data-dark>
-  <div class="wrap">
-    <h2 class="h2 start__title">Оставьте заявку: разберём клинику и&nbsp;посчитаем <em>запуск</em>.</h2>
-    <div class="start__grid">
-      <div class="start__text">
-        <p class="lead">За&nbsp;2&nbsp;рабочих дня посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;теста Директа или с&nbsp;сайта и&nbsp;Карт.</p>
-        <ul class="plist">
-          <li>Тест Директа: 0&nbsp;₽ за&nbsp;нашу работу, вы&nbsp;платите только бюджет Яндексу</li>
-          <li>Сайт под&nbsp;ключ: 0&nbsp;₽ при старте комплексного маркетинга на&nbsp;3&nbsp;месяца</li>
-          <li>Если реклама пока не&nbsp;окупится, скажем об&nbsp;этом сразу</li>
-        </ul>
-        <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время, уточним задачу и&nbsp;назовём срок разбора.</p>
-      </div>
-      <form class="form" novalidate action="#" aria-label="Заявка">
-        <fieldset class="form__choice">
-          <legend>Что хотите запустить</legend>
-          <div class="form__opts">
-            <label class="form__opt"><input type="radio" name="service" value="direct" checked><span>Тест Директа</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="site"><span>Сайт и&nbsp;Карты</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="unsure"><span>Пока не&nbsp;знаю</span></label>
-          </div>
-        </fieldset>
-        <label class="fld form__dir"><span>Направление</span>
-          <select name="direction">
-            <option value="all-on-4">All-on-4, полное восстановление</option>
-            <option value="implant">Имплантация</option>
-            <option value="running">Реклама уже идёт, нужен разбор</option>
-            <option value="other">Другое направление</option>
-          </select>
-        </label>
-        <div class="form__row">
-          <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
-          <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
-        </div>
-        <div class="form__row">
-          <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
-          <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
-        </div>
-        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="{{ href('consent') }}">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="{{ href('policy') }}">политики</a></span></label>
-        <div class="form__send">
-          <p class="form__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
-          <button class="btn btn--light" type="submit" data-vend data-magnetic>Отправить заявку <span class="btn__arr" aria-hidden="true">→</span></button>
-        </div>
-        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
-      </form>
-    </div>
-  </div>
-</section>
+{{ b.start() }}
 {% endblock %}

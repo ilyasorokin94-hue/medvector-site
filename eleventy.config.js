@@ -36,10 +36,10 @@ const glue = s => s
   .replace(/(?<=^|[\s(«"„>;])(?!(?:ли|же|бы|б|ж) )([А-Яа-яЁё]{1,2}) (?=\S)/g, '$1&nbsp;')
   .replace(/ (—|–) /g, '&nbsp;$1 ');
 // «All-on-4», «чего-то», «какой-нибудь» не рвутся на дефисе
-// **так** в тексте страницы выделяет слова полужирным
-const typo = s => (s == null ? '' : glue(esc(s)).replace(/All-on-\d|[А-Яа-яЁё]+-(?:то|либо|нибудь|таки)(?![А-Яа-яЁё])/g, '<span class="nw">$&</span>').replace(/\*\*(.+?)\*\*/g, '<b>$1</b>'));
+// **так** в тексте страницы выделяет слова полужирным, *так* курсивом с засечками (акцент в заголовке)
+const typo = s => (s == null ? '' : glue(esc(s)).replace(/All-on-\d|[А-Яа-яЁё]+-(?:то|либо|нибудь|таки)(?![А-Яа-яЁё])/g, '<span class="nw">$&</span>').replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\*(.+?)\*/g, '<em>$1</em>'));
 // Тот же текст без разметки: для JSON-LD и атрибутов.
-const plain = s => String(s == null ? '' : s).replace(/<[^>]+>/g, '').replace(/\*\*/g, '').replace(/&nbsp;/g, ' ').replace(/ /g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+const plain = s => String(s == null ? '' : s).replace(/<[^>]+>/g, '').replace(/\*/g, '').replace(/&nbsp;/g, ' ').replace(/ /g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
 
 // Разметка schema.org внутренней страницы: сама страница, хлебные крошки, услуга и вопросы (те же, что видны в тексте).
 const jsonld = (site, page, title, description, crumbs, service, faq) => {
