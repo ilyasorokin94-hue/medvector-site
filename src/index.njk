@@ -4,6 +4,8 @@ description: "Яндекс Директ, сайты и Яндекс Карты �
 ogTitle: "МедВектор: маркетинг только для стоматологий"
 permalink: /
 home: true
+design: trajectory
+mctaText: "Запустить тест бесплатно"
 
 services:
   - key: direct
@@ -61,14 +63,6 @@ principles:
     title: "Считаем записи, а не клики"
     text: "В отчёте заявки, записи и их цена. Визиты и выручку показываем, если клиника отмечает их в CRM."
 
-examples:
-  - { pic: landing, label: "Лендинг · All-on-4", title: "Лендинг полного восстановления", text: "Метод простым языком, врач, этапы, цена и запись на консультацию.", kind: direct }
-  - { pic: phone, variant: implant, label: "Лендинг · имплантация", title: "Имплантация с ценой по этапам", text: "Имплант, формирователь и коронка: пациент видит полную цену.", kind: direct }
-  - { pic: site, label: "Сайт клиники", title: "Сайт стоматологии под ключ", text: "Страница на каждую услугу, врачи с документами, цены и онлайн-запись.", kind: site }
-  - { pic: phone, variant: site, label: "Сайт · мобильная версия", title: "Сайт, удобный с телефона", text: "Большинство пациентов открывает сайт с телефона. Запись в два касания.", kind: site }
-  - { pic: map, label: "Яндекс Карты", title: "Карточка клиники на Картах", text: "Услуги и цены, врачи, фото, ответы на отзывы и кнопка записи.", kind: maps }
-  - { pic: map, label: "2ГИС и ПроДокторов", title: "Площадки в одном стиле", text: "Те же цены, врачи и фото, что на сайте и в Картах.", kind: maps }
-
 cases:
   - meta: ["Яндекс Директ", "All-on-4"]
     title: "All-on-4 в городе-миллионнике: записи на консультацию за 3 месяца"
@@ -77,6 +71,7 @@ cases:
     nums: [["48", "записей на консультацию"], ["3 мес.", "период"]]
     src: "В настоящем кейсе здесь будут период, источник цифр и определение записи."
     kind: direct
+    chart: { label: "Записи на консультацию по неделям", from: "1 неделя", to: "12 неделя", pts: [1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7] }
   - meta: ["Сайт и Карты", "новая клиника"]
     title: "Новая клиника: сайт и карточка за первый месяц"
     was: "Клиника открылась, сайта нет, карточка на Картах пустая, отзывов мало."
@@ -84,6 +79,7 @@ cases:
     nums: [["×2", "звонков из карточки"], ["4,8", "рейтинг на Картах"]]
     src: "В настоящем кейсе здесь будут период, источник цифр и скриншоты до и после."
     kind: site maps
+    chart: { label: "Звонки из карточки по месяцам", from: "до старта", to: "3 месяц", pts: [18, 22, 29, 36] }
   - meta: ["Яндекс Директ", "имплантация"]
     title: "Имплантация: дешевле заявка после чистки запросов"
     was: "Показы на весь город, треть бюджета уходила на запросы без намерения лечиться."
@@ -91,6 +87,7 @@ cases:
     nums: [["−30%", "цена заявки"], ["2 мес.", "период"]]
     src: "В настоящем кейсе здесь будут период, источник цифр и определение заявки."
     kind: direct
+    chart: { label: "Цена заявки по неделям, ₽", from: "1 неделя", to: "8 неделя", pts: [3900, 3750, 3500, 3300, 3100, 2950, 2800, 2730], down: true }
 
 steps:
   - title: "Заявка"
@@ -118,169 +115,286 @@ faq:
 ---
 {% extends "base.njk" %}
 
+
+{% macro chart(c) %}
+{%- set lo = (c.pts | sort) | first -%}{%- set hi = (c.pts | sort) | last -%}
+{%- set n = c.pts | length -%}
+<svg class="chart" viewBox="0 0 1200 440" role="img" aria-label="{{ c.label }}: {{ c.pts | join(', ') }}. Пример, данные условные">
+  <g class="chart__grid" aria-hidden="true">
+{% for k in [0, 1, 2, 3] %}
+    <line x1="40" x2="1160" y1="{{ 60 + k * 100 }}" y2="{{ 60 + k * 100 }}"/>
+{% endfor %}
+  </g>
+  <path class="chart__line" pathLength="1" d="{% for v in c.pts %}{{ 'M' if loop.first else 'L' }}{{ (40 + loop.index0 * 1120 / (n - 1)) | round(1) }} {{ (360 - (v - lo) / (hi - lo) * 280) | round(1) }} {% endfor %}"/>
+{% for v in c.pts %}
+  {%- set x = (40 + loop.index0 * 1120 / (n - 1)) | round(1) -%}{%- set y = (360 - (v - lo) / (hi - lo) * 280) | round(1) %}
+  <path class="chart__pt" style="--i: {{ loop.index0 }}" d="M{{ x - 9 }} {{ y }}h18M{{ x }} {{ y - 9 }}v18"/>
+{% endfor %}
+  <text class="chart__ax" x="40" y="420">{{ c.from }}</text>
+  <text class="chart__ax" x="1160" y="420" text-anchor="end">{{ c.to }}</text>
+</svg>
+{% endmacro %}
+
 {% block main %}
-{% import "blocks.njk" as b %}
-<!-- ============ 1. ПЕРВЫЙ ЭКРАН ============ -->
+<!-- ============ 1. ПЕРВЫЙ ЭКРАН: заголовок лесенкой, из его стрелки начинается линия-вектор ============ -->
 <section class="hero" id="intro">
-  <div class="wrap hero__grid">
-    <div class="hero__text">
-      <p class="eyebrow">Маркетинг только для стоматологий</p>
-      <h1 class="h1">Яндекс Директ, сайты и&nbsp;Яндекс Карты для стоматологий. <em>Начать можно бесплатно</em></h1>
-      <p class="hero__sub">Тестовый месяц рекламы <b>без оплаты нашей работы</b> или сайт под ключ <b>бесплатно</b> при старте на&nbsp;3&nbsp;месяца. Условия и&nbsp;цены видны сразу, до&nbsp;разговора с&nbsp;менеджером.</p>
-      <div class="btns">
-        <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить тест Директа <i aria-hidden="true">→</i></a>
-        <a href="#start" class="btn btn--ghost" data-pick="site">Получить сайт бесплатно</a>
+  <div class="wrap">
+    <p class="label hero__label">Маркетинг только для стоматологий</p>
+    <h1 class="h1 hero__title">
+      <span class="ln">Яндекс Директ, сайты</span>
+      <span class="ln ln--in">и&nbsp;Яндекс Карты<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></span>
+      <span class="ln">для&nbsp;стоматологий.</span>
+      <span class="ln ln--in2">Начать <em>бесплатно</em>.</span>
+    </h1>
+    <div class="hero__foot">
+      <p class="hero__sub">Тестовый месяц рекламы без оплаты нашей работы или сайт под&nbsp;ключ бесплатно при старте на&nbsp;3&nbsp;месяца. Условия и&nbsp;цены видны сразу, до&nbsp;разговора с&nbsp;менеджером.</p>
+      <div class="hero__acts">
+        <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить тест бесплатно <span class="btn__arr" aria-hidden="true">→</span></a>
+        <a href="#start" class="link" data-pick="site">Получить сайт бесплатно</a>
       </div>
-      <p class="plaque">Честная цена: старт бесплатно</p>
     </div>
-    {{ b.art() }}
   </div>
 </section>
 
-<!-- ============ 2. ДВЕ УСЛУГИ И ИХ УСЛОВИЯ ============ -->
-<section class="section section--alt" id="services">
+<!-- ============ 2. ТЁМНЫЙ ЭКРАН: одна фраза и две услуги ============ -->
+<section class="dark sheet" id="services" data-dark>
   <div class="wrap">
-    {{ b.head({ eyebrow: 'Две услуги', title: 'Реклама или основа. У каждой свои условия и свой бесплатный вход.', lead: 'Цены и условия видны сразу. Всё подробное на странице услуги.' }) }}
-    <div class="offers">
+    <p class="statement" data-fill>Клик ничего не&nbsp;значит, пока пациент не&nbsp;<em>записался</em>. Поэтому мы&nbsp;ведём каждое направление до&nbsp;записи и&nbsp;показываем, сколько она стоит.</p>
+    <div class="shead shead--dark">
+      <div>
+        <p class="label">Две услуги</p>
+        <h2 class="h2">Реклама или основа. У&nbsp;каждой свой бесплатный вход.</h2>
+      </div>
+      <p class="shead__note">Цены и&nbsp;условия видны сразу. Всё подробное на&nbsp;странице услуги, все условия повторяем в&nbsp;договоре.</p>
+    </div>
+    <div class="svc">
 {% for s in services %}
-      <article class="offer offer--{{ s.kind }} reveal">
-        <div class="offer__top">
-          <p class="offer__kicker">{{ s.kicker }}</p>
-          <h3 class="offer__title">{{ s.title | t | safe }}</h3>
-          <p class="offer__for">{{ s.for | t | safe }}</p>
-          <p class="offer__free"><b>0&nbsp;₽</b><span>{{ s.free | t | safe }}</span></p>
-        </div>
-        <dl class="offer__rows">
+      <article class="svc__card reveal">
+        <svg class="svc__vec" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 20H586M572 8l14 12-14 12"/></svg>
+        <p class="svc__n">{{ loop.index | pad2 }}<span>{{ s.kicker }}</span></p>
+        <h3 class="svc__title">{{ s.title | t | safe }}</h3>
+        <p class="svc__for">{{ s.for | t | safe }}</p>
+        <p class="svc__free"><b>0&nbsp;₽</b><span>{{ s.free | t | safe }}</span></p>
+        <dl class="svc__rows">
 {% for r in s.rows %}
-          <div class="offer__row"><dt>{{ r[0] }}</dt><dd>{{ r[1] | t | safe }}</dd></div>
+          <div><dt>{{ r[0] }}</dt><dd>{{ r[1] | t | safe }}</dd></div>
 {% endfor %}
         </dl>
-        <div class="offer__btns">
-          <a href="#start" class="btn" data-pick="{{ 'direct' if s.key == 'direct' else 'site' }}">{{ s.cta }} <i aria-hidden="true">→</i></a>
-          <a href="{{ href(s.key) }}" class="more">{{ s.more }}</a>
+        <div class="svc__acts">
+          <a href="#start" class="btn btn--line" data-pick="{{ 'direct' if s.key == 'direct' else 'site' }}">{{ s.cta }} <span class="btn__arr" aria-hidden="true">→</span></a>
+          <a href="{{ href(s.key) }}" class="link link--light">{{ s.more }}</a>
         </div>
       </article>
 {% endfor %}
     </div>
-    <p class="offers__foot">Стоимость ведения Директа после теста называем на разборе. Все условия повторяем в&nbsp;договоре.</p>
+    <p class="svc__foot">Стоимость ведения Директа после теста называем на&nbsp;разборе.</p>
   </div>
 </section>
 
-<!-- ============ 3. ЧТО ВЫБРАТЬ ============ -->
-<section class="section" id="choose">
+<!-- ============ 3. ЧТО ВЫБРАТЬ: строки ============ -->
+<section class="sec sheet" id="choose">
   <div class="wrap">
-    {{ b.head({ eyebrow: 'Что выбрать', title: 'С чего начать вашей клинике.', lead: 'Три ситуации, с которыми к нам приходят чаще всего. Если не уверены, разберём клинику и подскажем.' }) }}
-    <div class="choose">
+    <div class="shead">
+      <div>
+        <p class="label">Что выбрать</p>
+        <h2 class="h2">С чего начать вашей <em>клинике</em>.</h2>
+      </div>
+      <p class="shead__note">Три ситуации, с&nbsp;которыми к&nbsp;нам приходят чаще всего. Если не&nbsp;уверены, разберём клинику и&nbsp;подскажем.</p>
+    </div>
+    <div class="rows">
 {% for c in choose %}
-      <a class="choose__row reveal" href="{{ '#start' if c.to == 'start' else href(c.to) }}"{% if c.to == 'start' %} data-pick="unsure"{% endif %}>
-        <p class="choose__if"><small>Если</small>{{ c.if | t | safe }}</p>
-        <span class="choose__arrow" aria-hidden="true">→</span>
-        <p class="choose__then">{{ c.then | t | safe }}<small>{{ c.note | t | safe }}</small></p>
+      <a class="row reveal" href="{{ '#start' if c.to == 'start' else href(c.to) }}"{% if c.to == 'start' %} data-pick="unsure"{% endif %}>
+        <span class="row__n">{{ loop.index | pad2 }}</span>
+        <span class="row__if"><small>Если</small>{{ c.if | t | safe }}</span>
+        <span class="row__then">{{ c.then | t | safe }}<small>{{ c.note | t | safe }}</small></span>
+        <span class="row__go" aria-hidden="true">→</span>
       </a>
 {% endfor %}
     </div>
   </div>
 </section>
 
-<!-- ============ 4. КАК МЫ РАБОТАЕМ ============ -->
-<section class="section section--alt" id="principles">
+<!-- ============ 4. КАК НАЧИНАЕМ: линия проходит через четыре шага ============ -->
+<section class="sec" id="how">
   <div class="wrap">
-    {{ b.head({ eyebrow: 'Как мы работаем', title: 'Четыре правила, которые не меняются.' }) }}
-    <div class="princ">
-{% for p in principles %}
-      <article class="card reveal">
-        <span class="princ__icon" aria-hidden="true">
-{% if p.icon == 'tooth' %}<svg viewBox="0 0 24 24"><path d="M7.5 3.5c-2.4 0-4 1.8-4 4.4 0 2.3 1 3.6 1.6 5.4.7 2.2.8 7.2 2.6 7.2 1.6 0 1.4-4.6 2.6-5.6.5-.4 1-.4 1.4 0 1.2 1 1 5.6 2.6 5.6 1.8 0 1.9-5 2.6-7.2.6-1.8 1.6-3.1 1.6-5.4 0-2.6-1.6-4.4-4-4.4-1.6 0-2.4.9-4.4.9s-2.8-.9-4.4-.9Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-{% elif p.icon == 'shield' %}<svg viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.2 7.5 9.5 4.3-1.3 7.5-4.9 7.5-9.5V6L12 3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
-{% elif p.icon == 'key' %}<svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m11.2 11.8 8.3-8.3M16.5 6.5l2.5 2.5M14 9l2 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-{% else %}<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
-{% endif %}
-        </span>
-        <h3>{{ p.title | t | safe }}</h3>
-        <p>{{ p.text | t | safe }}</p>
-      </article>
-{% endfor %}
-    </div>
-  </div>
-</section>
-
-<!-- ============ 5. ПРИМЕРЫ РАБОТ ============ -->
-<section class="section" id="examples">
-  <div class="wrap">
-    <div class="head-row">
-      {{ b.head({ eyebrow: 'Примеры работ', title: 'Как выглядит то, что мы делаем.', lead: 'Лендинги, сайты и карточки на Картах. Пока здесь демо-макеты для вымышленной клиники, настоящие работы появятся с согласия клиник.' }) }}
-      <div class="strip__nav" data-strip-nav="examples-strip">
-        <button type="button" class="strip__btn" data-dir="-1" aria-label="Предыдущие примеры">←</button>
-        <button type="button" class="strip__btn" data-dir="1" aria-label="Следующие примеры">→</button>
+    <div class="shead">
+      <div>
+        <p class="label">Как начинаем</p>
+        <h2 class="h2">От заявки до&nbsp;первого отчёта.</h2>
       </div>
+      <p class="shead__note">Рекламу запускаем за&nbsp;7&nbsp;рабочих дней после получения доступов и&nbsp;согласования оффера.</p>
     </div>
-    <div class="strip" id="examples-strip" data-strip tabindex="0" aria-label="Примеры работ, листаются в сторону">
-{% for e in examples %}
-      {{ b.ex(e, false) }}
-{% endfor %}
-    </div>
-    <p><a class="more" href="{{ href('cases') }}">Все примеры и кейсы</a></p>
-  </div>
-</section>
-
-<!-- ============ 6. КЕЙСЫ ============ -->
-<section class="section section--alt" id="cases">
-  <div class="wrap">
-    {{ b.head({ eyebrow: 'Кейсы', title: 'Что было, что сделали, что изменилось.', lead: 'Так будут выглядеть наши кейсы: с периодом, источником цифр и тем, что считаем записью. Пока цифры условные.' }) }}
-    <div class="cases">
-{% for c in cases %}
-      {{ b.casecard(c) }}
-{% endfor %}
-    </div>
-  </div>
-</section>
-
-<!-- ============ 7. КАК НАЧИНАЕМ ============ -->
-<section class="section" id="how">
-  <div class="wrap">
-    {{ b.head({ eyebrow: 'Как начинаем', title: 'От заявки до первого отчёта.' }) }}
-    <ol class="steps4">
+    <ol class="steps">
 {% for s in steps %}
-      <li class="reveal"><div><h3>{{ s.title | t | safe }}</h3><p>{{ s.text | t | safe }}</p></div></li>
+      <li class="step reveal">
+        <span class="step__dot" data-vpoint aria-hidden="true"></span>
+        <span class="step__n">{{ loop.index | pad2 }}</span>
+        <h3 class="h3">{{ s.title | t | safe }}</h3>
+        <p>{{ s.text | t | safe }}</p>
+      </li>
 {% endfor %}
     </ol>
   </div>
 </section>
 
-<!-- ============ 8. КТО ВЕДЁТ ============ -->
-{{ b.team({ alt: true, title: 'Ваш проект ведёт тот, с кем вы договаривались.', lead: 'Основатель лично ведёт запуск каждого направления: разбор, оффер, лендинг и первый отчёт. Дальше подключается команда по ролям.', more: 'О нас и контакты' }) }}
-
-<!-- ============ 9. ВОПРОСЫ: КОЛЕСО ============ -->
-<section class="section faq" id="faq">
-  <div class="wrap faq__grid">
-    <div class="faq__left">
-      <p class="eyebrow">Вопросы</p>
-      <h2 class="h2">Что спрашивают владельцы клиник.</h2>
-      <p class="faq__hint">Нажмите на вопрос на колесе.</p>
-      <div class="faq__answer">
-        <p class="faq__label">Ответ</p>
-        <p class="faq__q"></p>
-        <p class="faq__text" aria-live="polite"></p>
+<!-- ============ 5. КРУГ: растёт до тёмного экрана, внутри принципы ============ -->
+<section class="circle" id="principles" aria-labelledby="principles-title">
+  <div class="circle__track">
+    <div class="circle__stage">
+      <span class="circle__disc" aria-hidden="true"></span>
+      <div class="circle__in">
+        <p class="label">Как мы работаем</p>
+        <h2 class="h2" id="principles-title">Четыре правила, которые <em>не&nbsp;меняются</em>.</h2>
       </div>
-      <dl class="faq__list">
-{% for f in faq %}
-        <div><dt>{{ f.q | t | safe }}</dt><dd>{{ f.a | t | safe }}</dd></div>
-{% endfor %}
-      </dl>
     </div>
-    <div class="wheel-box">
-      <div class="wheel-wrap">
-        <div class="wheel" role="tablist" aria-label="Частые вопросы"></div>
-        <span class="wheel__hub" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19 19 5M10 5h9v9" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </div>
-      <div class="wheel-nav">
-        <button type="button" class="wheel-nav__btn" data-step="-1" aria-label="Предыдущий вопрос">←</button>
-        <span class="wheel-nav__count"><b>1</b> / {{ faq.length }}</span>
-        <button type="button" class="wheel-nav__btn" data-step="1" aria-label="Следующий вопрос">→</button>
+  </div>
+  <div class="dark circle__body" data-dark>
+    <div class="wrap">
+      <ol class="princ">
+{% for p in principles %}
+        <li class="reveal"><h3 class="h3">{{ p.title | t | safe }}</h3><p>{{ p.text | t | safe }}</p></li>
+{% endfor %}
+      </ol>
+    </div>
+    <p class="sr">Инструменты: Яндекс Директ, Метрика, Яндекс Карты, 2ГИС, ПроДокторов.</p>
+    <div class="marquee">
+      <div class="marquee__in" aria-hidden="true">
+{% for k in [1, 2] %}
+        <span>Яндекс Директ</span><span>Метрика</span><span>Яндекс Карты</span><span>2ГИС</span><span>ПроДокторов</span>
+{% endfor %}
       </div>
     </div>
   </div>
 </section>
 
-{{ b.start() }}
+<!-- ============ 6. КЕЙСЫ: заголовок слева, описание справа, график на всю ширину ============ -->
+<section class="sec sheet" id="cases">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <p class="label">Кейсы</p>
+        <h2 class="h2">Что было, что сделали, что <em>изменилось</em>.</h2>
+      </div>
+      <p class="shead__note">Так будут выглядеть наши кейсы: с&nbsp;периодом, источником цифр и&nbsp;тем, что считаем записью. Пока это пример, данные условные.</p>
+    </div>
+{% for c in cases %}
+    <article class="work reveal">
+      <div class="work__head">
+        <p class="work__meta">{{ loop.index | pad2 }}<span>{{ c.meta | join(' · ') }}</span><span class="tag">пример, данные условные</span></p>
+        <h3 class="work__title">{{ c.title | t | safe }}</h3>
+      </div>
+      <div class="work__text">
+        <p><b>Было.</b> {{ c.was | t | safe }}</p>
+        <p><b>Сделали.</b> {{ c.did | t | safe }}</p>
+        <dl class="work__nums">
+{% for nn in c.nums %}
+          <div><dt>{{ nn[1] }}</dt><dd>{{ nn[0] }}</dd></div>
+{% endfor %}
+        </dl>
+        <p class="work__src">{{ c.src | t | safe }}</p>
+      </div>
+      <figure class="work__pic">
+        {{ chart(c.chart) }}
+        <figcaption>{{ c.chart.label }}. Пример, данные условные</figcaption>
+      </figure>
+    </article>
+{% endfor %}
+    <p class="more-row"><a class="link" href="{{ href('cases') }}">Все примеры работ и&nbsp;кейсы</a></p>
+  </div>
+</section>
+
+<!-- ============ 7. КТО ВЕДЁТ ============ -->
+<section class="sec sec--fog" id="team">
+  <div class="wrap team">
+    <div class="team__photo" role="img" aria-label="Место для фото основателя"><span>Здесь будет фото основателя</span></div>
+    <div class="team__text">
+      <p class="label">Кто ведёт</p>
+      <h2 class="h2">Ваш проект ведёт тот, с&nbsp;кем вы&nbsp;<em>договаривались</em>.</h2>
+      <p class="lead">Илья Сорокин, основатель МедВектора, лично ведёт запуск каждого направления: разбор, оффер, лендинг и&nbsp;первый отчёт. Дальше подключается команда по&nbsp;ролям.</p>
+      <dl class="facts">
+        <div><dt>в&nbsp;маркетинге, из&nbsp;них 5–6 в&nbsp;медицине</dt><dd><span data-count="8">8</span> лет</dd></div>
+        <div><dt>клиник в&nbsp;опыте команды</dt><dd><span data-count="50">50</span>+</dd></div>
+        <div><dt>ниша: только стоматологии</dt><dd><span data-count="1">1</span></dd></div>
+      </dl>
+      <ul class="plist roles">
+        <li><span><b>Директолог</b> кампании, чистка запросов, отчёт</span></li>
+        <li><span><b>SEO-специалист</b> структура сайта, страницы и&nbsp;статьи</span></li>
+        <li><span><b>Специалист по&nbsp;Картам</b> карточки, площадки, отзывы</span></li>
+        <li><span><b>Разработчик</b> сайты, лендинги, формы и&nbsp;учёт</span></li>
+      </ul>
+      <p><a class="link" href="{{ href('about') }}">О нас и&nbsp;контакты</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. ВОПРОСЫ: крупный аккордеон ============ -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="shead">
+      <div>
+        <p class="label">Вопросы</p>
+        <h2 class="h2">Что спрашивают владельцы <em>клиник</em>.</h2>
+      </div>
+      <p class="shead__note">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
+    </div>
+    <div class="qa">
+{% for f in faq %}
+      <details class="qa__item"{% if loop.first %} open{% endif %}>
+        <summary><span class="qa__n" aria-hidden="true">{{ loop.index | pad2 }}</span><span class="qa__q">{{ f.q | t | safe }}</span><span class="qa__ic" aria-hidden="true"></span></summary>
+        <div class="qa__a"><p>{{ f.a | t | safe }}</p></div>
+      </details>
+{% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. ФИНАЛ: тёмный экран с формой, линия заканчивается у кнопки ============ -->
+<section class="dark sheet start" id="start" data-dark>
+  <div class="wrap">
+    <h2 class="h2 start__title">Оставьте заявку: разберём клинику и&nbsp;посчитаем <em>запуск</em>.</h2>
+    <div class="start__grid">
+      <div class="start__text">
+        <p class="lead">За&nbsp;2&nbsp;рабочих дня посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;теста Директа или с&nbsp;сайта и&nbsp;Карт.</p>
+        <ul class="plist">
+          <li>Тест Директа: 0&nbsp;₽ за&nbsp;нашу работу, вы&nbsp;платите только бюджет Яндексу</li>
+          <li>Сайт под&nbsp;ключ: 0&nbsp;₽ при старте комплексного маркетинга на&nbsp;3&nbsp;месяца</li>
+          <li>Если реклама пока не&nbsp;окупится, скажем об&nbsp;этом сразу</li>
+        </ul>
+        <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время, уточним задачу и&nbsp;назовём срок разбора.</p>
+      </div>
+      <form class="form" novalidate action="#" aria-label="Заявка">
+        <fieldset class="form__choice">
+          <legend>Что хотите запустить</legend>
+          <div class="form__opts">
+            <label class="form__opt"><input type="radio" name="service" value="direct" checked><span>Тест Директа</span></label>
+            <label class="form__opt"><input type="radio" name="service" value="site"><span>Сайт и&nbsp;Карты</span></label>
+            <label class="form__opt"><input type="radio" name="service" value="unsure"><span>Пока не&nbsp;знаю</span></label>
+          </div>
+        </fieldset>
+        <label class="fld form__dir"><span>Направление</span>
+          <select name="direction">
+            <option value="all-on-4">All-on-4, полное восстановление</option>
+            <option value="implant">Имплантация</option>
+            <option value="running">Реклама уже идёт, нужен разбор</option>
+            <option value="other">Другое направление</option>
+          </select>
+        </label>
+        <div class="form__row">
+          <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
+          <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
+        </div>
+        <div class="form__row">
+          <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
+          <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
+        </div>
+        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="{{ href('consent') }}">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="{{ href('policy') }}">политики</a></span></label>
+        <div class="form__send">
+          <p class="form__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
+          <button class="btn btn--light" type="submit" data-vend data-magnetic>Отправить заявку <span class="btn__arr" aria-hidden="true">→</span></button>
+        </div>
+        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
+      </form>
+    </div>
+  </div>
+</section>
 {% endblock %}

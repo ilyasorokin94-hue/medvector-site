@@ -15,7 +15,7 @@ const chromeOpts = CHROME ? { executablePath: CHROME } : {};
 
 // страницы сайта: адрес, есть ли форма заявки, ожидаемые интерактивные блоки
 const PAGES = [
-  { url: '/', form: true, wheel: true },
+  { url: '/', form: true },
   { url: '/yandex-direkt/', form: true, tabs: true, anchors: true },
   { url: '/kompleksnyj-marketing/', form: true, anchors: true },
   { url: '/kejsy/', form: true, filter: true },
@@ -70,7 +70,7 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
       ids: [...document.querySelectorAll('[id]')].map(e => e.id),
       hashLinks: [...document.querySelectorAll('a[href^="#"]')].map(a => a.getAttribute('href')).filter(h => h.length > 1),
       links: [...document.querySelectorAll('a[href]')].map(a => a.href).filter(h => h.startsWith(location.origin)),
-      faqVisible: [...document.querySelectorAll('.qa__item summary, .faq__list dt')].map(e => e.textContent),
+      faqVisible: [...document.querySelectorAll('.qa__item summary .qa__q, .qa__item summary:not(:has(.qa__q)), .faq__list dt')].map(e => e.textContent),
     }));
     log(g, 'ровно один H1', seo.h1 === 1, `H1: ${seo.h1}`);
     log(g, 'title 20–80 знаков', seo.title.length >= 20 && seo.title.length <= 80, `${seo.title.length}: ${seo.title}`);
@@ -144,13 +144,15 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
   {
     const ctx = await chromium.newContext({ ...devices['Pixel 7'] });
     const page = await ctx.newPage();
-    await open(page, '/yandex-direkt/');
-    await page.click('.burger');
-    await page.waitForTimeout(400);
-    const menuOpen = await page.evaluate(() => document.querySelector('#mnav').classList.contains('is-open') && !document.querySelector('#mnav').inert);
-    log('Интерактив', 'мобильное меню открывается', menuOpen);
-    await page.keyboard.press('Escape'); await page.waitForTimeout(400);
-    log('Интерактив', 'меню закрывается по Escape', await page.evaluate(() => !document.querySelector('#mnav').classList.contains('is-open') && document.querySelector('#mnav').inert));
+    for (const u of ['/', '/yandex-direkt/']) {
+      await open(page, u);
+      await page.click('.burger');
+      await page.waitForTimeout(400);
+      const menuOpen = await page.evaluate(() => document.querySelector('#mnav').classList.contains('is-open') && !document.querySelector('#mnav').inert);
+      log('Интерактив', `${u}: мобильное меню открывается`, menuOpen);
+      await page.keyboard.press('Escape'); await page.waitForTimeout(400);
+      log('Интерактив', `${u}: меню закрывается по Escape`, await page.evaluate(() => !document.querySelector('#mnav').classList.contains('is-open') && document.querySelector('#mnav').inert));
+    }
     await ctx.close();
   }
   {
@@ -185,13 +187,13 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
     await open(page, '/kejsy/');
     await page.click('.filter button[data-kind="maps"]');
     log('Интерактив', 'фильтр «Карты» оставляет только карточки Карт', await page.evaluate(() => { const v = [...document.querySelectorAll('#works-grid [data-kind]')].filter(e => !e.hidden); return v.length > 0 && v.every(e => e.dataset.kind.split(' ').includes('maps')); }));
-    // колесо вопросов на главной
+    // главная: вопросы раскрываются, линия-вектор дорисовывается до кнопки формы
     await open(page, '/');
-    await page.locator('#faq').scrollIntoViewIfNeeded(); await page.waitForTimeout(500);
-    const before = await page.evaluate(() => document.querySelector('.faq__q').textContent);
-    await page.click('.wheel-nav__btn:last-child'); await page.waitForTimeout(1000);
-    const after = await page.evaluate(() => document.querySelector('.faq__q').textContent);
-    log('Интерактив', 'колесо вопросов листается', before && after && before !== after, `${before} → ${after}`);
+    await page.click('#faq .qa__item:nth-child(2) summary');
+    log('Интерактив', 'вопрос на главной раскрывается', await page.evaluate(() => document.querySelector('#faq .qa__item:nth-child(2)').open));
+    await page.evaluate(() => document.getElementById('start').scrollIntoView()); await page.waitForTimeout(2500);
+    log('Интерактив', 'линия-вектор доходит до кнопки формы', await page.evaluate(() => !!document.querySelector('.vline.is-done')));
+    log('Интерактив', 'точки шагов загорелись', await page.evaluate(() => document.querySelectorAll('#how .step.is-on').length === 4));
     // якорное меню подсвечивает текущий раздел
     await open(page, '/yandex-direkt/');
     await page.evaluate(() => document.getElementById('price').scrollIntoView()); await page.waitForTimeout(600);
