@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node test-suite.js http://127.0.0.1:8099/ ../screenshots/tests",
-    "validate": "html-validate --config .htmlvalidate.json ../index.html",
+    "validate": "html-validate --config .htmlvalidate.json ../index.html ../yandex-direkt/index.html ../kompleksnyj-marketing/index.html ../kejsy/index.html ../kontakty/index.html ../politika/index.html ../soglasie/index.html ../spasibo/index.html ../404.html",
     "serve": "python -m http.server 8099 --bind 127.0.0.1 --directory ..",
     "fonts": "node fonts.js"
   },

@@ -16,9 +16,9 @@ const chromeOpts = CHROME ? { executablePath: CHROME } : {};
 // страницы сайта: адрес, есть ли форма заявки, ожидаемые интерактивные блоки
 const PAGES = [
   { url: '/', form: true },
-  { url: '/yandex-direkt/', form: true, tabs: true, anchors: true },
-  { url: '/kompleksnyj-marketing/', form: true, anchors: true },
-  { url: '/kejsy/', form: true, filter: true },
+  { url: '/yandex-direkt/', form: true, tabs: true },
+  { url: '/kompleksnyj-marketing/', form: true },
+  { url: '/kejsy/', form: true },
   { url: '/kontakty/', form: true },
   { url: '/politika/' },
   { url: '/soglasie/' },
@@ -160,17 +160,18 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
     const page = await ctx.newPage();
     // вкладки
     await open(page, '/yandex-direkt/');
-    await page.click('#tab-implant');
-    log('Интерактив', 'вкладка «Имплантация» открывается', await page.evaluate(() => !document.getElementById('implant').hidden && document.getElementById('all-on-4').hidden));
-    await page.focus('#tab-implant'); await page.keyboard.press('ArrowLeft');
-    log('Интерактив', 'вкладки листаются стрелками', await page.evaluate(() => !document.getElementById('all-on-4').hidden && document.activeElement.id === 'tab-all-on-4'));
-    await page.goto(root + '/yandex-direkt/#implant', { waitUntil: 'networkidle' });
-    log('Интерактив', 'ссылка #implant открывает нужную вкладку', await page.evaluate(() => !document.getElementById('implant').hidden));
+    log('Интерактив', 'на Директе сначала открыта «Имплантация»', await page.evaluate(() => !document.getElementById('implant').hidden && document.getElementById('all-on-4').hidden));
+    await page.click('#tab-all-on-4');
+    log('Интерактив', 'вкладка «All-on-4» открывается', await page.evaluate(() => !document.getElementById('all-on-4').hidden && document.getElementById('implant').hidden));
+    await page.focus('#tab-all-on-4'); await page.keyboard.press('ArrowLeft');
+    log('Интерактив', 'вкладки листаются стрелками', await page.evaluate(() => !document.getElementById('implant').hidden && document.activeElement.id === 'tab-implant'));
+    await page.goto(root + '/yandex-direkt/#all-on-4', { waitUntil: 'networkidle' });
+    log('Интерактив', 'ссылка #all-on-4 открывает нужную вкладку', await page.evaluate(() => !document.getElementById('all-on-4').hidden));
     // кнопка с data-pick выбирает услугу и направление в форме
     await open(page, '/yandex-direkt/');
-    await page.click('.phero .btn--ghost[data-dir="running"]');
+    await page.click('.phero a[data-dir="running"]');
     await page.waitForTimeout(300);
-    log('Интерактив', '«Разобрать мою рекламу» выбирает «Реклама уже идёт» в форме', await page.evaluate(() => document.querySelector('#start select[name=direction]').value === 'running'));
+    log('Интерактив', '«Разобрать текущую рекламу» выбирает «Реклама уже идёт» в форме', await page.evaluate(() => document.querySelector('#start select[name=direction]').value === 'running'));
     // форма: пустая не отправляется, заполненная показывает «Спасибо»
     await page.click('#start button[type=submit]');
     log('Интерактив', 'пустая форма подсвечивает поля', await page.evaluate(() => document.querySelectorAll('#start [aria-invalid="true"]').length >= 3));
@@ -183,21 +184,35 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
     // форма на «Сайт и Карты»: выбран сайт, направление спрятано
     await open(page, '/kompleksnyj-marketing/');
     log('Интерактив', 'на «Сайт и Карты» в форме выбран сайт', await page.evaluate(() => document.querySelector('#start input[value=site]').checked));
-    // фильтр кейсов
-    await open(page, '/kejsy/');
-    await page.click('.filter button[data-kind="maps"]');
-    log('Интерактив', 'фильтр «Карты» оставляет только карточки Карт', await page.evaluate(() => { const v = [...document.querySelectorAll('#works-grid [data-kind]')].filter(e => !e.hidden); return v.length > 0 && v.every(e => e.dataset.kind.split(' ').includes('maps')); }));
-    // главная: вопросы раскрываются, линия-вектор дорисовывается до кнопки формы
-    await open(page, '/');
+    // вопросы на странице услуги раскрываются
+    await open(page, '/yandex-direkt/');
     await page.click('#faq .qa__item:nth-child(2) summary');
-    log('Интерактив', 'вопрос на главной раскрывается', await page.evaluate(() => document.querySelector('#faq .qa__item:nth-child(2)').open));
+    log('Интерактив', 'вопрос на Директе раскрывается', await page.evaluate(() => document.querySelector('#faq .qa__item:nth-child(2)').open));
+    // главная: калькулятор пересчитывает, колесо вопросов переключается, линия-вектор дорисовывается до кнопки формы
+    await open(page, '/');
+    await page.evaluate(() => { const r = document.querySelector('[data-calc] input[name=budget]'); r.value = 300000; r.dispatchEvent(new Event('input', { bubbles: true })); });
+    await page.waitForTimeout(700);
+    log('Интерактив', 'калькулятор пересчитывает переходы, заявки и цену', await page.evaluate(() => { const t = k => document.querySelector(`[data-res=${k}]`).textContent.replace(/\s/g, ''); return t('clicks') === '1364' && t('leads') === '68' && t('books') === '27' && t('cpl') === '4400' && document.querySelector('[data-out=budget]').textContent.replace(/\s/g, '') === '300000₽'; }), await page.evaluate(() => [...document.querySelectorAll('[data-res]')].map(e => e.textContent).join(' / ')));
+    log('Интерактив', 'на широком экране вопросы собраны в колесо', await page.evaluate(() => !!document.querySelector('#faq .has-wheel .wheel') && getComputedStyle(document.querySelector('#faq .qa')).display === 'none'));
+    await page.evaluate(() => document.getElementById('faq').scrollIntoView()); await page.waitForTimeout(500);
+    await page.click('.wheel__q:nth-child(3)');
+    await page.waitForTimeout(500);
+    log('Интерактив', 'колесо показывает выбранный вопрос и ответ', await page.evaluate(() => { const t = document.querySelector('.wheel__q:nth-child(3)'); return t.getAttribute('aria-selected') === 'true' && document.querySelector('.wheel__title').textContent === t.textContent && document.querySelector('.wheel__a').textContent.length > 40; }));
+    await page.focus('.wheel__q[aria-selected="true"]'); await page.keyboard.press('ArrowDown'); await page.waitForTimeout(500);
+    log('Интерактив', 'колесо листается стрелками', await page.evaluate(() => document.querySelector('.wheel__q:nth-child(4)').getAttribute('aria-selected') === 'true' && document.activeElement === document.querySelector('.wheel__q:nth-child(4)')));
     await page.evaluate(() => document.getElementById('start').scrollIntoView()); await page.waitForTimeout(2500);
     log('Интерактив', 'линия-вектор доходит до кнопки формы', await page.evaluate(() => !!document.querySelector('.vline.is-done')));
-    log('Интерактив', 'точки шагов загорелись', await page.evaluate(() => document.querySelectorAll('#how .step.is-on').length === 4));
-    // якорное меню подсвечивает текущий раздел
-    await open(page, '/yandex-direkt/');
-    await page.evaluate(() => document.getElementById('price').scrollIntoView()); await page.waitForTimeout(600);
-    log('Интерактив', 'якорное меню подсвечивает «Стоимость»', await page.evaluate(() => (document.querySelector('.anchors a.is-active') || {}).textContent === 'Стоимость'));
+    log('Интерактив', 'точки на пути пациента загорелись', await page.evaluate(() => document.querySelectorAll('#how .jr__st.is-on').length === 5));
+    await ctx.close();
+  }
+  {
+    // телефон: вместо колеса раскрывающийся список
+    const ctx = await chromium.newContext({ ...devices['Pixel 7'] });
+    const page = await ctx.newPage();
+    await open(page, '/');
+    log('Интерактив', 'на телефоне вопросы идут списком', await page.evaluate(() => !document.querySelector('#faq .has-wheel') && getComputedStyle(document.querySelector('#faq .qa')).display !== 'none'));
+    await page.click('#faq .qa__item:nth-child(2) summary');
+    log('Интерактив', 'вопрос на телефоне раскрывается', await page.evaluate(() => document.querySelector('#faq .qa__item:nth-child(2)').open));
     await ctx.close();
   }
   await chromium.close();
