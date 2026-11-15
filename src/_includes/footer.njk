@@ -1,37 +1,43 @@
-<!-- ============ ФУТЕР (по мотивам medvectoragency.ru: рваный край, крупный знак «Мед Вектор», прицелы) ============ -->
+<!-- ============ ПОДВАЛ ============ -->
 <footer class="footer">
-  <div class="footer__tear" aria-hidden="true"></div>
-  <span class="footer__watermark" aria-hidden="true"><img src="/assets/img/medvector-logo-inverse.webp" alt="" width="720" height="255" loading="lazy"></span>
-  <div class="footer__registers" aria-hidden="true"><span class="cross cross--cyan"></span><span class="footer__coords">II × 55.7539°</span><span class="cross cross--cyan"></span></div>
   <div class="wrap">
     <div class="footer__top">
       <div class="footer__brand">
-        <img src="/assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy" class="footer__logo">
+        <img src="/assets/img/medvector-logo-light.webp" alt="МедВектор" width="440" height="93" loading="lazy" class="footer__logo">
         <p class="footer__tagline">Честная цена. Сильная работа. Ничего лишнего.</p>
-        <span class="footer__dots" aria-hidden="true"></span>
       </div>
-      <div class="footer__actions">
-        <nav class="footer__main" aria-label="Навигация в подвале">
-          <a href="{{ href('services') }}">Услуги</a><a href="{{ href('process') }}">Подход</a><a href="{{ href('prices') }}">Цены</a><a href="{{ href('contacts') }}">Контакты</a>
+      <div>
+        <h2>Услуги</h2>
+        <nav aria-label="Услуги">
+          <a href="{{ href('direct') }}">Яндекс Директ для стоматологий</a>
+          <a href="{{ href('direct') }}#directions">Реклама All-on-4 и имплантации</a>
+          <a href="{{ href('complex') }}">Сайт и комплексный маркетинг</a>
+          <a href="{{ href('complex') }}#maps">Яндекс Карты</a>
         </nav>
-        <a href="#top" class="footer__up">Наверх <span aria-hidden="true">↑</span></a>
+      </div>
+      <div>
+        <h2>Агентство</h2>
+        <nav aria-label="Агентство">
+          <a href="{{ href('cases') }}">Кейсы и примеры</a>
+          <a href="{{ href('about') }}">О нас</a>
+          <a href="{{ href('about') }}#contacts">Контакты</a>
+        </nav>
+      </div>
+      <div>
+        <h2>Начать</h2>
+        <nav aria-label="Начать">
+          <a href="{{ href('direct') }}#price">Тестовый месяц Директа</a>
+          <a href="{{ href('complex') }}#price">Сайт бесплатно на старте</a>
+          <a href="{{ '#start' if form != false else '/#start' }}">Оставить заявку</a>
+        </nav>
       </div>
     </div>
-    <nav class="footer__services" aria-label="Услуги">
-      <a href="{{ href('direct') }}">Яндекс Директ для стоматологии</a>
-      <a href="{{ href('implant') }}">Реклама имплантации</a>
-      <a href="{{ href('allon4') }}">Реклама All-on-4</a>
-      <a href="{{ href('complex') }}">Комплексный маркетинг</a>
-      <a href="{{ href('maps') }}">Яндекс Карты для стоматологии</a>
-      <a href="{{ href('website') }}">Сайт для стоматологии</a>
-      <a href="{{ href('seo') }}">SEO-продвижение стоматологии</a>
-      <a href="{{ href('listings') }}">Площадки и отзывы</a>
-    </nav>
-    <div class="footer__divider" aria-hidden="true"></div>
-    <div class="footer__legal">
-      <a href="{{ href('policy') }}">Политика конфиденциальности</a>
-      <span class="placeholder">контакты — уточнить</span>
-      <p>© {{ year }} МедВектор</p>
+    <div class="footer__bottom">
+      <p>© {{ year }} МедВектор. Маркетинг только для стоматологий.</p>
+      <nav aria-label="Документы">
+        <a href="{{ href('policy') }}">Политика обработки персональных данных</a>
+        <a href="{{ href('consent') }}">Согласие на обработку данных</a>
+      </nav>
     </div>
   </div>
 </footer>

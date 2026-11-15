@@ -3,14 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{% block base %}{% endblock %}
 <!-- сайт в разработке: убрать noindex при запуске на боевом домене -->
 <meta name="robots" content="noindex, nofollow">
 <title>{{ title }}</title>
 <meta name="description" content="{{ description }}">
-<meta name="theme-color" content="#f7f2e9">
+<meta name="theme-color" content="#ffffff">
 <meta name="format-detection" content="telephone=no">
+{% if not noCanonical %}
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
-{% block base %}{% endblock %}
+{% endif %}
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 
@@ -25,14 +27,10 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-{% block preload %}{% endblock %}
 <!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/oswald-{{ '600' if home else '700' }}-cyrillic.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/cormorant-garamond-400-cyrillic.woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/style.css">
-{% if not home %}
-<link rel="stylesheet" href="/assets/css/pages.css">
-{% endif %}
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/oswald-700-cyrillic.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/golos-text-400-cyrillic.woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
 <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
 {% block jsonld %}
@@ -42,18 +40,19 @@
 {% endblock %}
 </head>
 <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
-<div class="grain" aria-hidden="true"></div>
-<div class="cursor" aria-hidden="true"><i></i></div>
-
+<a class="skip" href="#main">К содержимому</a>
 {% include "header.njk" %}
 
-<main>
+<main id="main">
 {% block main %}{% endblock %}
 </main>
 
 {% include "footer.njk" %}
+{% if form != false %}
+<!-- нижняя кнопка на телефоне -->
+<a href="#start" class="mcta"><span>{{ mctaText or 'Начать бесплатно' }}</span><i aria-hidden="true">→</i></a>
+{% endif %}
 
-
-<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/site.js" defer></script>
 </body>
 </html>

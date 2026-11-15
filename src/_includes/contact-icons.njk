@@ -1,0 +1,11 @@
+{# Кнопки связи. Пока контактов нет, они ведут на страницу «О нас и контакты». #}
+{% set c = site.contacts %}
+<a class="icon-btn" href="{{ c.telegram or (href('about') + '#contacts') }}" aria-label="Telegram"{% if c.telegram %} target="_blank" rel="noopener"{% endif %}>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.2 2.9 11.4c-1 .4-1 1.7.1 2l4.6 1.5 1.8 5.5c.3.9 1.4 1.1 2 .4l2.6-2.9 4.7 3.5c.8.6 1.9.1 2.1-.9l3-14.6c.2-1-.8-1.8-1.7-1.5ZM9.6 15.1l-.5 3.3-1.3-4 9.4-6.2-7.6 6.9Z" fill="currentColor"/></svg>
+</a>
+<a class="icon-btn" href="{{ c.max or (href('about') + '#contacts') }}" aria-label="MAX"{% if c.max %} target="_blank" rel="noopener"{% endif %}>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.8 3 3 6.6 3 11.2c0 2.4 1 4.5 2.8 6L5 21l4-2c1 .3 2 .4 3 .4 5.2 0 9-3.6 9-8.2S17.2 3 12 3Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8 14V9l2.5 3L13 9v5M15.5 9l2 2.5-2 2.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</a>
+<a class="icon-btn" href="{{ ('tel:' + c.phoneHref) if c.phoneHref else (href('about') + '#contacts') }}" aria-label="Телефон">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5 9 3l1.6 4.3-2 1.5a11 11 0 0 0 6.6 6.6l1.5-2L21 15l-.5 2.4c-.2 1-1 1.6-2 1.6A15.5 15.5 0 0 1 5 5.5c0-1 .6-1.8 1.6-2Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>
+</a>

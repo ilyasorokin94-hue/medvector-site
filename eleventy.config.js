@@ -8,22 +8,13 @@ const path = require('node:path');
 const SRC = path.join(__dirname, 'src');
 
 // Адреса страниц. Пока шаблона страницы нет, ссылка ведёт на блок главной (второе значение).
+// Сайт компактный (структура v3 от 15.11.2026): главная, Яндекс Директ, «Сайт и Карты», кейсы, «О нас и контакты».
 const LINKS = {
   home: ['/', '/'],
-  diagnostics: ['/diagnostika/', '/#diagnostics'],
-  services: ['/uslugi/', '/#services'],
-  direct: ['/uslugi/yandex-direkt/', '/#direct'],
-  implant: ['/uslugi/reklama-implantacii/', '/#direct'],
-  allon4: ['/uslugi/reklama-all-on-4/', '/#direct'],
-  complex: ['/uslugi/kompleksnyj-marketing/', '/#complex'],
-  maps: ['/uslugi/yandex-karty/', '/#services'],
-  website: ['/uslugi/sajt-dlya-stomatologii/', '/#services'],
-  seo: ['/uslugi/seo-prodvizhenie/', '/#services'],
-  listings: ['/uslugi/ploshchadki-i-otzyvy/', '/#services'],
-  prices: ['/ceny/', '/#prices'],
-  process: ['/kak-rabotaem/', '/#paths'],
-  about: ['/o-nas/', '/#about'],
-  contacts: ['/kontakty/', '/#diagnostics'],
+  direct: ['/yandex-direkt/', '/#services'],
+  complex: ['/kompleksnyj-marketing/', '/#services'],
+  cases: ['/kejsy/', '/#examples'],
+  about: ['/kontakty/', '/#team'],
   policy: ['/politika/', '#'],
   consent: ['/soglasie/', '#'],
   thanks: ['/spasibo/', '#'],
@@ -54,7 +45,9 @@ const plain = s => String(s == null ? '' : s).replace(/<[^>]+>/g, '').replace(/\
 const jsonld = (site, page, title, description, crumbs, service, faq) => {
   const url = site.url + page.url;
   const agency = { '@type': 'ProfessionalService', '@id': site.url + '/#agency', name: site.name, url: site.url + '/' };
-  const graph = [{ '@type': 'WebPage', '@id': url, url, name: plain(title), description: plain(description), inLanguage: 'ru', isPartOf: { '@type': 'WebSite', url: site.url + '/', name: site.name } }];
+  const graph = [];
+  if (page.url === '/') graph.push({ ...agency, description: plain(description), areaServed: 'RU', knowsAbout: ['Яндекс Директ', 'Сайты для стоматологий', 'Яндекс Карты', 'SEO'], logo: site.url + '/assets/img/medvector-logo.png' });
+  graph.push({ '@type': 'WebPage', '@id': url, url, name: plain(title), description: plain(description), inLanguage: 'ru', isPartOf: { '@type': 'WebSite', url: site.url + '/', name: site.name } });
   if (crumbs && crumbs.length) graph.push({ '@type': 'BreadcrumbList', itemListElement: [{ name: 'Главная', url: '/' }, ...crumbs].map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: plain(c.name), item: site.url + c.url })) });
   if (service) graph.push({ '@type': 'Service', name: plain(service.name), serviceType: plain(service.type || service.name), description: plain(service.description || description), url, areaServed: 'RU', provider: agency, ...(service.price ? { offers: { '@type': 'Offer', price: String(service.price), priceCurrency: 'RUB', ...(service.priceNote ? { description: plain(service.priceNote) } : {}) } } : {}) });
   if (faq && faq.length) graph.push({ '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: plain(f.q), acceptedAnswer: { '@type': 'Answer', text: plain(f.a) } })) });
@@ -75,7 +68,6 @@ module.exports = function (cfg) {
   cfg.addGlobalData('year', () => new Date().getFullYear());
   cfg.addNunjucksGlobal('href', href);
   cfg.addNunjucksGlobal('jsonld', jsonld);
-  cfg.addNunjucksGlobal('services', require('./src/_data/services.js'));
   cfg.addFilter('t', typo);
   cfg.addFilter('plain', plain);
   cfg.addFilter('json', v => JSON.stringify(v));

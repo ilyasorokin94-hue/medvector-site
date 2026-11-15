@@ -1,5 +1,7 @@
-{# Блоки внутренних страниц. Тексты приходят из шапки файла страницы (front matter), оформление лежит в assets/css/pages.css.
-   Фильтр t расставляет неразрывные пробелы. #}
+{# Общие блоки страниц. Тексты приходят из шапки файла страницы (front matter), оформление в assets/css/site.css.
+   Фильтр t расставляет неразрывные пробелы и понимает **полужирный**.
+   Макеты (объявление, телефон, браузер, карточка на Картах) нарисованы вёрсткой для вымышленной клиники
+   и подписаны «демо»: настоящие лендинги и скриншоты встанут на их место, когда появятся. #}
 
 {% macro crumbs(items) %}
 <nav class="crumbs" aria-label="Хлебные крошки">
@@ -12,254 +14,224 @@
 </nav>
 {% endmacro %}
 
-{# ---------- первый экран: крошки, заголовок-плакат, подзаголовок, вводный текст, кнопка и три факта ---------- #}
-{% macro hero(h, crumbItems) %}
-<section class="phero" id="intro">
-  <div class="wrap phero__grid">
-    {{ crumbs(crumbItems) }}
-    <p class="eyebrow phero__eyebrow">{{ h.eyebrow }}</p>
-    <h1 class="phero__title">{{ h.title | t | safe }}</h1>
-    <p class="phero__sub">{{ h.sub | t | safe }}<em>.</em></p>
-    <div class="phero__body">
-      <p class="phero__lead">{{ h.lead | t | safe }}</p>
-      <div class="phero__cta">
-        <a href="{{ h.ctaUrl or '#diagnostics' }}" class="btn-tape" data-magnetic>
-          <span>{{ h.cta or 'Получить диагностику' }}</span>
-          <svg class="clip" viewBox="0 0 70 26" aria-hidden="true"><path d="M8 13h50a7 7 0 0 0 0-14H14a5 5 0 0 0 0 10h40" fill="none" stroke="#9aa3ad" stroke-width="3" stroke-linecap="round" transform="translate(0 7)"/></svg>
-        </a>
-{% if h.link %}
-        <a href="{{ h.link.url }}" class="link-under">{{ h.link.text }}</a>
-{% endif %}
-      </div>
-    </div>
-{% if h.facts %}
-    <ul class="phero__facts">
-{% for f in h.facts %}
-      <li><b>{{ f.n | t | safe }}</b><span>{{ f.t | t | safe }}</span></li>
-{% endfor %}
-    </ul>
-{% endif %}
-    <span class="cross phero__cross" aria-hidden="true"></span>
-  </div>
-</section>
-{% endmacro %}
-
 {# ---------- заголовок секции ---------- #}
-{% macro head(s, light=false) %}
-<p class="eyebrow{% if light %} eyebrow--light{% endif %}">{{ s.eyebrow }}</p>
-<h2 class="h2{% if light %} h2--light{% endif %}" data-split>{{ s.title | t | safe }}</h2>
+{% macro head(s, center=false) %}
+<div class="head{% if center %} head--center{% endif %}">
+{% if s.eyebrow %}
+  <p class="eyebrow">{{ s.eyebrow }}</p>
+{% endif %}
+  <h2 class="h2">{{ s.title | t | safe }}</h2>
 {% if s.lead %}
-<p class="lead">{{ s.lead | t | safe }}</p>
+  <p class="lead">{{ s.lead | t | safe }}</p>
 {% endif %}
-{% endmacro %}
-
-{# ---------- кому подходит и кому пока рано ---------- #}
-{% macro fit(f) %}
-<section class="section fit" id="{{ f.id or 'fit' }}">
-  <div class="wrap">
-    {{ head({ eyebrow: f.eyebrow or 'Кому подходит', title: f.title, lead: f.lead }) }}
-    <div class="fit__grid">
-      <article class="fit__card fit__card--yes reveal">
-        <h3>{{ f.yes.title or 'Подходит' }}</h3>
-        <ul class="ticks">
-{% for i in f.yes.items %}
-          <li>{{ i | t | safe }}</li>
-{% endfor %}
-        </ul>
-      </article>
-      <article class="fit__card fit__card--no reveal">
-        <h3>{{ f.no.title or 'Пока рано' }}</h3>
-        <ul class="crosses">
-{% for i in f.no.items %}
-          <li>{{ i | t | safe }}</li>
-{% endfor %}
-        </ul>
-{% if f.no.then %}
-        <p class="fit__then">{{ f.no.then.text | t | safe }} <a href="{{ href(f.no.then.to) }}">{{ f.no.then.link }}</a>.</p>
-{% endif %}
-      </article>
-    </div>
-  </div>
-</section>
-{% endmacro %}
-
-{# ---------- что входит: светлая панель, тёмный лист с перечнем ---------- #}
-{% macro incl(d) %}
-<section class="section incl" id="{{ d.id or 'incl' }}">
-  <div class="incl__panel" data-tear>
-    <div class="incl__head">
-      {{ head({ eyebrow: d.eyebrow or 'Что входит', title: d.title, lead: d.lead }) }}
-{% if d.image %}
-      <div class="incl__photo paper">
-        <span class="tape tape--card" aria-hidden="true"></span>
-        <picture>
-          <source type="image/webp" srcset="/assets/img/{{ d.image.name }}-640.webp 640w, /assets/img/{{ d.image.name }}-1000.webp 1000w" sizes="(max-width: 1100px) 70vw, 340px">
-          <img src="/assets/img/{{ d.image.name }}.jpg" alt="{{ d.image.alt }}" width="{{ d.image.w or 1000 }}" height="{{ d.image.h or 1000 }}" loading="lazy" decoding="async">
-        </picture>
-      </div>
-{% endif %}
-    </div>
-    <div class="incl__sheet">
-{% for r in d.rows %}
-      <div class="incl__row reveal">
-        <div class="checklist__row"><span>{{ r.item | t | safe }}</span><i></i><b>{{ r.verb }}</b></div>
-{% if r.text %}
-        <p>{{ r.text | t | safe }}</p>
-{% endif %}
-      </div>
-{% endfor %}
-    </div>
-{% if d.note %}
-    <p class="incl__note">{{ d.note | t | safe }}</p>
-{% endif %}
-{% if d.big %}
-    <span class="incl__big" aria-hidden="true" data-drift>{{ d.big }}</span>
-{% endif %}
-  </div>
-</section>
-{% endmacro %}
-
-{# ---------- как идёт работа: лента этапов зигзагом ---------- #}
-{% macro steps(s) %}
-{% set tones = ['paper', 'cyan', 'paper', 'coral', 'navy'] %}
-<section class="section steps" id="{{ s.id or 'steps' }}">
-  <div class="wrap">
-    {{ head({ eyebrow: s.eyebrow or 'Как идёт работа', title: s.title, lead: s.lead }) }}
-  </div>
-  <ol class="tl">
-{% for i in s.items %}
-    <li class="tl__item tl__item--{{ i.tone or tones[loop.index0 % 5] }} reveal">
-      <b>{{ i.when | t | safe }}</b>
-      <span class="tl__t">{{ i.title | t | safe }}</span>
-      <p>{{ i.text | t | safe }}</p>
-{% if i.price %}
-      <span class="tl__price">{{ i.price | t | safe }}</span>
-{% endif %}
-    </li>
-{% endfor %}
-  </ol>
-{% if s.note %}
-  <div class="wrap"><p class="note">{{ s.note | t | safe }}</p></div>
-{% endif %}
-</section>
-{% endmacro %}
-
-{# ---------- что видит клиника: отчёт (тот же блок, что на главной) ---------- #}
-{% macro report(r) %}
-<section class="section report" id="report">
-  <div class="wrap report__grid">
-    <div class="report__text">
-      <p class="eyebrow">{{ r.eyebrow or 'Что видит клиника' }}</p>
-      <h2 class="h2" data-split>{{ r.title | t | safe }}</h2>
-      <ul class="ticks">
-{% for i in r.items %}
-        <li>{{ i | t | safe }}</li>
-{% endfor %}
-      </ul>
-      <blockquote class="principle">{{ (r.principle or 'У каждой цифры есть период, определение и источник. Не выдаём предположение за факт.') | t | safe }}</blockquote>
-    </div>
-    <div class="report__visual" data-tilt-soft>
-      <picture>
-        <source type="image/webp" srcset="/assets/img/gen-report-640.webp 640w, /assets/img/gen-report-1000.webp 1000w" sizes="(max-width: 1100px) 92vw, 580px">
-        <img src="/assets/img/gen-report.jpg" alt="Бумажный ежемесячный отчёт для стоматологии с диаграммами, скрепкой и штампом" class="report__img" width="1000" height="1000" loading="lazy" decoding="async">
-      </picture>
-      <div class="chart paper" role="img" aria-label="Пример: {{ r.chart.title if r.chart else 'обращения по каналам' }}">
-        <div class="chart__head"><b>{{ r.chart.title if r.chart else 'Обращения по каналам' }}</b><small>пример, данные условные</small></div>
-        <div class="chart__bars">
-{% for b in (r.chart.bars if r.chart else [['Карты', 0.78], ['Директ', 0.6], ['Поиск', 0.46], ['Площадки', 0.24]]) %}
-          <div class="bar" style="--v:{{ b[1] }}"><span>{{ b[0] }}</span><i></i></div>
-{% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-{% endmacro %}
-
-{# ---------- цена: бумажный ценник и два списка ---------- #}
-{% macro price(p) %}
-<section class="section cost" id="price">
-  <div class="wrap cost__grid">
-    <div class="cost__tag paper reveal" data-tilt-card>
-      <span class="tape tape--card" aria-hidden="true"></span>
-{% for v in p.tags %}
-      <div class="cost__line">
-        <p class="cost__label">{{ v.label | t | safe }}</p>
-        <p class="cost__value{% if v.text %} cost__value--text{% endif %}">{{ v.value | t | safe }}{% if v.per %}<small>{{ v.per }}</small>{% endif %}</p>
-{% if v.cap %}
-        <p class="cost__cap">{{ v.cap | t | safe }}</p>
-{% endif %}
-      </div>
-{% endfor %}
-      <a href="{{ href('prices') }}" class="btn btn--line">Все цены и условия оплаты</a>
-    </div>
-    <div class="cost__text">
-      {{ head({ eyebrow: p.eyebrow or 'Цена', title: p.title, lead: p.lead }) }}
-      <div class="cost__lists">
-        <div>
-          <h3>{{ p.inTitle or 'Входит в стоимость' }}</h3>
-          <ul class="ticks ticks--sm">
-{% for i in p.included %}
-            <li>{{ i | t | safe }}</li>
-{% endfor %}
-          </ul>
-        </div>
-        <div>
-          <h3>{{ p.outTitle or 'Клиника платит отдельно' }}</h3>
-          <ul class="dashes">
-{% for i in p.separate %}
-            <li>{{ i | t | safe }}</li>
-{% endfor %}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-{% endmacro %}
-
-{# ---------- строки услуг: каталог и «связанные услуги» ---------- #}
-{% macro rows(keys, numbered=true) %}
-<div class="rows">
-{% for k in keys %}
-{% set s = services[k] %}
-  <a class="row{% if s.main %} row--main{% endif %} reveal" href="{{ href(k) }}">
-    <span class="row__n">{% if numbered %}{{ s.n | pad2 }}{% else %}{{ loop.index | pad2 }}{% endif %}</span>
-    <span class="row__t">{{ s.title | t | safe }}{% if s.price %}<small>{{ s.price | t | safe }}</small>{% endif %}</span>
-    <span class="row__d">{{ s.text | t | safe }}</span>
-    <span class="row__go">{{ s.go or 'Подробнее' }}</span>
-  </a>
-{% endfor %}
 </div>
 {% endmacro %}
 
-{% macro related(r) %}
-<section class="section rel" id="{{ r.id or 'related' }}">
-  <div class="wrap">
-    {{ head({ eyebrow: r.eyebrow or 'Связанные услуги', title: r.title, lead: r.lead }) }}
-    {{ rows(r.keys, false) }}
-{% if r.note %}
-    <p class="note">{{ r.note | t | safe }}</p>
+{# ---------- первый экран внутренней страницы; картинка передаётся через {% call %} ---------- #}
+{% macro phero(h, crumbItems) %}
+<section class="phero" id="intro">
+  <div class="wrap phero__grid{% if not caller %} phero__grid--solo{% endif %}">
+    <div class="phero__text">
+      {{ crumbs(crumbItems) }}
+{% if h.plaque %}
+      <p class="plaque">{{ h.plaque | t | safe }}</p>
+{% endif %}
+      <h1 class="h1">{{ h.title | t | safe }}</h1>
+      <p class="phero__lead">{{ h.lead | t | safe }}</p>
+{% if h.facts %}
+      <ul class="phero__facts">
+{% for f in h.facts %}
+        <li{% if loop.first and h.warmFirst %} class="is-warm"{% endif %}>{{ f | t | safe }}</li>
+{% endfor %}
+      </ul>
+{% endif %}
+{% if h.cta %}
+      <div class="btns">
+        <a href="#start" class="btn" data-magnetic{% if h.pick %} data-pick="{{ h.pick }}"{% endif %}{% if h.dir %} data-dir="{{ h.dir }}"{% endif %}>{{ h.cta }} <i aria-hidden="true">→</i></a>
+{% if h.cta2 %}
+        <a href="{{ h.cta2url }}" class="btn btn--ghost"{% if h.pick2 %} data-pick="{{ h.pick2 }}"{% endif %}{% if h.dir2 %} data-dir="{{ h.dir2 }}"{% endif %}>{{ h.cta2 }}</a>
+{% endif %}
+      </div>
+{% endif %}
+    </div>
+{% if caller %}
+    <div class="phero__art">{{ caller() }}</div>
 {% endif %}
   </div>
 </section>
 {% endmacro %}
 
-{# ---------- вопросы: раскрывающийся список на голубой панели ---------- #}
+{# ---------- якорное меню страницы ---------- #}
+{% macro anchors(items) %}
+<nav class="anchors" aria-label="Разделы страницы">
+  <div class="wrap anchors__in">
+{% for a in items %}
+    <a href="#{{ a[0] }}">{{ a[1] }}</a>
+{% endfor %}
+  </div>
+</nav>
+{% endmacro %}
+
+{# ---------- макеты для вымышленной клиники ---------- #}
+{% macro m_ad(o={}) %}
+<div class="m-ad" aria-hidden="true">
+  <div class="m-ad__q">{{ o.q or 'all on 4 цена' }}</div>
+  <span class="m-ad__mark">Реклама</span>
+  <span class="m-ad__title">{{ o.title or 'All-on-4: консультация хирурга и КТ' }}</span>
+  <span class="m-ad__url">demo-klinika.example › {{ o.path or 'all-on-4' }}</span>
+  <span class="m-ad__text">{{ o.text or 'Несъёмные зубы на 4 имплантах. Цена и этапы на сайте, рассрочка.' }}</span>
+  <span class="m-ad__links">{% for l in (o.links or ['Цены', 'Врачи', 'Этапы', 'Записаться']) %}<span>{{ l }}</span>{% endfor %}</span>
+  <span class="m-ad__warn">Имеются противопоказания. Необходима консультация специалиста.</span>
+</div>
+{% endmacro %}
+
+{% macro m_phone(kind='allon4') %}
+<div class="m-phone" aria-hidden="true">
+  <div class="m-phone__screen">
+    <div class="mini">
+      <div class="mini__top"><span>Демо</span><small>☰</small></div>
+{% if kind == 'implant' %}
+      <div class="mini__hero"><b>Имплантация зуба под ключ</b><small>Имплант, формирователь и коронка: цена по этапам</small><span class="mini__btn">Рассчитать стоимость</span></div>
+      <div class="mini__rows"><span class="mini__row">Цена по этапам</span><span class="mini__row">Импланты и гарантия</span><span class="mini__row">Если мало кости</span></div>
+{% elif kind == 'site' %}
+      <div class="mini__hero"><b>Стоматология рядом с домом</b><small>Лечение, имплантация, детский приём</small><span class="mini__btn">Записаться</span></div>
+      <div class="mini__rows"><span class="mini__row">Услуги и цены</span><span class="mini__row">Врачи</span><span class="mini__row">Отзывы с площадок</span></div>
+{% else %}
+      <div class="mini__hero"><b>Все зубы на 4 имплантах</b><small>Консультация хирурга и ортопеда, КТ, план лечения</small><span class="mini__btn">Записаться на консультацию</span></div>
+      <div class="mini__rows"><span class="mini__row">Кому подходит метод</span><span class="mini__row">Врач и его опыт</span><span class="mini__row">Цена и рассрочка</span></div>
+{% endif %}
+      <div class="mini__form"><span>Запись на консультацию</span><i></i><i></i></div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro m_browser(kind='site') %}
+<div class="m-browser" aria-hidden="true">
+  <div class="m-browser__bar"><i></i><i></i><i></i><span class="m-browser__url">demo-klinika.example{% if kind == 'landing' %}/all-on-4{% endif %}</span></div>
+  <div class="mini">
+    <div class="mini__top"><span>Стоматология «Демо»</span><span class="mini__nav"><small>Услуги</small><small>Врачи</small><small>Цены</small><small>Контакты</small></span></div>
+{% if kind == 'landing' %}
+    <div class="mini__hero"><b>Несъёмные зубы на 4 имплантах</b><small>Хирург и ортопед на одной консультации, КТ в клинике</small><span class="mini__btn">Записаться на консультацию</span></div>
+    <div class="mini__cards"><span>Этапы и сроки</span><span>Врач и опыт</span><span>Цена и рассрочка</span></div>
+{% else %}
+    <div class="mini__hero"><b>Стоматология для всей семьи</b><small>Лечение, имплантация, протезирование. Цены на сайте</small><span class="mini__btn">Записаться онлайн</span></div>
+    <div class="mini__cards"><span>Имплантация</span><span>All-on-4</span><span>Коронки и виниры</span></div>
+{% endif %}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro m_map(o={}) %}
+<div class="m-map{% if o.weak %} m-map--weak{% endif %}" aria-hidden="true">
+  <div class="m-map__area"></div>
+  <div class="m-map__body">
+    <span class="m-map__name">Стоматология «Демо»</span>
+{% if o.weak %}
+    <span class="m-map__rate"><span class="m-map__stars">★★★☆☆</span> <b>3,9</b> · мало отзывов, ответов нет</span>
+    <span class="m-map__tags"><span>Нет цен</span><span>2 фото</span></span>
+{% else %}
+    <span class="m-map__rate"><span class="m-map__stars">★★★★★</span> <b>4,9</b> · отзывы с ответами клиники</span>
+    <span class="m-map__tags"><span>Цены</span><span>Врачи</span><span>Фото</span><span>Запись</span></span>
+{% endif %}
+    <span class="m-map__btns"><span>Маршрут</span><span>Позвонить</span><span>Сайт</span></span>
+  </div>
+</div>
+{% endmacro %}
+
+{# композиция первого экрана: реклама слева, сайт и Карты справа #}
+{% macro art() %}
+<div class="art" data-tilt>
+  <span class="art__group-label art__label--ads">Яндекс Директ</span>
+  <span class="art__group-label art__label--base">Сайт и Карты</span>
+  {{ m_browser('site') }}
+  {{ m_map() }}
+  <svg class="art__vector" viewBox="0 0 200 120" aria-hidden="true"><path d="M6 110C60 104 120 70 178 18" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 12"/><path d="M150 14l32-2-8 31" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  {{ m_phone('allon4') }}
+  {{ m_ad() }}
+  <span class="tag art__demo">демо-макеты</span>
+</div>
+{% endmacro %}
+
+{# ---------- карточка примера работы ---------- #}
+{% macro ex(e, rv=true) %}
+<article class="ex{% if rv %} reveal{% endif %}"{% if e.kind %} data-kind="{{ e.kind }}"{% endif %}>
+  <div class="ex__pic">
+    <span class="tag">пример</span>
+{% if e.pic == 'phone' %}{{ m_phone(e.variant or 'allon4') }}{% elif e.pic == 'map' %}{{ m_map() }}{% elif e.pic == 'landing' %}{{ m_browser('landing') }}{% else %}{{ m_browser('site') }}{% endif %}
+  </div>
+  <p class="ex__kind">{{ e.label }}</p>
+  <h3 class="ex__title">{{ e.title | t | safe }}</h3>
+  <p class="ex__text">{{ e.text | t | safe }}</p>
+</article>
+{% endmacro %}
+
+{# ---------- карточка кейса: всегда с периодом и источником цифр ---------- #}
+{% macro casecard(c) %}
+<article class="case reveal"{% if c.kind %} data-kind="{{ c.kind }}"{% endif %}>
+  <div class="case__meta"><span class="tag tag--warm">пример, данные условные</span>{% for m in c.meta %}<span class="tag">{{ m }}</span>{% endfor %}</div>
+  <h3 class="case__title">{{ c.title | t | safe }}</h3>
+  <dl class="case__steps">
+    <dt>Было</dt><dd>{{ c.was | t | safe }}</dd>
+    <dt>Сделали</dt><dd>{{ c.did | t | safe }}</dd>
+  </dl>
+  <div class="case__nums">
+{% for n in c.nums %}
+    <div><b>{{ n[0] | t | safe }}</b><span>{{ n[1] | t | safe }}</span></div>
+{% endfor %}
+  </div>
+  <p class="case__src">{{ c.src | t | safe }}</p>
+</article>
+{% endmacro %}
+
+{# ---------- кто ведёт: основатель и роли ---------- #}
+{% macro team(t) %}
+<section class="section{% if t.alt %} section--alt{% endif %}" id="{{ t.id or 'team' }}">
+  <div class="wrap team">
+    <div class="founder reveal">
+      <div class="photo-ph" role="img" aria-label="Место для фото основателя"><span class="tag">фото основателя</span></div>
+      <div class="founder__card"><b>Илья Сорокин</b><span>Основатель МедВектора. Лично ведёт запуск каждого направления</span></div>
+    </div>
+    <div class="team__text">
+      <p class="eyebrow">{{ t.eyebrow or 'Кто ведёт' }}</p>
+      <h2 class="h2">{{ t.title | t | safe }}</h2>
+      <p class="lead">{{ t.lead | t | safe }}</p>
+      <div class="team__facts">
+        <div><b>8 лет</b><span>в маркетинге, из них 5–6 в медицине</span></div>
+        <div><b>50+</b><span>клиник в опыте команды</span></div>
+        <div><b>1</b><span>ниша: только стоматологии</span></div>
+      </div>
+{% if t.roles != false %}
+      <div class="roles">
+        <div class="role"><i aria-hidden="true"></i><div><b>Директолог</b><span>кампании, чистка запросов, отчёт</span></div></div>
+        <div class="role"><i aria-hidden="true"></i><div><b>SEO-специалист</b><span>структура сайта, страницы и статьи</span></div></div>
+        <div class="role"><i aria-hidden="true"></i><div><b>Специалист по Картам</b><span>карточки, площадки, отзывы</span></div></div>
+        <div class="role"><i aria-hidden="true"></i><div><b>Разработчик</b><span>сайты, лендинги, формы и учёт</span></div></div>
+      </div>
+{% endif %}
+{% if t.more %}
+      <p><a class="more" href="{{ href('about') }}">{{ t.more }}</a></p>
+{% endif %}
+    </div>
+  </div>
+</section>
+{% endmacro %}
+
+{# ---------- вопросы: раскрывающийся список ---------- #}
 {% macro qa(q, items) %}
-<section class="section qa" id="faq">
-  <div class="qa__panel">
+<section class="section{% if q.alt %} section--alt{% endif %}" id="{{ q.id or 'faq' }}">
+  <div class="wrap qa">
     <div class="qa__head">
       <p class="eyebrow">{{ q.eyebrow or 'Вопросы' }}</p>
-      <h2 class="h2" data-split>{{ q.title | t | safe }}</h2>
+      <h2 class="h2">{{ q.title | t | safe }}</h2>
 {% if q.lead %}
-      <p class="qa__lead">{{ q.lead | t | safe }}</p>
+      <p class="lead">{{ q.lead | t | safe }}</p>
 {% endif %}
     </div>
     <div class="qa__list">
 {% for f in items %}
       <details class="qa__item"{% if loop.first %} open{% endif %}>
-        <summary><span>{{ f.q | t | safe }}</span><i aria-hidden="true"></i></summary>
+        <summary>{{ f.q | t | safe }}<i aria-hidden="true"></i></summary>
         <div class="qa__a"><p>{{ f.a | t | safe }}</p></div>
       </details>
 {% endfor %}
@@ -268,154 +240,53 @@
 </section>
 {% endmacro %}
 
-{# ---------- полоса-призыв ---------- #}
-{% macro band(b) %}
-<div class="wrap band-wrap">
-  <a class="band reveal" href="{{ b.url or '#diagnostics' }}">
-    <b>{{ b.title | t | safe }}</b>
-    <span>{{ b.text | t | safe }}</span>
-    <i aria-hidden="true">→</i>
-  </a>
-</div>
-{% endmacro %}
-
-{# ---------- форма диагностики: тот же блок, что на главной ---------- #}
-{% macro diag(d={}) %}
-<section class="section diag" id="diagnostics">
-  <div class="wrap diag__grid">
-    <div class="diag__text">
-      <p class="eyebrow">{{ d.eyebrow or 'Первый шаг' }}</p>
-      <h2 class="h2" data-split>{{ (d.title or 'Начнём с бесплатной диагностики клиники.') | t | safe }}</h2>
-      <p class="lead">{{ (d.lead or 'Без обязательств. Покажем, с чего начать: с рекламы или с основы, и сколько это будет стоить.') | t | safe }}</p>
-      <ul class="ticks">
-{% for i in (d.items or ['Сайт и видимость по вашим услугам в Яндексе', 'Карточка на Яндекс Картах и отзывы', 'Готовность к рекламе: лендинг, цены, обработка заявок', 'Сравнение с клиниками рядом', 'Рекомендация: Директ, основа или отдельная услуга']) %}
-        <li>{{ i | t | safe }}</li>
-{% endfor %}
-      </ul>
-      <picture>
-        <source type="image/webp" srcset="/assets/img/gen-diagnostics-640.webp 640w, /assets/img/gen-diagnostics-1000.webp 1000w" sizes="(max-width: 1100px) 80vw, 480px">
-        <img src="/assets/img/gen-diagnostics.jpg" alt="Лупа над картой района: клиника среди конкурентов на карте" class="diag__img" width="1000" height="750" loading="lazy" decoding="async">
-      </picture>
-    </div>
-    <form class="form" novalidate>
-      <label>Имя<input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
-      <label>Телефон или Telegram<input type="text" name="contact" autocomplete="tel" inputmode="text" enterkeyhint="next" required></label>
-      <label>Город<input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
-      <label>Сайт клиники <small>если есть</small><input type="url" name="site" inputmode="url" autocomplete="url" placeholder="https://" enterkeyhint="done"></label>
-      <label class="form__consent"><input type="checkbox" required> <span>Согласен на обработку персональных данных в соответствии с <a href="{{ href('policy') }}">политикой</a></span></label>
-      <button class="btn-tape btn-tape--form" type="submit"><span>Получить диагностику</span></button>
-      <p class="form__after">После заявки свяжемся, уточним задачу и назовём срок диагностики.</p>
-      <p class="form__ok" role="status">Спасибо! Сайт в разработке: заявка пока никуда не отправлена.</p>
-    </form>
-  </div>
-</section>
-<!-- нижняя кнопка на телефоне -->
-<a href="#diagnostics" class="mcta"><span>Бесплатная диагностика клиники</span><i aria-hidden="true">→</i></a>
-{% endmacro %}
-
-{# ---------- карточки-пункты: особенности, что проверяем ---------- #}
-{% macro points(p) %}
-<section class="section points" id="{{ p.id or 'points' }}">
+{# ---------- заявка: одна форма на весь сайт с выбором услуги ---------- #}
+{% macro start(d={}) %}
+<section class="section start" id="start">
   <div class="wrap">
-    {{ head(p) }}
-    <div class="points__grid">
-{% for i in p.items %}
-      <article class="point reveal">
-        <span class="point__n">{{ loop.index }}</span>
-        <h3>{{ i.title | t | safe }}</h3>
-        <p>{{ i.text | t | safe }}</p>
-      </article>
-{% endfor %}
-    </div>
-{% if p.note %}
-    <p class="note">{{ p.note | t | safe }}</p>
-{% endif %}
-  </div>
-</section>
-{% endmacro %}
-
-{# ---------- списки в колонках ---------- #}
-{% macro lists(l) %}
-<section class="section lists" id="{{ l.id or 'lists' }}">
-  <div class="wrap">
-    {{ head(l) }}
-    <div class="lists__grid">
-{% for c in l.cols %}
-      <div class="reveal">
-        <h3>{{ c.title | t | safe }}</h3>
-        <ul class="{% if c.kind == 'dash' %}dashes{% elif c.kind == 'cross' %}crosses{% else %}ticks ticks--sm{% endif %}">
-{% for i in c.items %}
+    <div class="start__panel">
+      <div class="start__text">
+        <p class="eyebrow">{{ d.eyebrow or 'Начать бесплатно' }}</p>
+        <h2 class="h2">{{ (d.title or 'Оставьте заявку: разберём клинику и посчитаем запуск.') | t | safe }}</h2>
+        <p class="lead">{{ (d.lead or 'За 2 рабочих дня посмотрим сайт, карточку на Картах и рекламу, если она уже идёт. Скажем, с чего начать: с теста Директа или с сайта и Карт.') | t | safe }}</p>
+        <ul class="ticks">
+{% for i in (d.items or ['Тест Директа: 0 ₽ за нашу работу, вы платите только бюджет Яндексу', 'Сайт под ключ: 0 ₽ при старте комплексного маркетинга на 3 месяца', 'Если реклама пока не окупится, скажем об этом сразу']) %}
           <li>{{ i | t | safe }}</li>
 {% endfor %}
         </ul>
+        <p class="start__promise">{{ (d.promise or 'Заявка ни к чему не обязывает. Ответим в рабочее время, уточним задачу и назовём срок разбора.') | t | safe }}</p>
       </div>
-{% endfor %}
+      <form class="form" novalidate action="#" aria-label="Заявка">
+        <fieldset class="form__choice">
+          <legend>Что хотите запустить</legend>
+          <div class="form__opts">
+            <label class="form__opt"><input type="radio" name="service" value="direct"{% if d.pick != 'site' %} checked{% endif %}><span>Тест Директа<small>0 ₽ за работу</small></span></label>
+            <label class="form__opt"><input type="radio" name="service" value="site"{% if d.pick == 'site' %} checked{% endif %}><span>Сайт и Карты<small>сайт бесплатно</small></span></label>
+            <label class="form__opt"><input type="radio" name="service" value="unsure"><span>Пока не знаю<small>подскажем</small></span></label>
+          </div>
+        </fieldset>
+        <label class="fld form__dir">Направление
+          <select name="direction">
+            <option value="all-on-4"{% if d.dir == 'all-on-4' %} selected{% endif %}>All-on-4, полное восстановление</option>
+            <option value="implant"{% if d.dir == 'implant' %} selected{% endif %}>Имплантация</option>
+            <option value="running">Реклама уже идёт, нужен разбор</option>
+            <option value="other">Другое направление</option>
+          </select>
+        </label>
+        <div class="form__row">
+          <label class="fld">Имя<input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
+          <label class="fld">Телефон или Telegram<input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
+        </div>
+        <div class="form__row">
+          <label class="fld">Город<input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
+          <label class="fld">Сайт или карточка на Картах <small>если есть</small><input type="text" name="site" inputmode="url" autocomplete="url" placeholder="Ссылка" enterkeyhint="done"></label>
+        </div>
+        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="{{ href('consent') }}">согласие на обработку персональных данных</a> на условиях <a href="{{ href('policy') }}">политики</a></span></label>
+        <button class="btn" type="submit">{{ d.button or 'Отправить заявку' }} <i aria-hidden="true">→</i></button>
+        <p class="form__after">Ответим в рабочее время. Без рассылок и навязчивых звонков.</p>
+        <p class="form__ok" role="status">Спасибо! Сайт в разработке: заявка пока никуда не отправлена.</p>
+      </form>
     </div>
-{% if l.note %}
-    <p class="note">{{ l.note | t | safe }}</p>
-{% endif %}
   </div>
 </section>
-{% endmacro %}
-
-{# ---------- нумерованный перечень на бумаге: что нужно от клиники, что получает клиника ---------- #}
-{% macro need(n) %}
-<section class="section need" id="{{ n.id or 'need' }}">
-  <div class="wrap need__grid">
-    <div class="need__head">
-      {{ head(n) }}
-    </div>
-    <ol class="proofs">
-{% for i in n.items %}
-      <li class="reveal"><b>{{ i.b | t | safe }}</b> {{ i.t | t | safe }}</li>
-{% endfor %}
-    </ol>
-  </div>
-</section>
-{% endmacro %}
-
-{# ---------- самопроверка: пять признаков готовности к рекламе ---------- #}
-{% macro signs(s) %}
-<section class="section signs" id="signs">
-  <div class="wrap signs__grid">
-    <div class="signs__head">
-      {{ head(s) }}
-      <p class="signs__result" data-signs-result aria-live="polite">Отметьте, что уже есть в&nbsp;клинике. Если двух признаков не&nbsp;хватает, начинать лучше с&nbsp;основы.</p>
-    </div>
-    <ol class="signs__list">
-{% for i in s.items %}
-      <li class="reveal"><label><input type="checkbox"><span class="signs__box" aria-hidden="true"></span><span><b>{{ i.b | t | safe }}</b> {{ i.t | t | safe }}</span></label></li>
-{% endfor %}
-    </ol>
-  </div>
-</section>
-{% endmacro %}
-
-{# ---------- таблица: первая колонка заголовок строки, на телефоне строки становятся карточками ---------- #}
-{% macro table(tb) %}
-<table class="tbl{% if tb.kind %} tbl--{{ tb.kind }}{% endif %}">
-{% if tb.caption %}
-  <caption class="sr-only">{{ tb.caption }}</caption>
-{% endif %}
-  <thead>
-    <tr>
-{% for h in tb.head %}
-      <th scope="col">{{ h | t | safe }}</th>
-{% endfor %}
-    </tr>
-  </thead>
-  <tbody>
-{% for r in tb.rows %}
-    <tr class="reveal">
-{% for c in r %}
-{% if loop.first %}
-      <th scope="row">{{ c | t | safe }}</th>
-{% else %}
-      <td data-label="{{ tb.head[loop.index0] }}"{% if tb.price == loop.index0 %} class="tbl__price"{% endif %}>{{ c | t | safe }}</td>
-{% endif %}
-{% endfor %}
-    </tr>
-{% endfor %}
-  </tbody>
-</table>
 {% endmacro %}
