@@ -37,6 +37,9 @@
       <p class="plaque">{{ h.plaque | t | safe }}</p>
 {% endif %}
       <h1 class="h1">{{ h.title | t | safe }}</h1>
+{% if h.tagline %}
+      <p class="phero__tagline">{{ h.tagline | t | safe }}</p>
+{% endif %}
       <p class="phero__lead">{{ h.lead | t | safe }}</p>
 {% if h.facts %}
       <ul class="phero__facts">
@@ -92,13 +95,13 @@
       <div class="mini__top"><span>Демо</span><small>☰</small></div>
 {% if kind == 'implant' %}
       <div class="mini__hero"><b>Имплантация зуба под ключ</b><small>Имплант, формирователь и коронка: цена по этапам</small><span class="mini__btn">Рассчитать стоимость</span></div>
-      <div class="mini__rows"><span class="mini__row">Цена по этапам</span><span class="mini__row">Импланты и гарантия</span><span class="mini__row">Если мало кости</span></div>
+      <div class="mini__rows"><span class="mini__row">Цена по этапам</span><span class="mini__row">Импланты и гарантия</span><span class="mini__row">Если мало кости</span><span class="mini__row">Врач и его опыт</span><span class="mini__row">Рассрочка</span></div>
 {% elif kind == 'site' %}
       <div class="mini__hero"><b>Стоматология рядом с домом</b><small>Лечение, имплантация, детский приём</small><span class="mini__btn">Записаться</span></div>
-      <div class="mini__rows"><span class="mini__row">Услуги и цены</span><span class="mini__row">Врачи</span><span class="mini__row">Отзывы с площадок</span></div>
+      <div class="mini__rows"><span class="mini__row">Услуги и цены</span><span class="mini__row">Врачи</span><span class="mini__row">Отзывы с площадок</span><span class="mini__row">Акции</span><span class="mini__row">Как добраться</span></div>
 {% else %}
       <div class="mini__hero"><b>Все зубы на 4 имплантах</b><small>Консультация хирурга и ортопеда, КТ, план лечения</small><span class="mini__btn">Записаться на консультацию</span></div>
-      <div class="mini__rows"><span class="mini__row">Кому подходит метод</span><span class="mini__row">Врач и его опыт</span><span class="mini__row">Цена и рассрочка</span></div>
+      <div class="mini__rows"><span class="mini__row">Кому подходит метод</span><span class="mini__row">Врач и его опыт</span><span class="mini__row">Этапы и сроки</span><span class="mini__row">Если мало кости</span><span class="mini__row">Цена и рассрочка</span></div>
 {% endif %}
       <div class="mini__form"><span>Запись на консультацию</span><i></i><i></i></div>
     </div>
