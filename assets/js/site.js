@@ -39,7 +39,6 @@
     burger.setAttribute('aria-expanded', open);
     burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
     mnav.classList.toggle('is-open', open);
-    mnav.setAttribute('aria-hidden', !open);
     mnav.inert = !open;
     header.classList.toggle('menu-open', open);
     header.classList.remove('is-hidden');
@@ -166,7 +165,7 @@
       const lines = q.toUpperCase().match(/.{1,13}(\s|$)/g).map(s => s.trim());
       svg += `<g class="seg"><path d="M${C} ${C} L${x0.toFixed(1)} ${y0.toFixed(1)} A${R} ${R} 0 0 1 ${x1.toFixed(1)} ${y1.toFixed(1)} Z"/>` +
         `<text data-x="${tx.toFixed(1)}" data-y="${ty.toFixed(1)}" text-anchor="middle">` +
-        lines.map((l, k) => `<tspan x="0" dy="${k ? 22 : -(lines.length - 1) * 11 + 7}">${l}</tspan>`).join('') + '</text></g>';
+        lines.map((l, k) => `<tspan x="0" dy="${k ? 22 : -(lines.length - 1) * 11 + 7}">${l}${k < lines.length - 1 ? ' ' : ''}</tspan>`).join('') + '</text></g>';
     });
     wheel.innerHTML = svg + '</svg>';
     const segs = $$('.seg', wheel);
