@@ -1,0 +1,30 @@
+<!-- ============ ШАПКА «Траектория»: логотип, четыре пункта, одна кнопка ============ -->
+<header class="hdr" id="top">
+  <div class="hdr__in">
+    <a href="/" class="hdr__logo" aria-label="МедВектор, на главную"{% if home %} aria-current="page"{% endif %}>
+      <img src="/assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+    </a>
+    <nav class="hdr__nav" aria-label="Основное меню">
+      <a href="{{ href('direct') }}"{% if section == 'direct' %} aria-current="page"{% endif %}>Яндекс Директ</a>
+      <a href="{{ href('complex') }}"{% if section == 'complex' %} aria-current="page"{% endif %}>Сайт и Карты</a>
+      <a href="{{ href('cases') }}"{% if section == 'cases' %} aria-current="page"{% endif %}>Кейсы</a>
+      <a href="{{ href('about') }}"{% if section == 'about' %} aria-current="page"{% endif %}>О нас</a>
+    </nav>
+    <a href="{{ '#start' if form != false else '/#start' }}" class="btn btn--sm hdr__cta" data-magnetic>Начать бесплатно</a>
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- мобильное меню: тёмный экран, пункты крупно -->
+<div class="mnav" id="mnav" inert>
+  <nav class="mnav__nav" aria-label="Мобильное меню">
+    <a href="{{ href('direct') }}"><small>01</small>Яндекс Директ</a>
+    <a href="{{ href('complex') }}"><small>02</small>Сайт и Карты</a>
+    <a href="{{ href('cases') }}"><small>03</small>Кейсы</a>
+    <a href="{{ href('about') }}"><small>04</small>О нас</a>
+  </nav>
+  <div class="mnav__foot">
+    <a href="{{ '#start' if form != false else '/#start' }}" class="btn btn--light">Начать бесплатно <span class="btn__arr" aria-hidden="true">→</span></a>
+    <p>Тест Директа без оплаты нашей работы или сайт бесплатно при старте на&nbsp;3&nbsp;месяца.</p>
+  </div>
+</div>

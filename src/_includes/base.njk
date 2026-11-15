@@ -28,9 +28,15 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
+{% if design == 'trajectory' %}
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/trajectory.css">
+{% else %}
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/oswald-700-cyrillic.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/golos-text-400-cyrillic.woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/site.css">
+{% endif %}
 <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
 {% block jsonld %}
@@ -41,18 +47,23 @@
 </head>
 <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
 <a class="skip" href="#main">К содержимому</a>
-{% include "header.njk" %}
+{% include ("header-t.njk" if design == 'trajectory' else "header.njk") %}
 
 <main id="main">
 {% block main %}{% endblock %}
 </main>
 
-{% include "footer.njk" %}
+{% include ("footer-t.njk" if design == 'trajectory' else "footer.njk") %}
 {% if form != false %}
 <!-- нижняя кнопка на телефоне -->
 <a href="#start" class="mcta"><span>{{ mctaText or 'Начать бесплатно' }}</span><i aria-hidden="true">→</i></a>
 {% endif %}
 
+{% if design == 'trajectory' %}
+<script src="/assets/js/vendor/lenis.min.js" defer></script>
+<script src="/assets/js/trajectory.js" defer></script>
+{% else %}
 <script src="/assets/js/site.js" defer></script>
+{% endif %}
 </body>
 </html>

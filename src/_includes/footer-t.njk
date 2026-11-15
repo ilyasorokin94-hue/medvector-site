@@ -1,0 +1,32 @@
+<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__top">
+      <p class="ftr__say">Маркетинг только для&nbsp;стоматологий. <em>Честная цена</em>, сильная работа, ничего лишнего.</p>
+      <nav class="ftr__col" aria-label="Услуги">
+        <h2>Услуги</h2>
+        <a href="{{ href('direct') }}">Яндекс Директ для стоматологий</a>
+        <a href="{{ href('direct') }}#directions">Реклама All-on-4 и имплантации</a>
+        <a href="{{ href('complex') }}">Сайт и комплексный маркетинг</a>
+        <a href="{{ href('complex') }}#maps">Яндекс Карты</a>
+      </nav>
+      <nav class="ftr__col" aria-label="Агентство">
+        <h2>Агентство</h2>
+        <a href="{{ href('cases') }}">Кейсы и примеры</a>
+        <a href="{{ href('about') }}">О нас</a>
+        <a href="{{ href('about') }}#contacts">Контакты</a>
+        <a href="{{ '#start' if form != false else '/#start' }}">Оставить заявку</a>
+      </nav>
+    </div>
+    <div class="ftr__mark">
+      <img src="/assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+    </div>
+    <div class="ftr__bottom">
+      <p>© {{ year }} МедВектор</p>
+      <nav aria-label="Документы">
+        <a href="{{ href('policy') }}">Политика обработки персональных данных</a>
+        <a href="{{ href('consent') }}">Согласие на обработку данных</a>
+      </nav>
+    </div>
+  </div>
+</footer>
