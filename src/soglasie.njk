@@ -8,12 +8,12 @@ crumbs:
 ---
 {% extends "base.njk" %}
 {% block main %}
-{% import "blocks.njk" as b %}
-<section class="section">
+{% import "t.njk" as b %}
+<section>
   <div class="wrap">
-    {{ b.crumbs(crumbs) }}
-    <article class="doc">
-      <h1 class="h2">Согласие на обработку персональных данных</h1>
+    <article class="prose">
+      {{ b.crumbs(crumbs) }}
+      <h1>Согласие на обработку персональных данных</h1>
       <p class="doc__warn">Черновик. Данные оператора выделены цветом и будут заполнены перед запуском. Текст проверит юрист.</p>
       <p>Отправляя заявку на сайте <span class="fill">medvector.pro</span>, я свободно, своей волей и в своём интересе даю согласие оператору <span class="fill">ИП ФИО, ИНН, ОГРНИП, адрес</span> на обработку моих персональных данных на условиях <a href="{{ href('policy') }}">политики обработки персональных данных</a>.</p>
       <h2>Какие данные</h2>

@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- сайт в разработке: убрать noindex при запуске на боевом домене -->
 <meta name="robots" content="noindex, nofollow">
-<title>О нас и контакты: маркетинг только для стоматологий | МедВектор</title>
-<meta name="description" content="МедВектор: агентство маркетинга только для стоматологий. Кто ведёт проекты, как работаем, чего не делаем, документы и контакты для связи.">
+<title>О нас и контакты: агентство для частных стоматологий | МедВектор</title>
+<meta name="description" content="МедВектор: реклама в Яндекс Директе, сайты и Яндекс Карты для частных стоматологий по всей России. Кто ведёт клиники, как работаем и как связаться.">
 <meta name="theme-color" content="#ffffff">
 <meta name="format-detection" content="telephone=no">
 <link rel="canonical" href="https://medvector.pro/kontakty/">
@@ -16,8 +16,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="МедВектор">
-<meta property="og:title" content="О нас и контакты: маркетинг только для стоматологий | МедВектор">
-<meta property="og:description" content="МедВектор: агентство маркетинга только для стоматологий. Кто ведёт проекты, как работаем, чего не делаем, документы и контакты для связи.">
+<meta property="og:title" content="О нас и контакты: агентство для частных стоматологий | МедВектор">
+<meta property="og:description" content="МедВектор: реклама в Яндекс Директе, сайты и Яндекс Карты для частных стоматологий по всей России. Кто ведёт клиники, как работаем и как связаться.">
 <meta property="og:url" content="https://medvector.pro/kontakty/">
 <meta property="og:image" content="https://medvector.pro/assets/img/og-cover.jpg">
 <meta property="og:image:width" content="1200">
@@ -25,9 +25,9 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/oswald-700-cyrillic.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/golos-text-400-cyrillic.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/trajectory.css">
 <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
 <script type="application/ld+json">
@@ -38,8 +38,8 @@
       "@type": "WebPage",
       "@id": "https://medvector.pro/kontakty/",
       "url": "https://medvector.pro/kontakty/",
-      "name": "О нас и контакты: маркетинг только для стоматологий | МедВектор",
-      "description": "МедВектор: агентство маркетинга только для стоматологий. Кто ведёт проекты, как работаем, чего не делаем, документы и контакты для связи.",
+      "name": "О нас и контакты: агентство для частных стоматологий | МедВектор",
+      "description": "МедВектор: реклама в Яндекс Директе, сайты и Яндекс Карты для частных стоматологий по всей России. Кто ведёт клиники, как работаем и как связаться.",
       "inLanguage": "ru",
       "isPartOf": {
         "@type": "WebSite",
@@ -70,230 +70,177 @@
 </head>
 <body>
 <a class="skip" href="#main">К содержимому</a>
-<!-- ============ ШАПКА: логотип, четыре пункта меню, связь и одна кнопка ============ -->
-<header class="header" id="top">
-  <div class="header__in">
-    <a href="../" class="logo" aria-label="МедВектор, на главную">
+<!-- ============ ШАПКА «Траектория»: логотип, четыре пункта, одна кнопка ============ -->
+<header class="hdr" id="top">
+  <div class="hdr__in">
+    <a href="../" class="hdr__logo" aria-label="МедВектор, на главную">
       <img src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
     </a>
-    <nav class="nav" aria-label="Основное меню">
-      <a href="../yandex-direkt/" class="nav__link">Яндекс Директ</a>
-      <a href="../kompleksnyj-marketing/" class="nav__link">Сайт и Карты</a>
-      <a href="../kejsy/" class="nav__link">Кейсы</a>
-      <a href="../kontakty/" class="nav__link is-active" aria-current="page">О нас</a>
+    <nav class="hdr__nav" aria-label="Основное меню">
+      <a href="../yandex-direkt/">Яндекс Директ</a>
+      <a href="../kompleksnyj-marketing/">Сайт и Карты</a>
+      <a href="../kejsy/">Кейсы</a>
+      <a href="../kontakty/" aria-current="page">О нас</a>
     </nav>
-    <div class="header__contacts">
-
-<a class="icon-btn" href="../kontakty/#contacts" aria-label="Telegram">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.2 2.9 11.4c-1 .4-1 1.7.1 2l4.6 1.5 1.8 5.5c.3.9 1.4 1.1 2 .4l2.6-2.9 4.7 3.5c.8.6 1.9.1 2.1-.9l3-14.6c.2-1-.8-1.8-1.7-1.5ZM9.6 15.1l-.5 3.3-1.3-4 9.4-6.2-7.6 6.9Z" fill="currentColor"/></svg>
-</a>
-<a class="icon-btn" href="../kontakty/#contacts" aria-label="MAX">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.8 3 3 6.6 3 11.2c0 2.4 1 4.5 2.8 6L5 21l4-2c1 .3 2 .4 3 .4 5.2 0 9-3.6 9-8.2S17.2 3 12 3Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8 14V9l2.5 3L13 9v5M15.5 9l2 2.5-2 2.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-</a>
-<a class="icon-btn" href="../kontakty/#contacts" aria-label="Телефон">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5 9 3l1.6 4.3-2 1.5a11 11 0 0 0 6.6 6.6l1.5-2L21 15l-.5 2.4c-.2 1-1 1.6-2 1.6A15.5 15.5 0 0 1 5 5.5c0-1 .6-1.8 1.6-2Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>
-</a>
-    </div>
-    <a href="#start" class="btn" data-magnetic>Начать бесплатно</a>
-    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
+    <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Начать бесплатно</a>
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
-  <span class="progress" aria-hidden="true"><i></i></span>
 </header>
 
-<!-- мобильное меню на весь экран -->
+<!-- мобильное меню: тёмный экран, пункты крупно -->
 <div class="mnav" id="mnav" inert>
-  <nav aria-label="Мобильное меню">
+  <nav class="mnav__nav" aria-label="Мобильное меню">
     <a href="../yandex-direkt/"><small>01</small>Яндекс Директ</a>
     <a href="../kompleksnyj-marketing/"><small>02</small>Сайт и Карты</a>
     <a href="../kejsy/"><small>03</small>Кейсы</a>
-    <a href="../kontakty/"><small>04</small>О нас и контакты</a>
+    <a href="../kontakty/"><small>04</small>О нас</a>
   </nav>
-  <a href="#start" class="btn btn--block">Начать бесплатно</a>
-  <p class="mnav__note">Тест Директа без оплаты нашей работы или сайт бесплатно при старте на 3 месяца.</p>
-  <div class="mnav__contacts">
-
-<a class="icon-btn" href="../kontakty/#contacts" aria-label="Telegram">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.2 2.9 11.4c-1 .4-1 1.7.1 2l4.6 1.5 1.8 5.5c.3.9 1.4 1.1 2 .4l2.6-2.9 4.7 3.5c.8.6 1.9.1 2.1-.9l3-14.6c.2-1-.8-1.8-1.7-1.5ZM9.6 15.1l-.5 3.3-1.3-4 9.4-6.2-7.6 6.9Z" fill="currentColor"/></svg>
-</a>
-<a class="icon-btn" href="../kontakty/#contacts" aria-label="MAX">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.8 3 3 6.6 3 11.2c0 2.4 1 4.5 2.8 6L5 21l4-2c1 .3 2 .4 3 .4 5.2 0 9-3.6 9-8.2S17.2 3 12 3Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8 14V9l2.5 3L13 9v5M15.5 9l2 2.5-2 2.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-</a>
-<a class="icon-btn" href="../kontakty/#contacts" aria-label="Телефон">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5 9 3l1.6 4.3-2 1.5a11 11 0 0 0 6.6 6.6l1.5-2L21 15l-.5 2.4c-.2 1-1 1.6-2 1.6A15.5 15.5 0 0 1 5 5.5c0-1 .6-1.8 1.6-2Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>
-</a>
+  <div class="mnav__foot">
+    <a href="#start" class="btn btn--light">Начать бесплатно <span class="btn__arr" aria-hidden="true">→</span></a>
+    <p>Тест Директа без оплаты нашей работы или сайт бесплатно при старте на&nbsp;3&nbsp;месяца.</p>
   </div>
 </div>
 
 <main id="main">
 <section class="phero" id="intro">
-  <div class="wrap phero__grid phero__grid--solo">
-    <div class="phero__text">
-      <nav class="crumbs" aria-label="Хлебные крошки">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
     <li><span aria-current="page">О нас и контакты</span></li>
   </ol>
 </nav>
 
-      <h1 class="h1">О&nbsp;нас и&nbsp;контакты</h1>
-      <p class="phero__tagline">Маркетинг только для стоматологий</p>
-      <p class="phero__lead">Ведём рекламу в&nbsp;Яндекс Директе, делаем сайты и&nbsp;упаковываем Яндекс Карты для частных клиник по&nbsp;всей России. Работаем удалённо, проект ведёт тот, с&nbsp;кем вы&nbsp;договаривались.</p>
-      <div class="btns">
-        <a href="#start" class="btn" data-magnetic data-pick="unsure">Оставить заявку <i aria-hidden="true">→</i></a>
-        <a href="#contacts" class="btn btn--ghost">Написать нам</a>
+    <h1 class="h1 h1--page">Агентство для частных <em>стоматологий</em><span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></h1>
+    <div class="phero__foot">
+      <p class="phero__sub">Ведём рекламу в&nbsp;Яндекс Директе, делаем сайты и&nbsp;оформляем Яндекс Карты для клиник по&nbsp;всей России. Работаем удалённо. Другие ниши не&nbsp;берём.</p>
+      <div class="phero__acts">
+        <a href="#start" class="btn" data-magnetic data-pick="unsure">Оставить заявку <span class="btn__arr" aria-hidden="true">→</span></a>
+        <a href="#contacts" class="link">Контакты</a>
       </div>
     </div>
+    <dl class="pfacts">
+      <div class="reveal"><dt>в&nbsp;маркетинге, из&nbsp;них 5–6 в&nbsp;медицине</dt><dd>8&nbsp;лет</dd></div>
+      <div class="reveal"><dt>клиник вели за&nbsp;это время</dt><dd>50+</dd></div>
+      <div class="reveal"><dt>работаем удалённо</dt><dd>Вся Россия</dd></div>
+    </dl>
   </div>
 </section>
 
 
-<section class="section" id="founder">
-  <div class="wrap team">
-    <div class="founder reveal">
-      <div class="photo-ph" role="img" aria-label="Место для фото основателя"><span class="tag">фото основателя</span></div>
-      <div class="founder__card"><b>Илья Сорокин</b><span>Основатель МедВектора. Лично ведёт запуск каждого направления</span></div>
+<section class="sec sec--fog sheet" id="founder">
+  <div class="wrap lead2">
+    <div class="lead2__main">
+      <p class="label">Основатель</p>
+      <h2 class="h2">Илья Сорокин ведёт каждую клинику <em>сам</em>.</h2>
+      <p class="lead">Разбирает клинику, согласует с&nbsp;владельцем цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт.</p>
+      <p class="lead">Почему только стоматологии: имплантацию и&nbsp;<span class="nw">All-on-4</span> нельзя хорошо рекламировать, не&nbsp;зная пациента, его вопросов и&nbsp;страхов. Это знание копится, когда годами работаешь в&nbsp;одной нише.</p>
     </div>
-    <div class="team__text">
-      <p class="eyebrow">Основатель</p>
-      <h2 class="h2">Илья Сорокин лично отвечает за&nbsp;каждый проект.</h2>
-      <p class="lead">Разбирает клинику, согласует оффер и&nbsp;смотрит каждый отчёт. Почему только стоматологии: дорогие услуги вроде имплантации и&nbsp;<span class="nw">All-on-4</span> требуют знания пациента, его запросов и&nbsp;страхов, а&nbsp;этому учишься только в&nbsp;одной нише.</p>
-      <div class="team__facts">
-        <div><b>8 лет</b><span>в маркетинге, из них 5–6 в медицине</span></div>
-        <div><b>50+</b><span>клиник в опыте команды</span></div>
-        <div><b>1</b><span>ниша: только стоматологии</span></div>
-      </div>
-      <div class="roles">
-        <div class="role"><i aria-hidden="true"></i><div><b>Директолог</b><span>кампании, чистка запросов, отчёт</span></div></div>
-        <div class="role"><i aria-hidden="true"></i><div><b>SEO-специалист</b><span>структура сайта, страницы и статьи</span></div></div>
-        <div class="role"><i aria-hidden="true"></i><div><b>Специалист по Картам</b><span>карточки, площадки, отзывы</span></div></div>
-        <div class="role"><i aria-hidden="true"></i><div><b>Разработчик</b><span>сайты, лендинги, формы и учёт</span></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="section section--alt" id="facts">
-  <div class="wrap">
-    <div class="head">
-  <p class="eyebrow">Агентство в фактах</p>
-  <h2 class="h2">Коротко о&nbsp;том, как мы&nbsp;устроены.</h2>
-</div>
-
-    <div class="grid grid-4">
-      <article class="card reveal"><h3 class="h3">Только стоматологии</h3><p>Других ниш не&nbsp;берём.</p></article>
-      <article class="card reveal"><h3 class="h3">Вся Россия, удалённо</h3><p>Частные клиники в&nbsp;любом городе.</p></article>
-      <article class="card reveal"><h3 class="h3">Всё на&nbsp;клинике</h3><p>Рекламный кабинет, Метрика, домен, сайт и&nbsp;карточки оформлены на&nbsp;вас.</p></article>
-      <article class="card reveal"><h3 class="h3">Два платежа</h3><p>Каждая сумма делится на&nbsp;два платежа, условия в&nbsp;договоре.</p></article>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="principles">
-  <div class="wrap split">
-    <div>
-      <div class="head">
-  <p class="eyebrow">Принципы</p>
-  <h2 class="h2">Как мы&nbsp;работаем.</h2>
-</div>
-
-      <ol class="num-list">
-        <li><b>Считаем запись, а&nbsp;не&nbsp;клик.</b> В&nbsp;отчёте заявки, записи и&nbsp;их&nbsp;цена.</li>
-        <li><b>Одно направление, один лендинг.</b> Не&nbsp;смешиваем <span class="nw">All-on-4</span> с&nbsp;одиночной имплантацией.</li>
-        <li><b>Не&nbsp;берёмся, если реклама не&nbsp;окупится.</b> Скажем об&nbsp;этом на&nbsp;разборе и&nbsp;предложим начать с&nbsp;основы.</li>
-        <li><b>Цифры с&nbsp;источником.</b> У&nbsp;каждой цифры есть период и&nbsp;откуда она взята.</li>
-      </ol>
-    </div>
-    <div class="card">
-      <h3 class="h3">Чего не делаем</h3>
-      <ul class="crosses">
-        <li>Не&nbsp;гарантируем число пациентов и&nbsp;места в&nbsp;поиске</li>
-        <li>Не&nbsp;пишем и&nbsp;не&nbsp;покупаем отзывы, не&nbsp;накручиваем переходы</li>
-        <li>Не&nbsp;ведём таргетированную рекламу в&nbsp;соцсетях</li>
-        <li>Не&nbsp;держим сайт клиники в&nbsp;аренде</li>
-        <li>Не&nbsp;сравниваем клинику с&nbsp;другими в&nbsp;рекламе и&nbsp;не&nbsp;обещаем результат лечения</li>
+    <div class="lead2__side">
+      <h3 class="pack__h">В команде</h3>
+      <ul class="plist plist--lg">
+        <li class="reveal"><span><b>Директолог</b> ведёт кампании, убирает лишние запросы, готовит отчёты</span></li>
+        <li class="reveal"><span><b>Разработчик</b> собирает сайты и&nbsp;страницы услуг, настраивает формы</span></li>
+        <li class="reveal"><span><b>Специалист по&nbsp;Картам</b> ведёт карточки, площадки и&nbsp;отзывы</span></li>
+        <li class="reveal"><span><b>SEO-специалист</b> отвечает за&nbsp;структуру сайта и&nbsp;статьи</span></li>
       </ul>
     </div>
   </div>
 </section>
 
-<section class="section section--alt" id="docs">
+<section class="sec" id="principles">
   <div class="wrap">
-    <div class="head">
-  <p class="eyebrow">Документы</p>
-  <h2 class="h2">Что можно проверить до&nbsp;разговора.</h2>
+    <div class="shead">
+  <div>
+    <p class="label">Как работаем</p>
+    <h2 class="h2">Что мы&nbsp;делаем и&nbsp;чего <em>не делаем</em>.</h2>
+  </div>
+  <p class="shead__note">Шаблон договора пришлём до&nbsp;начала работ, чтобы вы&nbsp;прочитали его без спешки.</p>
 </div>
 
-    <div class="contacts">
-      <div class="contact"><small>по запросу</small><b>Договор</b><span>Шаблон договора пришлём до&nbsp;начала работ.</span></div>
-      <div class="contact"><small>добавим</small><b>Сертификат Яндекс Директа</b><span>Ссылка на&nbsp;проверку на&nbsp;сайте Яндекса.</span></div>
-      <div class="contact"><small>добавим</small><b>Карточка агентства на Картах</b><span>С&nbsp;отзывами клиник.</span></div>
-      <div class="contact"><small>добавим</small><b>Статьи и разборы</b><span>Материалы для владельцев клиник.</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="contacts">
-  <div class="wrap">
-    <div class="head">
-  <p class="eyebrow">Контакты</p>
-  <h2 class="h2">Напишите или позвоните.</h2>
-  <p class="lead">Отвечаем в&nbsp;рабочее время по&nbsp;Москве. Если пока не&nbsp;готовы писать, подпишитесь на&nbsp;канал.</p>
-</div>
-
-    <div class="contacts">
-      <div class="contact"><small>Телефон</small><b>Номер появится скоро</b><span class="tag tag--warm">заглушка</span></div>
-      <div class="contact"><small>Telegram</small><b>Ссылка появится скоро</b><span class="tag tag--warm">заглушка</span></div>
-      <div class="contact"><small>MAX</small><b>Ссылка появится скоро</b><span class="tag tag--warm">заглушка</span></div>
-      <div class="contact"><small>Почта</small><b>Адрес на домене medvector.pro</b><span class="tag tag--warm">заглушка</span></div>
-    </div>
-    <p class="note">Telegram-канал для владельцев клиник: разборы рекламы и Карт. <span class="tag tag--warm">ссылка появится</span></p>
-  </div>
-</section>
-
-<section class="section start" id="start">
-  <div class="wrap">
-    <div class="start__panel">
-      <div class="start__text">
-        <p class="eyebrow">Начать бесплатно</p>
-        <h2 class="h2">Оставьте заявку: разберём клинику и&nbsp;посчитаем запуск.</h2>
-        <p class="lead">За&nbsp;2&nbsp;рабочих дня посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;теста Директа или с&nbsp;сайта и&nbsp;Карт.</p>
-        <ul class="ticks">
-          <li>Тест Директа: 0&nbsp;₽ за&nbsp;нашу работу, вы&nbsp;платите только бюджет Яндексу</li>
-          <li>Сайт под ключ: 0&nbsp;₽ при старте комплексного маркетинга на&nbsp;3&nbsp;месяца</li>
-          <li>Если реклама пока не&nbsp;окупится, скажем об&nbsp;этом сразу</li>
+    <div class="yesno">
+      <div class="yesno__col">
+        <h3 class="pack__h">Что делаем</h3>
+        <ul class="plist plist--lg">
+          <li class="reveal"><span>Считаем заявки и&nbsp;записи и&nbsp;показываем цену каждой</span></li>
+          <li class="reveal"><span>Каждую услугу рекламируем отдельно, со&nbsp;своей страницей</span></li>
+          <li class="reveal"><span>Говорим на&nbsp;разборе, если реклама у&nbsp;клиники пока не&nbsp;окупится</span></li>
+          <li class="reveal"><span>Оформляем кабинет, сайт, домен и&nbsp;карточки на&nbsp;клинику</span></li>
+          <li class="reveal"><span>У&nbsp;каждой цифры в&nbsp;отчёте есть период и&nbsp;источник</span></li>
         </ul>
-        <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время, уточним задачу и&nbsp;назовём срок разбора.</p>
+      </div>
+      <div class="yesno__col">
+        <h3 class="pack__h">Чего не делаем</h3>
+        <ul class="plist plist--lg plist--no">
+          <li class="reveal"><span>Не&nbsp;гарантируем число пациентов и&nbsp;места в&nbsp;поиске</span></li>
+          <li class="reveal"><span>Не&nbsp;пишем и&nbsp;не&nbsp;покупаем отзывы, не&nbsp;накручиваем переходы</span></li>
+          <li class="reveal"><span>Не&nbsp;ведём рекламу в&nbsp;соцсетях</span></li>
+          <li class="reveal"><span>Не&nbsp;держим сайт клиники в&nbsp;аренде</span></li>
+          <li class="reveal"><span>Не&nbsp;обещаем в&nbsp;рекламе результат лечения</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--fog" id="contacts">
+  <div class="wrap">
+    <div class="shead">
+  <div>
+    <p class="label">Контакты</p>
+    <h2 class="h2">Как с&nbsp;нами <em>связаться</em>.</h2>
+  </div>
+  <p class="shead__note">Отвечаем в&nbsp;рабочее время по&nbsp;Москве.</p>
+</div>
+
+    <p class="note-lg">Сейчас самый быстрый способ связаться с&nbsp;нами: <a href="#start">заявка ниже</a>. Телефон, Telegram и&nbsp;почта появятся на&nbsp;этой странице перед запуском сайта.</p>
+  </div>
+</section>
+
+<section class="dark sheet start" id="start" data-dark>
+  <div class="wrap">
+    <h2 class="h2 start__title">Оставьте заявку. За&nbsp;2&nbsp;рабочих дня разберём клинику и&nbsp;посчитаем <em>запуск</em>.</h2>
+    <div class="start__grid">
+      <div class="start__text">
+        <p class="lead">Посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;тестового месяца в&nbsp;Директе или с&nbsp;сайта и&nbsp;Карт.</p>
+        <ul class="plist">
+          <li>Тестовый месяц в&nbsp;Директе: наша работа 0&nbsp;₽, бюджет вы&nbsp;платите Яндексу</li>
+          <li>Сайт под ключ: 0&nbsp;₽ при старте на&nbsp;3&nbsp;месяца</li>
+          <li>Если реклама у&nbsp;клиники пока не&nbsp;окупится, скажем об&nbsp;этом на&nbsp;разборе</li>
+        </ul>
+        <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
       </div>
       <form class="form" novalidate action="#" aria-label="Заявка">
         <fieldset class="form__choice">
           <legend>Что хотите запустить</legend>
           <div class="form__opts">
-            <label class="form__opt"><input type="radio" name="service" value="direct"><span>Тест Директа<small>0 ₽ за работу</small></span></label>
-            <label class="form__opt"><input type="radio" name="service" value="site"><span>Сайт и Карты<small>сайт бесплатно</small></span></label>
-            <label class="form__opt"><input type="radio" name="service" value="unsure" checked><span>Пока не знаю<small>подскажем</small></span></label>
+            <label class="form__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
+            <label class="form__opt"><input type="radio" name="service" value="site"><span>Сайт и&nbsp;Карты</span></label>
+            <label class="form__opt"><input type="radio" name="service" value="unsure" checked><span>Пока не&nbsp;знаю</span></label>
           </div>
         </fieldset>
-        <label class="fld form__dir">Направление
+        <label class="fld form__dir"><span>Услуга для рекламы</span>
           <select name="direction">
-            <option value="all-on-4">All-on-4, полное восстановление</option>
             <option value="implant">Имплантация</option>
+            <option value="all-on-4">All-on-4, полное восстановление</option>
             <option value="running">Реклама уже идёт, нужен разбор</option>
-            <option value="other">Другое направление</option>
+            <option value="other">Другая услуга</option>
           </select>
         </label>
         <div class="form__row">
-          <label class="fld">Имя<input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
-          <label class="fld">Телефон или Telegram<input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
+          <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
+          <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
         </div>
         <div class="form__row">
-          <label class="fld">Город<input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
-          <label class="fld">Сайт или карточка на Картах <small>если есть</small><input type="text" name="site" inputmode="url" autocomplete="url" placeholder="Ссылка" enterkeyhint="done"></label>
+          <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
+          <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
         </div>
-        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="../soglasie/">согласие на обработку персональных данных</a> на условиях <a href="../politika/">политики</a></span></label>
-        <button class="btn" type="submit">Отправить заявку <i aria-hidden="true">→</i></button>
-        <p class="form__after">Ответим в рабочее время. Без рассылок и навязчивых звонков.</p>
-        <p class="form__ok" role="status">Спасибо! Сайт в разработке: заявка пока никуда не отправлена.</p>
+        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../politika/">политики</a></span></label>
+        <div class="form__send">
+          <p class="form__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
+          <button class="btn btn--light" type="submit" data-vend data-magnetic>Отправить заявку <span class="btn__arr" aria-hidden="true">→</span></button>
+        </div>
+        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
       </form>
     </div>
   </div>
@@ -301,42 +248,31 @@
 
 </main>
 
-<!-- ============ ПОДВАЛ ============ -->
-<footer class="footer">
+<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<footer class="ftr">
   <div class="wrap">
-    <div class="footer__top">
-      <div class="footer__brand">
-        <img src="../assets/img/medvector-logo-light.webp" alt="МедВектор" width="440" height="93" loading="lazy" class="footer__logo">
-        <p class="footer__tagline">Честная цена. Сильная работа. Ничего лишнего.</p>
-      </div>
-      <div>
+    <div class="ftr__top">
+      <p class="ftr__say">Реклама, сайты и&nbsp;Яндекс Карты для частных стоматологий. Честная цена: первый месяц <em>бесплатно</em>.</p>
+      <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
-        <nav aria-label="Услуги">
-          <a href="../yandex-direkt/">Яндекс Директ для стоматологий</a>
-          <a href="../yandex-direkt/#directions">Реклама All-on-4 и имплантации</a>
-          <a href="../kompleksnyj-marketing/">Сайт и комплексный маркетинг</a>
-          <a href="../kompleksnyj-marketing/#maps">Яндекс Карты</a>
-        </nav>
-      </div>
-      <div>
+        <a href="../yandex-direkt/">Яндекс Директ для стоматологий</a>
+        <a href="../yandex-direkt/#directions">Реклама All-on-4 и имплантации</a>
+        <a href="../kompleksnyj-marketing/">Сайт и комплексный маркетинг</a>
+        <a href="../kompleksnyj-marketing/#maps">Яндекс Карты</a>
+      </nav>
+      <nav class="ftr__col" aria-label="Агентство">
         <h2>Агентство</h2>
-        <nav aria-label="Агентство">
-          <a href="../kejsy/">Кейсы и примеры</a>
-          <a href="../kontakty/">О нас</a>
-          <a href="../kontakty/#contacts">Контакты</a>
-        </nav>
-      </div>
-      <div>
-        <h2>Начать</h2>
-        <nav aria-label="Начать">
-          <a href="../yandex-direkt/#price">Тестовый месяц Директа</a>
-          <a href="../kompleksnyj-marketing/#price">Сайт бесплатно на старте</a>
-          <a href="#start">Оставить заявку</a>
-        </nav>
-      </div>
+        <a href="../kejsy/">Кейсы и примеры</a>
+        <a href="../kontakty/">О нас</a>
+        <a href="../kontakty/#contacts">Контакты</a>
+        <a href="#start">Оставить заявку</a>
+      </nav>
     </div>
-    <div class="footer__bottom">
-      <p>© 2026 МедВектор. Маркетинг только для стоматологий.</p>
+    <div class="ftr__mark">
+      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+    </div>
+    <div class="ftr__bottom">
+      <p>© 2026 МедВектор</p>
       <nav aria-label="Документы">
         <a href="../politika/">Политика обработки персональных данных</a>
         <a href="../soglasie/">Согласие на обработку данных</a>
@@ -347,6 +283,7 @@
 <!-- нижняя кнопка на телефоне -->
 <a href="#start" class="mcta"><span>Начать бесплатно</span><i aria-hidden="true">→</i></a>
 
-<script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/vendor/lenis.min.js" defer></script>
+<script src="../assets/js/trajectory.js" defer></script>
 </body>
 </html>

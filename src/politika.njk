@@ -8,12 +8,12 @@ crumbs:
 ---
 {% extends "base.njk" %}
 {% block main %}
-{% import "blocks.njk" as b %}
-<section class="section">
+{% import "t.njk" as b %}
+<section>
   <div class="wrap">
-    {{ b.crumbs(crumbs) }}
-    <article class="doc">
-      <h1 class="h2">Политика обработки персональных данных</h1>
+    <article class="prose">
+      {{ b.crumbs(crumbs) }}
+      <h1>Политика обработки персональных данных</h1>
       <p class="doc__warn">Черновик. Данные оператора выделены цветом и будут заполнены перед запуском. Текст проверит юрист.</p>
       <h2>1. Общие положения</h2>
       <p>Политика действует в отношении персональных данных, которые оператор получает от посетителей сайта <span class="fill">medvector.pro</span>. Политика составлена по Федеральному закону от 27.07.2006 № 152-ФЗ «О персональных данных».</p>

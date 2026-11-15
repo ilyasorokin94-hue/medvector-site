@@ -4,6 +4,7 @@ description: "Такой страницы нет. Перейдите на гла
 permalink: /404.html
 form: false
 noCanonical: true
+design: trajectory
 ---
 {% extends "base.njk" %}
 {% block base %}
@@ -15,11 +16,11 @@ noCanonical: true
 {% endblock %}
 {% block main %}
 <section class="solo">
-  <div class="wrap solo__in">
+  <div class="wrap">
     <p class="solo__big" aria-hidden="true">404</p>
     <h1 class="h2">Такой страницы нет</h1>
-    <p class="lead">Возможно, адрес изменился. Начните с главной или выберите услугу.</p>
-    <div class="btns"><a class="btn" href="./">На главную</a><a class="btn btn--ghost" href="yandex-direkt/">Яндекс Директ</a><a class="btn btn--ghost" href="kompleksnyj-marketing/">Сайт и Карты</a></div>
+    <p class="lead">Возможно, адрес изменился. Начните с&nbsp;главной или выберите услугу.</p>
+    <div class="solo__acts"><a class="btn" href="./">На главную <span class="btn__arr" aria-hidden="true">→</span></a><a class="link" href="yandex-direkt/">Яндекс Директ</a><a class="link" href="kompleksnyj-marketing/">Сайт и&nbsp;Карты</a></div>
   </div>
 </section>
 {% endblock %}
