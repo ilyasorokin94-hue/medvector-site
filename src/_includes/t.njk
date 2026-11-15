@@ -155,7 +155,7 @@
     <div><dt>записей на консультацию</dt><dd>4</dd></div>
     <div><dt>цена записи</dt><dd>9&nbsp;375&nbsp;₽</dd></div>
   </dl>
-  <div class="rep__scroll" tabindex="0" role="region" aria-label="Таблица отчёта">
+  <section class="rep__scroll" tabindex="0" aria-label="Таблица отчёта">
     <table class="rep__table">
       <caption class="sr">Образец недельного отчёта, клиника вымышленная</caption>
       <thead><tr><th scope="col">Канал</th><th scope="col">Расход</th><th scope="col">Переходы</th><th scope="col">Заявки</th><th scope="col">Цена заявки</th><th scope="col">Записи</th></tr></thead>
@@ -165,7 +165,7 @@
       </tbody>
       <tfoot><tr><th scope="row">Итого</th><td>37&nbsp;500&nbsp;₽</td><td>395</td><td>9</td><td>4&nbsp;167&nbsp;₽</td><td>4</td></tr></tfoot>
     </table>
-  </div>
+  </section>
   <ul class="rep__notes">
     <li><b>Что сделали.</b> Убрали 23 запроса без намерения лечиться: «бесплатно», «по ОМС», «обучение», «вакансии».</li>
     <li><b>Что дальше.</b> Проверяем второй вариант первого экрана на странице услуги.</li>
@@ -212,14 +212,14 @@
 {% macro calc() %}
 <div class="calc" data-calc>
   <div class="calc__ctl">
-    <label class="rng"><span class="rng__top"><span>Рекламный бюджет в&nbsp;месяц</span><output data-out="budget">150&nbsp;000&nbsp;₽</output></span>
-      <input type="range" name="budget" min="100000" max="400000" step="10000" value="150000"></label>
-    <label class="rng"><span class="rng__top"><span>Цена перехода по&nbsp;рекламе</span><output data-out="cpc">220&nbsp;₽</output></span>
-      <input type="range" name="cpc" min="60" max="800" step="10" value="220"></label>
-    <label class="rng"><span class="rng__top"><span>Заявок из&nbsp;100 переходов на&nbsp;страницу</span><output data-out="cr">5</output></span>
-      <input type="range" name="cr" min="1" max="12" step="0.5" value="5"></label>
-    <label class="rng"><span class="rng__top"><span>Записей из&nbsp;10 заявок</span><output data-out="book">4</output></span>
-      <input type="range" name="book" min="1" max="8" step="1" value="4"></label>
+    <div class="rng"><div class="rng__top"><label for="calc-budget">Рекламный бюджет в&nbsp;месяц</label><output for="calc-budget" data-out="budget">150&nbsp;000&nbsp;₽</output></div>
+      <input type="range" id="calc-budget" name="budget" min="100000" max="400000" step="10000" value="150000"></div>
+    <div class="rng"><div class="rng__top"><label for="calc-cpc">Цена перехода по&nbsp;рекламе</label><output for="calc-cpc" data-out="cpc">220&nbsp;₽</output></div>
+      <input type="range" id="calc-cpc" name="cpc" min="60" max="800" step="10" value="220"></div>
+    <div class="rng"><div class="rng__top"><label for="calc-cr">Заявок из&nbsp;100 переходов на&nbsp;страницу</label><output for="calc-cr" data-out="cr">5</output></div>
+      <input type="range" id="calc-cr" name="cr" min="1" max="12" step="0.5" value="5"></div>
+    <div class="rng"><div class="rng__top"><label for="calc-book">Записей из&nbsp;10 заявок</label><output for="calc-book" data-out="book">4</output></div>
+      <input type="range" id="calc-book" name="book" min="1" max="8" step="1" value="4"></div>
     <p class="calc__hint">Значения по&nbsp;умолчанию средние для имплантации в&nbsp;крупном городе. Цена перехода в&nbsp;Москве выше, в&nbsp;небольших городах ниже.</p>
   </div>
   <div class="calc__res" aria-live="polite">
@@ -253,7 +253,7 @@
 {% macro start(d={}) %}
 <section class="dark sheet start" id="start" data-dark>
   <div class="wrap">
-    <h2 class="h2 start__title">{{ (d.title or 'Оставьте заявку. За 2 рабочих дня разберём клинику и посчитаем <em>запуск</em>.') | safe }}</h2>
+    <h2 class="h2 start__title">{{ (d.title or 'Оставьте заявку. За 2 рабочих дня разберём клинику и посчитаем *запуск*.') | t | safe }}</h2>
     <div class="start__grid">
       <div class="start__text">
         <p class="lead">{{ (d.lead or 'Посмотрим сайт, карточку на Картах и рекламу, если она уже идёт. Скажем, с чего начать: с тестового месяца в Директе или с сайта и Карт.') | t | safe }}</p>

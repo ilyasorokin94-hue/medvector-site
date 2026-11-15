@@ -62,7 +62,8 @@
     const walk = node => {
       [...node.childNodes].forEach(n => {
         if (n.nodeType === 3) {
-          const parts = n.textContent.split(/(\s+)/);
+          // неразрывный пробел не делит слова: «в&nbsp;Яндексе» поднимается одним куском
+          const parts = n.textContent.split(/([ \t\n\r]+)/);
           if (parts.every(p => !p.trim())) return;
           const frag = document.createDocumentFragment();
           parts.forEach(p => {
@@ -139,6 +140,32 @@
     requestAnimationFrame(tick);
   }), { threshold: 0.6 });
   if (!reduce) $$('[data-count]').forEach(el => { if (+el.dataset.count > 1) { el.textContent = '0'; cio.observe(el); } });
+
+  /* ---------- вкладки: имплантация и All-on-4 ---------- */
+  $$('[data-tabs]').forEach(box => {
+    const btns = $$('[role="tab"]', box), panels = btns.map(b => document.getElementById(b.getAttribute('aria-controls')));
+    const show = (i, focus) => {
+      btns.forEach((b, k) => {
+        const on = k === i;
+        b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1;
+        panels[k].hidden = !on;
+        panels[k].classList.toggle('is-enter', on);
+        if (on) $$('.reveal', panels[k]).forEach(el => el.classList.add('is-in'));
+      });
+      if (focus) btns[i].focus();
+    };
+    btns.forEach((b, i) => {
+      b.addEventListener('click', () => show(i));
+      b.addEventListener('keydown', e => {
+        const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        if (step) { e.preventDefault(); show((i + step + btns.length) % btns.length, true); }
+      });
+    });
+    const byHash = () => { const i = panels.findIndex(p => '#' + p.id === location.hash); if (i >= 0) show(i); return i >= 0; };
+    addEventListener('hashchange', byHash);
+    document.addEventListener('click', e => { const a = e.target.closest('a[data-tab]'); if (a) show(panels.findIndex(p => p.id === a.dataset.tab)); });
+    if (!byHash()) show(0);
+  });
 
   /* ---------- запрос в образце печатается по буквам ---------- */
   if (!reduce) $$('[data-type]').forEach(el => {
@@ -278,11 +305,12 @@
     const W = main.clientWidth, H = main.offsetHeight;
     line.svg.setAttribute('width', W); line.svg.setAttribute('height', H);
     line.svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-    const wrap = rel($('.hero .wrap'));
-    const gut = parseFloat(getComputedStyle($('.hero .wrap')).paddingLeft);
+    const heroEl = vStart.closest('section'), wrapEl = $('.wrap', heroEl);
+    const wrap = rel(wrapEl);
+    const gut = parseFloat(getComputedStyle(wrapEl).paddingLeft);
     const L = wrap.l + gut / 2, Rx = wrap.r - gut / 2;
     const a = rel(vStart), btn = rel(vEnd);
-    const hero = rel($('.hero'));
+    const hero = rel(heroEl);
     const dots = $$('[data-vpoint]').filter(d => d.offsetParent).map(d => { const r = rel(d); return { el: d.closest('.jr__st') || d, x: r.l + r.w / 2, y: r.t + r.h / 2 }; });
     let pts;
     if (W <= 720) {
@@ -291,10 +319,11 @@
       pts = [[L, y0], [L, btn.t + btn.h / 2], [btn.l - 4, btn.t + btn.h / 2]];
     } else {
       const ay = a.t + a.h / 2, band = hero.b - 56;
-      pts = [[a.r, ay], [Rx, ay], [Rx, band], [L, band]];
+      pts = [[a.r, ay], [Rx, ay]];
+      // главная: линия уходит влево и проходит по ряду остановок; остальные страницы: сразу вниз по правому краю
       if (dots.length && Math.abs(dots[0].y - dots[dots.length - 1].y) < 4) {
         const ry = dots[0].y;
-        pts.push([L, ry], [Rx, ry]);
+        pts.push([Rx, band], [L, band], [L, ry], [Rx, ry]);
       }
       const by = btn.t + btn.h / 2;
       pts.push([Rx, by], [btn.r + 6, by]);

@@ -167,7 +167,7 @@
     <p class="label hero__label">Агентство для частных стоматологий</p>
     <h1 class="h1 hero__title">
       <span class="ln">Яндекс Директ</span>
-      <span class="ln ln--in">для&nbsp;стоматологий<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></span>
+      <span class="ln ln--in">для стоматологий<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></span>
       <span class="ln">Первый месяц</span>
       <span class="ln ln--in2">работаем <em>бесплатно</em>.</span>
     </h1>
@@ -328,14 +328,14 @@
 
     <div class="calc" data-calc>
   <div class="calc__ctl">
-    <label class="rng"><span class="rng__top"><span>Рекламный бюджет в&nbsp;месяц</span><output data-out="budget">150&nbsp;000&nbsp;₽</output></span>
-      <input type="range" name="budget" min="100000" max="400000" step="10000" value="150000"></label>
-    <label class="rng"><span class="rng__top"><span>Цена перехода по&nbsp;рекламе</span><output data-out="cpc">220&nbsp;₽</output></span>
-      <input type="range" name="cpc" min="60" max="800" step="10" value="220"></label>
-    <label class="rng"><span class="rng__top"><span>Заявок из&nbsp;100 переходов на&nbsp;страницу</span><output data-out="cr">5</output></span>
-      <input type="range" name="cr" min="1" max="12" step="0.5" value="5"></label>
-    <label class="rng"><span class="rng__top"><span>Записей из&nbsp;10 заявок</span><output data-out="book">4</output></span>
-      <input type="range" name="book" min="1" max="8" step="1" value="4"></label>
+    <div class="rng"><div class="rng__top"><label for="calc-budget">Рекламный бюджет в&nbsp;месяц</label><output for="calc-budget" data-out="budget">150&nbsp;000&nbsp;₽</output></div>
+      <input type="range" id="calc-budget" name="budget" min="100000" max="400000" step="10000" value="150000"></div>
+    <div class="rng"><div class="rng__top"><label for="calc-cpc">Цена перехода по&nbsp;рекламе</label><output for="calc-cpc" data-out="cpc">220&nbsp;₽</output></div>
+      <input type="range" id="calc-cpc" name="cpc" min="60" max="800" step="10" value="220"></div>
+    <div class="rng"><div class="rng__top"><label for="calc-cr">Заявок из&nbsp;100 переходов на&nbsp;страницу</label><output for="calc-cr" data-out="cr">5</output></div>
+      <input type="range" id="calc-cr" name="cr" min="1" max="12" step="0.5" value="5"></div>
+    <div class="rng"><div class="rng__top"><label for="calc-book">Записей из&nbsp;10 заявок</label><output for="calc-book" data-out="book">4</output></div>
+      <input type="range" id="calc-book" name="book" min="1" max="8" step="1" value="4"></div>
     <p class="calc__hint">Значения по&nbsp;умолчанию средние для имплантации в&nbsp;крупном городе. Цена перехода в&nbsp;Москве выше, в&nbsp;небольших городах ниже.</p>
   </div>
   <div class="calc__res" aria-live="polite">
@@ -406,7 +406,7 @@
       </dl>
     </div>
     <div class="lead2__side">
-      <h3 class="pack__h">В договоре записано</h3>
+      <h3 class="pack__h">Как мы работаем</h3>
       <ul class="plist plist--lg">
         <li class="reveal"><span>Рекламный кабинет, Метрика, сайт и&nbsp;домен оформлены на&nbsp;клинику</span></li>
         <li class="reveal"><span>Отчёт каждую неделю: заявки, записи и&nbsp;цена каждой</span></li>
@@ -431,7 +431,7 @@
 
     <div class="tiles">
       <a class="tile reveal" href="kejsy/">
-        <span class="tile__pic"><div class="art art--phone" aria-hidden="true">
+        <div class="tile__pic"><div class="art art--phone" aria-hidden="true">
   <div class="ph">
     <span class="ph__top"><i></i>Стоматология «Демо»</span>
     <b>Все зубы на 4 имплантах</b>
@@ -440,24 +440,24 @@
     <span class="ph__row">Кому подходит метод</span><span class="ph__row">Врач и его опыт</span><span class="ph__row">Этапы и сроки</span><span class="ph__row">Полная цена и рассрочка</span>
   </div>
 </div>
-</span>
+</div>
         <span class="tile__t">Страница услуги</span>
         <span class="tile__p">Одна услуга, один врач, полная цена и&nbsp;запись.</span>
       </a>
       <a class="tile reveal" href="kejsy/">
-        <span class="tile__pic"><span class="art art--mini" aria-hidden="true"><span class="art__top">Отчёт за неделю<span>образец</span></span><span class="mini__kpi"><b>9</b>заявок</span><span class="mini__kpi"><b>4</b>записи</span><span class="mini__kpi"><b>9&nbsp;375&nbsp;₽</b>цена записи</span></span></span>
+        <div class="tile__pic"><div class="art art--mini" aria-hidden="true"><span class="art__top">Отчёт за неделю<span>образец</span></span><span class="mini__kpi"><b>9</b>заявок</span><span class="mini__kpi"><b>4</b>записи</span><span class="mini__kpi"><b>9&nbsp;375&nbsp;₽</b>цена записи</span></div></div>
         <span class="tile__t">Отчёт за&nbsp;неделю</span>
         <span class="tile__p">Заявки, записи, цена каждой и&nbsp;что мы&nbsp;сделали.</span>
       </a>
       <a class="tile reveal" href="kejsy/">
-        <span class="tile__pic"><div class="art art--map" aria-hidden="true">
+        <div class="tile__pic"><div class="art art--map" aria-hidden="true">
   <span class="mp__area"><i></i></span>
   <b>Стоматология «Демо»</b>
   <span class="mp__rate"><em>4,9</em> 214 отзывов, клиника отвечает</span>
   <span class="mp__tags"><span>Цены</span><span>Врачи</span><span>Фото</span><span>Запись</span></span>
   <span class="mp__btns"><span>Маршрут</span><span>Позвонить</span><span>Сайт</span></span>
 </div>
-</span>
+</div>
         <span class="tile__t">Карточка на&nbsp;Картах</span>
         <span class="tile__p">Цены, врачи, фото и&nbsp;ответы на&nbsp;отзывы.</span>
       </a>
@@ -514,7 +514,7 @@
 <!-- ============ 9. ФИНАЛ: тёмный экран с формой, линия заканчивается у кнопки ============ -->
 <section class="dark sheet start" id="start" data-dark>
   <div class="wrap">
-    <h2 class="h2 start__title">Оставьте заявку. За 2 рабочих дня разберём клинику и посчитаем <em>запуск</em>.</h2>
+    <h2 class="h2 start__title">Оставьте заявку. За&nbsp;2&nbsp;рабочих дня разберём клинику и&nbsp;посчитаем <em>запуск</em>.</h2>
     <div class="start__grid">
       <div class="start__text">
         <p class="lead">Посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;тестового месяца в&nbsp;Директе или с&nbsp;сайта и&nbsp;Карт.</p>
