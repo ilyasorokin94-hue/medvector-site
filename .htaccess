@@ -2,6 +2,7 @@
 # med-vector.ru, med-vector.online и www-варианты ведут сюда 301-редиректом.
 Options -Indexes
 AddDefaultCharset utf-8
+ErrorDocument 404 /404.html
 
 <IfModule mod_rewrite.c>
 RewriteEngine On

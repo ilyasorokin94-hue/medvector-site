@@ -1,0 +1,123 @@
+---
+title: "О нас и контакты: маркетинг только для стоматологий | МедВектор"
+description: "МедВектор: агентство маркетинга только для стоматологий. Кто ведёт проекты, как работаем, чего не делаем, документы и контакты для связи."
+permalink: /kontakty/
+section: about
+crumbs:
+  - { name: "О нас и контакты", url: "/kontakty/" }
+
+hero:
+  title: "О нас и контакты"
+  tagline: "Маркетинг только для стоматологий"
+  lead: "Ведём рекламу в Яндекс Директе, делаем сайты и упаковываем Яндекс Карты для частных клиник по всей России. Работаем удалённо, проект ведёт тот, с кем вы договаривались."
+  cta: "Оставить заявку"
+  pick: unsure
+  cta2: "Написать нам"
+  cta2url: "#contacts"
+
+team:
+  id: "founder"
+  eyebrow: "Основатель"
+  title: "Илья Сорокин лично отвечает за каждый проект."
+  lead: "Разбирает клинику, согласует оффер и смотрит каждый отчёт. Почему только стоматологии: дорогие услуги вроде имплантации и All-on-4 требуют знания пациента, его запросов и страхов, а этому учишься только в одной нише."
+
+facts:
+  eyebrow: "Агентство в фактах"
+  title: "Коротко о том, как мы устроены."
+factItems:
+  - { b: "Только стоматологии", s: "Других ниш не берём." }
+  - { b: "Вся Россия, удалённо", s: "Частные клиники в любом городе." }
+  - { b: "Всё на клинике", s: "Рекламный кабинет, Метрика, домен, сайт и карточки оформлены на вас." }
+  - { b: "Два платежа", s: "Каждая сумма делится на два платежа, условия в договоре." }
+
+principlesHead:
+  eyebrow: "Принципы"
+  title: "Как мы работаем."
+principles:
+  - { b: "Считаем запись, а не клик", s: "В отчёте заявки, записи и их цена." }
+  - { b: "Одно направление, один лендинг", s: "Не смешиваем All-on-4 с одиночной имплантацией." }
+  - { b: "Не берёмся, если реклама не окупится", s: "Скажем об этом на разборе и предложим начать с основы." }
+  - { b: "Цифры с источником", s: "У каждой цифры есть период и откуда она взята." }
+
+dont:
+  - "Не гарантируем число пациентов и места в поиске"
+  - "Не пишем и не покупаем отзывы, не накручиваем переходы"
+  - "Не ведём таргетированную рекламу в соцсетях"
+  - "Не держим сайт клиники в аренде"
+  - "Не сравниваем клинику с другими в рекламе и не обещаем результат лечения"
+
+docs:
+  - { b: "Договор", s: "Шаблон договора пришлём до начала работ.", tag: "по запросу" }
+  - { b: "Сертификат Яндекс Директа", s: "Ссылка на проверку на сайте Яндекса.", tag: "добавим" }
+  - { b: "Карточка агентства на Картах", s: "С отзывами клиник.", tag: "добавим" }
+  - { b: "Статьи и разборы", s: "Материалы для владельцев клиник.", tag: "добавим" }
+
+start:
+  pick: unsure
+---
+{% extends "base.njk" %}
+
+{% block main %}
+{% import "blocks.njk" as b %}
+{{ b.phero(hero, crumbs) }}
+
+{{ b.team(team) }}
+
+<section class="section section--alt" id="facts">
+  <div class="wrap">
+    {{ b.head(facts) }}
+    <div class="grid grid-4">
+{% for f in factItems %}
+      <article class="card reveal"><h3 class="h3">{{ f.b | t | safe }}</h3><p>{{ f.s | t | safe }}</p></article>
+{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="principles">
+  <div class="wrap split">
+    <div>
+      {{ b.head(principlesHead) }}
+      <ol class="num-list">
+{% for p in principles %}
+        <li><b>{{ p.b | t | safe }}.</b> {{ p.s | t | safe }}</li>
+{% endfor %}
+      </ol>
+    </div>
+    <div class="card">
+      <h3 class="h3">Чего не делаем</h3>
+      <ul class="crosses">
+{% for i in dont %}
+        <li>{{ i | t | safe }}</li>
+{% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="docs">
+  <div class="wrap">
+    {{ b.head({ eyebrow: 'Документы', title: 'Что можно проверить до разговора.' }) }}
+    <div class="contacts">
+{% for d in docs %}
+      <div class="contact"><small>{{ d.tag }}</small><b>{{ d.b }}</b><span>{{ d.s | t | safe }}</span></div>
+{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contacts">
+  <div class="wrap">
+    {{ b.head({ eyebrow: 'Контакты', title: 'Напишите или позвоните.', lead: 'Отвечаем в рабочее время по Москве. Если пока не готовы писать, подпишитесь на канал.' }) }}
+    <div class="contacts">
+      <div class="contact"><small>Телефон</small>{% if site.contacts.phone %}<b><a href="tel:{{ site.contacts.phoneHref }}">{{ site.contacts.phone }}</a></b>{% else %}<b>Номер появится скоро</b><span class="tag tag--warm">заглушка</span>{% endif %}</div>
+      <div class="contact"><small>Telegram</small>{% if site.contacts.telegram %}<b><a href="{{ site.contacts.telegram }}">Написать в Telegram</a></b>{% else %}<b>Ссылка появится скоро</b><span class="tag tag--warm">заглушка</span>{% endif %}</div>
+      <div class="contact"><small>MAX</small>{% if site.contacts.max %}<b><a href="{{ site.contacts.max }}">Написать в MAX</a></b>{% else %}<b>Ссылка появится скоро</b><span class="tag tag--warm">заглушка</span>{% endif %}</div>
+      <div class="contact"><small>Почта</small>{% if site.contacts.email %}<b><a href="mailto:{{ site.contacts.email }}">{{ site.contacts.email }}</a></b>{% else %}<b>Адрес на домене medvector.pro</b><span class="tag tag--warm">заглушка</span>{% endif %}</div>
+    </div>
+    <p class="note">Telegram-канал для владельцев клиник: разборы рекламы и Карт. <span class="tag tag--warm">ссылка появится</span></p>
+  </div>
+</section>
+
+{{ b.start(start) }}
+{% endblock %}

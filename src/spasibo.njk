@@ -1,0 +1,22 @@
+---
+title: "Спасибо за заявку | МедВектор"
+description: "Заявка отправлена. Что будет дальше: ответим в рабочее время и за 2 рабочих дня подготовим разбор клиники."
+permalink: /spasibo/
+form: false
+noCanonical: true
+---
+{% extends "base.njk" %}
+{% block main %}
+<section class="solo">
+  <div class="wrap solo__in">
+    <p class="eyebrow">Заявка отправлена</p>
+    <h1 class="h1">Спасибо! Скоро свяжемся.</h1>
+    <ol class="num-list">
+      <li>Ответим в рабочее время по Москве и уточним задачу.</li>
+      <li>За 2 рабочих дня посмотрим сайт, карточку на Картах и рекламу, если она идёт.</li>
+      <li>Покажем разбор и скажем, с чего начать: с теста Директа или с сайта и Карт.</li>
+    </ol>
+    <div class="btns"><a class="btn" href="/">На главную</a><a class="btn btn--ghost" href="{{ href('cases') }}">Посмотреть примеры</a></div>
+  </div>
+</section>
+{% endblock %}

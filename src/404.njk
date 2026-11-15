@@ -1,0 +1,25 @@
+---
+title: "Страница не найдена | МедВектор"
+description: "Такой страницы нет. Перейдите на главную или в нужный раздел сайта МедВектора."
+permalink: /404.html
+form: false
+noCanonical: true
+---
+{% extends "base.njk" %}
+{% block base %}
+<base href="/">
+<script>
+  // превью на GitHub Pages живёт в подпапке: базовый адрес берём из первого сегмента пути
+  (function () { if (/github\.io$/.test(location.hostname)) { var s = location.pathname.split('/')[1]; if (s) document.querySelector('base').href = '/' + s + '/'; } })();
+</script>
+{% endblock %}
+{% block main %}
+<section class="solo">
+  <div class="wrap solo__in">
+    <p class="solo__big" aria-hidden="true">404</p>
+    <h1 class="h2">Такой страницы нет</h1>
+    <p class="lead">Возможно, адрес изменился. Начните с главной или выберите услугу.</p>
+    <div class="btns"><a class="btn" href="./">На главную</a><a class="btn btn--ghost" href="yandex-direkt/">Яндекс Директ</a><a class="btn btn--ghost" href="kompleksnyj-marketing/">Сайт и Карты</a></div>
+  </div>
+</section>
+{% endblock %}

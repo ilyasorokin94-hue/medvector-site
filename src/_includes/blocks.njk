@@ -263,9 +263,9 @@
         <fieldset class="form__choice">
           <legend>Что хотите запустить</legend>
           <div class="form__opts">
-            <label class="form__opt"><input type="radio" name="service" value="direct"{% if d.pick != 'site' %} checked{% endif %}><span>Тест Директа<small>0 ₽ за работу</small></span></label>
+            <label class="form__opt"><input type="radio" name="service" value="direct"{% if not d.pick or d.pick == 'direct' %} checked{% endif %}><span>Тест Директа<small>0 ₽ за работу</small></span></label>
             <label class="form__opt"><input type="radio" name="service" value="site"{% if d.pick == 'site' %} checked{% endif %}><span>Сайт и Карты<small>сайт бесплатно</small></span></label>
-            <label class="form__opt"><input type="radio" name="service" value="unsure"><span>Пока не знаю<small>подскажем</small></span></label>
+            <label class="form__opt"><input type="radio" name="service" value="unsure"{% if d.pick == 'unsure' %} checked{% endif %}><span>Пока не знаю<small>подскажем</small></span></label>
           </div>
         </fieldset>
         <label class="fld form__dir">Направление
