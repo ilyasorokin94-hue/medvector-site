@@ -200,7 +200,7 @@ small { font-size: 14px; }
   .hero--scene .hero__acts { margin-top: 28px; }
   .second { grid-column: 1 / -1; }
   .scene { position: relative; z-index: 7; display: block; align-self: stretch; min-height: 480px; perspective: 1500px; }
-  .scene::before { content: ''; position: absolute; left: 50%; top: 50%; width: 118%; aspect-ratio: 1; border: 1px solid var(--line); border-radius: 50%; transform: translate(-50%, -50%); }
+  .scene__orb { position: absolute; left: 52%; top: 52%; width: 140%; transform: translate(-50%, -50%); }
   .scene__in { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateX(calc(8deg + var(--rx, 0deg))) rotateY(calc(-20deg + var(--ry, 0deg))) rotateZ(2deg); }
   .scene__l { position: absolute; transform-style: preserve-3d; }
   .scene__l--ad { left: -30%; top: 30%; width: 74%; transform: translateZ(-110px); }
@@ -412,7 +412,68 @@ small { font-size: 14px; }
 .rcpt__paper::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 12px; background: conic-gradient(from 135deg at 50% 0, #fff 90deg, transparent 0) 0 0 / 20px 12px repeat-x; }
 .rcpt__top { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 16px; border-bottom: 1px dashed rgba(0, 15, 64, .3); font-size: 14px; color: var(--ink-3); }
 .rcpt__paper li { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 24px; row-gap: 4px; padding: 16px 0; border-bottom: 1px dashed rgba(0, 15, 64, .3); }
-.rcpt__paper h4 { font: 500 clamp(19px, 1.6vw, 22px)/1.25 var(--sans); letter-spacing: -.02em; }
+.rcpt__paper h3, .rcpt__paper h4 { font: 500 clamp(19px, 1.6vw, 22px)/1.25 var(--sans); letter-spacing: -.02em; }
+
+/* главная: первый тест коротко. Слева деньги и кнопка, справа счёт */
+.brief { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 112px); align-items: start; }
+.brief .money__row { grid-template-columns: minmax(0, 1fr) auto; padding: 32px 0; }
+.brief .money__sum { font-size: clamp(48px, 5.6vw, 88px); }
+.brief .money__who { font-size: clamp(24px, 2.4vw, 36px); }
+.brief .money__bar { margin-top: 24px; }
+.brief__why { margin-top: 32px; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.5; color: var(--on-dark-2); }
+@media (max-width: 1020px) { .brief { grid-template-columns: minmax(0, 1fr); gap: 56px; } }
+@media (max-width: 720px) { .brief .money__row { grid-template-columns: minmax(0, 1fr); } }
+
+/* витрина примеров: слева список, справа крупный образец. Позже здесь будут снимки настоящих работ */
+.show { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(24px, 4vw, 72px); align-items: stretch; }
+.show__list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.show__tab { position: relative; display: grid; gap: 8px; padding: 24px 0 24px 28px; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; }
+.show__tab::before { content: ''; position: absolute; left: 0; top: 32px; width: 13px; height: 13px; background: linear-gradient(var(--vec), var(--vec)) center / 100% 2px no-repeat, linear-gradient(var(--vec), var(--vec)) center / 2px 100% no-repeat; opacity: .35; transition: opacity .5s var(--ease), transform .6s var(--ease); }
+.show__tab::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--vec); transform: scaleX(0); transform-origin: left; transition: transform .8s var(--ease); }
+.show__name { font: 500 clamp(21px, 1.9vw, 28px)/1.15 var(--sans); letter-spacing: -.025em; color: var(--ink-3); transition: color .5s var(--ease); }
+.show__text { font-size: 16px; line-height: 1.45; color: var(--ink-3); }
+.show__tab:hover .show__name, .show__tab[aria-selected="true"] .show__name { color: var(--ink); }
+.show__tab[aria-selected="true"] .show__text { color: var(--ink-2); }
+.show__tab[aria-selected="true"]::before { opacity: 1; transform: rotate(90deg); }
+.show__tab[aria-selected="true"]::after { transform: scaleX(1); }
+.show__stage { position: relative; min-height: clamp(420px, 40vw, 580px); border-radius: var(--r); background: var(--paper); overflow: hidden; }
+.show__panel { display: grid; place-items: center; height: 100%; min-height: inherit; padding: clamp(20px, 3vw, 48px); }
+.show__panel[hidden] { display: none; }
+.show__duo { position: relative; width: min(76%, 540px); padding: 0 72px 64px 0; zoom: 1.25; }
+.show__duo .art--browser { max-width: none; }
+.show__duo .art--phone { position: absolute; right: 0; bottom: 0; }
+.show__pair { display: grid; grid-template-columns: repeat(2, minmax(0, 250px)); gap: clamp(16px, 3vw, 48px); zoom: 1.2; }
+.show__pair figure { display: grid; gap: 12px; }
+.show__pair figcaption { font: italic 400 24px/1 var(--serif); color: var(--vec-ink); }
+.show__pair .art--map { width: 100%; }
+.show__rep { width: 100%; max-width: 760px; }
+.show__rep .rep { border: 0; padding: 0; }
+.js .show__panel.is-enter > * { animation: show-in .9s var(--ease) both; }
+@keyframes show-in { from { opacity: 0; transform: translateY(28px) scale(.97); } }
+.no-js .show { grid-template-columns: minmax(0, 1fr); }
+.no-js .show__list { display: none; }
+.no-js .show__stage { display: grid; gap: 24px; background: none; }
+.no-js .show__panel { border-radius: var(--r); background: var(--paper); }
+@media (max-width: 1020px) {
+  .show { grid-template-columns: minmax(0, 1fr); }
+  .show__list { flex-direction: row; overflow-x: auto; border-top: 0; gap: 8px; padding-bottom: 4px; scrollbar-width: none; }
+  .show__tab { flex: none; padding: 12px 18px; border: 1px solid var(--line); border-radius: 99px; }
+  .show__tab::before, .show__tab::after, .show__text { display: none; }
+  .show__name { font-size: 16px; letter-spacing: 0; }
+  .show__tab[aria-selected="true"] { background: var(--ink); border-color: var(--ink); }
+  .show__tab[aria-selected="true"] .show__name { color: #fff; }
+  .show__stage { min-height: 0; }
+  .show__duo, .show__pair { zoom: 1; }
+  .show__duo { width: 100%; max-width: 560px; }
+}
+@media (max-width: 560px) { .show__pair { grid-template-columns: minmax(0, 250px); justify-content: center; } .show__duo { padding: 0 24px 72px 0; } }
+
+/* вращающаяся сфера из плюсов: рисуется на холсте, цвет берёт из текста вокруг */
+.orb { display: block; width: 100%; aspect-ratio: 1; color: var(--ink); }
+.dark .orb { color: #fff; }
+.label--orb::before { display: none; }
+.orb--sm { flex: none; width: 28px; height: 28px; }
+.wheel__orb { position: absolute; left: var(--cx); top: 50%; width: calc(var(--R) * .92); height: calc(var(--R) * .92); margin: calc(var(--R) * -.46) 0 0 calc(var(--R) * -.46); }
 .rcpt__paper li p { grid-column: 1; font-size: 15px; line-height: 1.45; color: var(--ink-2); }
 .rcpt__paper li b { grid-column: 2; grid-row: 1 / 3; align-self: center; font: italic 400 26px/1 var(--serif); color: var(--vec-ink); white-space: nowrap; }
 .rcpt__total { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-top: 24px; font: 500 clamp(19px, 1.6vw, 22px)/1.25 var(--sans); letter-spacing: -.02em; }

@@ -174,7 +174,42 @@
 </div>
 {% endmacro %}
 
-{# ---------- первый тест: куда идут деньги, что делаем, чем заканчивается ---------- #}
+{# ---------- первый тест, короткая версия для главной: куда идут деньги и что входит в работу.
+   Полные условия (шкала срока, исходы, что остаётся у клиники) стоят на странице Директа ---------- #}
+{% macro offerShort(o) %}
+<div class="brief">
+  <div class="brief__main">
+    <div class="money">
+      <div class="money__row reveal">
+        <p class="money__who">Яндексу<small>первый рекламный депозит, напрямую в&nbsp;кабинет клиники. Рекомендуем 150&nbsp;000&nbsp;₽, минимум 100&nbsp;000&nbsp;₽</small></p>
+        <p class="money__sum"><span data-count="150000" data-sep>150&nbsp;000</span>&nbsp;₽</p>
+        <span class="money__bar" aria-hidden="true"><i></i></span>
+      </div>
+      <div class="money__row money__row--zero reveal">
+        <p class="money__who">МедВектору<small>комиссия за&nbsp;работу на&nbsp;первом тесте</small></p>
+        <p class="money__sum">0&nbsp;₽</p>
+        <span class="money__bar" aria-hidden="true"></span>
+      </div>
+    </div>
+    <p class="brief__why">{{ o.why | t | safe }}</p>
+    <div class="pack__acts">
+      <a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить первый тест</a>
+      <a href="{{ href('direct') }}#test" class="link link--light">Все условия первого теста</a>
+    </div>
+  </div>
+  <div class="rcpt__paper reveal">
+    <p class="rcpt__top"><span>Счёт за первый тест</span><span>МедВектор</span></p>
+    <ul>
+{% for r in o.receipt %}
+      <li><h3>{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p><b>0&nbsp;₽</b></li>
+{% endfor %}
+    </ul>
+    <p class="rcpt__total"><span>Комиссия агентства</span><b>0&nbsp;₽</b></p>
+  </div>
+</div>
+{% endmacro %}
+
+{# ---------- первый тест, полная версия: куда идут деньги, что делаем, чем заканчивается ---------- #}
 {% macro offer(o) %}
 <div class="money">
   <div class="money__row reveal">

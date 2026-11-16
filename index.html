@@ -165,7 +165,7 @@
 <section class="hero hero--scene" id="intro">
   <div class="wrap hero__grid">
     <div class="hero__text">
-      <p class="label hero__label">Агентство для частных стоматологий</p>
+      <p class="label label--orb hero__label"><canvas class="orb orb--sm" data-orb="70" width="56" height="56" aria-hidden="true"></canvas>Агентство для частных стоматологий. Работаем по&nbsp;всей России</p>
       <h1 class="h1 hero__title">
         <span class="ln">Яндекс Директ</span>
         <span class="ln ln--in">для стоматологий<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></span>
@@ -181,6 +181,7 @@
     </div>
     <!-- объёмная сцена: объявление, страница услуги, заявка и запись. Только широкий экран, для вымышленной клиники -->
     <div class="scene" data-scene aria-hidden="true">
+      <canvas class="orb scene__orb" data-orb="560" width="900" height="900"></canvas>
       <div class="scene__in">
         <div class="scene__l scene__l--ad" style="--i: 0"><div class="art art--ad" aria-hidden="true">
   <span class="art__mark">Реклама</span>
@@ -319,85 +320,37 @@
   </div>
   <div class="dark circle__body" data-dark>
     <div class="wrap">
-      <div class="money">
-  <div class="money__row reveal">
-    <p class="money__who">Яндексу<small>первый рекламный депозит, напрямую в&nbsp;кабинет клиники. Рекомендуем 150&nbsp;000&nbsp;₽, минимум 100&nbsp;000&nbsp;₽</small></p>
-    <p class="money__sum"><span data-count="150000" data-sep>150&nbsp;000</span>&nbsp;₽</p>
-    <span class="money__bar" aria-hidden="true"><i></i></span>
-  </div>
-  <div class="money__row money__row--zero reveal">
-    <p class="money__who">МедВектору<small>комиссия за&nbsp;работу на&nbsp;первом тесте</small></p>
-    <p class="money__sum">0&nbsp;₽</p>
-    <span class="money__bar" aria-hidden="true"></span>
-  </div>
-</div>
-<div class="rcpt">
-  <div class="rcpt__head">
-    <h3 class="incl__title">Что входит в&nbsp;работу</h3>
-    <p class="lead">Всё это мы&nbsp;делаем на&nbsp;первом тесте без комиссии. Вы&nbsp;видите нашу работу и&nbsp;её&nbsp;результат до&nbsp;того, как начинаете за&nbsp;неё платить.</p>
+      <div class="brief">
+  <div class="brief__main">
+    <div class="money">
+      <div class="money__row reveal">
+        <p class="money__who">Яндексу<small>первый рекламный депозит, напрямую в&nbsp;кабинет клиники. Рекомендуем 150&nbsp;000&nbsp;₽, минимум 100&nbsp;000&nbsp;₽</small></p>
+        <p class="money__sum"><span data-count="150000" data-sep>150&nbsp;000</span>&nbsp;₽</p>
+        <span class="money__bar" aria-hidden="true"><i></i></span>
+      </div>
+      <div class="money__row money__row--zero reveal">
+        <p class="money__who">МедВектору<small>комиссия за&nbsp;работу на&nbsp;первом тесте</small></p>
+        <p class="money__sum">0&nbsp;₽</p>
+        <span class="money__bar" aria-hidden="true"></span>
+      </div>
+    </div>
+    <p class="brief__why">Зачем нам проводить первый тест без комиссии? Мы&nbsp;зарабатываем на&nbsp;ведении, поэтому нам нужен тест, после которого вы&nbsp;захотите остаться. Если на&nbsp;разборе видим риски для запуска, говорим о&nbsp;них прямо и&nbsp;предлагаем, что подготовить сначала.</p>
+    <div class="pack__acts">
+      <a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить первый тест</a>
+      <a href="yandex-direkt/#test" class="link link--light">Все условия первого теста</a>
+    </div>
   </div>
   <div class="rcpt__paper reveal">
     <p class="rcpt__top"><span>Счёт за первый тест</span><span>МедВектор</span></p>
     <ul>
-      <li><h4>Страница под каждую услугу</h4><p>Разрабатываем индивидуально под вашу клинику, без шаблонов</p><b>0&nbsp;₽</b></li>
-      <li><h4>Рекламные кампании</h4><p>Запросы, объявления, модерация медицинской рекламы</p><b>0&nbsp;₽</b></li>
-      <li><h4>Интеграции</h4><p>Метрика и&nbsp;цели, передача заявок администратору, учёт до&nbsp;записи</p><b>0&nbsp;₽</b></li>
-      <li><h4>Личный менеджер</h4><p>Один человек на&nbsp;связи с&nbsp;клиникой по&nbsp;всем вопросам</p><b>0&nbsp;₽</b></li>
-      <li><h4>Полное сопровождение</h4><p>Ведём рекламу весь тест, отчёт каждую неделю</p><b>0&nbsp;₽</b></li>
+      <li><h3>Страница под каждую услугу</h3><p>Разрабатываем индивидуально под вашу клинику, без шаблонов</p><b>0&nbsp;₽</b></li>
+      <li><h3>Рекламные кампании</h3><p>Запросы, объявления, модерация медицинской рекламы</p><b>0&nbsp;₽</b></li>
+      <li><h3>Интеграции</h3><p>Метрика и&nbsp;цели, передача заявок администратору, учёт до&nbsp;записи</p><b>0&nbsp;₽</b></li>
+      <li><h3>Личный менеджер</h3><p>Один человек на&nbsp;связи с&nbsp;клиникой по&nbsp;всем вопросам</p><b>0&nbsp;₽</b></li>
+      <li><h3>Полное сопровождение</h3><p>Ведём рекламу весь тест, отчёт каждую неделю</p><b>0&nbsp;₽</b></li>
     </ul>
     <p class="rcpt__total"><span>Комиссия агентства</span><b>0&nbsp;₽</b></p>
   </div>
-</div>
-<div class="incl">
-  <h3 class="incl__title">Как проходит тест</h3>
-  <ol class="scale">
-    <li class="scale__seg reveal" style="--g: 3">
-      <span class="scale__when"><b>1</b>2&nbsp;рабочих дня</span>
-      <span class="scale__bar" aria-hidden="true"><i></i></span>
-      <h4>Разбор</h4>
-      <p>Смотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Считаем депозит для вашего города.</p>
-    </li>
-    <li class="scale__seg reveal" style="--g: 4">
-      <span class="scale__when"><b>2</b>до&nbsp;7&nbsp;рабочих дней</span>
-      <span class="scale__bar" aria-hidden="true"><i></i></span>
-      <h4>Подготовка</h4>
-      <p>Делаем страницу услуги, собираем кампании, настраиваем учёт заявок. Срок идёт с&nbsp;момента, когда получили доступы и&nbsp;согласовали с&nbsp;вами цены и&nbsp;условия.</p>
-    </li>
-    <li class="scale__seg reveal" style="--g: 7">
-      <span class="scale__when"><b>3</b>на&nbsp;весь депозит</span>
-      <span class="scale__bar scale__bar--weeks" aria-hidden="true"><i></i></span>
-      <h4>Реклама</h4>
-      <p>Ведём кампании и&nbsp;убираем запросы, которые не&nbsp;приводят пациентов. Отчёт приходит каждую неделю. Депозита 150&nbsp;000&nbsp;₽ обычно хватает примерно на&nbsp;месяц.</p>
-    </li>
-    <li class="scale__seg reveal" style="--g: 3">
-      <span class="scale__when"><b>4</b>итоговая встреча</span>
-      <span class="scale__bar" aria-hidden="true"><i></i></span>
-      <h4>Решение</h4>
-      <p>Смотрим цифры вместе. Вы&nbsp;решаете, продолжать или нет.</p>
-    </li>
-  </ol>
-  <p class="scale__note">Всё это время комиссия за&nbsp;нашу работу 0&nbsp;₽. Депозит расходуется только на&nbsp;показы рекламы.</p>
-</div>
-<div class="after">
-  <h3 class="after__title">После теста решаете вы</h3>
-  <div class="after__grid">
-    <div class="after__case reveal"><h4>Заявки вас устроили</h4><p>Остаёмся на&nbsp;ведении. Его стоимость называем на&nbsp;разборе, до&nbsp;старта теста, чтобы вы&nbsp;знали её&nbsp;заранее.</p></div>
-    <div class="after__case reveal">
-      <h4>Не&nbsp;устроили</h4><p>Расходимся, и&nbsp;вы&nbsp;нам ничего не&nbsp;должны.</p>
-      <table class="own">
-        <caption>Что остаётся у&nbsp;клиники, если вы&nbsp;уходите после теста</caption>
-        <tbody>
-          <tr><th scope="row">Рекламный кабинет Яндекс Директа</th><td>остаётся у&nbsp;клиники</td></tr>
-          <tr><th scope="row">Кампании, объявления и&nbsp;статистика</th><td>остаются у&nbsp;клиники</td></tr>
-          <tr><th scope="row">Счётчик Метрики и&nbsp;цели</th><td>остаются у&nbsp;клиники</td></tr>
-          <tr><th scope="row">Список запросов, которые мы&nbsp;исключили</th><td>остаётся у&nbsp;клиники</td></tr>
-          <tr class="own__no"><th scope="row">Страницы услуг</th><td>передаём клинике, если вы&nbsp;остаётесь на&nbsp;ведении</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <p class="after__why">Зачем нам проводить первый тест без комиссии? Мы&nbsp;зарабатываем на&nbsp;ведении, поэтому нам нужен тест, после которого вы&nbsp;захотите остаться. Если на&nbsp;разборе видим риски для запуска, говорим о&nbsp;них прямо и&nbsp;предлагаем, что подготовить сначала.</p>
-  <p class="after__act"><a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить первый тест</a></p>
 </div>
 
     </div>
@@ -512,8 +465,117 @@
   </div>
 </section>
 
-<!-- ============ 6. КТО ВЕДЁТ ============ -->
-<section class="sec sheet" id="team">
+<!-- ============ 6. ПРИМЕРЫ И КЕЙСЫ: витрина. Сюда встанут настоящие лендинги, сайты и кейсы:
+     у каждой вкладки вместо образца будет снимок работы, ссылка на живой сайт и цифры из кабинета клиники ============ -->
+<section class="sec sec--fog sheet" id="works">
+  <div class="wrap">
+    <div class="shead">
+  <div>
+    <h2 class="h2">Что вы&nbsp;получаете на&nbsp;руки.</h2>
+  </div>
+  <p class="shead__note">Кейсы с&nbsp;цифрами готовим к&nbsp;публикации: показываем только данные из&nbsp;кабинетов клиник и&nbsp;только с&nbsp;их&nbsp;согласия. Ниже образцы для вымышленной клиники.</p>
+</div>
+
+    <div class="show" data-tabs>
+      <div class="show__list" role="tablist" aria-label="Образцы работ" aria-orientation="vertical">
+        <button type="button" class="show__tab" role="tab" id="show-tab-1" aria-controls="show-landing" aria-selected="true"><span class="show__name">Страница услуги для рекламы</span><span class="show__text">Одна услуга, врач, этапы, полная цена и&nbsp;запись на&nbsp;консультацию.</span></button>
+        <button type="button" class="show__tab" role="tab" id="show-tab-2" aria-controls="show-site" aria-selected="false"><span class="show__name">Сайт клиники</span><span class="show__text">Страница на&nbsp;каждую услугу, врачи с&nbsp;документами, цены и&nbsp;запись.</span></button>
+        <button type="button" class="show__tab" role="tab" id="show-tab-3" aria-controls="show-map" aria-selected="false"><span class="show__name">Карточка на&nbsp;Яндекс Картах</span><span class="show__text">Цены, врачи, фото и&nbsp;ответы на&nbsp;отзывы.</span></button>
+        <button type="button" class="show__tab" role="tab" id="show-tab-4" aria-controls="show-report" aria-selected="false"><span class="show__name">Недельный отчёт</span><span class="show__text">Заявки, записи, цена каждой и&nbsp;что мы&nbsp;сделали за&nbsp;неделю.</span></button>
+      </div>
+      <div class="show__stage">
+        <div class="show__panel" role="tabpanel" id="show-landing" aria-labelledby="show-tab-1" tabindex="0">
+          <div class="show__duo"><div class="art art--browser" aria-hidden="true">
+  <span class="br__bar"><i></i><i></i><i></i><span>demo-klinika.ru/all-on-4</span></span>
+  <span class="br__nav"><b>Стоматология «Демо»</b><span>Услуги</span><span>Врачи</span><span>Цены</span><span>Контакты</span></span>
+  <span class="br__h">Несъёмные зубы на 4 имплантах</span>
+  <span class="br__p">Хирург и ортопед на одной консультации, КТ в клинике</span>
+  <span class="br__btn">Записаться на консультацию</span>
+  <span class="br__cards"><span>Этапы и сроки</span><span>Врач и опыт</span><span>Цена и рассрочка</span></span>
+</div>
+<div class="art art--phone" aria-hidden="true">
+  <div class="ph">
+    <span class="ph__top"><i></i>Стоматология «Демо»</span>
+    <b>Все зубы на 4 имплантах</b>
+    <small>Хирург и ортопед на одной консультации, КТ в клинике</small>
+    <span class="ph__btn">Записаться на консультацию</span>
+    <span class="ph__row">Кому подходит метод</span><span class="ph__row">Врач и его опыт</span><span class="ph__row">Этапы и сроки</span><span class="ph__row">Полная цена и рассрочка</span>
+  </div>
+</div>
+</div>
+        </div>
+        <div class="show__panel" role="tabpanel" id="show-site" aria-labelledby="show-tab-2" tabindex="0">
+          <div class="show__duo"><div class="art art--browser" aria-hidden="true">
+  <span class="br__bar"><i></i><i></i><i></i><span>demo-klinika.ru</span></span>
+  <span class="br__nav"><b>Стоматология «Демо»</b><span>Услуги</span><span>Врачи</span><span>Цены</span><span>Контакты</span></span>
+  <span class="br__h">Стоматология для всей семьи</span>
+  <span class="br__p">Лечение, имплантация, протезирование. Цены на сайте</span>
+  <span class="br__btn">Записаться онлайн</span>
+  <span class="br__cards"><span>Имплантация</span><span>All-on-4</span><span>Коронки и виниры</span></span>
+</div>
+<div class="art art--phone" aria-hidden="true">
+  <div class="ph">
+    <span class="ph__top"><i></i>Стоматология «Демо»</span>
+    <b>Стоматология рядом с домом</b>
+    <small>Лечение, имплантация, детский приём. Цены на сайте</small>
+    <span class="ph__btn">Записаться</span>
+    <span class="ph__row">Услуги и цены</span><span class="ph__row">Врачи</span><span class="ph__row">Отзывы с площадок</span><span class="ph__row">Как добраться</span>
+  </div>
+</div>
+</div>
+        </div>
+        <div class="show__panel" role="tabpanel" id="show-map" aria-labelledby="show-tab-3" tabindex="0">
+          <div class="show__pair"><figure><figcaption>До</figcaption><div class="art art--map art--weak" aria-hidden="true">
+  <span class="mp__area"><i></i></span>
+  <b>Стоматология «Демо»</b>
+  <span class="mp__rate">Цен нет, отзывы без ответа</span>
+  <span class="mp__tags"><span>Нет цен</span><span>2 фото</span></span>
+  <span class="mp__btns"><span>Маршрут</span><span>Позвонить</span><span>Сайт</span></span>
+</div>
+</figure><figure><figcaption>После</figcaption><div class="art art--map" aria-hidden="true">
+  <span class="mp__area"><i></i></span>
+  <b>Стоматология «Демо»</b>
+  <span class="mp__rate">Цены и врачи указаны, клиника отвечает на отзывы</span>
+  <span class="mp__tags"><span>Цены</span><span>Врачи</span><span>Фото</span><span>Запись</span></span>
+  <span class="mp__btns"><span>Маршрут</span><span>Позвонить</span><span>Сайт</span></span>
+</div>
+</figure></div>
+        </div>
+        <div class="show__panel" role="tabpanel" id="show-report" aria-labelledby="show-tab-4" tabindex="0">
+          <div class="show__rep"><div class="rep">
+  <div class="rep__head"><b>Отчёт за неделю · имплантация</b><span class="tag">образец, клиника вымышленная</span></div>
+  <dl class="rep__kpis">
+    <div><dt>заявок</dt><dd>9</dd></div>
+    <div><dt>записей на консультацию</dt><dd>4</dd></div>
+    <div><dt>цена записи</dt><dd>9&nbsp;375&nbsp;₽</dd></div>
+  </dl>
+  <section class="rep__scroll" tabindex="0" aria-label="Таблица отчёта">
+    <table class="rep__table">
+      <caption class="sr">Образец недельного отчёта, клиника вымышленная</caption>
+      <thead><tr><th scope="col">Канал</th><th scope="col">Расход</th><th scope="col">Переходы</th><th scope="col">Заявки</th><th scope="col">Цена заявки</th><th scope="col">Записи</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Поиск</th><td>27&nbsp;300&nbsp;₽</td><td>105</td><td>7</td><td>3&nbsp;900&nbsp;₽</td><td>3</td></tr>
+        <tr><th scope="row">Рекламная сеть</th><td>10&nbsp;200&nbsp;₽</td><td>290</td><td>2</td><td>5&nbsp;100&nbsp;₽</td><td>1</td></tr>
+      </tbody>
+      <tfoot><tr><th scope="row">Итого</th><td>37&nbsp;500&nbsp;₽</td><td>395</td><td>9</td><td>4&nbsp;167&nbsp;₽</td><td>4</td></tr></tfoot>
+    </table>
+  </section>
+  <ul class="rep__notes">
+    <li><b>Что сделали.</b> Убрали 23 запроса без намерения лечиться: «бесплатно», «по ОМС», «обучение», «вакансии».</li>
+    <li><b>Что дальше.</b> Проверяем второй вариант первого экрана на странице услуги.</li>
+    <li><b>От клиники.</b> Отметки записей из CRM, за неделю 2 визита.</li>
+  </ul>
+</div>
+</div>
+        </div>
+      </div>
+    </div>
+    <p class="more-row"><a class="link" href="kejsy/">Все примеры работ</a></p>
+  </div>
+</section>
+
+<!-- ============ 7. КТО ВЕДЁТ ============ -->
+<section class="sec" id="team">
   <div class="wrap lead2">
     <div class="lead2__main">
       <h2 class="h2">Вашу клинику ведёт основатель агентства.</h2>
@@ -533,53 +595,6 @@
       </ul>
       <p><a class="link" href="kontakty/">О нас и&nbsp;контакты</a></p>
     </div>
-  </div>
-</section>
-
-<!-- ============ 7. ПРИМЕРЫ ============ -->
-<section class="sec sec--fog" id="works">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Что вы&nbsp;получаете на&nbsp;руки.</h2>
-  </div>
-  <p class="shead__note">Кейсы с&nbsp;цифрами готовим к&nbsp;публикации: показываем только данные из&nbsp;кабинетов клиник и&nbsp;только с&nbsp;их&nbsp;согласия. Ниже образцы для вымышленной клиники.</p>
-</div>
-
-    <div class="tiles">
-      <a class="tile reveal" href="kejsy/">
-        <div class="tile__pic"><div class="art art--phone" aria-hidden="true">
-  <div class="ph">
-    <span class="ph__top"><i></i>Стоматология «Демо»</span>
-    <b>Все зубы на 4 имплантах</b>
-    <small>Хирург и ортопед на одной консультации, КТ в клинике</small>
-    <span class="ph__btn">Записаться на консультацию</span>
-    <span class="ph__row">Кому подходит метод</span><span class="ph__row">Врач и его опыт</span><span class="ph__row">Этапы и сроки</span><span class="ph__row">Полная цена и рассрочка</span>
-  </div>
-</div>
-</div>
-        <span class="tile__t">Страница услуги</span>
-        <span class="tile__p">Одна услуга, один врач, полная цена и&nbsp;запись.</span>
-      </a>
-      <a class="tile reveal" href="kejsy/">
-        <div class="tile__pic"><div class="art art--mini" aria-hidden="true"><span class="art__top">Отчёт за неделю<span>образец</span></span><span class="mini__kpi"><b>9</b>заявок</span><span class="mini__kpi"><b>4</b>записи</span><span class="mini__kpi"><b>9&nbsp;375&nbsp;₽</b>цена записи</span></div></div>
-        <span class="tile__t">Отчёт за&nbsp;неделю</span>
-        <span class="tile__p">Заявки, записи, цена каждой и&nbsp;что мы&nbsp;сделали.</span>
-      </a>
-      <a class="tile reveal" href="kejsy/">
-        <div class="tile__pic"><div class="art art--map" aria-hidden="true">
-  <span class="mp__area"><i></i></span>
-  <b>Стоматология «Демо»</b>
-  <span class="mp__rate">Цены и врачи указаны, клиника отвечает на отзывы</span>
-  <span class="mp__tags"><span>Цены</span><span>Врачи</span><span>Фото</span><span>Запись</span></span>
-  <span class="mp__btns"><span>Маршрут</span><span>Позвонить</span><span>Сайт</span></span>
-</div>
-</div>
-        <span class="tile__t">Карточка на&nbsp;Картах</span>
-        <span class="tile__p">Цены, врачи, фото и&nbsp;ответы на&nbsp;отзывы.</span>
-      </a>
-    </div>
-    <p class="more-row"><a class="link" href="kejsy/">Все примеры работ</a></p>
   </div>
 </section>
 

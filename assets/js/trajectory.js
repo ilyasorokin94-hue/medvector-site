@@ -200,7 +200,7 @@
     btns.forEach((b, i) => {
       b.addEventListener('click', () => show(i));
       b.addEventListener('keydown', e => {
-        const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
         if (step) { e.preventDefault(); show((i + step + btns.length) % btns.length, true); }
       });
     });
@@ -287,6 +287,10 @@
     wheel.className = 'wheel';
     wheel.innerHTML = `<div class="wheel__dial"><div class="wheel__ring"><i aria-hidden="true"></i><i aria-hidden="true"></i><div class="wheel__tabs" role="tablist" aria-label="Вопросы" aria-orientation="vertical">${items.map((it, i) => `<button type="button" class="wheel__q" role="tab" id="wq-${i}" aria-controls="wheel-panel" style="--a: ${i * STEP}deg">${it.q}</button>`).join('')}</div></div><span class="wheel__ptr" aria-hidden="true"></span><p class="wheel__count" aria-hidden="true"><b></b><span>из ${N}</span></p></div><div class="wheel__panel" role="tabpanel" id="wheel-panel" tabindex="0"><h3 class="wheel__title"></h3><div class="wheel__a"></div><div class="wheel__nav"><button type="button" class="wheel__btn" data-step="-1" aria-label="Предыдущий вопрос"></button><button type="button" class="wheel__btn wheel__btn--next" data-step="1" aria-label="Следующий вопрос"></button></div></div>`;
     qaw.after(wheel);
+    // в середине колеса стоит та же сфера: добавляется до общего запуска сфер ниже
+    const hub = document.createElement('canvas');
+    hub.className = 'orb wheel__orb'; hub.dataset.orb = '360'; hub.setAttribute('aria-hidden', 'true');
+    $('.wheel__dial', wheel).prepend(hub);
     const ring = $('.wheel__ring', wheel), tabs = $$('.wheel__q', wheel), panel = $('.wheel__panel', wheel);
     const title = $('.wheel__title', wheel), ans = $('.wheel__a', wheel), count = $('.wheel__count b', wheel);
     let cur = -1, swap;
@@ -318,6 +322,51 @@
     wide.addEventListener('change', syncWheel);
     syncWheel();
   }
+
+  /* ---------- сфера из плюсов: точки на сфере медленно вращаются, несколько плюсов синие ----------
+     Холст берёт цвет из CSS (тёмный на белом, белый на тёмном) и рисует только пока виден. */
+  const VEC = '#008cd8';
+  const makeOrb = cv => {
+    const ctx = cv.getContext('2d'), N = +cv.dataset.orb || 300;
+    const pts = [], gold = Math.PI * (3 - Math.sqrt(5));
+    for (let i = 0; i < N; i++) { const y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), a = gold * i; pts.push([Math.cos(a) * r, y, Math.sin(a) * r, i % 23 === 7]); }
+    const tilt = 0.42, ct = Math.cos(tilt), st = Math.sin(tilt);
+    let rot = 0.6, size = 0, seen = false, raf = 0, ink = '#000f40';
+    const fit = () => {
+      const w = cv.clientWidth, d = Math.min(devicePixelRatio || 1, 2);
+      if (!w) return;
+      size = Math.round(w * d); cv.width = size; cv.height = size;
+      ink = getComputedStyle(cv).color;
+    };
+    const draw = () => {
+      if (!size) return;
+      ctx.clearRect(0, 0, size, size);
+      const R = size * 0.44, c = size / 2, sr = Math.sin(rot), cr = Math.cos(rot), small = size < 140;
+      const unit = Math.max(1, size / (small ? 26 : 90));
+      for (const [x0, y0, z0, mark] of pts) {
+        const x = x0 * cr + z0 * sr, z1 = z0 * cr - x0 * sr, y = y0 * ct - z1 * st, z = y0 * st + z1 * ct;
+        const k = (z + 1) / 2, px = c + x * R, py = c + y * R;
+        ctx.globalAlpha = 0.12 + 0.88 * k ** 1.6;
+        if (mark && z > -0.2) {
+          const s = unit * (small ? 2.2 : 1.9) * (0.6 + 0.4 * k);
+          ctx.strokeStyle = VEC; ctx.lineWidth = Math.max(1, unit * (small ? .9 : .42));
+          ctx.beginPath(); ctx.moveTo(px - s, py); ctx.lineTo(px + s, py); ctx.moveTo(px, py - s); ctx.lineTo(px, py + s); ctx.stroke();
+        } else {
+          ctx.fillStyle = ink;
+          ctx.beginPath(); ctx.arc(px, py, unit * (small ? .55 : .3) * (0.5 + 0.9 * k), 0, 6.283); ctx.fill();
+        }
+      }
+      ctx.globalAlpha = 1;
+    };
+    const loop = () => { rot += 0.0035; draw(); raf = seen ? requestAnimationFrame(loop) : 0; };
+    new IntersectionObserver(es => {
+      seen = es[0].isIntersecting;
+      if (seen) { fit(); if (reduce) draw(); else if (!raf) raf = requestAnimationFrame(loop); }
+    }).observe(cv);
+    addEventListener('resize', () => { fit(); draw(); });
+    fit(); draw();
+  };
+  $$('canvas[data-orb]').forEach(makeOrb);
 
   /* ---------- линия-вектор: от стрелки в заголовке до кнопки формы ---------- */
   const main = $('main');

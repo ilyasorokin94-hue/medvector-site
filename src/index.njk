@@ -44,9 +44,10 @@ contract:
   - "Отзывы и переходы не накручиваем"
 
 works:
-  - { art: phone, title: "Страница услуги", text: "Одна услуга, один врач, полная цена и запись." }
-  - { art: report, title: "Отчёт за неделю", text: "Заявки, записи, цена каждой и что мы сделали." }
-  - { art: map, title: "Карточка на Картах", text: "Цены, врачи, фото и ответы на отзывы." }
+  - { art: landing, title: "Страница услуги для рекламы", text: "Одна услуга, врач, этапы, полная цена и запись на консультацию." }
+  - { art: site, title: "Сайт клиники", text: "Страница на каждую услугу, врачи с документами, цены и запись." }
+  - { art: map, title: "Карточка на Яндекс Картах", text: "Цены, врачи, фото и ответы на отзывы." }
+  - { art: report, title: "Недельный отчёт", text: "Заявки, записи, цена каждой и что мы сделали за неделю." }
 
 faq:
   - q: "В чём подвох?"
@@ -72,7 +73,7 @@ faq:
 <section class="hero hero--scene" id="intro">
   <div class="wrap hero__grid">
     <div class="hero__text">
-      <p class="label hero__label">Агентство для частных стоматологий</p>
+      <p class="label label--orb hero__label"><canvas class="orb orb--sm" data-orb="70" width="56" height="56" aria-hidden="true"></canvas>Агентство для частных стоматологий. Работаем по&nbsp;всей России</p>
       <h1 class="h1 hero__title">
         <span class="ln">Яндекс Директ</span>
         <span class="ln ln--in">для стоматологий<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></span>
@@ -88,6 +89,7 @@ faq:
     </div>
     <!-- объёмная сцена: объявление, страница услуги, заявка и запись. Только широкий экран, для вымышленной клиники -->
     <div class="scene" data-scene aria-hidden="true">
+      <canvas class="orb scene__orb" data-orb="560" width="900" height="900"></canvas>
       <div class="scene__in">
         <div class="scene__l scene__l--ad" style="--i: 0">{{ b.a_ad() }}</div>
         <div class="scene__l scene__l--phone" style="--i: 1">{{ b.a_phone() }}</div>
@@ -138,7 +140,7 @@ faq:
   </div>
   <div class="dark circle__body" data-dark>
     <div class="wrap">
-      {{ b.offer(offer) }}
+      {{ b.offerShort(offer) }}
     </div>
   </div>
 </section>
@@ -189,8 +191,39 @@ faq:
   </div>
 </section>
 
-<!-- ============ 6. КТО ВЕДЁТ ============ -->
-<section class="sec sheet" id="team">
+<!-- ============ 6. ПРИМЕРЫ И КЕЙСЫ: витрина. Сюда встанут настоящие лендинги, сайты и кейсы:
+     у каждой вкладки вместо образца будет снимок работы, ссылка на живой сайт и цифры из кабинета клиники ============ -->
+<section class="sec sec--fog sheet" id="works">
+  <div class="wrap">
+    {{ b.shead({ title: 'Что вы получаете на&nbsp;руки.', note: 'Кейсы с цифрами готовим к публикации: показываем только данные из кабинетов клиник и только с их согласия. Ниже образцы для вымышленной клиники.' }) }}
+    <div class="show" data-tabs>
+      <div class="show__list" role="tablist" aria-label="Образцы работ" aria-orientation="vertical">
+{% for w in works %}
+        <button type="button" class="show__tab" role="tab" id="show-tab-{{ loop.index }}" aria-controls="show-{{ w.art }}" aria-selected="{{ 'true' if loop.first else 'false' }}"><span class="show__name">{{ w.title | t | safe }}</span><span class="show__text">{{ w.text | t | safe }}</span></button>
+{% endfor %}
+      </div>
+      <div class="show__stage">
+{% for w in works %}
+        <div class="show__panel" role="tabpanel" id="show-{{ w.art }}" aria-labelledby="show-tab-{{ loop.index }}" tabindex="0">
+{% if w.art == 'landing' %}
+          <div class="show__duo">{{ b.a_browser('landing') }}{{ b.a_phone('allon4') }}</div>
+{% elif w.art == 'site' %}
+          <div class="show__duo">{{ b.a_browser('site') }}{{ b.a_phone('site') }}</div>
+{% elif w.art == 'map' %}
+          <div class="show__pair"><figure><figcaption>До</figcaption>{{ b.a_map(true) }}</figure><figure><figcaption>После</figcaption>{{ b.a_map() }}</figure></div>
+{% else %}
+          <div class="show__rep">{{ b.a_report() }}</div>
+{% endif %}
+        </div>
+{% endfor %}
+      </div>
+    </div>
+    <p class="more-row"><a class="link" href="{{ href('cases') }}">Все примеры работ</a></p>
+  </div>
+</section>
+
+<!-- ============ 7. КТО ВЕДЁТ ============ -->
+<section class="sec" id="team">
   <div class="wrap lead2">
     <div class="lead2__main">
       <h2 class="h2">Вашу клинику ведёт основатель агентства.</h2>
@@ -209,23 +242,6 @@ faq:
       </ul>
       <p><a class="link" href="{{ href('about') }}">О нас и&nbsp;контакты</a></p>
     </div>
-  </div>
-</section>
-
-<!-- ============ 7. ПРИМЕРЫ ============ -->
-<section class="sec sec--fog" id="works">
-  <div class="wrap">
-    {{ b.shead({ title: 'Что вы получаете на&nbsp;руки.', note: 'Кейсы с цифрами готовим к публикации: показываем только данные из кабинетов клиник и только с их согласия. Ниже образцы для вымышленной клиники.' }) }}
-    <div class="tiles">
-{% for w in works %}
-      <a class="tile reveal" href="{{ href('cases') }}">
-        <div class="tile__pic">{% if w.art == 'phone' %}{{ b.a_phone('allon4') }}{% elif w.art == 'map' %}{{ b.a_map() }}{% else %}<div class="art art--mini" aria-hidden="true"><span class="art__top">Отчёт за неделю<span>образец</span></span><span class="mini__kpi"><b>9</b>заявок</span><span class="mini__kpi"><b>4</b>записи</span><span class="mini__kpi"><b>9&nbsp;375&nbsp;₽</b>цена записи</span></div>{% endif %}</div>
-        <span class="tile__t">{{ w.title | t | safe }}</span>
-        <span class="tile__p">{{ w.text | t | safe }}</span>
-      </a>
-{% endfor %}
-    </div>
-    <p class="more-row"><a class="link" href="{{ href('cases') }}">Все примеры работ</a></p>
   </div>
 </section>
 
