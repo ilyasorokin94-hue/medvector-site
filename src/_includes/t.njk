@@ -174,18 +174,33 @@
 </div>
 {% endmacro %}
 
-{# ---------- тестовый месяц: куда идут деньги, что делаем, чем заканчивается ---------- #}
+{# ---------- первый тест: куда идут деньги, что делаем, чем заканчивается ---------- #}
 {% macro offer(o) %}
 <div class="money">
   <div class="money__row reveal">
-    <p class="money__who">Яндексу<small>рекламный бюджет, напрямую с&nbsp;кабинета клиники</small></p>
+    <p class="money__who">Яндексу<small>первый рекламный депозит, напрямую в&nbsp;кабинет клиники. Рекомендуем 150&nbsp;000&nbsp;₽, минимум 100&nbsp;000&nbsp;₽</small></p>
     <p class="money__sum"><span data-count="150000" data-sep>150&nbsp;000</span>&nbsp;₽</p>
     <span class="money__bar" aria-hidden="true"><i></i></span>
   </div>
   <div class="money__row money__row--zero reveal">
-    <p class="money__who">МедВектору<small>разбор, страница услуги, кампании и&nbsp;четыре недели ведения</small></p>
+    <p class="money__who">МедВектору<small>комиссия за&nbsp;работу на&nbsp;первом тесте</small></p>
     <p class="money__sum">0&nbsp;₽</p>
     <span class="money__bar" aria-hidden="true"></span>
+  </div>
+</div>
+<div class="rcpt">
+  <div class="rcpt__head">
+    <h3 class="incl__title">{{ o.receiptTitle | t | safe }}</h3>
+    <p class="lead">{{ o.receiptLead | t | safe }}</p>
+  </div>
+  <div class="rcpt__paper reveal">
+    <p class="rcpt__top"><span>Счёт за первый тест</span><span>МедВектор</span></p>
+    <ul>
+{% for r in o.receipt %}
+      <li><h4>{{ r[0] | t | safe }}</h4><p>{{ r[1] | t | safe }}</p><b>0&nbsp;₽</b></li>
+{% endfor %}
+    </ul>
+    <p class="rcpt__total"><span>Комиссия агентства</span><b>0&nbsp;₽</b></p>
   </div>
 </div>
 <div class="incl">
@@ -219,15 +234,15 @@
     </div>
   </div>
   <p class="after__why">{{ o.why | t | safe }}</p>
-  <p class="after__act"><a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить тестовый месяц</a></p>
+  <p class="after__act"><a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить первый тест</a></p>
 </div>
 {% endmacro %}
 
-{# ---------- калькулятор тестового месяца. Без JavaScript виден расчёт для значений по умолчанию ---------- #}
+{# ---------- калькулятор первого теста. Без JavaScript виден расчёт для значений по умолчанию ---------- #}
 {% macro calc() %}
 <div class="calc" data-calc>
   <div class="calc__ctl">
-    <div class="rng"><div class="rng__top"><label for="calc-budget">Рекламный бюджет в&nbsp;месяц</label><output for="calc-budget" data-out="budget">150&nbsp;000&nbsp;₽</output></div>
+    <div class="rng"><div class="rng__top"><label for="calc-budget">Рекламный депозит</label><output for="calc-budget" data-out="budget">150&nbsp;000&nbsp;₽</output></div>
       <input type="range" id="calc-budget" name="budget" min="100000" max="400000" step="10000" value="150000"></div>
     <div class="rng"><div class="rng__top"><label for="calc-cpc">Цена перехода по&nbsp;рекламе</label><output for="calc-cpc" data-out="cpc">220&nbsp;₽</output></div>
       <input type="range" id="calc-cpc" name="cpc" min="60" max="800" step="10" value="220"></div>
@@ -271,9 +286,9 @@
     <h2 class="h2 start__title">{{ (d.title or 'Оставьте заявку. За 2 рабочих дня разберём клинику и посчитаем запуск.') | t | safe }}</h2>
     <div class="start__grid">
       <div class="start__text">
-        <p class="lead">{{ (d.lead or 'Посмотрим сайт, карточку на Картах и рекламу, если она уже идёт. Скажем, с чего начать: с тестового месяца в Директе или с сайта и Карт.') | t | safe }}</p>
+        <p class="lead">{{ (d.lead or 'Посмотрим сайт, карточку на Картах и рекламу, если она уже идёт. Скажем, с чего начать: с первого теста в Директе или с сайта и Карт.') | t | safe }}</p>
         <ul class="plist">
-{% for i in (d.items or ['Тестовый месяц в Директе: наша работа 0 ₽, бюджет вы платите Яндексу', 'Сайт и Яндекс Карты: старт 80 000 ₽, сайт входит в эту сумму', 'Если видим риски для запуска, скажем о них на разборе']) %}
+{% for i in (d.items or ['Первый тест в Директе: комиссия 0 ₽, депозит вы вносите Яндексу', 'Сайт и Яндекс Карты: старт 80 000 ₽, сайт входит в эту сумму', 'Если видим риски для запуска, скажем о них на разборе']) %}
           <li>{{ i | t | safe }}</li>
 {% endfor %}
         </ul>
