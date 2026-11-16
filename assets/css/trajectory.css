@@ -777,8 +777,9 @@ small { font-size: 14px; }
 .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 24px; }
 .fld { display: grid; gap: 6px; font-size: 15px; color: var(--on-dark-2); }
 .fld small { color: var(--on-dark-2); opacity: .8; }
-.fld input, .fld select { width: 100%; min-height: 52px; padding: 8px 0; border: 0; border-bottom: 1px solid rgba(255, 255, 255, .4); border-radius: 0; background: transparent; color: #fff; font-size: 19px; transition: border-color .3s; }
-.fld select { appearance: none; padding-right: 28px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E") right 4px center / 12px no-repeat; }
+.fld input, .fld select { width: 100%; min-height: 56px; padding: 8px 16px; border: 0; border-bottom: 2px solid rgba(255, 255, 255, .45); border-radius: 8px 8px 0 0; background-color: rgba(255, 255, 255, .07); color: #fff; font-size: 19px; transition: border-color .3s, background-color .3s; }
+.fld input:hover, .fld select:hover { background-color: rgba(255, 255, 255, .1); }
+.fld select { appearance: none; padding-right: 40px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23fff' stroke-width='1.6'/%3E%3C/svg%3E") ; background-repeat: no-repeat; background-position: right 16px center; background-size: 12px; }
 .fld select option { color: var(--ink); }
 .fld input:focus, .fld select:focus { outline: none; border-bottom-color: var(--vec-dark); }
 .fld input.is-bad { border-bottom-color: #ff8f8f; }
