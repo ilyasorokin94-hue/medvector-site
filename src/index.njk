@@ -81,7 +81,7 @@ faq:
     <div class="hero__foot">
       <p class="hero__sub">Запускаем рекламу имплантации и&nbsp;<span class="nw">All-on-4</span>: делаем страницу под услугу, настраиваем кампании и&nbsp;считаем заявки до&nbsp;записи к&nbsp;врачу. В&nbsp;первый месяц вы&nbsp;платите только рекламный бюджет Яндексу. Нашу работу оплачиваете со&nbsp;второго месяца, если заявки вас устроят.</p>
       <div class="hero__acts">
-        <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить тестовый месяц <span class="btn__arr" aria-hidden="true">→</span></a>
+        <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить тестовый месяц</a>
         <a href="#site" class="link">Нужен сайт и Яндекс Карты?</a>
       </div>
     </div>
@@ -91,12 +91,12 @@ faq:
 <!-- ============ 2. ПУТЬ ПАЦИЕНТА: линия проходит через пять остановок ============ -->
 <section class="sec journey" id="how">
   <div class="wrap">
-    {{ b.shead({ label: 'Как это работает', title: 'Путь пациента от запроса в Яндексе до *записи* к врачу.', note: 'Мы строим и ведём этот путь целиком. Каждую неделю вы видите, сколько человек дошли до заявки и до записи и сколько стоил каждый.' }) }}
+    {{ b.shead({ title: 'Путь пациента от запроса в Яндексе до записи к врачу.', note: 'Мы строим и ведём этот путь целиком. Каждую неделю вы видите, сколько человек дошли до заявки и до записи и сколько стоил каждый.' }) }}
     <ol class="jr">
 {% for s in journey %}
       <li class="jr__st reveal">
         <span class="jr__dot" data-vpoint aria-hidden="true"></span>
-        <span class="jr__n">{{ loop.index | pad2 }}</span>
+        <span class="jr__n">{{ loop.index }}</span>
         <div class="jr__art">
 {% if s.art == 'query' %}{{ b.a_query() }}{% elif s.art == 'ad' %}{{ b.a_ad() }}{% elif s.art == 'phone' %}{{ b.a_phone() }}{% elif s.art == 'lead' %}{{ b.a_lead() }}{% else %}{{ b.a_book() }}{% endif %}
         </div>
@@ -116,7 +116,6 @@ faq:
       <p class="circle__zero" aria-hidden="true"><span></span><b>₽</b><small>стоит наша работа в&nbsp;тестовый месяц</small></p>
       <span class="circle__disc" aria-hidden="true"></span>
       <div class="circle__in">
-        <p class="label">Тестовый месяц</p>
         <h2 class="h2" id="test-title">Первый месяц вы&nbsp;платите только <em>Яндексу</em>.</h2>
         <p class="circle__lead">Бюджет идёт на&nbsp;рекламу напрямую с&nbsp;кабинета клиники. Через нас деньги не&nbsp;проходят.</p>
       </div>
@@ -132,7 +131,7 @@ faq:
 <!-- ============ 4. КАЛЬКУЛЯТОР ============ -->
 <section class="sec sheet" id="calc">
   <div class="wrap">
-    {{ b.shead({ label: 'Расчёт', title: 'Что даст тестовый месяц *вашей* клинике.', note: 'Подвиньте ползунки под свой город. Точные цифры по вашей услуге считаем на разборе, по данным Яндекса.' }) }}
+    {{ b.shead({ title: 'Что даст тестовый месяц вашей клинике.', note: 'Подвиньте ползунки под свой город. Точные цифры по вашей услуге считаем на разборе, по данным Яндекса.' }) }}
     {{ b.calc() }}
   </div>
 </section>
@@ -140,7 +139,7 @@ faq:
 <!-- ============ 5. САЙТ И КАРТЫ ============ -->
 <section class="sec sec--fog" id="site">
   <div class="wrap">
-    {{ b.shead({ label: 'Сайт и Карты', title: 'Сайт клиники и Яндекс Карты за *первый месяц*.', note: 'Для клиник, которые открываются или давно не занимались сайтом и карточками. Сайт входит в стартовый пакет на 3 месяца, отдельно за него платить не нужно.' }) }}
+    {{ b.shead({ title: 'Сайт клиники и Яндекс Карты за первый месяц.', note: 'Для клиник, которые открываются или давно не занимались сайтом и карточками. Сайт входит в стартовый пакет на 3 месяца, отдельно за него платить не нужно.' }) }}
     <div class="pack">
       <div class="pack__what">
         <h3 class="pack__h">В первый месяц</h3>
@@ -159,7 +158,7 @@ faq:
         </ol>
         <p class="pack__own">Сайт, домен и&nbsp;карточки оформлены на&nbsp;клинику и&nbsp;остаются у&nbsp;вас, даже если мы&nbsp;перестанем работать вместе.</p>
         <div class="pack__acts">
-          <a href="#start" class="btn" data-magnetic data-pick="site">Обсудить сайт и Карты <span class="btn__arr" aria-hidden="true">→</span></a>
+          <a href="#start" class="btn" data-magnetic data-pick="site">Обсудить сайт и Карты</a>
           <a href="{{ href('complex') }}" class="link">Что входит в&nbsp;пакет</a>
         </div>
       </div>
@@ -171,8 +170,7 @@ faq:
 <section class="sec" id="team">
   <div class="wrap lead2">
     <div class="lead2__main">
-      <p class="label">Кто ведёт</p>
-      <h2 class="h2">Вашу клинику ведёт <em>основатель</em> агентства.</h2>
+      <h2 class="h2">Вашу клинику ведёт основатель агентства.</h2>
       <p class="lead">Илья Сорокин сам разбирает клинику, согласует с&nbsp;вами цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт. Кампании ведёт директолог, страницы собирает разработчик, карточками занимается специалист по&nbsp;Картам.</p>
       <dl class="facts">
         <div><dt>в&nbsp;маркетинге, из&nbsp;них 5–6 в&nbsp;медицине</dt><dd><span data-count="8">8</span> лет</dd></div>
@@ -194,7 +192,7 @@ faq:
 <!-- ============ 7. ПРИМЕРЫ ============ -->
 <section class="sec sec--fog" id="works">
   <div class="wrap">
-    {{ b.shead({ label: 'Примеры', title: 'Что вы получаете на&nbsp;руки.', note: 'Первые кейсы с цифрами опубликуем после тестовых месяцев, с согласия клиник. Пока показываем образцы для вымышленной клиники.' }) }}
+    {{ b.shead({ title: 'Что вы получаете на&nbsp;руки.', note: 'Первые кейсы с цифрами опубликуем после тестовых месяцев, с согласия клиник. Пока показываем образцы для вымышленной клиники.' }) }}
     <div class="tiles">
 {% for w in works %}
       <a class="tile reveal" href="{{ href('cases') }}">
@@ -211,7 +209,7 @@ faq:
 <!-- ============ 8. ВОПРОСЫ: на широком экране колесо, на телефоне список ============ -->
 <section class="sec" id="faq">
   <div class="wrap">
-    {{ b.shead({ label: 'Вопросы', title: 'Что владельцы клиник спрашивают до *старта*.', note: 'Не нашли ответ? Задайте вопрос в заявке, ответим в рабочее время.' }) }}
+    {{ b.shead({ title: 'Что владельцы клиник спрашивают до старта.', note: 'Не нашли ответ? Задайте вопрос в заявке, ответим в рабочее время.' }) }}
     {{ b.qa(faq, true) }}
   </div>
 </section>

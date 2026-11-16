@@ -7,9 +7,7 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-  const fmt = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-  const pad2 = n => String(n).padStart(2, '0');
-  let vh = innerHeight;
+  const fmt = n => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');  let vh = innerHeight;
 
   /* ---------- плавная прокрутка ---------- */
   let lenis = null;
@@ -234,7 +232,7 @@
     const N = items.length, STEP = 26;
     const wheel = document.createElement('div');
     wheel.className = 'wheel';
-    wheel.innerHTML = `<div class="wheel__dial"><div class="wheel__ring"><i aria-hidden="true"></i><i aria-hidden="true"></i><div class="wheel__tabs" role="tablist" aria-label="Вопросы" aria-orientation="vertical">${items.map((it, i) => `<button type="button" class="wheel__q" role="tab" id="wq-${i}" aria-controls="wheel-panel" style="--a: ${i * STEP}deg">${it.q}</button>`).join('')}</div></div><span class="wheel__ptr" aria-hidden="true"></span><p class="wheel__count" aria-hidden="true"><b></b><span>/ ${pad2(N)}</span></p></div><div class="wheel__panel" role="tabpanel" id="wheel-panel" tabindex="0"><h3 class="wheel__title"></h3><div class="wheel__a"></div><div class="wheel__nav"><button type="button" class="wheel__btn" data-step="-1" aria-label="Предыдущий вопрос">←</button><button type="button" class="wheel__btn" data-step="1" aria-label="Следующий вопрос">→</button></div></div>`;
+    wheel.innerHTML = `<div class="wheel__dial"><div class="wheel__ring"><i aria-hidden="true"></i><i aria-hidden="true"></i><div class="wheel__tabs" role="tablist" aria-label="Вопросы" aria-orientation="vertical">${items.map((it, i) => `<button type="button" class="wheel__q" role="tab" id="wq-${i}" aria-controls="wheel-panel" style="--a: ${i * STEP}deg">${it.q}</button>`).join('')}</div></div><span class="wheel__ptr" aria-hidden="true"></span><p class="wheel__count" aria-hidden="true"><b></b><span>из ${N}</span></p></div><div class="wheel__panel" role="tabpanel" id="wheel-panel" tabindex="0"><h3 class="wheel__title"></h3><div class="wheel__a"></div><div class="wheel__nav"><button type="button" class="wheel__btn" data-step="-1" aria-label="Предыдущий вопрос"></button><button type="button" class="wheel__btn wheel__btn--next" data-step="1" aria-label="Следующий вопрос"></button></div></div>`;
     qaw.after(wheel);
     const ring = $('.wheel__ring', wheel), tabs = $$('.wheel__q', wheel), panel = $('.wheel__panel', wheel);
     const title = $('.wheel__title', wheel), ans = $('.wheel__a', wheel), count = $('.wheel__count b', wheel);
@@ -247,7 +245,7 @@
       ring.style.setProperty('--rot', `${-cur * STEP}deg`);
       tabs.forEach((t, k) => { const on = k === cur; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; t.classList.toggle('is-far', Math.abs(k - cur) > 2); });
       panel.setAttribute('aria-labelledby', tabs[cur].id);
-      count.textContent = pad2(cur + 1);
+      count.textContent = cur + 1;
       const fill = () => { title.innerHTML = items[cur].q; ans.innerHTML = items[cur].a; panel.classList.remove('is-swap'); };
       clearTimeout(swap);
       if (first || reduce) fill(); else { panel.classList.add('is-swap'); swap = setTimeout(fill, 220); }

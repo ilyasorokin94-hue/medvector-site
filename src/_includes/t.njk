@@ -40,7 +40,7 @@
       <p class="phero__sub">{{ h.lead | t | safe }}</p>
 {% if h.cta %}
       <div class="phero__acts">
-        <a href="#start" class="btn" data-magnetic{% if h.pick %} data-pick="{{ h.pick }}"{% endif %}>{{ h.cta }} <span class="btn__arr" aria-hidden="true">→</span></a>
+        <a href="#start" class="btn" data-magnetic{% if h.pick %} data-pick="{{ h.pick }}"{% endif %}>{{ h.cta }}</a>
 {% if h.cta2 %}
         <a href="{{ h.cta2url }}" class="link"{% if h.pick2 %} data-pick="{{ h.pick2 }}"{% endif %}{% if h.dir2 %} data-dir="{{ h.dir2 }}"{% endif %}>{{ h.cta2 }}</a>
 {% endif %}
@@ -192,7 +192,7 @@
   <h3 class="incl__title">{{ o.inclTitle | t | safe }}</h3>
   <ol class="incl__list">
 {% for i in o.incl %}
-    <li class="reveal"><span class="incl__n">{{ loop.index | pad2 }}</span><h4>{{ i[0] | t | safe }}</h4><p>{{ i[1] | t | safe }}</p></li>
+    <li class="reveal"><span class="incl__n">{{ loop.index }}</span><h4>{{ i[0] | t | safe }}</h4><p>{{ i[1] | t | safe }}</p></li>
 {% endfor %}
   </ol>
 </div>
@@ -204,7 +204,7 @@
 {% endfor %}
   </div>
   <p class="after__why">{{ o.why | t | safe }}</p>
-  <p class="after__act"><a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить тестовый месяц <span class="btn__arr" aria-hidden="true">→</span></a></p>
+  <p class="after__act"><a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить тестовый месяц</a></p>
 </div>
 {% endmacro %}
 
@@ -242,7 +242,7 @@
 <div class="qa"{% if wheel %} data-wheel{% endif %}>
 {% for f in items %}
   <details class="qa__item"{% if loop.first %} open{% endif %}>
-    <summary><span class="qa__n" aria-hidden="true">{{ loop.index | pad2 }}</span><span class="qa__q">{{ f.q | t | safe }}</span><span class="qa__ic" aria-hidden="true"></span></summary>
+    <summary><span class="qa__q">{{ f.q | t | safe }}</span><span class="qa__ic" aria-hidden="true"></span></summary>
     <div class="qa__a"><p>{{ f.a | t | safe }}</p></div>
   </details>
 {% endfor %}
@@ -253,7 +253,7 @@
 {% macro start(d={}) %}
 <section class="dark sheet start" id="start" data-dark>
   <div class="wrap">
-    <h2 class="h2 start__title">{{ (d.title or 'Оставьте заявку. За 2 рабочих дня разберём клинику и посчитаем *запуск*.') | t | safe }}</h2>
+    <h2 class="h2 start__title">{{ (d.title or 'Оставьте заявку. За 2 рабочих дня разберём клинику и посчитаем запуск.') | t | safe }}</h2>
     <div class="start__grid">
       <div class="start__text">
         <p class="lead">{{ (d.lead or 'Посмотрим сайт, карточку на Картах и рекламу, если она уже идёт. Скажем, с чего начать: с тестового месяца в Директе или с сайта и Карт.') | t | safe }}</p>
@@ -292,7 +292,7 @@
         <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="{{ href('consent') }}">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="{{ href('policy') }}">политики</a></span></label>
         <div class="form__send">
           <p class="form__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
-          <button class="btn btn--light" type="submit" data-vend data-magnetic>{{ d.button or 'Отправить заявку' }} <span class="btn__arr" aria-hidden="true">→</span></button>
+          <button class="btn btn--light" type="submit" data-vend data-magnetic>{{ d.button or 'Отправить заявку' }}</button>
         </div>
         <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
       </form>
