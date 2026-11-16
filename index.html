@@ -162,22 +162,63 @@
 
 <main id="main">
 <!-- ============ 1. ПЕРВЫЙ ЭКРАН: оффер. Из стрелки в заголовке начинается линия-вектор ============ -->
-<section class="hero" id="intro">
-  <div class="wrap">
-    <p class="label hero__label">Агентство для частных стоматологий</p>
-    <h1 class="h1 hero__title">
-      <span class="ln">Яндекс Директ</span>
-      <span class="ln ln--in">для стоматологий<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></span>
-      <span class="ln">Первый месяц</span>
-      <span class="ln ln--in2">работаем <em>бесплатно</em>.</span>
-    </h1>
-    <div class="hero__foot">
-      <p class="hero__sub">Запускаем рекламу имплантации и&nbsp;<span class="nw">All-on-4</span>: делаем страницу под услугу, настраиваем кампании и&nbsp;считаем заявки до&nbsp;записи к&nbsp;врачу. В&nbsp;первый месяц вы&nbsp;платите только рекламный бюджет Яндексу. Нашу работу оплачиваете со&nbsp;второго месяца, если заявки вас устроят.</p>
-      <div class="hero__acts">
-        <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить тестовый месяц</a>
-        <a href="#site" class="link">Нужен сайт и Яндекс Карты?</a>
+<section class="hero hero--scene" id="intro">
+  <div class="wrap hero__grid">
+    <div class="hero__text">
+      <p class="label hero__label">Агентство для частных стоматологий</p>
+      <h1 class="h1 hero__title">
+        <span class="ln">Яндекс Директ</span>
+        <span class="ln ln--in">для стоматологий<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></span>
+        <span class="ln">Первый месяц</span>
+        <span class="ln ln--in2">работаем <em>бесплатно</em>.</span>
+      </h1>
+      <div class="hero__foot">
+        <p class="hero__sub">Запускаем рекламу имплантации и&nbsp;<span class="nw">All-on-4</span> и&nbsp;считаем заявки до&nbsp;записи к&nbsp;врачу. В&nbsp;первый месяц вы&nbsp;платите только рекламный бюджет Яндексу, а&nbsp;нашу работу оплачиваете со&nbsp;второго, если заявки вас устроят.</p>
+        <div class="hero__acts">
+          <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить тестовый месяц</a>
+        </div>
       </div>
     </div>
+    <!-- объёмная сцена: объявление, страница услуги, заявка и запись. Только широкий экран, для вымышленной клиники -->
+    <div class="scene" data-scene aria-hidden="true">
+      <div class="scene__in">
+        <div class="scene__l scene__l--ad" style="--i: 0"><div class="art art--ad" aria-hidden="true">
+  <span class="art__mark">Реклама</span>
+  <b>Имплантация зубов под ключ</b>
+  <span class="art__url">demo-klinika.ru › implantaciya</span>
+  <span class="art__txt">Имплант, формирователь и коронка. Цена по этапам, рассрочка.</span>
+  <span class="art__warn">Имеются противопоказания, нужна консультация специалиста</span>
+</div>
+</div>
+        <div class="scene__l scene__l--phone" style="--i: 1"><div class="art art--phone" aria-hidden="true">
+  <div class="ph">
+    <span class="ph__top"><i></i>Стоматология «Демо»</span>
+    <b>Имплантация под ключ</b>
+    <small>Имплант, формирователь и коронка: цена по этапам</small>
+    <span class="ph__btn">Записаться</span>
+    <span class="ph__row">Цена по этапам</span><span class="ph__row">Врач и его опыт</span><span class="ph__row">Если мало кости</span><span class="ph__row">Рассрочка</span>
+  </div>
+</div>
+</div>
+        <div class="scene__l scene__l--lead" style="--i: 2"><div class="art art--lead" aria-hidden="true">
+  <span class="art__top">Новая заявка<span>12:04</span></span>
+  <b>Имплантация, консультация</b>
+  <span class="art__txt">Поиск · «имплантация зубов цена»</span>
+</div>
+</div>
+        <div class="scene__l scene__l--book" style="--i: 3"><div class="art art--book" aria-hidden="true">
+  <span class="art__top">Запись<span>отметил администратор</span></span>
+  <b>Чт, 15:30</b>
+  <span class="art__txt">Консультация хирурга</span>
+</div>
+</div>
+      </div>
+    </div>
+    <a class="second" href="#site">
+      <span class="second__name"><small>Второе направление</small>Сайт клиники и&nbsp;Яндекс Карты за&nbsp;первый месяц</span>
+      <span class="second__price">80&nbsp;000&nbsp;₽, сайт входит в&nbsp;эту сумму. Дальше продвижение 60&nbsp;000&nbsp;₽ в&nbsp;месяц</span>
+      <span class="second__go" aria-hidden="true"></span>
+    </a>
   </div>
 </section>
 
@@ -353,7 +394,7 @@
 </section>
 
 <!-- ============ 5. САЙТ И КАРТЫ ============ -->
-<section class="sec sec--fog" id="site">
+<section class="dark sheet" id="site" data-dark>
   <div class="wrap">
     <div class="shead">
   <div>
@@ -362,6 +403,38 @@
   <p class="shead__note">Для клиник, которые открываются или давно не&nbsp;занимались сайтом и&nbsp;карточками. Сайт входит в&nbsp;стартовый пакет на&nbsp;3&nbsp;месяца, отдельно за&nbsp;него платить не&nbsp;нужно.</p>
 </div>
 
+    <!-- три образца лежат под наклоном и выпрямляются по мере прокрутки -->
+    <div class="trio" data-trio aria-hidden="true">
+      <div class="trio__in">
+        <div class="trio__l trio__l--map"><div class="art art--map" aria-hidden="true">
+  <span class="mp__area"><i></i></span>
+  <b>Стоматология «Демо»</b>
+  <span class="mp__rate"><em>4,9</em> 214 отзывов, клиника отвечает</span>
+  <span class="mp__tags"><span>Цены</span><span>Врачи</span><span>Фото</span><span>Запись</span></span>
+  <span class="mp__btns"><span>Маршрут</span><span>Позвонить</span><span>Сайт</span></span>
+</div>
+</div>
+        <div class="trio__l trio__l--site"><div class="art art--browser" aria-hidden="true">
+  <span class="br__bar"><i></i><i></i><i></i><span>demo-klinika.ru</span></span>
+  <span class="br__nav"><b>Стоматология «Демо»</b><span>Услуги</span><span>Врачи</span><span>Цены</span><span>Контакты</span></span>
+  <span class="br__h">Стоматология для всей семьи</span>
+  <span class="br__p">Лечение, имплантация, протезирование. Цены на сайте</span>
+  <span class="br__btn">Записаться онлайн</span>
+  <span class="br__cards"><span>Имплантация</span><span>All-on-4</span><span>Коронки и виниры</span></span>
+</div>
+</div>
+        <div class="trio__l trio__l--phone"><div class="art art--phone" aria-hidden="true">
+  <div class="ph">
+    <span class="ph__top"><i></i>Стоматология «Демо»</span>
+    <b>Стоматология рядом с домом</b>
+    <small>Лечение, имплантация, детский приём. Цены на сайте</small>
+    <span class="ph__btn">Записаться</span>
+    <span class="ph__row">Услуги и цены</span><span class="ph__row">Врачи</span><span class="ph__row">Отзывы с площадок</span><span class="ph__row">Как добраться</span>
+  </div>
+</div>
+</div>
+      </div>
+    </div>
     <div class="pack">
       <div class="pack__what">
         <h3 class="pack__h">В первый месяц</h3>
@@ -381,8 +454,8 @@
         </ol>
         <p class="pack__own">Сайт, домен и&nbsp;карточки оформлены на&nbsp;клинику и&nbsp;остаются у&nbsp;вас, даже если мы&nbsp;перестанем работать вместе.</p>
         <div class="pack__acts">
-          <a href="#start" class="btn" data-magnetic data-pick="site">Обсудить сайт и Карты</a>
-          <a href="kompleksnyj-marketing/" class="link">Что входит в&nbsp;пакет</a>
+          <a href="#start" class="btn btn--light" data-magnetic data-pick="site">Обсудить сайт и Карты</a>
+          <a href="kompleksnyj-marketing/" class="link link--light">Что входит в&nbsp;пакет</a>
         </div>
       </div>
     </div>
@@ -390,14 +463,14 @@
 </section>
 
 <!-- ============ 6. КТО ВЕДЁТ ============ -->
-<section class="sec" id="team">
+<section class="sec sheet" id="team">
   <div class="wrap lead2">
     <div class="lead2__main">
       <h2 class="h2">Вашу клинику ведёт основатель агентства.</h2>
       <p class="lead">Илья Сорокин сам разбирает клинику, согласует с&nbsp;вами цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт. Кампании ведёт директолог, страницы собирает разработчик, карточками занимается специалист по&nbsp;Картам.</p>
       <dl class="facts">
         <div><dt>в&nbsp;маркетинге, из&nbsp;них 5–6 в&nbsp;медицине</dt><dd><span data-count="8">8</span> лет</dd></div>
-        <div><dt>клиник вели за&nbsp;это время</dt><dd><span data-count="50">50</span>+</dd></div>
+        <div><dt>клиник в&nbsp;опыте основателя и&nbsp;команды</dt><dd><span data-count="50">50</span>+</dd></div>
       </dl>
     </div>
     <div class="lead2__side">

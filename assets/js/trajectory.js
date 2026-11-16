@@ -124,10 +124,55 @@
     if (!track || reduce) return;
     const r = track.getBoundingClientRect();
     const p = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
-    const s = clamp(p / 0.62, 0, 1) ** 1.7;
+    const s = clamp(p / 0.7, 0, 1) ** 1.6;
     disc.style.setProperty('--s', s.toFixed(4));
-    cin.style.setProperty('--o', clamp((p - 0.48) / 0.25, 0, 1).toFixed(3));
+    cin.style.setProperty('--o', clamp((p - 0.5) / 0.3, 0, 1).toFixed(3));
   };
+
+  /* ---------- образцы в блоке «Сайт и Карты» выпрямляются по мере прокрутки ---------- */
+  const trios = $$('[data-trio]');
+  const onTrio = () => trios.forEach(el => {
+    if (reduce) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--t', (1 - clamp((vh - r.top) / (vh * 0.7), 0, 1)).toFixed(3));
+  });
+
+  /* ---------- объёмная сцена первого экрана: слои появляются по очереди и следят за мышью ---------- */
+  const scene = $('[data-scene]');
+  if (scene) {
+    if (reduce) scene.classList.add('is-in');
+    else {
+      requestAnimationFrame(() => requestAnimationFrame(() => scene.classList.add('is-in')));
+      setTimeout(() => scene.classList.add('is-float'), 3200);
+      if (fine) {
+        const inner = $('.scene__in', scene), host = scene.closest('section');
+        let tx = 0, ty = 0, x = 0, y = 0, on = false;
+        host.addEventListener('pointermove', e => {
+          const r = host.getBoundingClientRect();
+          tx = (e.clientX - r.left) / r.width - 0.5; ty = (e.clientY - r.top) / r.height - 0.5;
+          if (!on) { on = true; requestAnimationFrame(tilt); }
+        });
+        host.addEventListener('pointerleave', () => { tx = 0; ty = 0; });
+        const tilt = () => {
+          x += (tx - x) * 0.08; y += (ty - y) * 0.08;
+          inner.style.setProperty('--ry', `${(x * 14).toFixed(2)}deg`);
+          inner.style.setProperty('--rx', `${(-y * 10).toFixed(2)}deg`);
+          if (Math.abs(tx - x) > 0.001 || Math.abs(ty - y) > 0.001) requestAnimationFrame(tilt); else on = false;
+        };
+      }
+    }
+  }
+
+  /* ---------- путь пациента: остановки подсвечиваются по очереди, пока блок на экране ---------- */
+  const stops = $$('.jr__st');
+  if (stops.length && !reduce) {
+    let k = -1, timer = null;
+    const step = () => { stops.forEach(s => s.classList.remove('is-live')); k = (k + 1) % (stops.length + 1); if (k < stops.length) stops[k].classList.add('is-live'); };
+    new IntersectionObserver(es => {
+      if (es[0].isIntersecting && !timer) { k = -1; timer = setInterval(step, 1500); }
+      else if (!es[0].isIntersecting && timer) { clearInterval(timer); timer = null; stops.forEach(s => s.classList.remove('is-live')); }
+    }, { threshold: 0.35 }).observe(stops[0].parentElement);
+  }
 
   /* ---------- счётчики ---------- */
   const cio = new IntersectionObserver(es => es.forEach(e => {
@@ -392,7 +437,7 @@
   let ticking = false;
   const frame = () => {
     ticking = false;
-    onHeader(); onFill(); onCircle(); lineTarget();
+    onHeader(); onFill(); onCircle(); onTrio(); lineTarget();
   };
   const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
   addEventListener('scroll', onScroll, { passive: true });
