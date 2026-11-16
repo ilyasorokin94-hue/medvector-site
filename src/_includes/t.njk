@@ -189,19 +189,34 @@
   </div>
 </div>
 <div class="incl">
-  <h3 class="incl__title">{{ o.inclTitle | t | safe }}</h3>
-  <ol class="incl__list">
-{% for i in o.incl %}
-    <li class="reveal"><span class="incl__n">{{ loop.index }}</span><h4>{{ i[0] | t | safe }}</h4><p>{{ i[1] | t | safe }}</p></li>
+  <h3 class="incl__title">{{ o.scaleTitle | t | safe }}</h3>
+  <ol class="scale">
+{% for s in o.scale %}
+    <li class="scale__seg reveal" style="--g: {{ s[3] }}">
+      <span class="scale__when"><b>{{ loop.index }}</b>{{ s[1] | t | safe }}</span>
+      <span class="scale__bar{% if loop.index == 3 %} scale__bar--weeks{% endif %}" aria-hidden="true"><i></i></span>
+      <h4>{{ s[0] | t | safe }}</h4>
+      <p>{{ s[2] | t | safe }}</p>
+    </li>
 {% endfor %}
   </ol>
+  <p class="scale__note">{{ o.scaleNote | t | safe }}</p>
 </div>
 <div class="after">
   <h3 class="after__title">{{ o.afterTitle | t | safe }}</h3>
   <div class="after__grid">
-{% for a in o.after %}
-    <div class="after__case reveal"><h4>{{ a[0] | t | safe }}</h4><p>{{ a[1] | t | safe }}</p></div>
+    <div class="after__case reveal"><h4>{{ o.after[0][0] | t | safe }}</h4><p>{{ o.after[0][1] | t | safe }}</p></div>
+    <div class="after__case reveal">
+      <h4>{{ o.after[1][0] | t | safe }}</h4><p>{{ o.after[1][1] | t | safe }}</p>
+      <table class="own">
+        <caption>{{ o.ownTitle | t | safe }}</caption>
+        <tbody>
+{% for r in o.own %}
+          <tr{% if not r[2] %} class="own__no"{% endif %}><th scope="row">{{ r[0] | t | safe }}</th><td>{{ r[1] | t | safe }}</td></tr>
 {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
   <p class="after__why">{{ o.why | t | safe }}</p>
   <p class="after__act"><a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить тестовый месяц</a></p>
@@ -220,7 +235,7 @@
       <input type="range" id="calc-cr" name="cr" min="1" max="12" step="0.5" value="5"></div>
     <div class="rng"><div class="rng__top"><label for="calc-book">Записей из&nbsp;10 заявок</label><output for="calc-book" data-out="book">4</output></div>
       <input type="range" id="calc-book" name="book" min="1" max="8" step="1" value="4"></div>
-    <p class="calc__hint">Значения по&nbsp;умолчанию средние для имплантации в&nbsp;крупном городе. Цена перехода в&nbsp;Москве выше, в&nbsp;небольших городах ниже.</p>
+    <p class="calc__hint">Числа стоят для примера. Свою цену перехода и&nbsp;долю заявок можно посмотреть в&nbsp;кабинете Директа и&nbsp;в&nbsp;Метрике, если реклама уже шла.</p>
   </div>
   <div class="calc__res" aria-live="polite">
     <ol class="flow">
@@ -229,10 +244,10 @@
       <li><span class="flow__bar" style="--w: 30%"></span><b data-res="books">14</b><span>записей на&nbsp;консультацию</span></li>
     </ol>
     <dl class="calc__price">
-      <div><dt>цена заявки</dt><dd><span data-res="cpl">4&nbsp;400</span>&nbsp;₽</dd></div>
-      <div><dt>цена записи</dt><dd><span data-res="cpb">10&nbsp;700</span>&nbsp;₽</dd></div>
+      <div><dt>цена заявки</dt><dd><span data-res="cpl">4&nbsp;400</span><span class="cur">&nbsp;₽</span></dd></div>
+      <div><dt>цена записи</dt><dd><span data-res="cpb">10&nbsp;700</span><span class="cur">&nbsp;₽</span></dd></div>
     </dl>
-    <p class="calc__note">Расчёт ориентировочный. Число записей зависит и&nbsp;от&nbsp;клиники: как быстро администратор отвечает на&nbsp;заявку и&nbsp;есть&nbsp;ли у&nbsp;врача свободное время.</p>
+    <p class="calc__note">Расчёт показывает порядок цифр. Число записей зависит и&nbsp;от&nbsp;клиники: как быстро администратор отвечает на&nbsp;заявку и&nbsp;есть&nbsp;ли у&nbsp;врача свободное время. Запись на&nbsp;консультацию ещё не&nbsp;означает начало лечения.</p>
   </div>
 </div>
 {% endmacro %}
@@ -258,7 +273,7 @@
       <div class="start__text">
         <p class="lead">{{ (d.lead or 'Посмотрим сайт, карточку на Картах и рекламу, если она уже идёт. Скажем, с чего начать: с тестового месяца в Директе или с сайта и Карт.') | t | safe }}</p>
         <ul class="plist">
-{% for i in (d.items or ['Тестовый месяц в Директе: наша работа 0 ₽, бюджет вы платите Яндексу', 'Сайт и Яндекс Карты: старт 80 000 ₽, сайт входит в эту сумму', 'Если реклама у клиники пока не окупится, скажем об этом на разборе']) %}
+{% for i in (d.items or ['Тестовый месяц в Директе: наша работа 0 ₽, бюджет вы платите Яндексу', 'Сайт и Яндекс Карты: старт 80 000 ₽, сайт входит в эту сумму', 'Если видим риски для запуска, скажем о них на разборе']) %}
           <li>{{ i | t | safe }}</li>
 {% endfor %}
         </ul>

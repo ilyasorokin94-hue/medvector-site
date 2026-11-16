@@ -246,7 +246,9 @@
     };
     const upd = () => {
       const b = +inp('budget').value, cpc = +inp('cpc').value, cr = +inp('cr').value, bk = +inp('book').value;
-      const clicks = Math.round(b / cpc), leads = Math.round(clicks * cr / 100), books = Math.round(leads * bk / 10);
+      // считаем без промежуточных округлений, округляем только то, что показываем
+      const fc = b / cpc, fl = fc * cr / 100, fb = fl * bk / 10;
+      const clicks = Math.round(fc), leads = Math.round(fl), books = Math.round(fb);
       out('budget').textContent = `${fmt(b)} ₽`;
       out('cpc').textContent = `${fmt(cpc)} ₽`;
       out('cr').textContent = String(cr).replace('.', ',');
@@ -259,8 +261,14 @@
         res(k).nextElementSibling.textContent = plural(v, words[k]);
       });
       const r100 = v => Math.round(v / 100) * 100;
-      show('cpl', leads ? r100(b / leads) : 0);
-      show('cpb', books ? r100(b / books) : 0);
+      // если заявок или записей меньше одной, цены нет: показываем прочерк, а не 0 ₽
+      // цена считается от того числа, которое видно на экране, чтобы цифры сходились
+      [['cpl', leads], ['cpb', books]].forEach(([key, count]) => {
+        const dd = res(key).parentElement, none = count < 1;
+        dd.classList.toggle('is-none', none);
+        if (none) { cancelAnimationFrame(res(key)._raf); shown[key] = null; res(key).textContent = '—'; dd.setAttribute('aria-label', 'нет расчёта: меньше одной за месяц'); }
+        else { dd.removeAttribute('aria-label'); show(key, r100(b / count)); }
+      });
       const bars = $$('.flow__bar', c);
       bars[1].style.setProperty('--w', `${clamp((leads / clicks) ** 0.4 * 100, 6, 100).toFixed(1)}%`);
       bars[2].style.setProperty('--w', `${clamp((books / clicks) ** 0.4 * 100, 4, 100).toFixed(1)}%`);
