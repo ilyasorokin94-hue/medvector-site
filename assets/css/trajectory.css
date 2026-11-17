@@ -178,7 +178,7 @@ small { font-size: 14px; }
 .hero__facts li { display: grid; align-content: start; gap: 4px; max-width: 210px; padding-left: 16px; border-left: 2px solid var(--vec); }
 .hero__facts b { font: 500 20px/1.2 var(--sans); letter-spacing: -.02em; color: var(--ink); }
 .hero__acts { grid-column: 8 / 13; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
-@media (max-width: 1020px) {
+@media (max-width: 1199px) {
   .hero__foot { display: block; }
   .hero__sub { max-width: 640px; }
   .hero__acts { margin-top: 32px; }
