@@ -137,11 +137,22 @@ faq:
 <!-- ============ 1. ПЕРВЫЙ ЭКРАН ============ -->
 {{ b.phero(hero, crumbs) }}
 
-<!-- ============ 2. ТЕСТОВЫЙ МЕСЯЦ ============ -->
-<section class="dark sheet" id="test" data-dark>
-  <div class="wrap">
-    {{ b.shead({ title: 'На первом тесте вы платите только *Яндексу*.', note: 'Рекламный депозит, например 150 000 ₽, вы вносите в свой кабинет Директа. Через нас деньги не проходят, комиссию за работу мы не берём.' }) }}
-    {{ b.offer(offer) }}
+<!-- ============ 2. ПЕРВЫЙ ТЕСТ: ноль растёт до тёмного экрана, дальше счёт и все условия ============ -->
+<section class="circle" id="test" aria-labelledby="test-title">
+  <div class="circle__track">
+    <div class="circle__stage">
+      <p class="circle__zero" aria-hidden="true"><span></span><b>₽</b><small>стоит наша работа на&nbsp;первом тесте</small></p>
+      <span class="circle__disc" aria-hidden="true"></span>
+      <div class="circle__in">
+        <h2 class="h2" id="test-title">На&nbsp;первом тесте вы&nbsp;платите только <em>Яндексу</em>.</h2>
+        <p class="circle__lead">Рекламный депозит, например 150&nbsp;000&nbsp;₽, вы&nbsp;вносите в&nbsp;свой кабинет Директа. Через нас деньги не&nbsp;проходят, комиссию за&nbsp;работу мы&nbsp;не&nbsp;берём.</p>
+      </div>
+    </div>
+  </div>
+  <div class="dark circle__body" data-dark>
+    <div class="wrap">
+      {{ b.offer(offer) }}
+    </div>
   </div>
 </section>
 

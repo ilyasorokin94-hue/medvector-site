@@ -28,8 +28,6 @@ journey:
     kpi: "записи и цена записи"
     art: book
 
-# условия первого теста общие для главной и страницы Директа: src/_data/offer.json
-
 # отдельные услуги: пока у услуги нет своей страницы, ссылка ведёт на раздел страницы комплексного маркетинга
 services:
   - { title: "SEO", text: "Структура сайта, страницы услуг и статьи под запросы пациентов в поиске Яндекса.", link: complex, hash: "#seo" }
@@ -207,27 +205,8 @@ faq:
   </div>
 </section>
 
-<!-- ============ 3. ТЕСТОВЫЙ МЕСЯЦ: ноль растёт до тёмного экрана ============ -->
-<section class="circle" id="test" aria-labelledby="test-title">
-  <div class="circle__track">
-    <div class="circle__stage">
-      <p class="circle__zero" aria-hidden="true"><span></span><b>₽</b><small>стоит наша работа на&nbsp;первом тесте</small></p>
-      <span class="circle__disc" aria-hidden="true"></span>
-      <div class="circle__in">
-        <h2 class="h2" id="test-title">На&nbsp;первом тесте вы&nbsp;платите только <em>Яндексу</em>.</h2>
-        <p class="circle__lead">Рекламный депозит, например 150&nbsp;000&nbsp;₽, вы&nbsp;вносите в&nbsp;свой кабинет Директа. Через нас деньги не&nbsp;проходят, комиссию за&nbsp;работу мы&nbsp;не&nbsp;берём.</p>
-      </div>
-    </div>
-  </div>
-  <div class="dark circle__body" data-dark>
-    <div class="wrap">
-      {{ b.offerShort(offer) }}
-    </div>
-  </div>
-</section>
-
 <!-- ============ 5. РАСЧЁТ ============ -->
-<section class="sec sheet" id="calc">
+<section class="sec" id="calc">
   <div class="wrap">
     {{ b.shead({ title: 'Сколько заявок и записей даст первый депозит в Директе.', note: 'Подвиньте ползунки под свою клинику. На разборе уточним расчёт по спросу и конкуренции в вашем городе.' }) }}
     {{ b.calc() }}

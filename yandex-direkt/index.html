@@ -212,17 +212,21 @@
 </section>
 
 
-<!-- ============ 2. ТЕСТОВЫЙ МЕСЯЦ ============ -->
-<section class="dark sheet" id="test" data-dark>
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">На&nbsp;первом тесте вы&nbsp;платите только <em>Яндексу</em>.</h2>
+<!-- ============ 2. ПЕРВЫЙ ТЕСТ: ноль растёт до тёмного экрана, дальше счёт и все условия ============ -->
+<section class="circle" id="test" aria-labelledby="test-title">
+  <div class="circle__track">
+    <div class="circle__stage">
+      <p class="circle__zero" aria-hidden="true"><span></span><b>₽</b><small>стоит наша работа на&nbsp;первом тесте</small></p>
+      <span class="circle__disc" aria-hidden="true"></span>
+      <div class="circle__in">
+        <h2 class="h2" id="test-title">На&nbsp;первом тесте вы&nbsp;платите только <em>Яндексу</em>.</h2>
+        <p class="circle__lead">Рекламный депозит, например 150&nbsp;000&nbsp;₽, вы&nbsp;вносите в&nbsp;свой кабинет Директа. Через нас деньги не&nbsp;проходят, комиссию за&nbsp;работу мы&nbsp;не&nbsp;берём.</p>
+      </div>
+    </div>
   </div>
-  <p class="shead__note">Рекламный депозит, например 150&nbsp;000&nbsp;₽, вы&nbsp;вносите в&nbsp;свой кабинет Директа. Через нас деньги не&nbsp;проходят, комиссию за&nbsp;работу мы&nbsp;не&nbsp;берём.</p>
-</div>
-
-    <div class="money">
+  <div class="dark circle__body" data-dark>
+    <div class="wrap">
+      <div class="money">
   <div class="money__row reveal">
     <p class="money__who">Яндексу<small>первый рекламный депозит, напрямую в&nbsp;кабинет клиники. Рекомендуем 150&nbsp;000&nbsp;₽, минимум 100&nbsp;000&nbsp;₽</small></p>
     <p class="money__sum"><span data-count="150000" data-sep>150&nbsp;000</span>&nbsp;₽</p>
@@ -303,6 +307,7 @@
   <p class="after__act"><a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить первый тест</a></p>
 </div>
 
+    </div>
   </div>
 </section>
 
