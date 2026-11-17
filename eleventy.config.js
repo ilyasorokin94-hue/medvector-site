@@ -51,7 +51,7 @@ const jsonld = (site, page, title, description, crumbs, service, faq) => {
   const url = site.url + page.url;
   const agency = { '@type': 'ProfessionalService', '@id': site.url + '/#agency', name: site.name, url: site.url + '/' };
   const graph = [];
-  if (page.url === '/') graph.push({ ...agency, description: plain(description), areaServed: 'RU', knowsAbout: ['Яндекс Директ', 'Сайты для стоматологий', 'Яндекс Карты', 'SEO'], logo: site.url + '/assets/img/medvector-logo.png' });
+  if (page.url === '/') graph.push({ ...agency, description: plain(description), areaServed: 'RU', knowsAbout: ['Медицинский маркетинг', 'Маркетинг для стоматологий', 'Яндекс Директ', 'Яндекс Карты', 'SEO', 'Сайты для клиник'], logo: site.url + '/assets/img/medvector-logo.png' });
   graph.push({ '@type': 'WebPage', '@id': url, url, name: plain(title), description: plain(description), inLanguage: 'ru', isPartOf: { '@type': 'WebSite', url: site.url + '/', name: site.name } });
   if (crumbs && crumbs.length) graph.push({ '@type': 'BreadcrumbList', itemListElement: [{ name: 'Главная', url: '/' }, ...crumbs].map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: plain(c.name), item: site.url + c.url })) });
   if (service) graph.push({ '@type': 'Service', name: plain(service.name), serviceType: plain(service.type || service.name), description: plain(service.description || description), url, areaServed: 'RU', provider: agency, ...(service.price ? { offers: { '@type': 'Offer', price: String(service.price), priceCurrency: 'RUB', ...(service.priceNote ? { description: plain(service.priceNote) } : {}) } } : {}) });
