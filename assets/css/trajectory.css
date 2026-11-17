@@ -148,7 +148,8 @@ small { font-size: 14px; }
 .mnav__nav .mnav__sub a { padding: 9px 0; border-bottom: 0; font-size: clamp(21px, 5.6vw, 28px); line-height: 1.2; letter-spacing: -.025em; }
 .mnav__foot { display: grid; gap: 16px; margin-top: 40px; }
 .mnav__foot p { font-size: 15px; color: var(--on-dark-2); }
-.is-menu .hdr { background: transparent; border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
+/* шапка поднимается над открытым меню, иначе кнопка закрытия остаётся под ним */
+.is-menu .hdr { z-index: 56; background: transparent; border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
 .is-menu .hdr__logo img, .is-menu .hdr__cta { visibility: hidden; }
 .is-menu body { overflow: hidden; }
 
