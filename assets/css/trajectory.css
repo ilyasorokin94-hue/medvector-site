@@ -350,6 +350,10 @@ small { font-size: 14px; }
 .js .jr__st.is-live .art--book { border-color: var(--vec-dark); }
 .jr__n { transition: color .7s var(--ease); }
 .js .jr__st.is-live .jr__n { color: var(--ink); }
+.jr__st { display: flex; flex-direction: column; }
+.jr__st .jr__kpi { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); font-size: 15px; font-weight: 500; line-height: 1.35; color: var(--ink); }
+.jr__st p:not(.jr__kpi) { margin-bottom: 20px; }
+.jr__kpi small { display: block; margin-bottom: 2px; font-size: 13px; font-weight: 400; color: var(--ink-3); }
 .jr__demo { margin-top: 48px; }
 @media (max-width: 1199px) {
   .jr { grid-template-columns: 1fr 1fr; row-gap: 56px; }
@@ -596,6 +600,59 @@ small { font-size: 14px; }
 .pack__acts { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; margin-top: 32px; }
 @media (max-width: 1020px) { .pack { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .pack__acts .btn { width: 100%; } .spec li { grid-template-columns: 1fr; } .spec b { grid-column: 1; grid-row: auto; } }
+
+/* ---------- направления: Директ на белой карточке, комплексный маркетинг рядом, ниже отдельные услуги ---------- */
+.dirs { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px; }
+.dir { display: flex; flex-direction: column; padding: clamp(24px, 3vw, 48px); border-radius: var(--r); box-shadow: inset 0 0 0 1px var(--line-dark); }
+.dir--main { background: #fff; color: var(--ink); box-shadow: none; }
+.dir__k { margin-bottom: 20px; font-size: 15px; line-height: 1.3; color: var(--on-dark-2); }
+.dir--main .dir__k { color: var(--ink-3); }
+.dir__t { font: 500 clamp(34px, 4.2vw, 64px)/1 var(--sans); letter-spacing: -.035em; }
+.dir__p { max-width: 560px; margin: 20px 0 clamp(28px, 3vw, 40px); font-size: clamp(17px, 1.4vw, 20px); line-height: 1.5; color: var(--on-dark-2); }
+.dir--main .dir__p { color: var(--ink-2); }
+.dir__inc { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 24px; margin-bottom: clamp(32px, 4vw, 56px); font-size: 16px; line-height: 1.4; }
+.dir--main .dir__inc li::before { color: var(--vec); }
+@media (max-width: 720px) { .dir__inc { grid-template-columns: minmax(0, 1fr); } }
+.dir__sum { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 12px 28px; margin-top: auto; padding-top: 28px; border-top: 1px solid var(--line-dark); }
+.dir--main .dir__sum { border-top-color: var(--line); }
+.dir__sum b { font: italic 400 clamp(64px, 6.4vw, 104px)/.86 var(--serif); color: var(--vec-dark); white-space: nowrap; }
+.dir--main .dir__sum b { font-size: clamp(88px, 10vw, 160px); word-spacing: -.12em; color: var(--vec-ink); }
+.dir__sum span { flex: 1 1 200px; max-width: 300px; padding-bottom: 6px; font-size: 16px; line-height: 1.45; color: var(--on-dark-2); }
+.dir--main .dir__sum span { color: var(--ink-2); }
+.dir__acts { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; margin-top: 32px; }
+.dir--main :focus-visible { outline-color: var(--vec); }
+.dirs2 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: clamp(40px, 5vw, 72px); }
+.dirs2 li { display: flex; }
+.dir2 { position: relative; display: flex; flex-direction: column; align-items: flex-start; flex: 1; padding: 24px 56px 4px 0; border-top: 1px solid var(--line-dark); color: #fff; text-decoration: none; }
+.dir2 h3 { font: 500 clamp(21px, 1.8vw, 26px)/1.2 var(--sans); letter-spacing: -.02em; transition: color .4s var(--ease); }
+.dir2 p { margin: 10px 0 16px; font-size: 16px; line-height: 1.5; color: var(--on-dark-2); }
+.dir2 .tag { margin-top: auto; }
+.dir2__go { position: absolute; right: 0; top: 20px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, .12); transition: background-color .5s var(--ease); }
+.dir2__go::before { content: ''; position: absolute; inset: 0; background: linear-gradient(#fff, #fff) center / 14px 2px no-repeat, linear-gradient(#fff, #fff) center / 2px 14px no-repeat; transition: transform .6s var(--ease); }
+a.dir2::after { content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--vec-dark); transform: scaleX(0); transform-origin: left; transition: transform .8s var(--ease); }
+a.dir2:hover::after { transform: scaleX(1); }
+a.dir2:hover h3 { color: var(--vec-dark); }
+a.dir2:hover .dir2__go { background: var(--vec-dark); }
+a.dir2:hover .dir2__go::before { transform: rotate(90deg); }
+.dirs__note { max-width: 560px; margin-top: 40px; font-size: 16px; color: var(--on-dark-2); }
+@media (max-width: 1020px) {
+  .dirs { grid-template-columns: minmax(0, 1fr); }
+  .dirs2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .dirs2 { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .dir__acts .btn { width: 100%; }
+}
+
+/* ---------- с кем работаем: задача клиники, как решаем, чем ---------- */
+.who { border-top: 1px solid var(--line); }
+.who li { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 3fr); column-gap: clamp(24px, 4vw, 72px); align-items: baseline; padding: clamp(24px, 2.6vw, 36px) 0; border-bottom: 1px solid var(--line); }
+.who p { font-size: 17px; line-height: 1.5; color: var(--ink-2); }
+.who__ch { display: flex; gap: 12px; align-items: baseline; font-size: 15px; line-height: 1.4; color: var(--ink); }
+.who__ch::before { content: ''; flex: none; position: relative; top: 1px; width: 13px; height: 13px; background: linear-gradient(var(--vec), var(--vec)) center / 100% 2px no-repeat, linear-gradient(var(--vec), var(--vec)) center / 2px 100% no-repeat; }
+@media (max-width: 900px) {
+  .who li { grid-template-columns: minmax(0, 1fr); row-gap: 12px; }
+}
 
 /* ---------- 6. кто ведёт ---------- */
 .lead2 { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; align-items: start; }
