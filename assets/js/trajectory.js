@@ -55,6 +55,24 @@
     matchMedia('(min-width: 1021px)').addEventListener('change', e => { if (e.matches && menuOpen) setMenu(false); });
   }
 
+  /* ---------- «Услуги» в шапке: список открывается по наведению мыши, по нажатию и с клавиатуры ---------- */
+  $$('[data-drop]').forEach(drop => {
+    const btn = $('.drop__btn', drop);
+    let timer;
+    const isOpen = () => drop.classList.contains('is-open');
+    const set = open => { clearTimeout(timer); drop.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', open); };
+    // нажатие мышью после наведения не должно закрывать список; нажатие с клавиатуры и пальцем переключает
+    btn.addEventListener('click', e => set(fine && e.detail ? true : !isOpen()));
+    if (fine) {
+      drop.addEventListener('pointerenter', () => set(true));
+      drop.addEventListener('pointerleave', () => { timer = setTimeout(() => set(false), 180); });
+    }
+    drop.addEventListener('focusout', e => { if (!drop.contains(e.relatedTarget)) set(false); });
+    drop.addEventListener('keydown', e => { if (e.key === 'Escape' && isOpen()) { set(false); btn.focus(); } });
+    drop.addEventListener('click', e => { if (e.target.closest('a')) set(false); });
+    document.addEventListener('click', e => { if (!drop.contains(e.target)) set(false); });
+  });
+
   /* ---------- заголовки: слова в маске, строки поднимаются по очереди ---------- */
   const splitWords = el => {
     const walk = node => {

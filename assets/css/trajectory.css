@@ -104,10 +104,23 @@ small { font-size: 14px; }
 .hdr__in { display: flex; align-items: center; gap: 40px; height: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gut); }
 .hdr__logo { flex: none; margin-right: auto; }
 .hdr__logo img { width: 178px; height: auto; }
-.hdr__nav { display: flex; gap: 36px; }
-.hdr__nav a { position: relative; padding: 8px 0; font-size: 16px; font-weight: 500; text-decoration: none; }
-.hdr__nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 2px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .6s var(--ease); }
-.hdr__nav a:hover::after, .hdr__nav a[aria-current]::after { transform: scaleX(1); transform-origin: left; }
+.hdr__nav { display: flex; align-items: center; gap: 36px; }
+.hdr__nav > a, .drop__btn { position: relative; padding: 8px 0; font-size: 16px; font-weight: 500; text-decoration: none; }
+.hdr__nav > a::after, .drop__btn::after { content: ''; position: absolute; left: 0; right: 0; bottom: 2px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .6s var(--ease); }
+.hdr__nav > a:hover::after, .hdr__nav > a[aria-current]::after, .drop__btn:hover::after, .drop.is-open .drop__btn::after, .drop.is-current .drop__btn::after { transform: scaleX(1); transform-origin: left; }
+/* «Услуги»: список открывается по наведению, по нажатию и с клавиатуры */
+.drop { position: relative; }
+.drop__btn { display: inline-flex; align-items: center; gap: 8px; border: 0; background: none; cursor: pointer; }
+.drop__ic { position: relative; width: 11px; height: 11px; background: linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat, linear-gradient(currentColor, currentColor) center / 2px 100% no-repeat; color: var(--vec); transition: transform .6s var(--ease); }
+.drop.is-open .drop__ic { transform: rotate(45deg); }
+.drop__panel { position: absolute; left: -28px; top: 100%; width: 372px; padding-top: 18px; visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity .35s var(--ease), transform .5s var(--ease), visibility 0s .35s; }
+.drop.is-open .drop__panel, .no-js .drop:hover .drop__panel, .no-js .drop:focus-within .drop__panel { visibility: visible; opacity: 1; transform: none; transition: opacity .35s var(--ease), transform .5s var(--ease); }
+.drop__list { padding: 10px; border: 1px solid var(--line); border-radius: var(--r); background: var(--paper); box-shadow: 0 24px 48px -24px rgba(0, 15, 64, .28); }
+.drop__list a { display: grid; gap: 2px; padding: 12px 18px; border-radius: 8px; text-decoration: none; transition: background-color .4s var(--ease); }
+.drop__list b { font-size: 17px; font-weight: 500; line-height: 1.3; }
+.drop__list small { font-size: 14px; line-height: 1.35; color: var(--ink-3); }
+.drop__list a:hover, .drop__list a[aria-current] { background: var(--fog); }
+.drop__list a:hover b { color: var(--vec-ink); }
 .burger { display: none; position: relative; z-index: 60; width: 48px; height: 48px; border: 0; border-radius: 50%; background: var(--ink); cursor: pointer; }
 .burger span { position: absolute; left: 15px; right: 15px; height: 2px; background: #fff; transition: transform .5s var(--ease); }
 .burger span:first-child { top: 19px; }
@@ -130,6 +143,9 @@ small { font-size: 14px; }
 .mnav { position: fixed; inset: 0; z-index: 55; display: flex; flex-direction: column; justify-content: space-between; padding: calc(var(--hdr) + 32px) var(--gut) 32px; background: var(--ink); color: #fff; overflow-y: auto; visibility: hidden; clip-path: inset(0 0 100% 0); transition: clip-path .8s var(--ease), visibility 0s .8s; }
 .mnav.is-open { visibility: visible; clip-path: inset(0 0 0 0); transition: clip-path .8s var(--ease); }
 .mnav__nav a { display: flex; align-items: baseline; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line-dark); font: 500 clamp(34px, 9vw, 56px)/1.05 var(--sans); letter-spacing: -.035em; text-decoration: none; }
+.mnav__h { margin-bottom: 6px; font-size: 15px; color: var(--on-dark-2); }
+.mnav__sub { padding-bottom: 14px; border-bottom: 1px solid var(--line-dark); }
+.mnav__nav .mnav__sub a { padding: 9px 0; border-bottom: 0; font-size: clamp(21px, 5.6vw, 28px); line-height: 1.2; letter-spacing: -.025em; }
 .mnav__foot { display: grid; gap: 16px; margin-top: 40px; }
 .mnav__foot p { font-size: 15px; color: var(--on-dark-2); }
 .is-menu .hdr { background: transparent; border-bottom-color: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }

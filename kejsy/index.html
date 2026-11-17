@@ -70,34 +70,52 @@
 </head>
 <body>
 <a class="skip" href="#main">К содержимому</a>
-<!-- ============ ШАПКА «Траектория»: логотип, четыре пункта, одна кнопка ============ -->
+<!-- ============ ШАПКА «Траектория»: логотип, «Услуги» списком, три пункта, одна кнопка ============ -->
 <header class="hdr" id="top">
   <div class="hdr__in">
     <a href="../" class="hdr__logo" aria-label="МедВектор, на главную">
       <img src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
     </a>
     <nav class="hdr__nav" aria-label="Основное меню">
-      <a href="../yandex-direkt/">Яндекс Директ</a>
-      <a href="../kompleksnyj-marketing/">Сайт и Карты</a>
+      <div class="drop" data-drop>
+        <button type="button" class="drop__btn" aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
+        <div class="drop__panel" id="drop-services">
+          <ul class="drop__list">
+            <li><a href="../yandex-direkt/"><b>Яндекс Директ</b><small>Первый тест без комиссии агентства</small></a></li>
+            <li><a href="../kompleksnyj-marketing/"><b>Комплексный маркетинг</b><small>Сайт, Карты, SEO и отзывы одним пакетом</small></a></li>
+            <li><a href="../kompleksnyj-marketing/#seo"><b>SEO</b><small>Страницы услуг и статьи под запросы пациентов</small></a></li>
+            <li><a href="../kompleksnyj-marketing/#maps"><b>Яндекс Карты</b><small>Карточка клиники и ответы на отзывы</small></a></li>
+            <li><a href="../kompleksnyj-marketing/#site"><b>Сайты и лендинги</b><small>Сайт клиники или страница услуги для рекламы</small></a></li>
+          </ul>
+        </div>
+      </div>
       <a href="../kejsy/" aria-current="page">Кейсы</a>
-      <a href="../kontakty/">О нас</a>
+      <a href="../kontakty/">Об агентстве</a>
+      <a href="../kontakty/#contacts">Контакты</a>
     </nav>
     <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Начать бесплатно</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- мобильное меню: тёмный экран, пункты крупно -->
+<!-- мобильное меню: тёмный экран, услуги списком, остальные пункты крупно -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
-    <a href="../yandex-direkt/">Яндекс Директ</a>
-    <a href="../kompleksnyj-marketing/">Сайт и Карты</a>
+    <p class="mnav__h">Услуги</p>
+    <ul class="mnav__sub">
+      <li><a href="../yandex-direkt/">Яндекс Директ</a></li>
+      <li><a href="../kompleksnyj-marketing/">Комплексный маркетинг</a></li>
+      <li><a href="../kompleksnyj-marketing/#seo">SEO</a></li>
+      <li><a href="../kompleksnyj-marketing/#maps">Яндекс Карты</a></li>
+      <li><a href="../kompleksnyj-marketing/#site">Сайты и лендинги</a></li>
+    </ul>
     <a href="../kejsy/">Кейсы</a>
-    <a href="../kontakty/">О нас</a>
+    <a href="../kontakty/">Об агентстве</a>
+    <a href="../kontakty/#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
     <a href="#start" class="btn btn--light">Начать бесплатно</a>
-    <p>Первый тест в&nbsp;Директе без комиссии за&nbsp;нашу работу. Сайт и&nbsp;Яндекс Карты под&nbsp;ключ за&nbsp;первый месяц.</p>
+    <p>Агентство медицинского маркетинга. Основная специализация: стоматологии. Работаем по&nbsp;всей России.</p>
   </div>
 </div>
 
@@ -312,18 +330,19 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top">
-      <p class="ftr__say">Реклама, сайты и&nbsp;Яндекс Карты для частных стоматологий. Честная цена: первый тест <em>бесплатно</em>.</p>
+      <p class="ftr__say">Агентство медицинского маркетинга. Основная специализация: <em>стоматологии</em>.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
-        <a href="../yandex-direkt/">Яндекс Директ для стоматологий</a>
-        <a href="../yandex-direkt/#directions">Реклама All-on-4 и имплантации</a>
-        <a href="../kompleksnyj-marketing/">Сайт и комплексный маркетинг</a>
+        <a href="../yandex-direkt/">Яндекс Директ</a>
+        <a href="../kompleksnyj-marketing/">Комплексный маркетинг</a>
+        <a href="../kompleksnyj-marketing/#seo">SEO</a>
         <a href="../kompleksnyj-marketing/#maps">Яндекс Карты</a>
+        <a href="../kompleksnyj-marketing/#site">Сайты и лендинги</a>
       </nav>
       <nav class="ftr__col" aria-label="Агентство">
         <h2>Агентство</h2>
         <a href="../kejsy/">Кейсы и примеры</a>
-        <a href="../kontakty/">О нас</a>
+        <a href="../kontakty/">Об агентстве</a>
         <a href="../kontakty/#contacts">Контакты</a>
         <a href="#start">Оставить заявку</a>
       </nav>

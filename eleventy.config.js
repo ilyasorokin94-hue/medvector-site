@@ -7,14 +7,19 @@ const path = require('node:path');
 
 const SRC = path.join(__dirname, 'src');
 
-// Адреса страниц. Пока шаблона страницы нет, ссылка ведёт на блок главной (второе значение).
-// Сайт компактный (структура v3 от 15.11.2026): главная, Яндекс Директ, «Сайт и Карты», кейсы, «О нас и контакты».
+// Адреса страниц. Пока шаблона страницы нет, ссылка ведёт на запасной адрес (второе значение):
+// на раздел страницы комплексного маркетинга или на блок главной. Когда страница появится, ссылки переключатся сами.
+// Структура сайта агентства от 17.11.2026: главная, Яндекс Директ, комплексный маркетинг, SEO, Яндекс Карты, сайты, кейсы, об агентстве, контакты.
 const LINKS = {
   home: ['/', '/'],
   direct: ['/yandex-direkt/', '/#services'],
   complex: ['/kompleksnyj-marketing/', '/#services'],
-  cases: ['/kejsy/', '/#examples'],
-  about: ['/kontakty/', '/#team'],
+  seo: ['/seo/', '/kompleksnyj-marketing/#seo'],
+  maps: ['/yandex-karty/', '/kompleksnyj-marketing/#maps'],
+  sites: ['/sajty/', '/kompleksnyj-marketing/#site'],
+  cases: ['/kejsy/', '/#works'],
+  about: ['/o-nas/', '/kontakty/'],
+  contacts: ['/kontakty/', '/'],
   policy: ['/politika/', '#'],
   consent: ['/soglasie/', '#'],
   thanks: ['/spasibo/', '#'],
