@@ -145,6 +145,8 @@ small { font-size: 14px; }
 
 /* ---------- 1. первый экран ---------- */
 .hero { padding: calc(var(--hdr) + clamp(40px, 6vh, 80px)) 0 clamp(96px, 12vh, 140px); }
+.hero__h { font: inherit; letter-spacing: normal; }
+.hero__title { display: block; }
 .hero__title .ln { display: block; white-space: nowrap; }
 .hero__title .ln--in { padding-left: 1em; }
 .hero__title .ln--in2 { padding-left: 1.2em; }
@@ -153,7 +155,11 @@ small { font-size: 14px; }
 .js .vec-arrow__head { display: none; }
 .vec-arrow path { fill: none; stroke: var(--vec); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .hero__foot { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; align-items: end; margin-top: clamp(40px, 6vh, 72px); }
-.hero__sub { grid-column: 1 / 7; font-size: clamp(18px, 1.55vw, 22px); line-height: 1.5; color: var(--ink-2); }
+.hero__say { grid-column: 1 / 8; }
+.hero__sub { font-size: clamp(18px, 1.55vw, 22px); line-height: 1.5; color: var(--ink-2); }
+.hero__facts { display: flex; flex-wrap: wrap; gap: 16px 40px; margin-top: 28px; font-size: 15px; line-height: 1.35; color: var(--ink-2); }
+.hero__facts li { display: grid; align-content: start; gap: 4px; max-width: 210px; padding-left: 16px; border-left: 2px solid var(--vec); }
+.hero__facts b { font: 500 20px/1.2 var(--sans); letter-spacing: -.02em; color: var(--ink); }
 .hero__acts { grid-column: 8 / 13; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
 @media (max-width: 1020px) {
   .hero__foot { display: block; }
@@ -165,9 +171,11 @@ small { font-size: 14px; }
   .hero__title .ln--in { padding-left: 0; }
   .hero__title .ln--in2 { padding-left: 0; }
   .hero__title { font-size: clamp(30px, 9vw, 60px); line-height: 1; }
-  .hero__title .ln:nth-child(3) { margin-top: .16em; }
   .hero__title .vec-arrow { display: none; }
   .hero__acts .btn { width: 100%; }
+  .hero__facts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 20px; margin-top: 24px; }
+  .hero__facts li { max-width: none; }
+  .hero__facts li:last-child { grid-column: 1 / -1; }
 }
 
 /* первый экран главной: слева оффер, справа объёмная сцена, снизу второе направление */

@@ -5,7 +5,6 @@ ogTitle: "МедВектор: Яндекс Директ для стоматол�
 permalink: /
 home: true
 design: trajectory
-mctaText: "Запустить первый тест"
 
 journey:
   - title: "Ищет в Яндексе"
@@ -69,21 +68,31 @@ faq:
 
 {% block main %}
 {% import "t.njk" as b %}
-<!-- ============ 1. ПЕРВЫЙ ЭКРАН: оффер. Из стрелки в заголовке начинается линия-вектор ============ -->
+<!-- ============ 1. ПЕРВЫЙ ЭКРАН: агентство и что оно обещает клинике. Из стрелки в заголовке начинается линия-вектор ============ -->
 <section class="hero hero--scene" id="intro">
   <div class="wrap hero__grid">
     <div class="hero__text">
-      <p class="label label--orb hero__label"><canvas class="orb orb--sm" data-orb="70" width="56" height="56" aria-hidden="true"></canvas>Агентство для частных стоматологий. Работаем по&nbsp;всей России</p>
-      <h1 class="h1 hero__title">
-        <span class="ln">Яндекс Директ</span>
-        <span class="ln ln--in">для стоматологий<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></span>
-        <span class="ln">Первый тест</span>
-        <span class="ln ln--in2">проводим <em>бесплатно</em>.</span>
+      <h1 class="hero__h">
+        <span class="label label--orb hero__label"><canvas class="orb orb--sm" data-orb="70" width="56" height="56" aria-hidden="true"></canvas>Агентство медицинского маркетинга для стоматологий и&nbsp;частных клиник<span class="sr">.</span></span>
+        <span class="h1 hero__title">
+          <span class="ln">Ведём пациента</span>
+          <span class="ln ln--in">от запроса в&nbsp;Яндексе</span>
+          <span class="ln">до записи<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></span>
+          <span class="ln ln--in2"><em>к&nbsp;врачу</em>.</span>
+        </span>
       </h1>
       <div class="hero__foot">
-        <p class="hero__sub">Запускаем рекламу имплантации и&nbsp;<span class="nw">All-on-4</span> и&nbsp;считаем заявки до&nbsp;записи к&nbsp;врачу. Новой клинике первый тест проводим без комиссии: вы&nbsp;вносите рекламный депозит Яндексу, например 150&nbsp;000&nbsp;₽, а&nbsp;за&nbsp;нашу работу на&nbsp;этом тесте не&nbsp;платите.</p>
+        <div class="hero__say">
+          <p class="hero__sub">Яндекс Директ, сайт, Яндекс Карты и&nbsp;SEO в&nbsp;одних руках. Каждую неделю показываем, сколько стоили заявка и&nbsp;запись.</p>
+          <ul class="hero__facts">
+            <li><b>8&nbsp;лет</b>в&nbsp;маркетинге, из&nbsp;них 5–6 в&nbsp;медицине</li>
+            <li><b>50+ клиник</b>в&nbsp;опыте основателя и&nbsp;команды</li>
+            <li><b>Основатель</b>сам ведёт каждую клинику</li>
+          </ul>
+        </div>
         <div class="hero__acts">
-          <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить первый тест</a>
+          <a href="#start" class="btn" data-magnetic>Начать бесплатно</a>
+          <a href="#services" class="link">Чем занимаемся</a>
         </div>
       </div>
     </div>
@@ -97,9 +106,10 @@ faq:
         <div class="scene__l scene__l--book" style="--i: 3">{{ b.a_book() }}</div>
       </div>
     </div>
-    <a class="second" href="#site">
-      <span class="second__name"><small>Второе направление</small>Сайт клиники и&nbsp;Яндекс Карты за&nbsp;первый месяц</span>
-      <span class="second__price">80&nbsp;000&nbsp;₽, сайт входит в&nbsp;эту сумму. Дальше продвижение 60&nbsp;000&nbsp;₽ в&nbsp;месяц</span>
+    <!-- полоса про первый тест Директа: условия целиком стоят на странице Директа -->
+    <a class="second" href="{{ href('direct') }}#test">
+      <span class="second__name"><small>Новой клинике</small>Первый тест в&nbsp;Яндекс Директе проводим без комиссии агентства</span>
+      <span class="second__price">Рекламный депозит, например 150&nbsp;000&nbsp;₽, клиника вносит Яндексу. За&nbsp;нашу работу на&nbsp;этом тесте платить не&nbsp;нужно</span>
       <span class="second__go" aria-hidden="true"></span>
     </a>
   </div>
