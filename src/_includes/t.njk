@@ -321,9 +321,9 @@
     <h2 class="h2 start__title">{{ (d.title or 'Оставьте заявку. За 2 рабочих дня разберём клинику и посчитаем запуск.') | t | safe }}</h2>
     <div class="start__grid">
       <div class="start__text">
-        <p class="lead">{{ (d.lead or 'Посмотрим сайт, карточку на Картах и рекламу, если она уже идёт. Скажем, с чего начать: с первого теста в Директе или с сайта и Карт.') | t | safe }}</p>
+        <p class="lead">{{ (d.lead or 'Посмотрим сайт, карточку на Картах и рекламу, если она уже идёт. Скажем, с какого направления начать.') | t | safe }}</p>
         <ul class="plist">
-{% for i in (d.items or ['Первый тест в Директе: комиссия 0 ₽, депозит вы вносите Яндексу', 'Сайт и Яндекс Карты: старт 80 000 ₽, сайт входит в эту сумму', 'Если видим риски для запуска, скажем о них на разборе']) %}
+{% for i in (d.items or ['Первый тест в Директе: комиссия 0 ₽, депозит вы вносите Яндексу', 'Комплексный маркетинг: старт 80 000 ₽, сайт входит в эту сумму', 'Если видим риски для запуска, скажем о них на разборе']) %}
           <li>{{ i | t | safe }}</li>
 {% endfor %}
         </ul>
@@ -334,7 +334,8 @@
           <legend>Что хотите запустить</legend>
           <div class="form__opts">
             <label class="form__opt"><input type="radio" name="service" value="direct"{% if not d.pick or d.pick == 'direct' %} checked{% endif %}><span>Тест Директа</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="site"{% if d.pick == 'site' %} checked{% endif %}><span>Сайт и&nbsp;Карты</span></label>
+            <label class="form__opt"><input type="radio" name="service" value="site"{% if d.pick == 'site' %} checked{% endif %}><span>Комплексный маркетинг</span></label>
+            <label class="form__opt"><input type="radio" name="service" value="single"{% if d.pick == 'single' %} checked{% endif %}><span>SEO, Карты или сайт</span></label>
             <label class="form__opt"><input type="radio" name="service" value="unsure"{% if d.pick == 'unsure' %} checked{% endif %}><span>Пока не&nbsp;знаю</span></label>
           </div>
         </fieldset>

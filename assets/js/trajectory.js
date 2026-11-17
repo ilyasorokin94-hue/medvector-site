@@ -514,7 +514,7 @@
     const dir = $('.form__dir', form);
     const sync = () => {
       const v = (form.querySelector('input[name="service"]:checked') || {}).value;
-      if (dir) dir.hidden = v === 'site';
+      if (dir) dir.hidden = v === 'site' || v === 'single';
     };
     $$('input[name="service"]', form).forEach(r => r.addEventListener('change', sync));
     sync();
