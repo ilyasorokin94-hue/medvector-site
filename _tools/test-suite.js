@@ -188,14 +188,9 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
     await open(page, '/yandex-direkt/');
     await page.click('#faq .qa__item:nth-child(2) summary');
     log('Интерактив', 'вопрос на Директе раскрывается', await page.evaluate(() => document.querySelector('#faq .qa__item:nth-child(2)').open));
-    // главная: калькулятор пересчитывает, колесо вопросов переключается, линия-вектор дорисовывается до кнопки формы
+    // главная: сцена первого экрана, витрина, колесо вопросов переключается, линия-вектор дорисовывается до кнопки формы
     await open(page, '/');
-    await page.evaluate(() => { const r = document.querySelector('[data-calc] input[name=budget]'); r.value = 300000; r.dispatchEvent(new Event('input', { bubbles: true })); });
-    await page.waitForTimeout(700);
-    log('Интерактив', 'калькулятор пересчитывает переходы, заявки и цену', await page.evaluate(() => { const t = k => document.querySelector(`[data-res=${k}]`).textContent.replace(/\s/g, ''); return t('clicks') === '1364' && t('leads') === '68' && t('books') === '27' && t('cpl') === '4400' && document.querySelector('[data-out=budget]').textContent.replace(/\s/g, '') === '300000₽'; }), await page.evaluate(() => [...document.querySelectorAll('[data-res]')].map(e => e.textContent).join(' / ')));
-    await page.evaluate(() => { const set = (n, v) => { const r = document.querySelector(`[data-calc] input[name=${n}]`); r.value = v; r.dispatchEvent(new Event('input', { bubbles: true })); }; set('budget', 100000); set('cpc', 800); set('cr', 1); set('book', 1); });
-    await page.waitForTimeout(700);
-    log('Интерактив', 'калькулятор при нуле записей показывает прочерк, а не 0 ₽', await page.evaluate(() => document.querySelector('[data-res=books]').textContent.trim() === '0' && document.querySelector('[data-res=cpb]').textContent.trim() === '—' && getComputedStyle(document.querySelector('[data-res=cpb]').nextElementSibling).display === 'none'), await page.evaluate(() => document.querySelector('[data-res=cpb]').parentElement.textContent));
+    await page.waitForTimeout(1500); // слои сцены проявляются с задержкой
     log('Интерактив', 'объёмная сцена первого экрана показана', await page.evaluate(() => { const s = document.querySelector('[data-scene]'); return s.classList.contains('is-in') && getComputedStyle(s).display !== 'none' && getComputedStyle(s.querySelector('.art')).opacity === '1'; }));
     log('Интерактив', 'сфера за сценой нарисована', await page.evaluate(() => { const c = document.querySelector('.scene__orb'); const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i]) n++; return c.width > 300 && n > 500; }));
     await page.click('#show-tab-3'); await page.waitForTimeout(300);
