@@ -146,7 +146,7 @@
 </div>
 {% endmacro %}
 
-{# недельный отчёт: цифры сходятся с расчётом по умолчанию из калькулятора (150 000 ₽ в месяц) #}
+{# недельный отчёт: образец для вымышленной клиники, депозит 150 000 ₽ в месяц #}
 {% macro a_report() %}
 <div class="rep">
   <div class="rep__head"><b>Отчёт за неделю · имплантация</b><span class="tag">образец, клиника вымышленная</span></div>
@@ -235,35 +235,6 @@
   </div>
   <p class="after__why">{{ o.why | t | safe }}</p>
   <p class="after__act"><a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить первый тест</a></p>
-</div>
-{% endmacro %}
-
-{# ---------- калькулятор первого теста. Без JavaScript виден расчёт для значений по умолчанию ---------- #}
-{% macro calc() %}
-<div class="calc" data-calc>
-  <div class="calc__ctl">
-    <div class="rng"><div class="rng__top"><label for="calc-budget">Рекламный депозит</label><output for="calc-budget" data-out="budget">150&nbsp;000&nbsp;₽</output></div>
-      <input type="range" id="calc-budget" name="budget" min="100000" max="400000" step="10000" value="150000"></div>
-    <div class="rng"><div class="rng__top"><label for="calc-cpc">Цена перехода по&nbsp;рекламе</label><output for="calc-cpc" data-out="cpc">220&nbsp;₽</output></div>
-      <input type="range" id="calc-cpc" name="cpc" min="60" max="800" step="10" value="220"></div>
-    <div class="rng"><div class="rng__top"><label for="calc-cr">Заявок из&nbsp;100 переходов на&nbsp;страницу</label><output for="calc-cr" data-out="cr">5</output></div>
-      <input type="range" id="calc-cr" name="cr" min="1" max="12" step="0.5" value="5"></div>
-    <div class="rng"><div class="rng__top"><label for="calc-book">Записей из&nbsp;10 заявок</label><output for="calc-book" data-out="book">4</output></div>
-      <input type="range" id="calc-book" name="book" min="1" max="8" step="1" value="4"></div>
-    <p class="calc__hint">Числа стоят для примера. Свою цену перехода и&nbsp;долю заявок можно посмотреть в&nbsp;кабинете Директа и&nbsp;в&nbsp;Метрике, если реклама уже шла.</p>
-  </div>
-  <div class="calc__res" aria-live="polite">
-    <ol class="flow">
-      <li><span class="flow__bar" style="--w: 100%"></span><b data-res="clicks">682</b><span>перехода на&nbsp;страницу услуги</span></li>
-      <li><span class="flow__bar" style="--w: 46%"></span><b data-res="leads">34</b><span>заявки</span></li>
-      <li><span class="flow__bar" style="--w: 30%"></span><b data-res="books">14</b><span>записей на&nbsp;консультацию</span></li>
-    </ol>
-    <dl class="calc__price">
-      <div><dt>цена заявки</dt><dd><span data-res="cpl">4&nbsp;400</span><span class="cur">&nbsp;₽</span></dd></div>
-      <div><dt>цена записи</dt><dd><span data-res="cpb">10&nbsp;700</span><span class="cur">&nbsp;₽</span></dd></div>
-    </dl>
-    <p class="calc__note">Расчёт показывает порядок цифр. Число записей зависит и&nbsp;от&nbsp;клиники: как быстро администратор отвечает на&nbsp;заявку и&nbsp;есть&nbsp;ли у&nbsp;врача свободное время. Запись на&nbsp;консультацию ещё не&nbsp;означает начало лечения.</p>
-  </div>
 </div>
 {% endmacro %}
 

@@ -241,61 +241,6 @@
     o.observe(el);
   });
 
-  /* ---------- калькулятор тестового месяца ---------- */
-  const plural = (n, f) => { const a = n % 100, b = n % 10; return a > 10 && a < 20 ? f[2] : b === 1 ? f[0] : b > 1 && b < 5 ? f[1] : f[2]; };
-  $$('[data-calc]').forEach(c => {
-    const inp = n => $(`input[name="${n}"]`, c), out = n => $(`[data-out="${n}"]`, c), res = n => $(`[data-res="${n}"]`, c);
-    const words = {
-      clicks: ['переход на страницу услуги', 'перехода на страницу услуги', 'переходов на страницу услуги'],
-      leads: ['заявка', 'заявки', 'заявок'],
-      books: ['запись на консультацию', 'записи на консультацию', 'записей на консультацию'],
-    };
-    const shown = {};
-    const show = (key, to, text) => {
-      const el = res(key), from = shown[key] == null ? to : shown[key], t0 = performance.now();
-      shown[key] = to;
-      cancelAnimationFrame(el._raf);
-      const tick = t => {
-        const k = reduce ? 1 : clamp((t - t0) / 450, 0, 1), v = from + (to - from) * (1 - (1 - k) ** 3);
-        el.textContent = text ? text(v) : fmt(v);
-        if (k < 1) el._raf = requestAnimationFrame(tick);
-      };
-      tick(t0);
-    };
-    const upd = () => {
-      const b = +inp('budget').value, cpc = +inp('cpc').value, cr = +inp('cr').value, bk = +inp('book').value;
-      // считаем без промежуточных округлений, округляем только то, что показываем
-      const fc = b / cpc, fl = fc * cr / 100, fb = fl * bk / 10;
-      const clicks = Math.round(fc), leads = Math.round(fl), books = Math.round(fb);
-      out('budget').textContent = `${fmt(b)} ₽`;
-      out('cpc').textContent = `${fmt(cpc)} ₽`;
-      out('cr').textContent = String(cr).replace('.', ',');
-      out('book').textContent = bk;
-      inp('budget').setAttribute('aria-valuetext', `${fmt(b)} рублей`);
-      inp('cpc').setAttribute('aria-valuetext', `${cpc} рублей`);
-      ['clicks', 'leads', 'books'].forEach(k => {
-        const v = { clicks, leads, books }[k];
-        show(k, v);
-        res(k).nextElementSibling.textContent = plural(v, words[k]);
-      });
-      const r100 = v => Math.round(v / 100) * 100;
-      // если заявок или записей меньше одной, цены нет: показываем прочерк, а не 0 ₽
-      // цена считается от того числа, которое видно на экране, чтобы цифры сходились
-      [['cpl', leads], ['cpb', books]].forEach(([key, count]) => {
-        const dd = res(key).parentElement, none = count < 1;
-        dd.classList.toggle('is-none', none);
-        if (none) { cancelAnimationFrame(res(key)._raf); shown[key] = null; res(key).textContent = '—'; dd.setAttribute('aria-label', 'нет расчёта: меньше одной за месяц'); }
-        else { dd.removeAttribute('aria-label'); show(key, r100(b / count)); }
-      });
-      const bars = $$('.flow__bar', c);
-      bars[1].style.setProperty('--w', `${clamp((leads / clicks) ** 0.4 * 100, 6, 100).toFixed(1)}%`);
-      bars[2].style.setProperty('--w', `${clamp((books / clicks) ** 0.4 * 100, 4, 100).toFixed(1)}%`);
-      $$('input[type="range"]', c).forEach(r => r.style.setProperty('--p', `${((r.value - r.min) / (r.max - r.min) * 100).toFixed(1)}%`));
-    };
-    c.addEventListener('input', upd);
-    upd();
-  });
-
   /* ---------- колесо вопросов: на широком экране собирается из раскрывающегося списка ---------- */
   const qaw = $('[data-wheel]');
   if (qaw) {
