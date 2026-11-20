@@ -1,0 +1,164 @@
+{# Страница услуги, плотный формат. Порядок блоков: первый экран с короткой формой, вводный текст,
+   зачем это клинике, что делаем, этапы, направления, от чего зависит цена, стоимость, что остаётся у клиники,
+   другие услуги, вопросы, заявка. Все тексты приходят из шапки файла страницы. #}
+{% extends "base.njk" %}
+
+{% block main %}
+{% import "t.njk" as b %}
+{% import "p.njk" as p %}
+<!-- ============ 1. ПЕРВЫЙ ЭКРАН: заголовок, три довода и короткая форма ============ -->
+<section class="band dark pin" id="intro">
+  <div class="wrap">
+    {{ b.crumbs(crumbs) }}
+    <div class="pin__grid">
+      <div>
+        <h1 class="h1">{{ hero.title | t | safe }}</h1>
+        <ul class="ck">
+{% for i in hero.points %}
+          <li>{{ i | t | safe }}</li>
+{% endfor %}
+        </ul>
+        <div class="acts"><a href="#price" class="btn btn--out">{{ hero.cta2 or 'Стоимость и условия' }}</a></div>
+      </div>
+      <form class="form form--card" novalidate action="#" aria-label="Короткая заявка">
+        <p class="form__h">{{ hero.formTitle | t | safe }}</p>
+        <input type="hidden" name="service" value="{{ hero.pick }}">
+        <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" required></label>
+        <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" required></label>
+        <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" required></label>
+        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="{{ href('consent') }}">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="{{ href('policy') }}">политики</a></span></label>
+        <button class="btn btn--wide" type="submit">{{ hero.button }}</button>
+        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. ВВОДНЫЙ ТЕКСТ ============ -->
+<section class="band band--tight" id="about">
+  <div class="wrap">
+    <div class="txt">
+{% for t1 in intro %}
+      <p>{{ t1 | t | safe }}</p>
+{% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. ЗАЧЕМ ЭТО КЛИНИКЕ ============ -->
+<section class="band band--fog" id="why">
+  <div class="wrap">
+    {{ p.head(why.title, why.sub, true) }}
+    <div class="tri{% if why.items | length == 4 %} tri--4{% endif %}">
+{% for w in why.items %}
+      <div class="card reveal"><span class="num">{{ loop.index }}</span><h3 class="h3">{{ w[0] | t | safe }}</h3><p>{{ w[1] | t | safe }}</p></div>
+{% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. ЧТО ДЕЛАЕМ: три карточки с образцами ============ -->
+<section class="band" id="what">
+  <div class="wrap">
+    {{ p.head(what.title, what.sub, true) }}
+    <div class="tri">
+{% for w in what.items %}
+      <article class="card reveal"{% if w.id %} id="{{ w.id }}"{% endif %}>
+        <div class="tri__pic">
+{% if w.art == 'landing' %}{{ b.a_browser('landing') }}{% elif w.art == 'site' %}{{ b.a_browser('site') }}{% elif w.art == 'phone' %}{{ b.a_phone('allon4') }}{% elif w.art == 'map' %}{{ b.a_map() }}{% elif w.art == 'ad' %}{{ b.a_ad() }}{% elif w.art == 'query' %}{{ b.a_query() }}{% else %}{{ p.flow() }}{% endif %}
+        </div>
+        <h3 class="h3">{{ w.t | t | safe }}</h3>
+        <p>{{ w.p | t | safe }}</p>
+      </article>
+{% endfor %}
+    </div>
+    <p class="demo"><span class="tag">Образцы сделаны для вымышленной клиники</span></p>
+  </div>
+</section>
+
+<!-- ============ 5. ЭТАПЫ ============ -->
+<section class="band band--fog" id="stages">
+  <div class="wrap">
+    {{ p.head(stages.title, stages.sub) }}
+    <ol class="stg">
+{% for s in stages.items %}
+      <li class="reveal">
+        <span class="stg__n">{{ loop.index }} этап</span>
+        <h3>{{ s.t | t | safe }}{% if s.when %}<small>{{ s.when | t | safe }}</small>{% endif %}</h3>
+        <ul class="ck">
+{% for i in s.items %}
+          <li>{{ i | t | safe }}</li>
+{% endfor %}
+        </ul>
+      </li>
+{% endfor %}
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 6. С КАКИМИ УСЛУГАМИ РАБОТАЕМ ============ -->
+<section class="band" id="dirs">
+  <div class="wrap">
+    {{ p.head(dirs.title, '', true) }}
+    {{ p.dirs(dirs.items, dirs.lead) }}
+  </div>
+</section>
+
+<!-- ============ 7. ОТ ЧЕГО ЗАВИСИТ ЦЕНА ============ -->
+<section class="band band--fog" id="depends">
+  <div class="wrap">
+    {{ p.head(depends.title, '', true) }}
+    <div class="tri">
+{% for w in depends.items %}
+      <div class="card reveal"><h3 class="h3">{{ w[0] | t | safe }}</h3><p>{{ w[1] | t | safe }}</p></div>
+{% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. СТОИМОСТЬ ============ -->
+<section class="band dark" id="price">
+  <div class="wrap">
+    {{ p.head(price.title, price.sub) }}
+    <div class="trfs" style="--n: {{ price.cards | length }}">
+{% for c in price.cards %}
+      {{ p.tariff(c) }}
+{% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. ЧТО ОСТАЁТСЯ У КЛИНИКИ ============ -->
+<section class="band band--deep dark" id="keep">
+  <div class="wrap">
+    {{ p.head(keep.title, keep.sub) }}
+    <ul class="keep">
+{% for k in keep.items %}
+      <li class="reveal{% if k[2] %} is-cond{% endif %}">{{ k[0] | t | safe }}<span>{{ k[1] | t | safe }}</span></li>
+{% endfor %}
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 10. ДРУГИЕ УСЛУГИ ============ -->
+<section class="band" id="other">
+  <div class="wrap">
+    {{ p.head('Другие наши услуги', '', true) }}
+    <div class="tri tri--4">
+{% for o in other %}
+      <a class="card reveal" href="{{ href(o[0]) }}" style="text-decoration: none"><h3 class="h3">{{ o[1] | t | safe }}</h3><p>{{ o[2] | t | safe }}</p><p style="margin-top: 14px"><span class="tag">{{ o[3] | t | safe }}</span></p></a>
+{% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11. ВОПРОСЫ ============ -->
+<section class="band band--fog" id="faq">
+  <div class="wrap">
+    {{ p.head(faqTitle) }}
+    {{ b.qa(faq) }}
+  </div>
+</section>
+
+{{ b.start(startOpts or {}) }}
+{% endblock %}
