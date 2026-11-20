@@ -4,56 +4,42 @@ description: "Агентство медицинского маркетинга, 
 ogTitle: "МедВектор: агентство медицинского маркетинга для стоматологий"
 permalink: /
 home: true
-design: trajectory
+design: pack
 
 journey:
-  - title: "Ищет в Яндексе"
-    text: "Человек набирает запрос про лечение в поиске или на Картах. Показываем клинику по запросам, за которыми стоит желание лечиться."
-    kpi: "показы и запросы"
-    art: query
-  - title: "Видит вашу клинику"
-    text: "Объявление в Директе, карточка на Картах или страница в поиске. В них цена, врач и условия клиники."
-    kpi: "переходы и цена перехода"
-    art: ad
-  - title: "Открывает страницу услуги"
-    text: "Отдельная страница про одну услугу: врач, этапы, полная цена и запись."
-    kpi: "доля заявок со страницы"
-    art: phone
-  - title: "Оставляет заявку"
-    text: "Заявка сразу уходит администратору. В учёте видно, откуда человек пришёл."
-    kpi: "заявки и цена заявки"
-    art: lead
-  - title: "Записывается к врачу"
-    text: "Администратор отмечает запись, и она попадает в отчёт."
-    kpi: "записи и цена записи"
-    art: book
+  - ["Ищет в Яндексе", "Запрос про лечение в поиске или на Картах", "показы и запросы"]
+  - ["Видит вашу клинику", "Объявление, карточка на Картах или страница в поиске", "переходы и цена перехода"]
+  - ["Открывает страницу услуги", "Врач, этапы, полная цена и запись", "доля заявок со страницы"]
+  - ["Оставляет заявку", "Заявка сразу уходит администратору", "заявки и цена заявки"]
+  - ["Записывается к врачу", "Администратор отмечает запись", "записи и цена записи"]
 
-# отдельные услуги: пока у услуги нет своей страницы, ссылка ведёт на раздел страницы комплексного маркетинга (см. LINKS в eleventy.config.js)
-services:
-  - { title: "SEO", text: "Структура сайта, страницы услуг и статьи под запросы пациентов в поиске Яндекса.", link: seo }
-  - { title: "Яндекс Карты", text: "Карточка клиники с ценами, врачами и фото. Ответы на отзывы от имени клиники.", link: maps }
-  - { title: "Сайты и лендинги", text: "Сайт клиники под ключ или отдельная страница услуги для рекламы.", link: sites }
-  - { title: "Продвижение в нейросетях", text: "Готовим сайт и карточки так, чтобы на клинику ссылались ответы Алисы и других нейросетей.", soon: "Страницу услуги готовим" }
+approach:
+  - "Разбираем клинику до старта: сайт, карточки, рекламу и то, как отвечают на заявки"
+  - "Делаем свою страницу под каждую услугу и ведём рекламу на неё, а не на главную"
+  - "Директ, сайт, Яндекс Карты и SEO ведёт одна команда по одному плану"
+  - "Каждую клинику ведёт основатель агентства. Он же смотрит недельный отчёт"
 
-who:
-  - ["Имплантация", "Реклама в Директе и отдельная страница с ценой по этапам. Заявки считаем до консультации хирурга.", "Директ, страница услуги"]
-  - ["All-on-4 и полное восстановление", "Пациент решается несколько недель. Ему нужны страница метода, врач и условия рассрочки, поэтому результат смотрим на втором и третьем месяце.", "Директ, страница метода"]
-  - ["Ортодонтия, протезирование, детский приём", "Эти услуги чаще ищут рядом с домом. Здесь работают сайт, Яндекс Карты и поиск.", "Сайт, Карты, SEO"]
-  - ["Новая клиника или филиал", "Собираем сайт и карточки с нуля. Рекламу включаем, когда есть куда вести пациента.", "Комплексный маркетинг"]
-  - ["Другие частные клиники", "Берём после разбора. Если нашего опыта для вашей ниши мало, скажем об этом сразу.", "После разбора"]
+dirs:
+  - ["Имплантация", "Директ и страница с ценой по этапам"]
+  - ["All-on-4 и полное восстановление", "Директ и страница метода"]
+  - ["Ортодонтия", "Сайт, Карты и поиск"]
+  - ["Протезирование", "Сайт, Карты и поиск"]
+  - ["Детский приём", "Сайт, Карты и поиск"]
+  - ["Новая клиника или филиал", "Комплексный маркетинг"]
+  - ["Другие частные клиники", "Берём после разбора"]
 
 rules:
-  - "Рекламный кабинет, Метрика, сайт и домен оформлены на клинику"
-  - "Считаем до записи к врачу. Отчёт приходит каждую неделю"
-  - "Отзывы только настоящие. Переходы и рейтинг не накручиваем"
-  - "Если клиника не готова к рекламе, говорим об этом на разборе"
-  - "Порядок расставания записан в договоре"
+  - ["Кабинет, Метрика, сайт и домен оформлены на клинику", "С первого дня. Если расстанемся, кампании, статистика и карточки остаются у вас."]
+  - ["Считаем до записи к врачу", "Отчёт приходит каждую неделю: заявки, записи, цена каждой и что мы сделали."]
+  - ["Отзывы только настоящие", "Не пишем и не покупаем отзывы, переходы и рейтинг не накручиваем."]
+  - ["Говорим, если клиника не готова к рекламе", "На разборе покажем, что поправить сначала, чтобы депозит не ушёл впустую."]
+  - ["Порядок расставания записан в договоре", "После первого теста можно просто не продолжать. Шаблон договора пришлём до начала работ."]
 
-works:
-  - { art: landing, title: "Страница услуги для рекламы", text: "Одна услуга, врач, этапы, полная цена и запись на консультацию." }
-  - { art: site, title: "Сайт клиники", text: "Страница на каждую услугу, врачи с документами, цены и запись." }
-  - { art: map, title: "Карточка на Яндекс Картах", text: "Цены, врачи, фото и ответы на отзывы." }
-  - { art: report, title: "Недельный отчёт", text: "Заявки, записи, цена каждой и что мы сделали за неделю." }
+team:
+  - ["Директолог", "ведёт кампании, убирает лишние запросы, готовит отчёты"]
+  - ["Разработчик", "собирает сайты и страницы услуг, настраивает формы"]
+  - ["Специалист по Картам", "ведёт карточки, площадки и отзывы"]
+  - ["SEO-специалист", "отвечает за структуру сайта и статьи"]
 
 faq:
   - q: "Только стоматологии?"
@@ -77,196 +63,308 @@ faq:
 
 {% block main %}
 {% import "t.njk" as b %}
-<!-- ============ 1. ПЕРВЫЙ ЭКРАН: агентство и что оно обещает клинике. Из стрелки в заголовке начинается линия-вектор ============ -->
-<section class="hero hero--scene" id="intro">
-  <div class="wrap hero__grid">
-    <div class="hero__text">
-      <h1 class="hero__h">
-        <span class="label label--orb hero__label"><canvas class="orb orb--sm" data-orb="70" width="56" height="56" aria-hidden="true"></canvas>Агентство медицинского маркетинга для стоматологий и&nbsp;частных клиник<span class="sr">.</span></span>
-        <span class="h1 hero__title">
-          <span class="ln">Ведём пациента</span>
-          <span class="ln ln--in">от запроса в&nbsp;Яндексе</span>
-          <span class="ln">до записи<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></span>
-          <span class="ln ln--in2"><em>к&nbsp;врачу</em>.</span>
-        </span>
-      </h1>
-      <div class="hero__foot">
-        <div class="hero__say">
-          <p class="hero__sub">Яндекс Директ, сайт, Яндекс Карты и&nbsp;SEO в&nbsp;одних руках. Каждую неделю показываем, сколько стоили заявка и&nbsp;запись.</p>
-          <ul class="hero__facts">
-            <li><b>8&nbsp;лет</b>в&nbsp;маркетинге, из&nbsp;них 5–6 в&nbsp;медицине</li>
-            <li><b>50+ клиник</b>в&nbsp;опыте основателя и&nbsp;команды</li>
-            <li><b>Основатель</b>сам ведёт каждую клинику</li>
-          </ul>
-        </div>
-        <div class="hero__acts">
-          <a href="#start" class="btn" data-magnetic>Начать бесплатно</a>
-          <a href="#services" class="link">Чем занимаемся</a>
+{% import "p.njk" as p %}
+<!-- ============ 1. ПЕРВЫЙ ЭКРАН: слева карточка с основателем и двумя числами, справа заголовок, три канала и две кнопки ============ -->
+<section class="band dark phr" id="intro">
+  <div class="wrap">
+    <div class="phr__grid">
+      <div class="phr__media">
+        <canvas class="orb phr__orb" data-orb="420" width="700" height="700" aria-hidden="true"></canvas>
+{% if founderPhoto %}
+        <img class="phr__photo" src="/assets/img/founder.webp" alt="Илья Сорокин, основатель МедВектора" width="800" height="800" fetchpriority="high">
+        <div class="phr__float phr__float--a">{{ b.a_lead() }}</div>
+        <div class="phr__float phr__float--b">{{ b.a_book() }}</div>
+        <p class="phr__who"><b>Илья Сорокин</b>, основатель</p>
+{% else %}
+        <div class="phr__arts">{{ b.a_ad() }}{{ b.a_lead() }}{{ b.a_book() }}</div>
+{% endif %}
+        <div class="phr__stats">
+          <div><b>8</b>лет<br>в&nbsp;маркетинге</div>
+          <div><b>50+</b>клиник<br>в&nbsp;опыте команды</div>
         </div>
       </div>
-    </div>
-    <!-- объёмная сцена: объявление, страница услуги, заявка и запись. Только широкий экран, для вымышленной клиники -->
-    <div class="scene" data-scene aria-hidden="true">
-      <canvas class="orb scene__orb" data-orb="560" width="900" height="900"></canvas>
-      <div class="scene__in">
-        <div class="scene__l scene__l--ad" style="--i: 0">{{ b.a_ad() }}</div>
-        <div class="scene__l scene__l--phone" style="--i: 1">{{ b.a_phone() }}</div>
-        <div class="scene__l scene__l--lead" style="--i: 2">{{ b.a_lead() }}</div>
-        <div class="scene__l scene__l--book" style="--i: 3">{{ b.a_book() }}</div>
-      </div>
-    </div>
-    <!-- полоса про первый тест Директа: условия целиком стоят на странице Директа -->
-    <a class="second" href="{{ href('direct') }}#test">
-      <span class="second__name"><small>Новой клинике</small>Первый тест в&nbsp;Яндекс Директе проводим без комиссии агентства</span>
-      <span class="second__price">Рекламный депозит, например 150&nbsp;000&nbsp;₽, клиника вносит Яндексу. За&nbsp;нашу работу на&nbsp;этом тесте платить не&nbsp;нужно</span>
-      <span class="second__go" aria-hidden="true"></span>
-    </a>
-  </div>
-</section>
-
-<!-- ============ 2. КАК МЫ РАБОТАЕМ: путь пациента, линия проходит через пять остановок ============ -->
-<section class="sec journey" id="how">
-  <div class="wrap">
-    {{ b.shead({ title: 'Строим путь пациента и считаем *каждый шаг*.', note: 'Реклама, сайт, Карты и поиск работают как один путь. Каждую неделю вы видите, сколько человек дошли до заявки и до записи и сколько стоил каждый.' }) }}
-    <ol class="jr">
-{% for s in journey %}
-      <li class="jr__st reveal">
-        <span class="jr__dot" data-vpoint aria-hidden="true"></span>
-        <span class="jr__n">{{ loop.index }}</span>
-        <div class="jr__art">
-{% if s.art == 'query' %}{{ b.a_query() }}{% elif s.art == 'ad' %}{{ b.a_ad() }}{% elif s.art == 'phone' %}{{ b.a_phone() }}{% elif s.art == 'lead' %}{{ b.a_lead() }}{% else %}{{ b.a_book() }}{% endif %}
-        </div>
-        <h3 class="h3">{{ s.title | t | safe }}</h3>
-        <p>{{ s.text | t | safe }}</p>
-        <p class="jr__kpi"><small>В отчёте</small>{{ s.kpi | t | safe }}</p>
-      </li>
-{% endfor %}
-    </ol>
-    <p class="jr__demo"><span class="tag">Объявление, страница и заявка на картинках сделаны для вымышленной клиники</span></p>
-  </div>
-</section>
-
-<!-- ============ 3. НАПРАВЛЕНИЯ: Директ крупно, комплексный маркетинг вторым, ниже отдельные услуги ============ -->
-<section class="dark sheet" id="services" data-dark>
-  <div class="wrap">
-    {{ b.shead({ title: 'Шесть направлений. Начать можно с одного.', note: 'На разборе смотрим сайт, карточки и рекламу клиники и говорим, с какого направления начать.' }) }}
-    <div class="dirs">
-      <article class="dir dir--main reveal">
-        <p class="dir__k">Основное направление</p>
-        <h3 class="dir__t">Яндекс Директ</h3>
-        <p class="dir__p">Реклама имплантации, <span class="nw">All-on-4</span> и&nbsp;других услуг по&nbsp;запросам людей, которые ищут лечение. У&nbsp;каждой услуги своя страница, заявки считаем до&nbsp;записи к&nbsp;врачу.</p>
-        <ul class="plist dir__inc">
-          <li>Своя страница под каждую услугу</li>
-          <li>Метрика и&nbsp;учёт заявок до&nbsp;записи</li>
-          <li>Полное ведение кампаний</li>
-          <li>На&nbsp;связи основатель агентства</li>
+      <div class="phr__text">
+        <h1 class="h1">Медицинский маркетинг для стоматологий: <em>от&nbsp;запроса в&nbsp;Яндексе до&nbsp;записи к&nbsp;врачу</em></h1>
+        <p class="phr__sub">Директ, сайт, Яндекс Карты и&nbsp;SEO в&nbsp;одних руках. Каждую неделю показываем, сколько стоили <b>заявка и&nbsp;запись</b>.</p>
+        <ul class="chips" aria-label="Чем занимаемся">
+          <li>Яндекс Директ</li>
+          <li>Сайт и&nbsp;SEO</li>
+          <li>Яндекс Карты</li>
         </ul>
-        <p class="dir__sum"><b>0&nbsp;₽</b><span>комиссия агентства на&nbsp;первом тесте. Рекламный депозит клиника вносит Яндексу</span></p>
-        <div class="dir__acts">
-          <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить первый тест</a>
-          <a href="{{ href('direct') }}" class="link">Условия и&nbsp;состав работы</a>
+        <div class="acts">
+          <a href="#start" class="btn" data-magnetic>Обсудить клинику</a>
+          <a href="{{ href('prices') }}" class="btn btn--out">Цены и&nbsp;условия</a>
         </div>
-      </article>
-      <article class="dir reveal">
-        <p class="dir__k">Для клиник без сильного сайта</p>
-        <h3 class="dir__t">Комплексный маркетинг</h3>
-        <p class="dir__p">Сайт клиники под&nbsp;ключ, Яндекс Карты, 2ГИС и&nbsp;ПроДокторов, SEO и&nbsp;работа с&nbsp;отзывами одним пакетом.</p>
-        <p class="dir__sum"><b>80&nbsp;000&nbsp;₽</b><span>первый месяц, сайт входит в&nbsp;эту сумму. Дальше 60&nbsp;000&nbsp;₽ в&nbsp;месяц</span></p>
-        <div class="dir__acts">
-          <a href="#start" class="btn btn--line" data-magnetic data-pick="site">Обсудить пакет</a>
-          <a href="{{ href('complex') }}" class="link link--light">Что входит в&nbsp;пакет</a>
-        </div>
-      </article>
-    </div>
-    <ul class="dirs2">
-{% for d in services %}
-      <li class="reveal">
-{% if d.link %}
-        <a class="dir2" href="{{ href(d.link) }}"><h3>{{ d.title | t | safe }}</h3><p>{{ d.text | t | safe }}</p><span class="dir2__go" aria-hidden="true"></span></a>
-{% else %}
-        <div class="dir2"><h3>{{ d.title | t | safe }}</h3><p>{{ d.text | t | safe }}</p><span class="tag">{{ d.soon }}</span></div>
-{% endif %}
-      </li>
-{% endfor %}
-    </ul>
-    <p class="dirs__note">SEO, Карты и&nbsp;сайт можно заказать отдельно от&nbsp;пакета. Стоимость называем после разбора клиники. <a href="#start" class="link link--light" data-pick="single">Заказать разбор</a></p>
-  </div>
-</section>
-
-<!-- ============ 4. С КЕМ РАБОТАЕМ: специализация и честная строка про другие клиники ============ -->
-<section class="sec sheet" id="who">
-  <div class="wrap">
-    {{ b.shead({ title: 'Основная специализация: *стоматологии*.', note: 'Здесь наш опыт, цифры и готовые сценарии рекламы. Ниже видно, с чем к нам приходят и чем мы это решаем.' }) }}
-    <ul class="who">
-{% for w in who %}
-      <li class="reveal"><h3 class="h3">{{ w[0] | t | safe }}</h3><p>{{ w[1] | t | safe }}</p><span class="who__ch">{{ w[2] | t | safe }}</span></li>
-{% endfor %}
-    </ul>
-  </div>
-</section>
-
-<!-- ============ 5. РЕЗУЛЬТАТЫ: витрина. Сюда встанут настоящие лендинги, сайты и кейсы:
-     у каждой вкладки вместо образца будет снимок работы, ссылка на живой сайт и цифры из кабинета клиники ============ -->
-<section class="sec sec--fog sheet" id="works">
-  <div class="wrap">
-    {{ b.shead({ title: 'Что вы получаете на&nbsp;руки.', note: 'Кейсы с цифрами готовим к публикации: показываем только данные из кабинетов клиник и только с их согласия. Ниже образцы для вымышленной клиники.' }) }}
-    <div class="show" data-tabs>
-      <div class="show__list" role="tablist" aria-label="Образцы работ" aria-orientation="vertical">
-{% for w in works %}
-        <button type="button" class="show__tab" role="tab" id="show-tab-{{ loop.index }}" aria-controls="show-{{ w.art }}" aria-selected="{{ 'true' if loop.first else 'false' }}"><span class="show__name">{{ w.title | t | safe }}</span><span class="show__text">{{ w.text | t | safe }}</span></button>
-{% endfor %}
-      </div>
-      <div class="show__stage">
-{% for w in works %}
-        <div class="show__panel" role="tabpanel" id="show-{{ w.art }}" aria-labelledby="show-tab-{{ loop.index }}" tabindex="0">
-{% if w.art == 'landing' %}
-          <div class="show__duo">{{ b.a_browser('landing') }}{{ b.a_phone('allon4') }}</div>
-{% elif w.art == 'site' %}
-          <div class="show__duo">{{ b.a_browser('site') }}{{ b.a_phone('site') }}</div>
-{% elif w.art == 'map' %}
-          <div class="show__pair"><figure><figcaption>До</figcaption>{{ b.a_map(true) }}</figure><figure><figcaption>После</figcaption>{{ b.a_map() }}</figure></div>
-{% else %}
-          <div class="show__rep">{{ b.a_report() }}</div>
-{% endif %}
-        </div>
-{% endfor %}
       </div>
     </div>
-    <p class="more-row"><a class="link" href="{{ href('cases') }}">Все примеры работ</a></p>
+    <p class="phr__geo"><canvas class="orb" data-orb="70" width="60" height="60" aria-hidden="true"></canvas>Работаем с&nbsp;клиниками по&nbsp;всей России, удалённо</p>
   </div>
 </section>
 
-<!-- ============ 6. КТО ВЕДЁТ И ПО КАКИМ ПРАВИЛАМ ============ -->
-<section class="sec" id="team">
-  <div class="wrap lead2">
-    <div class="lead2__main">
-      <h2 class="h2">Вашу клинику ведёт основатель агентства.</h2>
-      <p class="lead">Илья Сорокин сам разбирает клинику, согласует с&nbsp;вами цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт. Кампании ведёт директолог, страницы собирает разработчик, карточками занимается специалист по&nbsp;Картам.</p>
-      <dl class="facts">
-        <div><dt>в&nbsp;маркетинге, из&nbsp;них 5–6 в&nbsp;медицине</dt><dd><span data-count="8">8</span> лет</dd></div>
+<!-- бегущая строка: первый тест Директа -->
+<div class="tick">
+  <div class="tick__run">
+    <span>Первый тест в&nbsp;Директе <em>без комиссии агентства</em></span>
+    <span>Депозит клиника вносит <em>Яндексу</em></span>
+    <span>Запуск за&nbsp;<em>7&nbsp;рабочих дней</em></span>
+  </div>
+  <a class="btn btn--sm tick__btn" href="{{ href('direct') }}#price">Условия теста</a>
+</div>
+
+<!-- ============ 2. СЧИТАЕМ ДО ЗАПИСИ: слева текст и путь одной заявки, справа карточка с отчётом ============ -->
+<section class="band band--fog" id="count">
+  <div class="wrap">
+    {{ p.head('Считаем *записи к врачу*, а не только клики и заявки') }}
+    <div class="duo">
+      <div class="duo__text">
+        <p>Обычный отчёт подрядчика заканчивается на&nbsp;кликах и&nbsp;заявках. Что стало с&nbsp;человеком дальше, в&nbsp;нём не&nbsp;видно. <b>У&nbsp;нас видно.</b></p>
+        {{ p.flow() }}
+        <p>По&nbsp;каждой заявке понятно, с&nbsp;какого запроса пришёл человек, как быстро ему перезвонили и&nbsp;записался&nbsp;ли он на&nbsp;консультацию.</p>
+      </div>
+      <div class="repcard reveal">
+        <p class="repcard__h">Недельный отчёт</p>
+        {{ b.a_report() }}
+      </div>
+    </div>
+    <p class="more"><a href="#start" class="btn" data-magnetic>Разобрать мою клинику</a></p>
+  </div>
+</section>
+
+<!-- ============ 3. ПУТЬ ПАЦИЕНТА: пять строк сужаются книзу, справа карточка с кнопкой на цены ============ -->
+<section class="band" id="how">
+  <div class="wrap">
+    {{ p.head('Путь пациента: пять шагов, *у&nbsp;каждого своя цифра* в отчёте') }}
+    <div class="fun">
+      <ol class="fun__rows">
+{% for s in journey %}
+        <li class="fun__row reveal" style="--i: {{ loop.index0 }}"><b>{{ s[0] | t | safe }}</b><small>{{ s[1] | t | safe }}</small><span class="fun__kpi">в&nbsp;отчёте <i>{{ s[2] | t | safe }}</i></span></li>
+{% endfor %}
+      </ol>
+      <aside class="fun__side">
+        <h3 class="h3">Для клиники: готовые сценарии без экспериментов за&nbsp;ваш счёт</h3>
+        <p>Как рекламировать имплантацию и&nbsp;<span class="nw">All-on-4</span>, мы уже знаем: какие запросы приводят пациентов, что должно быть на&nbsp;странице и&nbsp;что спросит человек до&nbsp;записи.</p>
+        <a href="{{ href('prices') }}" class="btn btn--wide">Цены на&nbsp;услуги</a>
+        <small>Число заявок и&nbsp;записей заранее не&nbsp;обещаем: оно зависит от&nbsp;города, цен клиники и&nbsp;скорости ответа администратора.</small>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. КОМПЛЕКСНЫЙ ПОДХОД: высокая карточка с образцами и четыре плитки, последняя тёмная ============ -->
+<section class="band band--fog" id="approach">
+  <div class="wrap">
+    {{ p.head('Нас выбирают за *комплексный подход* к маркетингу клиники', '', true) }}
+    <div class="apr">
+      <div class="apr__pic" aria-hidden="true">{{ b.a_ad() }}{{ b.a_phone() }}{{ b.a_map() }}</div>
+{% for a in approach %}
+      <div class="card reveal{% if loop.last %} card--ink{% endif %}"><span class="num">{{ loop.index }}</span><p>{{ a | t | safe }}</p></div>
+{% endfor %}
+    </div>
+    <p class="demo"><span class="tag">Объявление, страница и карточка на картинке сделаны для вымышленной клиники</span></p>
+  </div>
+</section>
+
+<!-- ============ 5. СФЕРА И ЧЕТЫРЕ ЧИСЛА ============ -->
+<section class="band dark" id="numbers">
+  <div class="wrap sph">
+    <canvas class="orb sph__orb" data-orb="620" width="900" height="900" aria-hidden="true"></canvas>
+    <div>
+      <h2 class="h2">Небольшая команда, в&nbsp;которой клинику ведёт <em>основатель, а&nbsp;не&nbsp;стажёр</em></h2>
+      <dl class="nums">
+        <div><dt>в&nbsp;маркетинге, из&nbsp;них 5–6 в&nbsp;медицине</dt><dd><span data-count="8">8</span><small>лет</small></dd></div>
         <div><dt>клиник в&nbsp;опыте основателя и&nbsp;команды</dt><dd><span data-count="50">50</span>+</dd></div>
+        <div><dt>на&nbsp;разбор клиники и&nbsp;расчёт запуска</dt><dd><span data-count="2">2</span><small>рабочих дня</small></dd></div>
+        <div><dt>от&nbsp;получения доступов до&nbsp;запуска рекламы</dt><dd><span data-count="7">7</span><small>рабочих дней</small></dd></div>
       </dl>
+      <a href="#start" class="btn" data-magnetic>Начать с&nbsp;разбора</a>
     </div>
-    <div class="lead2__side">
-      <h3 class="pack__h">Правила работы</h3>
-      <ul class="plist plist--lg">
-{% for r in rules %}
-        <li class="reveal"><span>{{ r | t | safe }}</span></li>
+  </div>
+</section>
+
+<!-- ============ 6. РАБОТЫ: на этом месте встанут кейсы с видео. Пока образцы для вымышленной клиники ============ -->
+<section class="band band--deep dark" id="works">
+  <div class="wrap">
+    {{ p.samples() }}
+  </div>
+</section>
+
+<!-- ============ 7. НАПРАВЛЕНИЯ В СТОМАТОЛОГИИ ============ -->
+<section class="band" id="who">
+  <div class="wrap">
+    {{ p.head('Основная специализация: *стоматологии*', '', true) }}
+    {{ p.dirs(dirs, 'У каждой услуги свой пациент и свой канал. Справа видно, чем мы её продвигаем.') }}
+  </div>
+</section>
+
+<!-- ============ 8. УСЛУГИ: сетка карточек и карточка «не знаете, с чего начать» ============ -->
+<section class="band dark" id="services">
+  <div class="wrap">
+    {{ p.head('Полный набор услуг *для маркетинга клиники*. Начать можно с одной', '', true) }}
+    <div class="svc">
+      <a class="svc__c reveal" href="{{ href('direct') }}"><span class="svc__badge">Основное направление</span><span class="svc__go" aria-hidden="true"></span><h3>Яндекс Директ</h3><p>Реклама имплантации и&nbsp;<span class="nw">All-on-4</span> со&nbsp;своей страницей под каждую услугу.</p><p class="svc__price">Первый тест без комиссии агентства</p></a>
+      <a class="svc__c reveal" href="{{ href('complex') }}"><span class="svc__go" aria-hidden="true"></span><h3>Комплексный маркетинг</h3><p>Сайт под&nbsp;ключ, Яндекс Карты, 2ГИС и&nbsp;ПроДокторов, SEO и&nbsp;отзывы одним пакетом.</p><p class="svc__price">80&nbsp;000&nbsp;₽ первый месяц, дальше 60&nbsp;000&nbsp;₽</p></a>
+      <a class="svc__c reveal" href="{{ href('seo') }}"><span class="svc__go" aria-hidden="true"></span><h3>SEO</h3><p>Структура сайта, страницы услуг и&nbsp;статьи под запросы пациентов в&nbsp;поиске Яндекса.</p><p class="svc__price">Стоимость после разбора</p></a>
+      <a class="svc__c reveal" href="{{ href('maps') }}"><span class="svc__go" aria-hidden="true"></span><h3>Яндекс Карты</h3><p>Карточка клиники с&nbsp;ценами, врачами и&nbsp;фото. Ответы на&nbsp;отзывы от&nbsp;имени клиники.</p><p class="svc__price">Стоимость после разбора</p></a>
+      <a class="svc__c reveal" href="{{ href('sites') }}"><span class="svc__go" aria-hidden="true"></span><h3>Сайты и&nbsp;лендинги</h3><p>Сайт клиники под&nbsp;ключ или отдельная страница услуги для рекламы.</p><p class="svc__price">Стоимость после разбора</p></a>
+      <div class="svc__c svc__ask reveal"><h3>Не знаете, <em>с&nbsp;чего начать?</em></h3><p>За&nbsp;2&nbsp;рабочих дня разберём клинику и&nbsp;скажем, какое направление даст результат первым.</p><a href="#start" class="btn btn--wide" data-pick="unsure">Заказать разбор</a></div>
+    </div>
+    <p class="svc__note">Продвижение в&nbsp;нейросетях готовим отдельной услугой. Рекламу в&nbsp;соцсетях не&nbsp;ведём.</p>
+  </div>
+</section>
+
+<!-- ============ 9. КАК СТРОИМ МАРКЕТИНГ КЛИНИКИ: пять шагов, у каждого своя полоса ============ -->
+<section class="band band--fog steps__top" id="steps">
+  <div class="wrap">
+    {{ p.head('Как мы строим маркетинг клиники: *пять шагов*') }}
+  </div>
+</section>
+<nav class="sdots" aria-label="Шаги"></nav>
+
+<section class="band band--fog step" id="step-1">
+  <div class="wrap">
+    <p class="step__k"><b>Шаг 1.</b> Разбираем клинику до&nbsp;старта</p>
+    <div class="duo">
+      <div class="duo__text">
+        <h2 class="h2">За&nbsp;2&nbsp;рабочих дня говорим, <em>с&nbsp;какого направления начать</em></h2>
+        <p>Смотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Директ не&nbsp;навязываем: если клинике некуда вести пациента, сначала делаем сайт и&nbsp;карточки.</p>
+        <div class="pair">
+          <div><h3>Клиника с&nbsp;опытом рекламы, заявки обрабатывают быстро</h3><p><small>Начинаем с</small><b>Яндекс Директа</b></p></div>
+          <div><h3>Новая клиника или клиника без сильного сайта</h3><p><small>Начинаем с</small><b>комплексного маркетинга</b></p></div>
+        </div>
+      </div>
+      <div class="doc reveal">
+        <div class="doc__paper" aria-hidden="true"><b>Разбор клиники</b><span>Сайт <i>что мешает записи</i></span><span>Яндекс Карты <i>чего не хватает</i></span><span>Реклама <i>куда уходит бюджет</i></span><span>Депозит <i>расчёт для города</i></span><span>С чего начать <i>план</i></span></div>
+        <p>Покажем разбор и&nbsp;скажем, с&nbsp;какого направления начать. Если видим риски для запуска, говорим о&nbsp;них прямо.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band step" id="step-2">
+  <div class="wrap">
+    <p class="step__k"><b>Шаг 2.</b> Делаем страницу под каждую услугу</p>
+    <div class="duo">
+      <div class="duo__text">
+        <h2 class="h2">Одна услуга, <em>одна страница</em>: врач, этапы и&nbsp;полная цена</h2>
+        <p>Человек ищет «all on 4 цена», а&nbsp;попадает на&nbsp;главную, где имплантация, детский приём и&nbsp;отбеливание вперемешку. Ответа он не&nbsp;находит и&nbsp;уходит. Поэтому реклама ведёт на&nbsp;страницу своей услуги.</p>
+        <p>Страницу разрабатываем под вашу клинику, без шаблонов. Основной сайт клиники при этом не&nbsp;меняем.</p>
+      </div>
+      <div class="step__pic reveal">{{ b.a_browser('landing') }}{{ b.a_phone('allon4') }}</div>
+    </div>
+  </div>
+</section>
+
+<section class="band band--fog step" id="step-3">
+  <div class="wrap">
+    <p class="step__k"><b>Шаг 3.</b> Запускаем рекламу и&nbsp;считаем каждую заявку</p>
+    <div class="duo">
+      <div class="duo__text">
+        <h2 class="h2">Убираем запросы, <em>которые не&nbsp;приводят пациентов</em></h2>
+        <p>«Имплантация бесплатно», «по&nbsp;ОМС», «обучение имплантологии», «вакансии»: клиника платит за&nbsp;каждый такой переход. Каждую неделю вычищаем их и&nbsp;показываем в&nbsp;отчёте, что исключили.</p>
+        <p>Имплантацию и&nbsp;<span class="nw">All-on-4</span> ведём разными кампаниями: у&nbsp;этих пациентов разный чек и&nbsp;разный срок решения.</p>
+      </div>
+      <div class="step__pic reveal">{{ b.a_query('all on 4 цена') }}{{ b.a_ad({ title: 'Все зубы на 4 имплантах', path: 'all-on-4', text: 'Хирург и ортопед на одной консультации. Цена по этапам.' }) }}</div>
+    </div>
+  </div>
+</section>
+
+<section class="band step" id="step-4">
+  <div class="wrap">
+    <p class="step__k"><b>Шаг 4.</b> Приводим в&nbsp;порядок Карты и&nbsp;работу с&nbsp;отзывами</p>
+    <div class="duo">
+      <div class="duo__text">
+        <h2 class="h2">Карточка клиники <em>отвечает на&nbsp;вопросы пациента</em> ещё до&nbsp;звонка</h2>
+        <p>Оформляем Яндекс Карты, 2ГИС и&nbsp;ПроДокторов: те&nbsp;же цены, врачи и&nbsp;адрес, что на&nbsp;сайте. Отвечаем на&nbsp;все отзывы от&nbsp;имени клиники.</p>
+        <p>Отзывы не&nbsp;пишем и&nbsp;не&nbsp;покупаем, рейтинг не&nbsp;накручиваем. Даём администраторам сценарий, как попросить пациента об&nbsp;отзыве после визита.</p>
+      </div>
+      <div class="step__pic reveal"><figure><figcaption>До</figcaption>{{ b.a_map(true) }}</figure><figure><figcaption>После</figcaption>{{ b.a_map() }}</figure></div>
+    </div>
+  </div>
+</section>
+
+<section class="band band--fog step" id="step-5">
+  <div class="wrap">
+    <p class="step__k"><b>Шаг 5.</b> Помогаем не&nbsp;терять заявки внутри клиники</p>
+    <div class="duo">
+      <div class="duo__text">
+        <h2 class="h2">Заявка стоит денег. Следим, чтобы <em>она дошла до&nbsp;записи</em></h2>
+        <p>Реклама приводит человека к&nbsp;заявке. Запишется&nbsp;ли он, зависит от&nbsp;того, как быстро и&nbsp;как именно ему ответят. Эту часть мы тоже настраиваем вместе с&nbsp;клиникой.</p>
+      </div>
+      <ul class="icons">
+        <li>Заявка сразу уходит администратору</li>
+        <li>Договариваемся о&nbsp;перезвоне за&nbsp;15&nbsp;минут</li>
+        <li>Записи отмечаются в&nbsp;CRM или общей таблице</li>
+        <li>Поддерживаем CRM и&nbsp;коллтрекинг, подсказываем администраторам</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. РАЗБОР КЛИНИКИ: четыре пункта, кнопка и карточка-документ ============ -->
+<section class="band" id="audit">
+  <div class="wrap">
+    {{ p.head('Узнайте, *с чего начать* именно вашей клинике', 'Разбор готовим под ваш город, ваши услуги и то, что у клиники уже есть.') }}
+    <div class="duo duo--mid">
+      <div class="duo__text">
+        <p><b>Не&nbsp;нужно ничего готовить.</b> Достаточно адреса сайта или карточки на&nbsp;Картах. В&nbsp;разборе будет:</p>
+        <ul class="icons">
+          <li>Что на&nbsp;сайте мешает записи</li>
+          <li>Чего не&nbsp;хватает карточке на&nbsp;Картах</li>
+          <li>Куда уходит бюджет текущей рекламы</li>
+          <li>Расчёт депозита для вашего города</li>
+        </ul>
+        <div class="acts" style="margin-top: 14px">
+          <a href="#start" class="btn" data-magnetic data-pick="unsure">Заказать разбор</a>
+          <p class="ask__note">2&nbsp;рабочих дня. Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает</p>
+        </div>
+      </div>
+      <div class="repcard reveal">
+        <p class="repcard__h">Что уже оформлено на&nbsp;клинику <span class="tag">с первого дня</span></p>
+        <ul class="ck">
+          <li>Рекламный кабинет Яндекс Директа</li>
+          <li>Счётчик Метрики и&nbsp;цели</li>
+          <li>Домен и&nbsp;хостинг сайта</li>
+          <li>Карточки на&nbsp;Картах и&nbsp;площадках</li>
+          <li>Кампании, объявления и&nbsp;статистика</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11. ОСНОВАТЕЛЬ И КОМАНДА ============ -->
+<section class="band band--fog" id="team">
+  <div class="wrap fnd">
+    {{ p.founder(founderPhoto) }}
+    <div class="fnd__text">
+      <h2 class="h2">Вашу клинику ведёт <em>основатель агентства</em></h2>
+      <p>Илья Сорокин сам разбирает клинику, согласует с&nbsp;вами цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт. Имплантацию и&nbsp;<span class="nw">All-on-4</span> нельзя хорошо рекламировать, не&nbsp;зная пациента, его вопросов и&nbsp;страхов. Это знание копится, когда годами работаешь в&nbsp;одной нише.</p>
+      <ul class="team">
+{% for c in team %}
+        <li class="reveal"><b>{{ c[0] }}</b>{{ c[1] | t | safe }}</li>
 {% endfor %}
       </ul>
-      <p><a class="link" href="{{ href('about') }}">Об агентстве</a></p>
+      <p><a class="btn btn--out" href="{{ href('about') }}">Подробнее об&nbsp;агентстве</a></p>
     </div>
   </div>
 </section>
 
-<!-- ============ 7. ВОПРОСЫ: на широком экране колесо, на телефоне список ============ -->
-<section class="sec" id="faq">
+<!-- ============ 12. ПОЧЕМУ С НАМИ ОСТАЮТСЯ: строки, светлая и тёмная по очереди ============ -->
+<section class="band dark" id="rules">
   <div class="wrap">
-    {{ b.shead({ title: 'Что владельцы клиник спрашивают до старта.', note: 'Не нашли ответ? Задайте вопрос в заявке, ответим в рабочее время.' }) }}
-    {{ b.qa(faq, true) }}
+    {{ p.head('Пять правил, по которым *работаем с каждой клиникой*', '', true) }}
+    {{ p.rows(rules) }}
   </div>
 </section>
 
-<!-- ============ 8. ФИНАЛ: тёмный экран с формой, линия заканчивается у кнопки ============ -->
+<!-- ============ 13. ВОПРОСЫ ============ -->
+<section class="band" id="faq">
+  <div class="wrap">
+    {{ p.head('Что владельцы клиник *спрашивают до старта*') }}
+    {{ b.qa(faq) }}
+  </div>
+</section>
+
+<!-- ============ 14. ЗАЯВКА ============ -->
 {{ b.start() }}
 {% endblock %}
