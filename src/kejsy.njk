@@ -3,21 +3,9 @@ title: "Кейсы и примеры работ для стоматологий:
 description: "Что получает клиника: страница услуги для рекламы, сайт, карточка на Яндекс Картах и недельный отчёт. Кейсы с цифрами публикуем с согласия клиник."
 permalink: /kejsy/
 section: cases
-design: trajectory
+design: pack
 crumbs:
   - { name: "Кейсы", url: "/kejsy/" }
-
-hero:
-  title: "Примеры работ и кейсы"
-  lead: "Кейсы с цифрами готовим к публикации: показываем только данные из кабинетов клиник и только с их согласия. Пока показываем, что именно получает клиника."
-  cta: "Оставить заявку"
-  pick: unsure
-
-works:
-  - { art: landing, title: "Страница услуги для рекламы", text: "Одна услуга, врач, этапы, полная цена и запись на консультацию." }
-  - { art: site, title: "Сайт клиники", text: "Страница на каждую услугу, врачи с документами, цены и запись." }
-  - { art: maps, title: "Карточка на Яндекс Картах", text: "Слева карточка до работы, справа после: цены, врачи, фото и ответы на отзывы." }
-  - { art: flow, title: "Учёт заявок", text: "Видно, по какому запросу пришёл человек, когда ему перезвонили и записался ли он." }
 
 tpl:
   - ["Город и услуга", "Где работает клиника и что рекламировали."]
@@ -33,50 +21,43 @@ tpl:
 
 {% block main %}
 {% import "t.njk" as b %}
-{{ b.phero(hero, crumbs) }}
-
-<section class="sec sec--fog sheet" id="works">
+{% import "p.njk" as p %}
+<!-- ============ 1. ПЕРВЫЙ ЭКРАН ============ -->
+<section class="band dark pin pin--c" id="intro">
   <div class="wrap">
-    {{ b.shead({ title: 'Что остаётся у клиники после работы с нами.', note: 'Все образцы сделаны для вымышленной клиники. Настоящие работы покажем с согласия клиник.' }) }}
-    <div class="gal">
-{% for w in works %}
-      <article class="tile reveal">
-        <div class="tile__pic{% if w.art == 'maps' %} tile__pic--two{% endif %}">
-{% if w.art == 'landing' %}{{ b.a_browser('landing') }}{% elif w.art == 'site' %}{{ b.a_browser('site') }}{% elif w.art == 'maps' %}{{ b.a_map(true) }}{{ b.a_map() }}{% else %}
-          <div class="art art--flow" aria-hidden="true">
-            <span class="art__top">Заявка № 128<span>страница All-on-4</span></span>
-            <span class="lf"><span class="is-done">Заявка<small>12:04</small></span><span class="is-done">Звонок<small>через 6 мин</small></span><span class="is-goal">Запись<small>на четверг</small></span><span>Визит<small>отметит клиника</small></span></span>
-            <span class="art__txt">Поиск · кампания «Цена» · запрос «all on 4 цена»</span>
-          </div>
-{% endif %}
-        </div>
-        <h3 class="tile__t">{{ w.title | t | safe }}</h3>
-        <p class="tile__p">{{ w.text | t | safe }}</p>
-      </article>
-{% endfor %}
-    </div>
+    {{ b.crumbs(crumbs) }}
+    <h1 class="h1">Примеры работ <em>и&nbsp;кейсы</em></h1>
+    <p class="pin__lead">Кейсы с&nbsp;цифрами готовим к&nbsp;публикации: показываем только данные из&nbsp;кабинетов клиник и&nbsp;только с&nbsp;их согласия. Пока показываем, что именно получает клиника.</p>
+    <div class="acts"><a href="#start" class="btn" data-magnetic data-pick="unsure">Оставить заявку</a></div>
   </div>
 </section>
 
-<section class="sec" id="report">
+<!-- ============ 2. ОБРАЗЦЫ: крупный и сетка. Сюда встанут настоящие кейсы с видео и цифрами ============ -->
+<section class="band band--deep dark" id="works">
   <div class="wrap">
-    {{ b.shead({ title: 'Так выглядит недельный отчёт.', note: 'Его получает владелец клиники каждую неделю. Цифры в образце условные, клиника вымышленная.' }) }}
-    <div class="report report--solo">
-      {{ b.a_report() }}
-    </div>
+    {{ p.samples(true) }}
   </div>
 </section>
 
-<section class="sec sec--fog" id="template">
+<!-- ============ 3. НЕДЕЛЬНЫЙ ОТЧЁТ ============ -->
+<section class="band band--fog" id="report">
   <div class="wrap">
-    {{ b.shead({ title: 'Что будет в каждом кейсе.', note: 'Цифра в заголовке совпадает с текстом, у каждой цифры есть период и источник.' }) }}
-    <ol class="incl__list">
+    {{ p.head('Так выглядит *недельный отчёт*', 'Заявки, записи, цена каждой и что мы сделали за неделю.') }}
+    <div class="repcard reveal" style="max-width: 820px; margin: 0 auto">{{ b.a_report() }}</div>
+  </div>
+</section>
+
+<!-- ============ 4. ИЗ ЧЕГО БУДЕТ СОСТОЯТЬ КЕЙС ============ -->
+<section class="band" id="tpl">
+  <div class="wrap">
+    {{ p.head('Из чего будет состоять *каждый кейс*', 'У каждой цифры будут период и источник. То, что не получилось, тоже покажем.', true) }}
+    <div class="tri tri--4">
 {% for i in tpl %}
-      <li class="reveal"><h4>{{ i[0] | t | safe }}</h4><p>{{ i[1] | t | safe }}</p></li>
+      <div class="card reveal"><span class="num">{{ loop.index }}</span><h3 class="h3">{{ i[0] | t | safe }}</h3><p>{{ i[1] | t | safe }}</p></div>
 {% endfor %}
-    </ol>
+    </div>
   </div>
 </section>
 
-{{ b.start({ pick: 'unsure', title: 'Хотите, чтобы первый кейс был про вашу клинику?' }) }}
+{{ b.start({ title: 'Хотите увидеть, как это будет выглядеть для вашей клиники? Оставьте заявку.', pick: 'unsure' }) }}
 {% endblock %}

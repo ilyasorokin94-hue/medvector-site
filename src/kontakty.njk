@@ -3,27 +3,15 @@ title: "Об агентстве и контакты: медицинский ма
 description: "МедВектор: агентство медицинского маркетинга, основная специализация: частные стоматологии. Кто ведёт клиники, по каким правилам работаем и как связаться."
 permalink: /kontakty/
 section: about
-design: trajectory
+design: pack
 crumbs:
   - { name: "Об агентстве и контакты", url: "/kontakty/" }
 
-hero:
-  title: "Агентство медицинского маркетинга"
-  lead: "Ведём рекламу в Яндекс Директе, делаем сайты, оформляем Яндекс Карты и занимаемся SEO для клиник по всей России. Основная специализация: частные стоматологии. Работаем удалённо."
-  cta: "Оставить заявку"
-  pick: unsure
-  cta2: "Контакты"
-  cta2url: "#contacts"
-  facts:
-    - ["8 лет", "в маркетинге, из них 5–6 в медицине"]
-    - ["50+", "клиник в опыте основателя и команды"]
-    - ["Вся Россия", "работаем удалённо"]
-
 team:
-  - "**Директолог** ведёт кампании, убирает лишние запросы, готовит отчёты"
-  - "**Разработчик** собирает сайты и страницы услуг, настраивает формы"
-  - "**Специалист по Картам** ведёт карточки, площадки и отзывы"
-  - "**SEO-специалист** отвечает за структуру сайта и статьи"
+  - ["Директолог", "ведёт кампании, убирает лишние запросы, готовит отчёты"]
+  - ["Разработчик", "собирает сайты и страницы услуг, настраивает формы"]
+  - ["Специалист по Картам", "ведёт карточки, площадки и отзывы"]
+  - ["SEO-специалист", "отвечает за структуру сайта и статьи"]
 
 yes:
   - "Считаем заявки и записи и показываем цену каждой"
@@ -42,43 +30,69 @@ no:
 
 {% block main %}
 {% import "t.njk" as b %}
-{{ b.phero(hero, crumbs) }}
+{% import "p.njk" as p %}
+<!-- ============ 1. ПЕРВЫЙ ЭКРАН ============ -->
+<section class="band dark pin" id="intro">
+  <div class="wrap">
+    {{ b.crumbs(crumbs) }}
+    <p class="pin__k">Об агентстве</p>
+    <h1 class="h1">Агентство медицинского маркетинга. <em>Основная специализация: стоматологии</em></h1>
+    <p class="pin__lead">Ведём рекламу в&nbsp;Яндекс Директе, делаем сайты, оформляем Яндекс Карты и&nbsp;занимаемся SEO для клиник по&nbsp;всей России. Работаем удалённо.</p>
+    <div class="acts"><a href="#start" class="btn" data-magnetic data-pick="unsure">Оставить заявку</a><a href="#contacts" class="btn btn--out">Контакты</a></div>
+  </div>
+</section>
 
-<section class="sec sec--fog sheet" id="founder">
-  <div class="wrap lead2">
-    <div class="lead2__main">
-      <h2 class="h2">Илья Сорокин ведёт каждую клинику сам.</h2>
-      <p class="lead">Разбирает клинику, согласует с&nbsp;владельцем цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт.</p>
-      <p class="lead">Почему стоматологии: имплантацию и&nbsp;<span class="nw">All-on-4</span> нельзя хорошо рекламировать, не&nbsp;зная пациента, его вопросов и&nbsp;страхов. Это знание копится, когда годами работаешь в&nbsp;одной нише. Другие частные клиники берём после разбора и&nbsp;сразу говорим, если нашего опыта для ниши мало.</p>
+<!-- ============ 2. СФЕРА И ЧИСЛА ============ -->
+<section class="band band--deep dark" id="numbers">
+  <div class="wrap sph">
+    <canvas class="orb sph__orb" data-orb="620" width="900" height="900" aria-hidden="true"></canvas>
+    <div>
+      <h2 class="h2">Годами работаем в&nbsp;одной нише, поэтому <em>знаем пациента стоматологии</em></h2>
+      <dl class="nums">
+        <div><dt>в&nbsp;маркетинге, из&nbsp;них 5–6 в&nbsp;медицине</dt><dd><span data-count="8">8</span><small>лет</small></dd></div>
+        <div><dt>клиник в&nbsp;опыте основателя и&nbsp;команды</dt><dd><span data-count="50">50</span>+</dd></div>
+        <div><dt>на&nbsp;разбор клиники и&nbsp;расчёт запуска</dt><dd><span data-count="2">2</span><small>рабочих дня</small></dd></div>
+        <div><dt>от&nbsp;получения доступов до&nbsp;запуска рекламы</dt><dd><span data-count="7">7</span><small>рабочих дней</small></dd></div>
+      </dl>
     </div>
-    <div class="lead2__side">
-      <h3 class="pack__h">В команде</h3>
-      <ul class="plist plist--lg">
+  </div>
+</section>
+
+<!-- ============ 3. ОСНОВАТЕЛЬ И КОМАНДА ============ -->
+<section class="band band--fog" id="founder">
+  <div class="wrap fnd">
+    {{ p.founder(founderPhoto) }}
+    <div class="fnd__text">
+      <h2 class="h2">Илья Сорокин <em>ведёт каждую клинику сам</em></h2>
+      <p>Разбирает клинику, согласует с&nbsp;владельцем цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт.</p>
+      <p>Почему стоматологии: имплантацию и&nbsp;<span class="nw">All-on-4</span> нельзя хорошо рекламировать, не&nbsp;зная пациента, его вопросов и&nbsp;страхов. Другие частные клиники берём после разбора и&nbsp;сразу говорим, если нашего опыта для ниши мало.</p>
+      <ul class="team">
 {% for c in team %}
-        <li class="reveal"><span>{{ c | t | safe }}</span></li>
+        <li class="reveal"><b>{{ c[0] }}</b>{{ c[1] | t | safe }}</li>
 {% endfor %}
       </ul>
     </div>
   </div>
 </section>
 
-<section class="sec" id="principles">
+<!-- ============ 4. ЧТО ДЕЛАЕМ И ЧЕГО НЕ ДЕЛАЕМ ============ -->
+<section class="band" id="principles">
   <div class="wrap">
-    {{ b.shead({ title: 'Что мы делаем и чего не делаем.', note: 'Шаблон договора пришлём до начала работ, чтобы вы прочитали его без спешки.' }) }}
-    <div class="yesno">
-      <div class="yesno__col">
-        <h3 class="pack__h">Что делаем</h3>
-        <ul class="plist plist--lg">
+    {{ p.head('Что мы делаем *и чего не делаем*', 'Шаблон договора пришлём до начала работ, чтобы вы прочитали его без спешки.') }}
+    <div class="yn">
+      <div class="card reveal">
+        <h3 class="h3">Что делаем</h3>
+        <ul class="ck">
 {% for i in yes %}
-          <li class="reveal"><span>{{ i | t | safe }}</span></li>
+          <li>{{ i | t | safe }}</li>
 {% endfor %}
         </ul>
       </div>
-      <div class="yesno__col">
-        <h3 class="pack__h">Чего не делаем</h3>
-        <ul class="plist plist--lg plist--no">
+      <div class="card card--no reveal">
+        <h3 class="h3">Чего не делаем</h3>
+        <ul class="ck">
 {% for i in no %}
-          <li class="reveal"><span>{{ i | t | safe }}</span></li>
+          <li>{{ i | t | safe }}</li>
 {% endfor %}
         </ul>
       </div>
@@ -86,9 +100,10 @@ no:
   </div>
 </section>
 
-<section class="sec sec--fog" id="contacts">
+<!-- ============ 5. КОНТАКТЫ ============ -->
+<section class="band band--fog" id="contacts">
   <div class="wrap">
-    {{ b.shead({ title: 'Как с нами связаться.', note: 'Отвечаем в рабочее время по Москве.' }) }}
+    {{ p.head('Как с нами *связаться*', 'Отвечаем в рабочее время по Москве.') }}
 {% set c = site.contacts %}
 {% if c.phone or c.telegram or c.max or c.email %}
     <dl class="contacts">
@@ -106,7 +121,7 @@ no:
 {% endif %}
     </dl>
 {% else %}
-    <p class="note-lg">Сейчас самый быстрый способ связаться с&nbsp;нами: <a href="#start">заявка ниже</a>. Телефон, Telegram и&nbsp;почта появятся на&nbsp;этой странице перед запуском сайта.</p>
+    <p class="cnote">Сейчас самый быстрый способ связаться с&nbsp;нами: <a href="#start">заявка ниже</a>. Телефон, Telegram и&nbsp;почта появятся на&nbsp;этой странице перед запуском сайта.</p>
 {% endif %}
   </div>
 </section>
