@@ -28,6 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
 <link rel="stylesheet" href="../assets/css/trajectory.css">
+<!-- пробная упаковка: плотный формат поверх «Траектории» -->
+<link rel="stylesheet" href="../assets/css/pack.css">
 <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
 <script type="application/ld+json">
@@ -59,6 +61,12 @@
         {
           "@type": "ListItem",
           "position": 2,
+          "name": "Услуги",
+          "item": "https://medvector.pro/#services"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
           "name": "Комплексный маркетинг",
           "item": "https://medvector.pro/kompleksnyj-marketing/"
         }
@@ -92,7 +100,7 @@
           "name": "Сколько стоит сайт отдельно?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Отдельной цены у сайта нет. Он входит в первый месяц пакета за 80 000 ₽ вместе с оформлением Яндекс Карт, 2ГИС и ПроДокторов. Второй и третий месяц стоят по 60 000 ₽, это комплексное продвижение. Наш основной доход даёт продвижение, поэтому сайт мы не продаём как отдельный дорогой проект. Абонентской платы за сайт нет."
+            "text": "Отдельной цены у сайта нет. Он входит в первый месяц пакета за 80 000 ₽ вместе с оформлением Яндекс Карт, 2ГИС и ПроДокторов. Второй и третий месяц стоят по 60 000 ₽, это комплексное продвижение. Наш основной доход даёт продвижение, поэтому сайт мы не продаём как отдельный дорогой проект."
           }
         },
         {
@@ -141,14 +149,15 @@
 }
 </script>
 </head>
-<body>
+<body class="pk">
 <a class="skip" href="#main">К содержимому</a>
-<!-- ============ ШАПКА «Траектория»: логотип, «Услуги» списком, три пункта, одна кнопка ============ -->
+<!-- ============ ШАПКА, плотный формат: тёмная, логотип с подписью, меню в одну строку, одна кнопка ============ -->
 <header class="hdr" id="top">
   <div class="hdr__in">
     <a href="../" class="hdr__logo" aria-label="МедВектор, на главную">
-      <img src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img src="../assets/img/medvector-logo-light.webp" alt="МедВектор" width="440" height="93">
     </a>
+    <p class="hdr__tag">Ведём пациента от&nbsp;запроса<br>до&nbsp;записи к&nbsp;врачу</p>
     <nav class="hdr__nav" aria-label="Основное меню">
       <div class="drop is-current" data-drop>
         <button type="button" class="drop__btn" aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
@@ -162,16 +171,17 @@
           </ul>
         </div>
       </div>
+      <a href="../ceny/">Цены</a>
       <a href="../kejsy/">Кейсы</a>
       <a href="../kontakty/">Об агентстве</a>
       <a href="../kontakty/#contacts">Контакты</a>
     </nav>
-    <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Начать бесплатно</a>
+    <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Оставить заявку</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- мобильное меню: тёмный экран, услуги списком, остальные пункты крупно -->
+<!-- мобильное меню -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
     <p class="mnav__h">Услуги</p>
@@ -182,119 +192,89 @@
       <li><a href="../kompleksnyj-marketing/#maps">Яндекс Карты</a></li>
       <li><a href="../kompleksnyj-marketing/#site">Сайты и лендинги</a></li>
     </ul>
+    <a href="../ceny/">Цены</a>
     <a href="../kejsy/">Кейсы</a>
     <a href="../kontakty/">Об агентстве</a>
     <a href="../kontakty/#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
-    <a href="#start" class="btn btn--light">Начать бесплатно</a>
+    <a href="#start" class="btn btn--light">Оставить заявку</a>
     <p>Агентство медицинского маркетинга. Основная специализация: стоматологии. Работаем по&nbsp;всей России.</p>
   </div>
 </div>
 
 <main id="main">
-<!-- ============ 1. ПЕРВЫЙ ЭКРАН ============ -->
-<section class="phero" id="intro">
+<!-- ============ 1. ПЕРВЫЙ ЭКРАН: заголовок, три довода и короткая форма ============ -->
+<section class="band dark pin" id="intro">
   <div class="wrap">
     <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
+    <li><a href="../#services">Услуги</a></li>
     <li><span aria-current="page">Комплексный маркетинг</span></li>
   </ol>
 </nav>
 
-    <h1 class="h1 h1--page">Сайт для стоматологии и&nbsp;Яндекс Карты за&nbsp;первый месяц<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></h1>
-    <div class="phero__foot">
-      <p class="phero__sub">Собираем сайт под вашу клинику, оформляем Яндекс Карты, 2ГИС и&nbsp;ПроДокторов и&nbsp;дальше продвигаем всё это вместе. Сайт, домен и&nbsp;карточки оформлены на&nbsp;клинику и&nbsp;остаются у&nbsp;вас.</p>
-      <div class="phero__acts">
-        <a href="#start" class="btn" data-magnetic data-pick="site">Обсудить сайт и Карты</a>
-        <a href="#price" class="link">Сколько стоит пакет</a>
-      </div>
-    </div>
-    <dl class="pfacts">
-      <div class="reveal"><dt>первый месяц: сайт под ключ и&nbsp;карточки, сайт входит в&nbsp;эту сумму</dt><dd>80&nbsp;000&nbsp;₽</dd></div>
-      <div class="reveal"><dt>в&nbsp;месяц: комплексное продвижение со&nbsp;второго месяца</dt><dd>60&nbsp;000&nbsp;₽</dd></div>
-      <div class="reveal"><dt>от&nbsp;старта до&nbsp;готового сайта и&nbsp;оформленных карточек</dt><dd>1&nbsp;месяц</dd></div>
-    </dl>
-  </div>
-</section>
-
-
-<!-- ============ 2. ПАКЕТ НА 3 МЕСЯЦА: что входит и сколько стоит ============ -->
-<section class="dark sheet" id="price" data-dark>
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Стартовый пакет на&nbsp;три месяца. Сайт входит в&nbsp;цену.</h2>
-  </div>
-  <p class="shead__note">Цена одна для всех клиник и&nbsp;записана в&nbsp;договоре. Отдельно и&nbsp;напрямую клиника платит только подписку Яндекс Бизнеса и&nbsp;платные тарифы площадок, если решит их&nbsp;подключить.</p>
-</div>
-
-    <div class="pack">
+    <div class="pin__grid">
       <div>
-        <h3 class="pack__h">В первый месяц</h3>
-        <ul class="spec">
-          <li class="reveal"><h4>Сайт клиники под ключ</h4><p>Страница на&nbsp;каждую важную услугу, врачи, цены и&nbsp;запись.</p></li>
-          <li class="reveal"><h4>Яндекс Карты</h4><p>Услуги и&nbsp;цены, фото, витрина, ответы на&nbsp;отзывы.</p></li>
-          <li class="reveal"><h4>2ГИС и&nbsp;ПроДокторов</h4><p>Те&nbsp;же цены, врачи и&nbsp;адрес, что на&nbsp;сайте.</p></li>
-          <li class="reveal"><h4>Отзывы и&nbsp;администраторы</h4><p>Как просить об&nbsp;отзыве, как отвечать на&nbsp;заявку, как отмечать записи.</p></li>
+        <h1 class="h1">Комплексный маркетинг для стоматологии: <em>сайт, Яндекс Карты и&nbsp;SEO</em> одним пакетом</h1>
+        <ul class="ck">
+          <li>За&nbsp;первый месяц собираем сайт клиники и&nbsp;оформляем Яндекс Карты, 2ГИС и&nbsp;ПроДокторов</li>
+          <li>Со&nbsp;второго месяца продвигаем всё это вместе: поиск, карточки, отзывы</li>
+          <li>Сайт, домен и&nbsp;карточки оформлены на&nbsp;клинику и&nbsp;остаются у&nbsp;вас</li>
         </ul>
+        <div class="acts"><a href="#price" class="btn btn--out">Сколько стоит пакет</a></div>
       </div>
-      <div>
-        <h3 class="pack__h">Сколько это стоит</h3>
-        <ol class="plan">
-          <li class="reveal"><span class="plan__m">Месяц 1</span><b class="plan__sum">80&nbsp;000&nbsp;₽</b><span class="plan__bar" style="--w: 100%" aria-hidden="true"></span><p>Сайт под ключ, Яндекс Карты, 2ГИС и&nbsp;ПроДокторов. Сайт входит в&nbsp;эту сумму. Два платежа по&nbsp;40&nbsp;000&nbsp;₽: до&nbsp;начала работ и&nbsp;после сдачи сайта.</p></li>
-          <li class="reveal"><span class="plan__m">Месяц 2</span><b class="plan__sum">60&nbsp;000&nbsp;₽</b><span class="plan__bar" style="--w: 75%" aria-hidden="true"></span><p>Комплексное продвижение: сайт в&nbsp;поиске, первые новые страницы и&nbsp;статьи, порядок с&nbsp;отзывами.</p></li>
-          <li class="reveal"><span class="plan__m">Месяц 3</span><b class="plan__sum">60&nbsp;000&nbsp;₽</b><span class="plan__bar" style="--w: 75%" aria-hidden="true"></span><p>Первые цифры по&nbsp;сайту и&nbsp;Картам, план на&nbsp;следующие месяцы. Если клиника готова, подключаем Директ.</p></li>
-        </ol>
-        <div class="pack__acts">
-          <a href="#start" class="btn btn--light" data-magnetic data-pick="site">Обсудить сайт и Карты</a>
-        </div>
-      </div>
-    </div>
-    <p class="after__why">После трёх месяцев продвижение стоит те&nbsp;же 60&nbsp;000&nbsp;₽ в&nbsp;месяц, его можно остановить. Сайт, домен и&nbsp;карточки оформлены на&nbsp;клинику и&nbsp;остаются у&nbsp;вас.</p>
-  </div>
-</section>
-
-<!-- ============ 3. АРЕНДА, СТУДИЯ ИЛИ МЕДВЕКТОР ============ -->
-<section class="sec sheet" id="compare">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Откуда у&nbsp;клиники берётся сайт.</h2>
-  </div>
-  <p class="shead__note">Здесь три способа, названий компаний нет. Цены студий взяты из&nbsp;нашего обзора рынка, октябрь 2026.</p>
-</div>
-
-    <div class="cmp-wrap">
-      <table class="cmp cmp--4">
-        <caption class="sr">Сравнение способов получить сайт клиники</caption>
-        <thead><tr><td></td><th scope="col">Аренда шаблона</th><th scope="col">Сайт в студии</th><th scope="col">МедВектор</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Сколько стоит сайт</th><td data-label="Аренда шаблона">Абонентская плата каждый месяц</td><td data-label="Сайт в студии">Обычно 140&nbsp;000–300&nbsp;000&nbsp;₽</td><td data-label="МедВектор">Входит в&nbsp;первый месяц за&nbsp;80&nbsp;000&nbsp;₽ вместе с&nbsp;Картами</td></tr>
-          <tr><th scope="row">Чей сайт</th><td data-label="Аренда шаблона">Остаётся у&nbsp;подрядчика, пока вы&nbsp;платите</td><td data-label="Сайт в студии">Ваш</td><td data-label="МедВектор">Ваш, с&nbsp;полными правами после оплаты пакета</td></tr>
-          <tr><th scope="row">Сколько ждать</th><td data-label="Аренда шаблона">Быстро, это готовый шаблон</td><td data-label="Сайт в студии">Обычно несколько месяцев</td><td data-label="МедВектор">Первый месяц пакета</td></tr>
-          <tr><th scope="row">Продвижение</th><td data-label="Аренда шаблона">Чаще за&nbsp;доплату</td><td data-label="Сайт в студии">Отдельный договор</td><td data-label="МедВектор">Поиск, Карты и&nbsp;площадки входят в&nbsp;пакет</td></tr>
-          <tr><th scope="row">Требования к медицинскому сайту</th><td data-label="Аренда шаблона">Зависит от&nbsp;шаблона</td><td data-label="Сайт в студии">Зависит от&nbsp;студии</td><td data-label="МедВектор">Проверяем по&nbsp;списку, перечень смотрит юрист</td></tr>
-        </tbody>
-      </table>
+      <form class="form form--card" novalidate action="#" aria-label="Короткая заявка">
+        <p class="form__h">Оставьте заявку: посмотрим сайт и&nbsp;карточки и&nbsp;скажем, что сделать первым</p>
+        <input type="hidden" name="service" value="site">
+        <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" required></label>
+        <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" required></label>
+        <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" required></label>
+        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../politika/">политики</a></span></label>
+        <button class="btn btn--wide" type="submit">Обсудить сайт и Карты</button>
+        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
+      </form>
     </div>
   </div>
 </section>
 
-<!-- ============ 4. ЧТО ВХОДИТ В САЙТ ============ -->
-<section class="sec sec--fog" id="site">
+<!-- ============ 2. ВВОДНЫЙ ТЕКСТ ============ -->
+<section class="band band--tight" id="about">
   <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Что вы&nbsp;получаете вместе с&nbsp;сайтом.</h2>
+    <div class="txt">
+      <p>Пакет подходит новым клиникам и&nbsp;клиникам без сильного сайта. Рекламу включать рано, пока пациента некуда вести: сначала нужны сайт со&nbsp;страницами услуг и&nbsp;карточки с&nbsp;ценами и&nbsp;врачами.</p>
+      <p>Наш основной доход даёт продвижение, поэтому сайт мы&nbsp;не&nbsp;продаём как отдельный дорогой проект. Он&nbsp;входит в&nbsp;первый месяц пакета. <b>Абонентской платы за&nbsp;сайт нет.</b></p>
+    </div>
   </div>
-  <p class="shead__note">Сайт собираем в&nbsp;первый месяц пакета. Пример на&nbsp;картинке сделан для вымышленной клиники.</p>
+</section>
+
+<!-- ============ 3. ЗАЧЕМ ЭТО КЛИНИКЕ ============ -->
+<section class="band band--fog" id="why">
+  <div class="wrap">
+    <div class="bhead bhead--left">
+  <h2 class="h2">Чем пакет отличается от&nbsp;<em>конструктора и&nbsp;веб-студии</em></h2>
 </div>
 
-    <div class="sitebox">
-      <div class="sitebox__pic reveal">
-        <div class="art art--browser" aria-hidden="true">
+    <div class="tri">
+      <div class="card reveal"><span class="num">1</span><h3 class="h3">Сайт ваш, а&nbsp;не&nbsp;в&nbsp;аренде</h3><p>У&nbsp;конструктора сайт остаётся у&nbsp;подрядчика, пока вы&nbsp;платите. У&nbsp;нас сайт с&nbsp;полными правами переходит клинике после оплаты пакета.</p></div>
+      <div class="card reveal"><span class="num">2</span><h3 class="h3">Сайт входит в&nbsp;первый месяц</h3><p>Студия берёт за&nbsp;сайт отдельно и&nbsp;обычно делает его несколько месяцев. У&nbsp;нас сайт и&nbsp;карточки готовы за&nbsp;первый месяц пакета.</p></div>
+      <div class="card reveal"><span class="num">3</span><h3 class="h3">Продвижение внутри пакета</h3><p>Поиск, Карты и&nbsp;площадки ведёт одна команда. Не&nbsp;нужно сводить студию, сеошника и&nbsp;того, кто отвечает на&nbsp;отзывы.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. ЧТО ДЕЛАЕМ: три карточки с образцами ============ -->
+<section class="band" id="what">
+  <div class="wrap">
+    <div class="bhead bhead--left">
+  <h2 class="h2">Что входит в&nbsp;<em>комплексный маркетинг</em></h2>
+</div>
+
+    <div class="tri">
+      <article class="card reveal" id="site">
+        <div class="tri__pic">
+<div class="art art--browser" aria-hidden="true">
   <span class="br__bar"><i></i><i></i><i></i><span>demo-klinika.ru</span></span>
   <span class="br__nav"><b>Стоматология «Демо»</b><span>Услуги</span><span>Врачи</span><span>Цены</span><span>Контакты</span></span>
   <span class="br__h">Стоматология для всей семьи</span>
@@ -302,143 +282,229 @@
   <span class="br__btn">Записаться онлайн</span>
   <span class="br__cards"><span>Имплантация</span><span>All-on-4</span><span>Коронки и виниры</span></span>
 </div>
-
-        <div class="art art--phone" aria-hidden="true">
-  <div class="ph">
-    <span class="ph__top"><i></i>Стоматология «Демо»</span>
-    <b>Стоматология рядом с домом</b>
-    <small>Лечение, имплантация, детский приём. Цены на сайте</small>
-    <span class="ph__btn">Записаться</span>
-    <span class="ph__row">Услуги и цены</span><span class="ph__row">Врачи</span><span class="ph__row">Отзывы с площадок</span><span class="ph__row">Как добраться</span>
-  </div>
-</div>
-
-      </div>
-      <ol class="deflist">
-        <li class="reveal"><h3 class="h3">Структура</h3><p>Смотрим клиники-конкуренты в&nbsp;вашем городе и&nbsp;запросы пациентов по&nbsp;услугам и&nbsp;районам. Делаем отдельную страницу на&nbsp;каждую важную услугу: имплантация, <span class="nw">All-on-4</span>, коронки, виниры, детский приём.</p></li>
-        <li class="reveal"><h3 class="h3">Содержание</h3><p>Тексты услуг и&nbsp;прайс из&nbsp;одного источника, страницы врачей с&nbsp;документами и&nbsp;стажем, работы с&nbsp;согласия пациентов, подбор и&nbsp;обработка фото.</p></li>
-        <li class="reveal"><h3 class="h3">Требования к&nbsp;сайтам клиник</h3><p>Лицензия и&nbsp;сведения для пациента по&nbsp;правилам платных медицинских услуг, предупреждение о&nbsp;противопоказаниях, политика и&nbsp;согласие по&nbsp;152-ФЗ. Перед публикацией перечень проверяет юрист.</p></li>
-        <li class="reveal"><h3 class="h3">Скорость и&nbsp;поиск</h3><p>Сайт быстро открывается на&nbsp;телефоне. Настроены описания страниц для поиска, разметка клиники и&nbsp;врачей, Яндекс Вебмастер.</p></li>
-        <li class="reveal"><h3 class="h3">Заявки</h3><p>Формы и&nbsp;мессенджеры, Яндекс Метрика с&nbsp;целями. Заявки приходят в&nbsp;CRM или мессенджер клиники.</p></li>
-        <li class="reveal"><h3 class="h3">Передача</h3><p>Домен, хостинг и&nbsp;доступы оформлены на&nbsp;клинику. Даём инструкцию, как менять цены и&nbsp;врачей. Абонентской платы за&nbsp;сайт нет.</p></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 5. ЯНДЕКС КАРТЫ ============ -->
-<section class="sec" id="maps">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Карточка на&nbsp;Картах, которая приводит звонки.</h2>
-  </div>
-  <p class="shead__note">Человек ищет стоматологию рядом и&nbsp;сравнивает карточки. Карты мы&nbsp;знаем лучше всего остального и&nbsp;показываем, сколько звонков и&nbsp;маршрутов даёт карточка.</p>
-</div>
-
-    <div class="mapbox">
-      <div class="mapbox__pic reveal">
-        <figure><figcaption>До</figcaption><div class="art art--map art--weak" aria-hidden="true">
-  <span class="mp__area"><i></i></span>
-  <b>Стоматология «Демо»</b>
-  <span class="mp__rate">Цен нет, отзывы без ответа</span>
-  <span class="mp__tags"><span>Нет цен</span><span>2 фото</span></span>
-  <span class="mp__btns"><span>Маршрут</span><span>Позвонить</span><span>Сайт</span></span>
-</div>
-</figure>
-        <figure><figcaption>После</figcaption><div class="art art--map" aria-hidden="true">
+        </div>
+        <h3 class="h3">Сайт клиники под ключ</h3>
+        <p>Страница на&nbsp;каждую важную услугу, врачи с&nbsp;документами и&nbsp;стажем, цены и&nbsp;запись. Быстро открывается на&nbsp;телефоне.</p>
+      </article>
+      <article class="card reveal" id="maps">
+        <div class="tri__pic">
+<div class="art art--map" aria-hidden="true">
   <span class="mp__area"><i></i></span>
   <b>Стоматология «Демо»</b>
   <span class="mp__rate">Цены и врачи указаны, клиника отвечает на отзывы</span>
   <span class="mp__tags"><span>Цены</span><span>Врачи</span><span>Фото</span><span>Запись</span></span>
   <span class="mp__btns"><span>Маршрут</span><span>Позвонить</span><span>Сайт</span></span>
 </div>
-</figure>
-        <p class="mapbox__demo"><span class="tag">Карточки на картинке сделаны для вымышленной клиники</span></p>
-      </div>
-      <ul class="spec spec--sm">
-        <li class="reveal"><h4>Категории и&nbsp;описание</h4><p>Под запросы пациентов. «Стоматология широкого профиля» никому ничего не&nbsp;говорит.</p></li>
-        <li class="reveal"><h4>Услуги и&nbsp;цены</h4><p>Каталог по&nbsp;тому, как пациенты ищут. Цены те&nbsp;же, что на&nbsp;сайте.</p></li>
-        <li class="reveal"><h4>Витрина, истории и&nbsp;акции</h4><p>Карточка отвечает на&nbsp;вопросы пациента ещё до&nbsp;звонка.</p></li>
-        <li class="reveal"><h4>Фото и&nbsp;врачи</h4><p>Вход, кабинеты, оборудование, врачи с&nbsp;именами.</p></li>
-        <li class="reveal"><h4>Рекламная подписка Яндекс Бизнеса</h4><p>Советуем, нужна&nbsp;ли она в&nbsp;вашем районе, и&nbsp;подключаем без лишних опций. Клиника платит Яндексу напрямую, срок от&nbsp;90&nbsp;дней.</p></li>
-        <li class="reveal"><h4>Отчёт</h4><p>Звонки, маршруты и&nbsp;переходы на&nbsp;сайт из&nbsp;карточки.</p></li>
+        </div>
+        <h3 class="h3">Яндекс Карты и&nbsp;площадки</h3>
+        <p>Услуги и&nbsp;цены, фото, витрина. На&nbsp;2ГИС и&nbsp;ПроДокторов те&nbsp;же цены, врачи и&nbsp;адрес, что на&nbsp;сайте.</p>
+      </article>
+      <article class="card reveal" id="seo">
+        <div class="tri__pic">
+<div class="art art--query" aria-hidden="true"><i class="art__glass"></i><span class="art__typed" data-type="имплантация зубов цена">имплантация зубов цена</span></div>
+        </div>
+        <h3 class="h3">SEO и&nbsp;статьи</h3>
+        <p>Новые страницы услуг и&nbsp;статьи под запросы пациентов вашего города. Технические правки и&nbsp;разметка.</p>
+      </article>
+    </div>
+    <p class="demo"><span class="tag">Образцы сделаны для вымышленной клиники</span></p>
+  </div>
+</section>
+
+<!-- ============ 5. ЭТАПЫ ============ -->
+<section class="band band--fog" id="stages">
+  <div class="wrap">
+    <div class="bhead">
+  <h2 class="h2">Как идёт работа <em>по месяцам</em></h2>
+  <p class="bhead__sub">Пакет заключается на&nbsp;3&nbsp;месяца. Дальше продвижение можно остановить, сайт остаётся у&nbsp;клиники.</p>
+</div>
+
+    <ol class="stg">
+      <li class="reveal">
+        <span class="stg__n">1 этап</span>
+        <h3>Разбор<small>2&nbsp;рабочих дня</small></h3>
+        <ul class="ck">
+          <li>Смотрим сайт и&nbsp;карточки клиники, если они уже есть</li>
+          <li>Смотрим клиники-конкуренты в&nbsp;вашем городе и&nbsp;запросы пациентов</li>
+          <li>Решаем, переделывать старый сайт или собирать новый</li>
+        </ul>
+      </li>
+      <li class="reveal">
+        <span class="stg__n">2 этап</span>
+        <h3>Сайт и&nbsp;карточки<small>первый месяц</small></h3>
+        <ul class="ck">
+          <li>Структура, тексты услуг, прайс, страницы врачей</li>
+          <li>Лицензия, сведения для пациента, политика и&nbsp;согласие по&nbsp;152-ФЗ</li>
+          <li>Яндекс Карты, 2ГИС и&nbsp;ПроДокторов: категории, услуги, цены, фото</li>
+          <li>Формы, мессенджеры, Метрика с&nbsp;целями</li>
+        </ul>
+      </li>
+      <li class="reveal">
+        <span class="stg__n">3 этап</span>
+        <h3>Продвижение<small>второй месяц</small></h3>
+        <ul class="ck">
+          <li>Сайт в&nbsp;поиске, первые новые страницы и&nbsp;статьи</li>
+          <li>Порядок с&nbsp;отзывами: ответы от&nbsp;имени клиники, сценарии для администраторов</li>
+        </ul>
+      </li>
+      <li class="reveal">
+        <span class="stg__n">4 этап</span>
+        <h3>Цифры и&nbsp;план<small>третий месяц</small></h3>
+        <ul class="ck">
+          <li>Первые цифры по&nbsp;сайту и&nbsp;Картам: звонки, маршруты, заявки</li>
+          <li>План на&nbsp;следующие месяцы</li>
+          <li>Если клиника готова, подключаем Директ</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 6. С КАКИМИ УСЛУГАМИ РАБОТАЕМ ============ -->
+<section class="band" id="dirs">
+  <div class="wrap">
+    <div class="bhead bhead--left">
+  <h2 class="h2">Какие страницы <em>собираем на&nbsp;сайте</em></h2>
+</div>
+
+    <ul class="dirt">
+  <li class="dirt__lead">Отдельная страница на&nbsp;каждую важную услугу. Так пациент находит ответ, а&nbsp;поиск понимает, о&nbsp;чём сайт.</li>
+  <li class="reveal"><span class="num">1</span><b>Имплантация</b><small>Цена по&nbsp;этапам, врач, рассрочка</small></li>
+  <li class="reveal"><span class="num">2</span><b><span class="nw">All-on-4</span></b><small>Метод простыми словами, этапы и&nbsp;сроки</small></li>
+  <li class="reveal"><span class="num">3</span><b>Коронки и&nbsp;виниры</b><small>Материалы, цены, работы с&nbsp;согласия пациентов</small></li>
+  <li class="reveal"><span class="num">4</span><b>Детский приём</b><small>Врач, как проходит первый визит</small></li>
+  <li class="reveal"><span class="num">5</span><b>Врачи</b><small>Документы, стаж и&nbsp;специализация</small></li>
+  <li class="reveal"><span class="num">6</span><b>Цены</b><small>Один прайс для сайта и&nbsp;карточек</small></li>
+</ul>
+
+  </div>
+</section>
+
+<!-- ============ 7. ОТ ЧЕГО ЗАВИСИТ ЦЕНА ============ -->
+<section class="band band--fog" id="depends">
+  <div class="wrap">
+    <div class="bhead bhead--left">
+  <h2 class="h2">Что нужно <em>от клиники</em></h2>
+</div>
+
+    <div class="tri">
+      <div class="card reveal"><h3 class="h3">Прайс и&nbsp;список услуг</h3><p>Тексты услуг и&nbsp;цены берём из&nbsp;одного источника, чтобы сайт и&nbsp;карточки не&nbsp;спорили друг с&nbsp;другом.</p></div>
+      <div class="card reveal"><h3 class="h3">Врачи и&nbsp;фото</h3><p>Документы и&nbsp;стаж врачей, фото входа, кабинетов и&nbsp;оборудования. Подбор и&nbsp;обработку фото берём на&nbsp;себя.</p></div>
+      <div class="card reveal"><h3 class="h3">Доступы</h3><p>К&nbsp;домену, если он&nbsp;уже есть, и&nbsp;к&nbsp;карточкам на&nbsp;площадках. Новые аккаунты заводим сразу на&nbsp;клинику.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. СТОИМОСТЬ ============ -->
+<section class="band dark" id="price">
+  <div class="wrap">
+    <div class="bhead">
+  <h2 class="h2">Стоимость <em>комплексного маркетинга</em></h2>
+  <p class="bhead__sub">Отдельной цены у&nbsp;сайта нет: он&nbsp;входит в&nbsp;первый месяц пакета.</p>
+</div>
+
+    <div class="trfs" style="--n: 3">
+      <article class="trf reveal">
+  <p class="trf__tab">Месяц 1</p>
+  <div class="trf__in">
+    <div class="trf__body">
+      <p class="trf__flag">Сайт входит в&nbsp;сумму</p>
+      <h3 class="trf__g">Что делаем:</h3>
+      <ul class="ck">
+        <li>Сайт клиники под ключ</li>
+        <li>Яндекс Карты, 2ГИС и&nbsp;ПроДокторов</li>
+        <li>Формы, Метрика и&nbsp;цели</li>
       </ul>
     </div>
-    <p class="pack__own">2ГИС, ПроДокторов и&nbsp;площадки вашего города оформляем на&nbsp;старте теми&nbsp;же данными: пациент везде видит одни цены, одних врачей и&nbsp;один адрес.</p>
+    <p class="trf__budget"><b>Оплата:</b> два платежа по&nbsp;40&nbsp;000&nbsp;₽, до&nbsp;начала работ и&nbsp;после сдачи сайта</p>
+    <p class="trf__price"><b>Услуги МедВектора</b><strong>80&nbsp;000&nbsp;₽</strong></p>
   </div>
-</section>
+  <a class="btn btn--out" href="#start" data-pick="site">Обсудить пакет</a>
+</article>
 
-<!-- ============ 6. ОТЗЫВЫ ============ -->
-<section class="sec sec--fog" id="reviews">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Отзывы оставляют только настоящие пациенты.</h2>
-  </div>
-  <p class="shead__note">Площадки проверяют отзывы и&nbsp;скрывают те, что считают неестественными. Поэтому отзывы пишут сами пациенты, после визита, а&nbsp;мы&nbsp;налаживаем, как клиника об&nbsp;этом просит.</p>
-</div>
-
-    <div class="yesno">
-      <div class="yesno__col">
-        <h3 class="pack__h">Чего не делаем</h3>
-        <ul class="plist plist--lg plist--no">
-          <li class="reveal"><span>Не&nbsp;пишем и&nbsp;не&nbsp;покупаем отзывы</span></li>
-          <li class="reveal"><span>Не&nbsp;накручиваем переходы и&nbsp;рейтинг</span></li>
-          <li class="reveal"><span>Не&nbsp;просим оставить отзыв прямо в&nbsp;клинике</span></li>
-          <li class="reveal"><span>Не&nbsp;обещаем удалить честный негативный отзыв</span></li>
-        </ul>
-      </div>
-      <div class="yesno__col">
-        <h3 class="pack__h">Как делаем</h3>
-        <ul class="plist plist--lg">
-          <li class="reveal"><span>Просьба после визита со&nbsp;ссылкой, которую пациент открывает дома</span></li>
-          <li class="reveal"><span>Сценарии для администраторов и&nbsp;мотивация за&nbsp;отзывы</span></li>
-          <li class="reveal"><span>Ответы на&nbsp;все отзывы от&nbsp;имени клиники</span></li>
-          <li class="reveal"><span>Работа с&nbsp;негативом: ответ, разбор и&nbsp;жалоба, если отзыв нарушает правила площадки</span></li>
-        </ul>
-      </div>
+      <article class="trf reveal">
+  <p class="trf__tab">Месяц 2</p>
+  <div class="trf__in">
+    <div class="trf__body">
+      <h3 class="trf__g">Что делаем:</h3>
+      <ul class="ck">
+        <li>Комплексное продвижение: сайт в&nbsp;поиске</li>
+        <li>Первые новые страницы и&nbsp;статьи</li>
+        <li>Порядок с&nbsp;отзывами</li>
+      </ul>
     </div>
-    <p class="pack__own">Пациента чаще теряют на&nbsp;звонке, чем в&nbsp;поиске. Поэтому вместе с&nbsp;отзывами разбираем с&nbsp;администраторами, как отвечать на&nbsp;звонки и&nbsp;заявки и&nbsp;как отмечать записи.</p>
+    <p class="trf__budget"><b>Отчёт:</b> позиции, посетители, звонки и&nbsp;заявки с&nbsp;сайта и&nbsp;Карт</p>
+    <p class="trf__price"><b>Услуги МедВектора</b><strong>60&nbsp;000&nbsp;₽</strong></p>
+  </div>
+  <a class="btn btn--out" href="#start" data-pick="site">Обсудить пакет</a>
+</article>
+
+      <article class="trf reveal">
+  <p class="trf__tab">Месяц 3</p>
+  <div class="trf__in">
+    <div class="trf__body">
+      <h3 class="trf__g">Что делаем:</h3>
+      <ul class="ck">
+        <li>Первые цифры по&nbsp;сайту и&nbsp;Картам</li>
+        <li>План на&nbsp;следующие месяцы</li>
+        <li>Если клиника готова, подключаем Директ</li>
+      </ul>
+    </div>
+    <p class="trf__budget"><b>Созвон:</b> что сделали и&nbsp;что планируем дальше</p>
+    <p class="trf__price"><b>Услуги МедВектора</b><strong>60&nbsp;000&nbsp;₽</strong></p>
+  </div>
+  <a class="btn btn--out" href="#start" data-pick="site">Обсудить пакет</a>
+</article>
+
+    </div>
   </div>
 </section>
 
-<!-- ============ 7. ВЕДЕНИЕ ============ -->
-<section class="sec" id="seo">
+<!-- ============ 9. ЧТО ОСТАЁТСЯ У КЛИНИКИ ============ -->
+<section class="band band--deep dark" id="keep">
   <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Что делаем каждый месяц после запуска.</h2>
-  </div>
-  <p class="shead__note">Продвижение в&nbsp;поиске даёт результат медленнее рекламы: первые изменения обычно видны через несколько месяцев. На&nbsp;Картах результат заметен раньше.</p>
+    <div class="bhead">
+  <h2 class="h2">Что остаётся у&nbsp;клиники, <em>если вы&nbsp;уходите через 3&nbsp;месяца</em></h2>
+  <p class="bhead__sub">Домен сразу оформляем на&nbsp;клинику. Карточки и&nbsp;аккаунты на&nbsp;площадках тоже ваши.</p>
 </div>
 
-    <ol class="incl__list incl__list--3">
-      <li class="reveal"><h4>Новые страницы и&nbsp;статьи</h4><p>Услуги и&nbsp;вопросы пациентов по&nbsp;запросам вашего города.</p></li>
-      <li class="reveal"><h4>Технические правки</h4><p>Скорость, ошибки индексации, разметка.</p></li>
-      <li class="reveal"><h4>Цены, врачи, фото</h4><p>Сайт и&nbsp;карточки не&nbsp;устаревают.</p></li>
-      <li class="reveal"><h4>Публикации в&nbsp;карточках</h4><p>Новости, акции и&nbsp;истории на&nbsp;Картах.</p></li>
-      <li class="reveal"><h4>Отчёт</h4><p>Позиции, посетители, звонки и&nbsp;заявки с&nbsp;сайта и&nbsp;Карт.</p></li>
-      <li class="reveal"><h4>Созвон</h4><p>Что сделали и&nbsp;что планируем на&nbsp;следующий месяц.</p></li>
-    </ol>
-    <p class="pack__own">Если сайт и&nbsp;карточка уже в&nbsp;порядке и&nbsp;нужны пациенты на&nbsp;имплантацию и&nbsp;<span class="nw">All-on-4</span>, начните с&nbsp;<a href="../yandex-direkt/">первого теста в&nbsp;Яндекс Директе</a>.</p>
+    <ul class="keep">
+      <li class="reveal">Сайт с&nbsp;полными правами<span>остаётся у&nbsp;клиники</span></li>
+      <li class="reveal">Домен и&nbsp;хостинг<span>оформлены на&nbsp;клинику</span></li>
+      <li class="reveal">Карточки на&nbsp;Яндекс Картах, 2ГИС и&nbsp;ПроДокторов<span>остаются у&nbsp;клиники</span></li>
+      <li class="reveal">Счётчик Метрики и&nbsp;цели<span>остаются у&nbsp;клиники</span></li>
+      <li class="reveal">Инструкция, как менять цены и&nbsp;врачей<span>остаётся у&nbsp;клиники</span></li>
+    </ul>
   </div>
 </section>
 
-<!-- ============ 8. ВОПРОСЫ ============ -->
-<section class="sec sec--fog" id="faq">
+<!-- ============ 10. ДРУГИЕ УСЛУГИ ============ -->
+<section class="band" id="other">
   <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Вопросы о&nbsp;сайте и&nbsp;Картах.</h2>
+    <div class="bhead bhead--left">
+  <h2 class="h2">Другие наши услуги</h2>
+</div>
+
+    <div class="tri tri--4">
+      <a class="card reveal" href="../yandex-direkt/" style="text-decoration: none"><h3 class="h3">Яндекс Директ</h3><p>Реклама имплантации и&nbsp;<span class="nw">All-on-4</span> со&nbsp;своей страницей.</p><p style="margin-top: 14px"><span class="tag">первый тест без комиссии</span></p></a>
+      <a class="card reveal" href="../kompleksnyj-marketing/#seo" style="text-decoration: none"><h3 class="h3">SEO</h3><p>Страницы услуг и&nbsp;статьи под запросы пациентов.</p><p style="margin-top: 14px"><span class="tag">стоимость после разбора</span></p></a>
+      <a class="card reveal" href="../kompleksnyj-marketing/#maps" style="text-decoration: none"><h3 class="h3">Яндекс Карты</h3><p>Карточка клиники и&nbsp;ответы на&nbsp;отзывы.</p><p style="margin-top: 14px"><span class="tag">стоимость после разбора</span></p></a>
+      <a class="card reveal" href="../kompleksnyj-marketing/#site" style="text-decoration: none"><h3 class="h3">Сайты и&nbsp;лендинги</h3><p>Сайт клиники или страница услуги для рекламы.</p><p style="margin-top: 14px"><span class="tag">стоимость после разбора</span></p></a>
+    </div>
   </div>
-  <p class="shead__note">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
+</section>
+
+<!-- ============ 11. ВОПРОСЫ ============ -->
+<section class="band band--fog" id="faq">
+  <div class="wrap">
+    <div class="bhead">
+  <h2 class="h2">Частые вопросы <em>о сайте и&nbsp;продвижении</em></h2>
 </div>
 
     <div class="qa">
   <details class="qa__item" open>
     <summary><span class="qa__q">Сколько стоит сайт отдельно?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Отдельной цены у&nbsp;сайта нет. Он&nbsp;входит в&nbsp;первый месяц пакета за&nbsp;80&nbsp;000&nbsp;₽ вместе с&nbsp;оформлением Яндекс Карт, 2ГИС и&nbsp;ПроДокторов. Второй и&nbsp;третий месяц стоят по&nbsp;60&nbsp;000&nbsp;₽, это комплексное продвижение. Наш основной доход даёт продвижение, поэтому сайт мы&nbsp;не&nbsp;продаём как отдельный дорогой проект. Абонентской платы за&nbsp;сайт нет.</p></div>
+    <div class="qa__a"><p>Отдельной цены у&nbsp;сайта нет. Он&nbsp;входит в&nbsp;первый месяц пакета за&nbsp;80&nbsp;000&nbsp;₽ вместе с&nbsp;оформлением Яндекс Карт, 2ГИС и&nbsp;ПроДокторов. Второй и&nbsp;третий месяц стоят по&nbsp;60&nbsp;000&nbsp;₽, это комплексное продвижение. Наш основной доход даёт продвижение, поэтому сайт мы&nbsp;не&nbsp;продаём как отдельный дорогой проект.</p></div>
   </details>
   <details class="qa__item">
     <summary><span class="qa__q">Что будет, если я&nbsp;уйду через 3&nbsp;месяца?</span><span class="qa__ic" aria-hidden="true"></span></summary>
@@ -465,17 +531,16 @@
   </div>
 </section>
 
-<!-- ============ 9. ЗАЯВКА ============ -->
 <section class="dark sheet start" id="start" data-dark>
   <div class="wrap">
-    <h2 class="h2 start__title">Соберём сайт и&nbsp;оформим Карты за&nbsp;первый месяц.</h2>
+    <h2 class="h2 start__title">Оставьте заявку. Посмотрим сайт и&nbsp;карточки клиники и&nbsp;скажем, что сделать первым.</h2>
     <div class="start__grid">
       <div class="start__text">
-        <p class="lead">Оставьте заявку. За&nbsp;2&nbsp;рабочих дня посмотрим сайт, карточки и&nbsp;площадки и&nbsp;скажем, что сделаем в&nbsp;первый месяц.</p>
+        <p class="lead">Посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;какого направления начать.</p>
         <ul class="plist">
-          <li>Первый месяц 80&nbsp;000&nbsp;₽ двумя платежами по&nbsp;40&nbsp;000&nbsp;₽, сайт входит в&nbsp;эту сумму</li>
-          <li>Второй и&nbsp;третий месяц: комплексное продвижение по&nbsp;60&nbsp;000&nbsp;₽</li>
-          <li>Сайт, домен и&nbsp;карточки остаются у&nbsp;клиники</li>
+          <li>Первый тест в&nbsp;Директе: комиссия 0&nbsp;₽, депозит вы&nbsp;вносите Яндексу</li>
+          <li>Комплексный маркетинг: старт 80&nbsp;000&nbsp;₽, сайт входит в&nbsp;эту сумму</li>
+          <li>Если видим риски для запуска, скажем о&nbsp;них на&nbsp;разборе</li>
         </ul>
         <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
       </div>
@@ -518,11 +583,14 @@
 
 </main>
 
-<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<!-- ============ ПОДВАЛ, плотный формат: логотип с подписью, три колонки ссылок, документы ============ -->
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top">
-      <p class="ftr__say">Агентство медицинского маркетинга. Основная специализация: <em>стоматологии</em>.</p>
+      <div class="ftr__brand">
+        <img src="../assets/img/medvector-logo-light.webp" alt="МедВектор" width="440" height="93" loading="lazy">
+        <p>Агентство медицинского маркетинга. Основная специализация: стоматологии. Работаем удалённо по&nbsp;всей России.</p>
+      </div>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ</a>
@@ -533,14 +601,16 @@
       </nav>
       <nav class="ftr__col" aria-label="Агентство">
         <h2>Агентство</h2>
+        <a href="../ceny/">Цены</a>
         <a href="../kejsy/">Кейсы и примеры</a>
         <a href="../kontakty/">Об агентстве</a>
         <a href="../kontakty/#contacts">Контакты</a>
-        <a href="#start">Оставить заявку</a>
       </nav>
-    </div>
-    <div class="ftr__mark">
-      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+      <div class="ftr__col">
+        <h2>Связаться</h2>
+        <a href="#start">Оставить заявку</a>
+        <p>Отвечаем в&nbsp;рабочее время по&nbsp;Москве. Разбор клиники готовим за&nbsp;2&nbsp;рабочих дня.</p>
+      </div>
     </div>
     <div class="ftr__bottom">
       <p>© 2026 МедВектор</p>
@@ -556,5 +626,6 @@
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
 <script src="../assets/js/trajectory.js" defer></script>
+<script src="../assets/js/pack.js" defer></script>
 </body>
 </html>

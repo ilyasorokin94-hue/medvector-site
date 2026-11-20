@@ -27,6 +27,8 @@
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
 <link rel="stylesheet" href="../assets/css/trajectory.css">
+<!-- пробная упаковка: плотный формат поверх «Траектории» -->
+<link rel="stylesheet" href="../assets/css/pack.css">
 <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
 <script type="application/ld+json">
@@ -50,14 +52,15 @@
 }
 </script>
 </head>
-<body>
+<body class="pk">
 <a class="skip" href="#main">К содержимому</a>
-<!-- ============ ШАПКА «Траектория»: логотип, «Услуги» списком, три пункта, одна кнопка ============ -->
+<!-- ============ ШАПКА, плотный формат: тёмная, логотип с подписью, меню в одну строку, одна кнопка ============ -->
 <header class="hdr" id="top">
   <div class="hdr__in">
     <a href="../" class="hdr__logo" aria-label="МедВектор, на главную">
-      <img src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img src="../assets/img/medvector-logo-light.webp" alt="МедВектор" width="440" height="93">
     </a>
+    <p class="hdr__tag">Ведём пациента от&nbsp;запроса<br>до&nbsp;записи к&nbsp;врачу</p>
     <nav class="hdr__nav" aria-label="Основное меню">
       <div class="drop" data-drop>
         <button type="button" class="drop__btn" aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
@@ -71,16 +74,17 @@
           </ul>
         </div>
       </div>
+      <a href="../ceny/">Цены</a>
       <a href="../kejsy/">Кейсы</a>
       <a href="../kontakty/">Об агентстве</a>
       <a href="../kontakty/#contacts">Контакты</a>
     </nav>
-    <a href="../#start" class="btn btn--sm hdr__cta" data-magnetic>Начать бесплатно</a>
+    <a href="../#start" class="btn btn--sm hdr__cta" data-magnetic>Оставить заявку</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- мобильное меню: тёмный экран, услуги списком, остальные пункты крупно -->
+<!-- мобильное меню -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
     <p class="mnav__h">Услуги</p>
@@ -91,12 +95,13 @@
       <li><a href="../kompleksnyj-marketing/#maps">Яндекс Карты</a></li>
       <li><a href="../kompleksnyj-marketing/#site">Сайты и лендинги</a></li>
     </ul>
+    <a href="../ceny/">Цены</a>
     <a href="../kejsy/">Кейсы</a>
     <a href="../kontakty/">Об агентстве</a>
     <a href="../kontakty/#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
-    <a href="../#start" class="btn btn--light">Начать бесплатно</a>
+    <a href="../#start" class="btn btn--light">Оставить заявку</a>
     <p>Агентство медицинского маркетинга. Основная специализация: стоматологии. Работаем по&nbsp;всей России.</p>
   </div>
 </div>
@@ -115,11 +120,14 @@
 </section>
 </main>
 
-<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<!-- ============ ПОДВАЛ, плотный формат: логотип с подписью, три колонки ссылок, документы ============ -->
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top">
-      <p class="ftr__say">Агентство медицинского маркетинга. Основная специализация: <em>стоматологии</em>.</p>
+      <div class="ftr__brand">
+        <img src="../assets/img/medvector-logo-light.webp" alt="МедВектор" width="440" height="93" loading="lazy">
+        <p>Агентство медицинского маркетинга. Основная специализация: стоматологии. Работаем удалённо по&nbsp;всей России.</p>
+      </div>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ</a>
@@ -130,14 +138,16 @@
       </nav>
       <nav class="ftr__col" aria-label="Агентство">
         <h2>Агентство</h2>
+        <a href="../ceny/">Цены</a>
         <a href="../kejsy/">Кейсы и примеры</a>
         <a href="../kontakty/">Об агентстве</a>
         <a href="../kontakty/#contacts">Контакты</a>
-        <a href="../#start">Оставить заявку</a>
       </nav>
-    </div>
-    <div class="ftr__mark">
-      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+      <div class="ftr__col">
+        <h2>Связаться</h2>
+        <a href="../#start">Оставить заявку</a>
+        <p>Отвечаем в&nbsp;рабочее время по&nbsp;Москве. Разбор клиники готовим за&nbsp;2&nbsp;рабочих дня.</p>
+      </div>
     </div>
     <div class="ftr__bottom">
       <p>© 2026 МедВектор</p>
@@ -151,5 +161,6 @@
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
 <script src="../assets/js/trajectory.js" defer></script>
+<script src="../assets/js/pack.js" defer></script>
 </body>
 </html>

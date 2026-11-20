@@ -28,6 +28,8 @@
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
 <link rel="stylesheet" href="../assets/css/trajectory.css">
+<!-- пробная упаковка: плотный формат поверх «Траектории» -->
+<link rel="stylesheet" href="../assets/css/pack.css">
 <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
 <script type="application/ld+json">
@@ -68,14 +70,15 @@
 }
 </script>
 </head>
-<body>
+<body class="pk">
 <a class="skip" href="#main">К содержимому</a>
-<!-- ============ ШАПКА «Траектория»: логотип, «Услуги» списком, три пункта, одна кнопка ============ -->
+<!-- ============ ШАПКА, плотный формат: тёмная, логотип с подписью, меню в одну строку, одна кнопка ============ -->
 <header class="hdr" id="top">
   <div class="hdr__in">
     <a href="../" class="hdr__logo" aria-label="МедВектор, на главную">
-      <img src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img src="../assets/img/medvector-logo-light.webp" alt="МедВектор" width="440" height="93">
     </a>
+    <p class="hdr__tag">Ведём пациента от&nbsp;запроса<br>до&nbsp;записи к&nbsp;врачу</p>
     <nav class="hdr__nav" aria-label="Основное меню">
       <div class="drop" data-drop>
         <button type="button" class="drop__btn" aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
@@ -89,16 +92,17 @@
           </ul>
         </div>
       </div>
+      <a href="../ceny/">Цены</a>
       <a href="../kejsy/">Кейсы</a>
       <a href="../kontakty/" aria-current="page">Об агентстве</a>
       <a href="../kontakty/#contacts">Контакты</a>
     </nav>
-    <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Начать бесплатно</a>
+    <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Оставить заявку</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- мобильное меню: тёмный экран, услуги списком, остальные пункты крупно -->
+<!-- мобильное меню -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
     <p class="mnav__h">Услуги</p>
@@ -109,18 +113,20 @@
       <li><a href="../kompleksnyj-marketing/#maps">Яндекс Карты</a></li>
       <li><a href="../kompleksnyj-marketing/#site">Сайты и лендинги</a></li>
     </ul>
+    <a href="../ceny/">Цены</a>
     <a href="../kejsy/">Кейсы</a>
     <a href="../kontakty/">Об агентстве</a>
     <a href="../kontakty/#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
-    <a href="#start" class="btn btn--light">Начать бесплатно</a>
+    <a href="#start" class="btn btn--light">Оставить заявку</a>
     <p>Агентство медицинского маркетинга. Основная специализация: стоматологии. Работаем по&nbsp;всей России.</p>
   </div>
 </div>
 
 <main id="main">
-<section class="phero" id="intro">
+<!-- ============ 1. ПЕРВЫЙ ЭКРАН ============ -->
+<section class="band dark pin" id="intro">
   <div class="wrap">
     <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
@@ -129,86 +135,93 @@
   </ol>
 </nav>
 
-    <h1 class="h1 h1--page">Агентство медицинского маркетинга<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></h1>
-    <div class="phero__foot">
-      <p class="phero__sub">Ведём рекламу в&nbsp;Яндекс Директе, делаем сайты, оформляем Яндекс Карты и&nbsp;занимаемся SEO для клиник по&nbsp;всей России. Основная специализация: частные стоматологии. Работаем удалённо.</p>
-      <div class="phero__acts">
-        <a href="#start" class="btn" data-magnetic data-pick="unsure">Оставить заявку</a>
-        <a href="#contacts" class="link">Контакты</a>
-      </div>
-    </div>
-    <dl class="pfacts">
-      <div class="reveal"><dt>в&nbsp;маркетинге, из&nbsp;них 5–6 в&nbsp;медицине</dt><dd>8&nbsp;лет</dd></div>
-      <div class="reveal"><dt>клиник в&nbsp;опыте основателя и&nbsp;команды</dt><dd>50+</dd></div>
-      <div class="reveal"><dt>работаем удалённо</dt><dd>Вся Россия</dd></div>
-    </dl>
+    <p class="pin__k">Об агентстве</p>
+    <h1 class="h1">Агентство медицинского маркетинга. <em>Основная специализация: стоматологии</em></h1>
+    <p class="pin__lead">Ведём рекламу в&nbsp;Яндекс Директе, делаем сайты, оформляем Яндекс Карты и&nbsp;занимаемся SEO для клиник по&nbsp;всей России. Работаем удалённо.</p>
+    <div class="acts"><a href="#start" class="btn" data-magnetic data-pick="unsure">Оставить заявку</a><a href="#contacts" class="btn btn--out">Контакты</a></div>
   </div>
 </section>
 
-
-<section class="sec sec--fog sheet" id="founder">
-  <div class="wrap lead2">
-    <div class="lead2__main">
-      <h2 class="h2">Илья Сорокин ведёт каждую клинику сам.</h2>
-      <p class="lead">Разбирает клинику, согласует с&nbsp;владельцем цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт.</p>
-      <p class="lead">Почему стоматологии: имплантацию и&nbsp;<span class="nw">All-on-4</span> нельзя хорошо рекламировать, не&nbsp;зная пациента, его вопросов и&nbsp;страхов. Это знание копится, когда годами работаешь в&nbsp;одной нише. Другие частные клиники берём после разбора и&nbsp;сразу говорим, если нашего опыта для ниши мало.</p>
+<!-- ============ 2. СФЕРА И ЧИСЛА ============ -->
+<section class="band band--deep dark" id="numbers">
+  <div class="wrap sph">
+    <canvas class="orb sph__orb" data-orb="620" width="900" height="900" aria-hidden="true"></canvas>
+    <div>
+      <h2 class="h2">Годами работаем в&nbsp;одной нише, поэтому <em>знаем пациента стоматологии</em></h2>
+      <dl class="nums">
+        <div><dt>в&nbsp;маркетинге, из&nbsp;них 5–6 в&nbsp;медицине</dt><dd><span data-count="8">8</span><small>лет</small></dd></div>
+        <div><dt>клиник в&nbsp;опыте основателя и&nbsp;команды</dt><dd><span data-count="50">50</span>+</dd></div>
+        <div><dt>на&nbsp;разбор клиники и&nbsp;расчёт запуска</dt><dd><span data-count="2">2</span><small>рабочих дня</small></dd></div>
+        <div><dt>от&nbsp;получения доступов до&nbsp;запуска рекламы</dt><dd><span data-count="7">7</span><small>рабочих дней</small></dd></div>
+      </dl>
     </div>
-    <div class="lead2__side">
-      <h3 class="pack__h">В команде</h3>
-      <ul class="plist plist--lg">
-        <li class="reveal"><span><b>Директолог</b> ведёт кампании, убирает лишние запросы, готовит отчёты</span></li>
-        <li class="reveal"><span><b>Разработчик</b> собирает сайты и&nbsp;страницы услуг, настраивает формы</span></li>
-        <li class="reveal"><span><b>Специалист по&nbsp;Картам</b> ведёт карточки, площадки и&nbsp;отзывы</span></li>
-        <li class="reveal"><span><b>SEO-специалист</b> отвечает за&nbsp;структуру сайта и&nbsp;статьи</span></li>
+  </div>
+</section>
+
+<!-- ============ 3. ОСНОВАТЕЛЬ И КОМАНДА ============ -->
+<section class="band band--fog" id="founder">
+  <div class="wrap fnd">
+    <figure class="fnd__pic">
+  <canvas class="orb" data-orb="320" width="600" height="600" aria-hidden="true"></canvas>
+  <figcaption><b>Илья Сорокин</b>основатель МедВектора, сам ведёт каждую клинику</figcaption>
+</figure>
+
+    <div class="fnd__text">
+      <h2 class="h2">Илья Сорокин <em>ведёт каждую клинику сам</em></h2>
+      <p>Разбирает клинику, согласует с&nbsp;владельцем цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт.</p>
+      <p>Почему стоматологии: имплантацию и&nbsp;<span class="nw">All-on-4</span> нельзя хорошо рекламировать, не&nbsp;зная пациента, его вопросов и&nbsp;страхов. Другие частные клиники берём после разбора и&nbsp;сразу говорим, если нашего опыта для ниши мало.</p>
+      <ul class="team">
+        <li class="reveal"><b>Директолог</b>ведёт кампании, убирает лишние запросы, готовит отчёты</li>
+        <li class="reveal"><b>Разработчик</b>собирает сайты и&nbsp;страницы услуг, настраивает формы</li>
+        <li class="reveal"><b>Специалист по Картам</b>ведёт карточки, площадки и&nbsp;отзывы</li>
+        <li class="reveal"><b>SEO-специалист</b>отвечает за&nbsp;структуру сайта и&nbsp;статьи</li>
       </ul>
     </div>
   </div>
 </section>
 
-<section class="sec" id="principles">
+<!-- ============ 4. ЧТО ДЕЛАЕМ И ЧЕГО НЕ ДЕЛАЕМ ============ -->
+<section class="band" id="principles">
   <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Что мы&nbsp;делаем и&nbsp;чего не&nbsp;делаем.</h2>
-  </div>
-  <p class="shead__note">Шаблон договора пришлём до&nbsp;начала работ, чтобы вы&nbsp;прочитали его без спешки.</p>
+    <div class="bhead">
+  <h2 class="h2">Что мы&nbsp;делаем <em>и чего не&nbsp;делаем</em></h2>
+  <p class="bhead__sub">Шаблон договора пришлём до&nbsp;начала работ, чтобы вы&nbsp;прочитали его без спешки.</p>
 </div>
 
-    <div class="yesno">
-      <div class="yesno__col">
-        <h3 class="pack__h">Что делаем</h3>
-        <ul class="plist plist--lg">
-          <li class="reveal"><span>Считаем заявки и&nbsp;записи и&nbsp;показываем цену каждой</span></li>
-          <li class="reveal"><span>Каждую услугу рекламируем отдельно, со&nbsp;своей страницей</span></li>
-          <li class="reveal"><span>Говорим на&nbsp;разборе, если видим риски для запуска рекламы</span></li>
-          <li class="reveal"><span>Оформляем кабинет, сайт, домен и&nbsp;карточки на&nbsp;клинику</span></li>
-          <li class="reveal"><span>У&nbsp;каждой цифры в&nbsp;отчёте есть период и&nbsp;источник</span></li>
+    <div class="yn">
+      <div class="card reveal">
+        <h3 class="h3">Что делаем</h3>
+        <ul class="ck">
+          <li>Считаем заявки и&nbsp;записи и&nbsp;показываем цену каждой</li>
+          <li>Каждую услугу рекламируем отдельно, со&nbsp;своей страницей</li>
+          <li>Говорим на&nbsp;разборе, если видим риски для запуска рекламы</li>
+          <li>Оформляем кабинет, сайт, домен и&nbsp;карточки на&nbsp;клинику</li>
+          <li>У&nbsp;каждой цифры в&nbsp;отчёте есть период и&nbsp;источник</li>
         </ul>
       </div>
-      <div class="yesno__col">
-        <h3 class="pack__h">Чего не делаем</h3>
-        <ul class="plist plist--lg plist--no">
-          <li class="reveal"><span>Не&nbsp;гарантируем число пациентов и&nbsp;места в&nbsp;поиске</span></li>
-          <li class="reveal"><span>Не&nbsp;пишем и&nbsp;не&nbsp;покупаем отзывы, не&nbsp;накручиваем переходы</span></li>
-          <li class="reveal"><span>Не&nbsp;ведём рекламу в&nbsp;соцсетях</span></li>
-          <li class="reveal"><span>Не&nbsp;держим сайт клиники в&nbsp;аренде</span></li>
-          <li class="reveal"><span>Не&nbsp;обещаем в&nbsp;рекламе результат лечения</span></li>
+      <div class="card card--no reveal">
+        <h3 class="h3">Чего не делаем</h3>
+        <ul class="ck">
+          <li>Не&nbsp;гарантируем число пациентов и&nbsp;места в&nbsp;поиске</li>
+          <li>Не&nbsp;пишем и&nbsp;не&nbsp;покупаем отзывы, не&nbsp;накручиваем переходы</li>
+          <li>Не&nbsp;ведём рекламу в&nbsp;соцсетях</li>
+          <li>Не&nbsp;держим сайт клиники в&nbsp;аренде</li>
+          <li>Не&nbsp;обещаем в&nbsp;рекламе результат лечения</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec sec--fog" id="contacts">
+<!-- ============ 5. КОНТАКТЫ ============ -->
+<section class="band band--fog" id="contacts">
   <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Как с&nbsp;нами связаться.</h2>
-  </div>
-  <p class="shead__note">Отвечаем в&nbsp;рабочее время по&nbsp;Москве.</p>
+    <div class="bhead">
+  <h2 class="h2">Как с&nbsp;нами <em>связаться</em></h2>
+  <p class="bhead__sub">Отвечаем в&nbsp;рабочее время по&nbsp;Москве.</p>
 </div>
 
-    <p class="note-lg">Сейчас самый быстрый способ связаться с&nbsp;нами: <a href="#start">заявка ниже</a>. Телефон, Telegram и&nbsp;почта появятся на&nbsp;этой странице перед запуском сайта.</p>
+    <p class="cnote">Сейчас самый быстрый способ связаться с&nbsp;нами: <a href="#start">заявка ниже</a>. Телефон, Telegram и&nbsp;почта появятся на&nbsp;этой странице перед запуском сайта.</p>
   </div>
 </section>
 
@@ -264,11 +277,14 @@
 
 </main>
 
-<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<!-- ============ ПОДВАЛ, плотный формат: логотип с подписью, три колонки ссылок, документы ============ -->
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top">
-      <p class="ftr__say">Агентство медицинского маркетинга. Основная специализация: <em>стоматологии</em>.</p>
+      <div class="ftr__brand">
+        <img src="../assets/img/medvector-logo-light.webp" alt="МедВектор" width="440" height="93" loading="lazy">
+        <p>Агентство медицинского маркетинга. Основная специализация: стоматологии. Работаем удалённо по&nbsp;всей России.</p>
+      </div>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ</a>
@@ -279,14 +295,16 @@
       </nav>
       <nav class="ftr__col" aria-label="Агентство">
         <h2>Агентство</h2>
+        <a href="../ceny/">Цены</a>
         <a href="../kejsy/">Кейсы и примеры</a>
         <a href="../kontakty/">Об агентстве</a>
         <a href="../kontakty/#contacts">Контакты</a>
-        <a href="#start">Оставить заявку</a>
       </nav>
-    </div>
-    <div class="ftr__mark">
-      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+      <div class="ftr__col">
+        <h2>Связаться</h2>
+        <a href="#start">Оставить заявку</a>
+        <p>Отвечаем в&nbsp;рабочее время по&nbsp;Москве. Разбор клиники готовим за&nbsp;2&nbsp;рабочих дня.</p>
+      </div>
     </div>
     <div class="ftr__bottom">
       <p>© 2026 МедВектор</p>
@@ -298,9 +316,10 @@
   </div>
 </footer>
 <!-- нижняя кнопка на телефоне -->
-<a href="#start" class="mcta"><span>Начать бесплатно</span></a>
+<a href="#start" class="mcta"><span>Оставить заявку</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
 <script src="../assets/js/trajectory.js" defer></script>
+<script src="../assets/js/pack.js" defer></script>
 </body>
 </html>
