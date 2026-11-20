@@ -1,0 +1,38 @@
+<!-- ============ ПОДВАЛ, плотный формат: логотип с подписью, три колонки ссылок, документы ============ -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <img src="/assets/img/medvector-logo-light.webp" alt="МедВектор" width="440" height="93" loading="lazy">
+        <p>Агентство медицинского маркетинга. Основная специализация: стоматологии. Работаем удалённо по&nbsp;всей России.</p>
+      </div>
+      <nav class="ftr__col" aria-label="Услуги">
+        <h2>Услуги</h2>
+        <a href="{{ href('direct') }}">Яндекс Директ</a>
+        <a href="{{ href('complex') }}">Комплексный маркетинг</a>
+        <a href="{{ href('seo') }}">SEO</a>
+        <a href="{{ href('maps') }}">Яндекс Карты</a>
+        <a href="{{ href('sites') }}">Сайты и лендинги</a>
+      </nav>
+      <nav class="ftr__col" aria-label="Агентство">
+        <h2>Агентство</h2>
+        <a href="{{ href('prices') }}">Цены</a>
+        <a href="{{ href('cases') }}">Кейсы и примеры</a>
+        <a href="{{ href('about') }}">Об агентстве</a>
+        <a href="{{ href('contacts') }}#contacts">Контакты</a>
+      </nav>
+      <div class="ftr__col">
+        <h2>Связаться</h2>
+        <a href="{{ '#start' if form != false else '/#start' }}">Оставить заявку</a>
+        <p>Отвечаем в&nbsp;рабочее время по&nbsp;Москве. Разбор клиники готовим за&nbsp;2&nbsp;рабочих дня.</p>
+      </div>
+    </div>
+    <div class="ftr__bottom">
+      <p>© {{ year }} МедВектор</p>
+      <nav aria-label="Документы">
+        <a href="{{ href('policy') }}">Политика обработки персональных данных</a>
+        <a href="{{ href('consent') }}">Согласие на обработку данных</a>
+      </nav>
+    </div>
+  </div>
+</footer>

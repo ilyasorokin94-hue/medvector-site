@@ -1,0 +1,132 @@
+{# Блоки пробной упаковки «плотный формат». Образцы (объявление, страница, карточка, отчёт) берутся из t.njk. #}
+{% import "t.njk" as b %}
+
+{# ---------- заголовок полосы: по центру или слева, слово в *звёздочках* красится акцентом ---------- #}
+{% macro head(title, sub='', left=false) %}
+<div class="bhead{% if left %} bhead--left{% endif %}">
+  <h2 class="h2">{{ title | t | safe }}</h2>
+{% if sub %}
+  <p class="bhead__sub">{{ sub | t | safe }}</p>
+{% endif %}
+</div>
+{% endmacro %}
+
+{# ---------- цепочка одной заявки: заявка, звонок, запись, визит ---------- #}
+{% macro flow() %}
+<div class="art art--flow" aria-hidden="true">
+  <span class="art__top">Заявка № 128<span>страница All-on-4</span></span>
+  <span class="lf"><span class="is-done">Заявка<small>12:04</small></span><span class="is-done">Звонок<small>через 6 мин</small></span><span class="is-goal">Запись<small>на четверг</small></span><span>Визит<small>отметит клиника</small></span></span>
+  <span class="art__txt">Поиск · кампания «Цена» · запрос «all on 4 цена»</span>
+</div>
+{% endmacro %}
+
+{# ---------- что клиника получает на руки: крупный образец и сетка из четырёх ---------- #}
+{% macro samples(full=false) %}
+<div class="feat">
+  <div>
+    <h2 class="h2">Страница услуги, <em>сайт, карточка и&nbsp;отчёт</em>: что клиника получает на&nbsp;руки</h2>
+    <p class="feat__pill">Стоматология «Демо»</p>
+    <p class="feat__meta"><span class="tag">образец, клиника вымышленная</span></p>
+    <ul class="ck">
+      <li>Одна страница на&nbsp;одну услугу</li>
+      <li>Врач с&nbsp;фото, стажем и&nbsp;документами</li>
+      <li>Этапы лечения и&nbsp;полная цена</li>
+      <li>Запись на&nbsp;консультацию с&nbsp;первого экрана</li>
+      <li>Без гарантий результата лечения и&nbsp;выдуманных отзывов</li>
+    </ul>
+  </div>
+  <div class="feat__pic reveal">{{ b.a_browser('landing') }}</div>
+</div>
+<div class="smp">
+  <article class="reveal">
+    <h3 class="h3">Сайт клиники: страница на&nbsp;каждую услугу</h3>
+    <div class="smp__pic">{{ b.a_browser('site') }}</div>
+    <div class="smp__foot"><span class="pill">Сайт под&nbsp;ключ</span><p>Врачи с&nbsp;документами, цены и&nbsp;запись. Домен оформлен на&nbsp;клинику.</p></div>
+  </article>
+  <article class="reveal">
+    <h3 class="h3">Карточка на&nbsp;Яндекс Картах: до&nbsp;работы и&nbsp;после</h3>
+    <div class="smp__pic">{{ b.a_map(true) }}{{ b.a_map() }}</div>
+    <div class="smp__foot"><span class="pill">Яндекс Карты</span><p>Цены, врачи, фото и&nbsp;ответы на&nbsp;отзывы от&nbsp;имени клиники.</p></div>
+  </article>
+  <article class="reveal">
+    <h3 class="h3">Страница услуги на&nbsp;телефоне: <span class="nw">All-on-4</span></h3>
+    <div class="smp__pic">{{ b.a_phone('allon4') }}{{ b.a_phone() }}</div>
+    <div class="smp__foot"><span class="pill">Яндекс Директ</span><p>С&nbsp;рекламы человек попадает на&nbsp;страницу своей услуги.</p></div>
+  </article>
+  <article class="reveal">
+    <h3 class="h3">Учёт заявки: от&nbsp;запроса до&nbsp;записи</h3>
+    <div class="smp__pic">{{ flow() }}</div>
+    <div class="smp__foot"><span class="pill">Учёт до&nbsp;записи</span><p>Видно, по&nbsp;какому запросу пришёл человек и&nbsp;записался&nbsp;ли он.</p></div>
+  </article>
+</div>
+{% if not full %}
+<p class="more"><a class="btn btn--out" href="{{ href('cases') }}">Все примеры работ</a></p>
+{% endif %}
+{% endmacro %}
+
+{# ---------- направления в стоматологии ---------- #}
+{% macro dirs(items, lead) %}
+<ul class="dirt">
+  <li class="dirt__lead">{{ lead | t | safe }}</li>
+{% for d in items %}
+  <li class="reveal"><span class="num">{{ loop.index }}</span><b>{{ d[0] | t | safe }}</b><small>{{ d[1] | t | safe }}</small></li>
+{% endfor %}
+</ul>
+{% endmacro %}
+
+{# ---------- тариф: ярлык сверху, группы с галочками, серая строка бюджета, цветная строка цены ---------- #}
+{% macro tariff(c) %}
+<article class="trf reveal"{% if c.id %} id="{{ c.id }}"{% endif %}>
+  <p class="trf__tab">{{ c.tab | t | safe }}</p>
+  <div class="trf__in">
+    <div class="trf__body">
+{% if c.flag %}
+      <p class="trf__flag">{{ c.flag | t | safe }}</p>
+{% endif %}
+{% for g in c.groups %}
+{% if g.name %}
+      <h3 class="trf__g">{{ g.name | t | safe }}</h3>
+{% endif %}
+{% if g.chip %}
+      <p class="trf__chip">{{ g.chip | t | safe }}</p>
+{% endif %}
+      <ul class="ck">
+{% for i in g.items %}
+        <li>{{ i | t | safe }}</li>
+{% endfor %}
+      </ul>
+{% endfor %}
+    </div>
+{% if c.budget %}
+    <p class="trf__budget">{{ c.budget | t | safe }}</p>
+{% endif %}
+    <p class="trf__price"><b>{{ c.priceLabel or 'Услуги МедВектора' }}</b><strong>{{ c.price | t | safe }}</strong>{% if c.priceNote %}<span>{{ c.priceNote | t | safe }}</span>{% endif %}</p>
+  </div>
+{% if c.url %}
+  <a class="btn btn--out" href="{{ c.url }}">{{ c.button or 'Узнать подробнее' }}</a>
+{% else %}
+  <a class="btn btn--out" href="#start"{% if c.pick %} data-pick="{{ c.pick }}"{% endif %}>{{ c.button or 'Выбрать тариф' }}</a>
+{% endif %}
+</article>
+{% endmacro %}
+
+{# ---------- строки преимуществ ---------- #}
+{% macro rows(items) %}
+<ol class="rows">
+{% for r in items %}
+  <li class="reveal"><span class="num">{{ loop.index }}</span><h3>{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+</ol>
+{% endmacro %}
+
+{# ---------- портрет основателя: пока фото не прислано, на его месте сфера ---------- #}
+{% macro founder(photo) %}
+<figure class="fnd__pic">
+{% if photo %}
+  <img src="/assets/img/founder.webp" alt="Илья Сорокин" width="800" height="800" loading="lazy">
+{% else %}
+  <canvas class="orb" data-orb="320" width="600" height="600" aria-hidden="true"></canvas>
+{% endif %}
+  <figcaption><b>Илья Сорокин</b>основатель МедВектора, сам ведёт каждую клинику</figcaption>
+</figure>
+{% endmacro %}

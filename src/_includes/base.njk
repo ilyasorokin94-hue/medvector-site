@@ -31,6 +31,8 @@
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/trajectory.css">
+<!-- пробная упаковка: плотный формат поверх «Траектории» -->
+<link rel="stylesheet" href="/assets/css/pack.css">
 <script>document.documentElement.classList.replace('no-js', 'js');</script>
 
 {% block jsonld %}
@@ -39,21 +41,22 @@
 </script>
 {% endblock %}
 </head>
-<body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+<body class="pk{% if bodyClass %} {{ bodyClass }}{% endif %}">
 <a class="skip" href="#main">К содержимому</a>
-{% include "header-t.njk" %}
+{% include "header-p.njk" %}
 
 <main id="main">
 {% block main %}{% endblock %}
 </main>
 
-{% include "footer-t.njk" %}
+{% include "footer-p.njk" %}
 {% if form != false %}
 <!-- нижняя кнопка на телефоне -->
-<a href="#start" class="mcta"><span>{{ mctaText or 'Начать бесплатно' }}</span></a>
+<a href="#start" class="mcta"><span>{{ mctaText or 'Оставить заявку' }}</span></a>
 {% endif %}
 
 <script src="/assets/js/vendor/lenis.min.js" defer></script>
 <script src="/assets/js/trajectory.js" defer></script>
+<script src="/assets/js/pack.js" defer></script>
 </body>
 </html>

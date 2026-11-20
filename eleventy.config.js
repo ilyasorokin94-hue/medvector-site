@@ -17,6 +17,7 @@ const LINKS = {
   seo: ['/seo/', '/kompleksnyj-marketing/#seo'],
   maps: ['/yandex-karty/', '/kompleksnyj-marketing/#maps'],
   sites: ['/sajty/', '/kompleksnyj-marketing/#site'],
+  prices: ['/ceny/', '/#services'],
   cases: ['/kejsy/', '/#works'],
   about: ['/o-nas/', '/kontakty/'],
   contacts: ['/kontakty/', '/'],
@@ -71,6 +72,8 @@ const relative = (url, depth) => {
 module.exports = function (cfg) {
   cfg.setNunjucksEnvironmentOptions({ trimBlocks: true, lstripBlocks: true });
   cfg.addGlobalData('year', () => new Date().getFullYear());
+  // фото основателя: пока файла нет в репозитории, на его месте стоит сфера из плюсов
+  cfg.addGlobalData('founderPhoto', () => fs.existsSync(path.join(__dirname, 'assets/img/founder.webp')));
   cfg.addNunjucksGlobal('href', href);
   cfg.addNunjucksGlobal('jsonld', jsonld);
   cfg.addFilter('t', typo);
