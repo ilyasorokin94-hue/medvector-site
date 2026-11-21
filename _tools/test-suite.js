@@ -191,11 +191,14 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
     await open(page, '/yandex-direkt/');
     await page.click('#faq .qa__item:nth-child(2) summary');
     log('Интерактив', 'вопрос на Директе раскрывается', await page.evaluate(() => document.querySelector('#faq .qa__item:nth-child(2)').open));
-    // главная: зуб на первом экране, указатель кейсов, колесо вопросов, линия-вектор до кнопки формы, форма
+    // главная: первый экран, карта, указатель кейсов, колесо вопросов, линия-вектор до кнопки формы, форма
     await open(page, '/');
-    await page.waitForTimeout(1500); // зуб собирается не сразу
-    log('Интерактив', 'зуб на первом экране нарисован', await page.evaluate(() => { const c = document.querySelector('#hero canvas[data-tooth]'); return !!c.__tooth && c.classList.contains('is-live') && c.width > 200; }));
+    await page.waitForTimeout(800);
+    log('Интерактив', 'на первом экране нет зуба, только надпись', await page.evaluate(() => !document.querySelector('#hero canvas') && !!document.querySelector('#hero [data-fit]')));
     log('Интерактив', 'надпись первого экрана растянута на всю ширину', await page.evaluate(() => { const e = document.querySelector('#hero [data-fit]'), s = e.firstElementChild.getBoundingClientRect(); return s.width > e.clientWidth * 0.9 || s.height > innerHeight * 0.2; }));
+    await page.evaluate(() => document.querySelector('#geo .g2__map').scrollIntoView({ block: 'center' })); await page.waitForTimeout(3600);
+    log('Интерактив', 'карта России: точки, 9 городов с лучами, огоньки летят', await page.evaluate(() => { const m = document.querySelector('#geo .g2__map'); return m.classList.contains('is-in') && document.querySelector('.g2__land').getTotalLength() > 1000 && document.querySelectorAll('.g2__rays path').length === 9 && document.querySelectorAll('.g2__pt').length === 9 && getComputedStyle(document.querySelector('.g2__beams path')).animationName === 'g2beam'; }));
+    log('Интерактив', 'на странице нет тире и точек между словами', await page.evaluate(() => { const dash = e => ['::before', '::after'].some(w => { const b = getComputedStyle(e, w); return b.content === '""' && parseFloat(b.width) >= 4 && parseFloat(b.height) <= 4 && b.position !== 'absolute'; }) || (() => { const b = getComputedStyle(e, '::before'); return b.content === '""' && b.position === 'absolute' && parseFloat(b.width) < 40 && parseFloat(b.height) <= 3; })(); return !/[\u2014\u2013\u2022\u00b7]/.test(document.querySelector('main').innerText) && ![...document.querySelectorAll('main .label, main li, .ctag span, .c3__row')].some(dash); }));
     await page.evaluate(() => document.getElementById('cases').scrollIntoView()); await page.waitForTimeout(500);
     await page.click('#cases [data-tab="d"]'); await page.waitForTimeout(300);
     log('Интерактив', 'указатель кейсов переключается', await page.evaluate(() => !document.querySelector('#cases [data-pane="d"]').hidden && document.querySelector('#cases [data-pane="a"]').hidden && document.querySelector('#cases [data-tab="d"]').getAttribute('aria-selected') === 'true'));
@@ -210,7 +213,7 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
     log('Интерактив', 'колесо листается стрелками', await page.evaluate(() => document.getElementById('wq-3').getAttribute('aria-selected') === 'true' && document.activeElement === document.getElementById('wq-3')));
     for (let i = 0; i < 5; i++) { await page.click('.wheel__btn--next'); await page.waitForTimeout(250); }
     log('Интерактив', 'колесо замкнуто: после последнего вопроса идёт первый', await page.evaluate(() => document.getElementById('wq-0').getAttribute('aria-selected') === 'true' && document.querySelector('.wheel__ring').style.getPropertyValue('--rot') === '-208deg'));
-    log('Интерактив', 'зуб в середине колеса нарисован', await page.evaluate(() => !!document.querySelector('.wheel__hub canvas').__tooth));
+    log('Интерактив', 'зуб в середине колеса нарисован как настоящий (эмаль)', await page.evaluate(() => { const c = document.querySelector('.wheel__hub canvas'); return !!c.__tooth && c.dataset.tooth === 'enamel' && c.classList.contains('is-live'); }));
     await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight)); await page.waitForTimeout(2500);
     log('Интерактив', 'линия-вектор доходит до кнопки формы', await page.evaluate(() => { const l = MV.line.state(); return l.total > 3000 && l.cur >= l.total - 1; }));
     const f = '#start form';
