@@ -33,8 +33,7 @@ b, strong { font-weight: var(--t-b); }
 .wrap { position: relative; z-index: 2; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gut); }
 main { position: relative; display: block; }
 /* ---------- типографика ---------- */
-.d1, .h2, .h3, .num { font-family: var(--disp); font-weight: var(--h-w); text-transform: var(--h-tt); }
-.d1 { font-size: calc(clamp(40px, 7.3vw, 112px) * var(--h-k)); line-height: var(--h-lh); letter-spacing: var(--h-ls); text-wrap: balance; }
+.h2, .h3, .num { font-family: var(--disp); font-weight: var(--h-w); text-transform: var(--h-tt); }
 .h2 { font-size: calc(clamp(32px, 5vw, 76px) * var(--h-k)); line-height: calc(var(--h-lh) + .03); letter-spacing: var(--h-ls); text-wrap: balance; }
 .h3 { font-size: calc(clamp(21px, 1.8vw, 26px) * var(--h3-k)); line-height: 1.16; letter-spacing: var(--h3-ls); }
 .num { font-weight: var(--num-w); letter-spacing: var(--h-ls); line-height: .9; font-variant-numeric: lining-nums; }
@@ -214,9 +213,7 @@ main { position: relative; display: block; }
 /* ---------- зуб: холст появляется, когда форма готова; до этого и без WebGL стоит картинка ---------- */
 .tooth { position: relative; }
 .tooth::before { content: ''; position: absolute; inset: 0; background: var(--poster, none) center / contain no-repeat; transition: opacity .8s var(--ease); }
-.tooth:has(canvas.is-live)::before { opacity: 0; }
 .tooth canvas { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; opacity: 0; transition: opacity 1.4s var(--ease); }
-.tooth canvas.is-live { opacity: 1; }
 /* ---------- три условия под первым экраном ---------- */
 .terms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 24px; border-top: 1px solid var(--line); }
 .terms li { display: grid; align-content: start; gap: 8px; padding-top: 18px; }
@@ -280,6 +277,7 @@ main { position: relative; display: block; }
 /* карта проявляется волной от Петербурга */
 .js .g2__frame { -webkit-mask-image: radial-gradient(farthest-corner at 16.7% 28.2%, #000 calc(var(--g2r) - 18%), transparent var(--g2r)); mask-image: radial-gradient(farthest-corner at 16.7% 28.2%, #000 calc(var(--g2r) - 18%), transparent var(--g2r)); --g2r: 0%; transition: --g2r 2.6s cubic-bezier(.3, .1, .3, 1) .15s; }
 .js .is-in > .g2__frame { --g2r: 150%; }
+.g2__edge { fill: rgba(0, 15, 64, .025); stroke: rgba(0, 15, 64, .34); stroke-width: 1.1; stroke-linejoin: round; }
 .g2__land { fill: none; stroke: url(#g2-land); stroke-width: 4.3; stroke-linecap: round; }
 /* без vector-effect: с ним штрих по pathLength считается в пикселях экрана и луч не доходит до города */
 .g2__rays path { fill: none; stroke: var(--vec); stroke-width: 1.3; stroke-opacity: .38; }
@@ -291,7 +289,7 @@ main { position: relative; display: block; }
 .js .g2__pts g { opacity: 0; transition: opacity .5s calc(var(--i) * 110ms + 1.1s); }
 .js .is-in .g2__pts g { opacity: 1; }
 /* один цикл: огонёк летит 70% времени, потом город вспыхивает и расходится кольцо */
-.is-in .g2__beams path, .is-in .g2__pt, .is-in .g2__ring, .is-in .g2__rays path { animation: g2beam calc(var(--t) / .7) cubic-bezier(.5, 0, .35, 1) calc(2s + var(--i) * .42s) infinite both; }
+.is-in .g2__beams path, .is-in .g2__pt, .is-in .g2__ring, .is-in .g2__rays path { animation: g2beam calc(var(--t) / .7) cubic-bezier(.5, 0, .35, 1) calc(2s + var(--i) * .5s) infinite both; }
 .is-in .g2__pt { animation-name: g2hit; animation-timing-function: linear; }
 .is-in .g2__ring { animation-name: g2ping; animation-timing-function: linear; }
 .is-in .g2__rays path { animation-name: g2ray; animation-timing-function: linear; }
@@ -328,16 +326,19 @@ main { position: relative; display: block; }
   .g2__nums dt { font-size: calc(clamp(34px, 11vw, 48px) * var(--h-k)); }
   .g2__nums dd { font-size: calc(14px * var(--t-k)); }
   /* на телефоне видна западная часть карты, где города: рамка вырезает её из большой карты */
-  .g2__frame { aspect-ratio: 452 / 340; overflow: hidden; }
-  .g2__svg { width: 221.24%; max-width: none; margin-top: -23.23%; }
-  .g2__names text { font-size: 16.5px; stroke-width: 5px; }
-  .g2__names .g2__spb { font-size: 18px; text-anchor: start; transform: translateX(26px); }
+  .g2__frame { aspect-ratio: 620 / 385; overflow: hidden; }
+  .g2__svg { width: 161.29%; max-width: none; margin-top: -17.74%; }
+  .g2__names text { font-size: 19px; stroke-width: 5px; }
+  .g2__names text:not(.g2__key) { display: none; }
+  .g2__cities { display: block; margin-top: 14px; font-size: calc(14px * var(--t-k)); line-height: 1.5; color: var(--ink-3); }
+  .g2__edge { stroke-width: 1.6; }
+  .g2__names .g2__spb { font-size: 20px; text-anchor: start; transform: translateX(26px); }
   .g2__land { stroke-width: 4.8; }
   .g2__rays path { stroke-width: 1.8; }
   .g2__beams path { stroke-width: 3.4; }
   .g2__pt { r: 6px; }
   .g2__home { r: 9px; }
-  .js .g2__frame { -webkit-mask-image: radial-gradient(farthest-corner at 36.9% 14.2%, #000 calc(var(--g2r) - 18%), transparent var(--g2r)); mask-image: radial-gradient(farthest-corner at 36.9% 14.2%, #000 calc(var(--g2r) - 18%), transparent var(--g2r)); }
+  .js .g2__frame { -webkit-mask-image: radial-gradient(farthest-corner at 26.9% 11.2%, #000 calc(var(--g2r) - 18%), transparent var(--g2r)); mask-image: radial-gradient(farthest-corner at 26.9% 11.2%, #000 calc(var(--g2r) - 18%), transparent var(--g2r)); }
   .g2__map figcaption { text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -493,7 +494,6 @@ main { position: relative; display: block; }
 .mk__rev span + span { width: 62%; }
 .mk__lic { padding: 1.1em 1.3em; border-radius: 1.1em; border: 1px dashed rgba(128, 140, 170, .7); font-size: 1.05em; line-height: 1.35; opacity: .85; }
 /* 6.1 «Окна» */
-.win figcaption { margin-top: 14px; font-size: calc(15px * var(--t-k)); color: var(--ink-2); }
 /* 6.3 «Телефоны» */
 .w3 .sh { margin-bottom: clamp(28px, 3.4vw, 48px); }
 /* 6.5 «Стена» */
@@ -522,7 +522,6 @@ main { position: relative; display: block; }
 .w5__col .mock { border-radius: 12px; overflow: hidden; font-size: clamp(4px, .44vw, 6.2px); }
 @keyframes w5up { to { transform: translateY(calc(-50% - 7px)); } }
 @media (max-width: 860px) {
-  .win { flex: none; width: 78vw; scroll-snap-align: center; }
   .w5__grid { display: block; }
   .w5__wall { height: 380px; margin-top: 36px; }
   .w5__col .mock { font-size: 3.6px; }
@@ -540,6 +539,7 @@ main { position: relative; display: block; }
 .t__f b, .t__f span { display: block; }
 .t__f span { margin-top: 4px; font-size: calc(15px * var(--t-k)); line-height: 1.4; color: var(--ink-2); }
 .dark .t__f span { color: var(--on-dark-2); }
+.t__f span.nw { display: inline; margin: 0; font-size: inherit; }
 /* 7.5 «Письмо» */
 .t5 .label { color: var(--ink); }
 .t5 .stub { color: var(--ink); }
@@ -553,7 +553,10 @@ main { position: relative; display: block; }
 .t5__sheet > p + p { margin-top: 1em; }
 .t5__sheet > p:first-child { font: var(--h-w) calc(clamp(24px, 2.4vw, 34px) * var(--h-k))/1.1 var(--disp); letter-spacing: var(--h-ls); text-transform: var(--h-tt); }
 .t5__f { margin-top: clamp(24px, 2.8vw, 40px); padding-top: 22px; border-top: 1px solid var(--line); }
-.t5__f img { width: 64px; height: 64px; }
+.t5__f { gap: clamp(18px, 2vw, 28px); }
+/* фото основателя крупно, с тонким синим кольцом на отступе */
+.t5__f img { width: clamp(104px, 9vw, 136px); height: clamp(104px, 9vw, 136px); border: 4px solid #fff; outline: 1.5px solid var(--vec); outline-offset: 2px; box-shadow: 0 18px 34px -20px rgba(0, 15, 64, .55); }
+.t5__f .h3 { font-size: calc(clamp(22px, 1.9vw, 28px) * var(--h-k)); }
 .t5__stub { grid-column: 1 / 6; align-self: end; justify-self: start; }
 @media (max-width: 860px) {
   .t5__grid { display: block; }
@@ -585,9 +588,8 @@ button.link { border: 0; cursor: pointer; }
   .js .wheel { display: grid; }
 }
 .wheel__dial { grid-column: 1 / 8; position: relative; height: clamp(500px, 48vw, 700px); overflow: hidden; -webkit-mask-image: linear-gradient(transparent, #000 16%, #000 84%, transparent); mask-image: linear-gradient(transparent, #000 16%, #000 84%, transparent); }
-/* в середине колеса вместо сферы стоит зуб из тех же точек */
-.wheel__hub { position: absolute; left: calc(var(--cx) - var(--R) * .42); top: 50%; width: calc(var(--R) * .84); height: calc(var(--R) * 1.04); margin-top: calc(var(--R) * -.52); }
-.wheel__hub canvas { width: 100%; height: 100%; }
+/* в середине колеса шар из точек, как в первом варианте */
+.wheel__orb { position: absolute; left: var(--cx); top: 50%; display: block; width: calc(var(--R) * .92); height: calc(var(--R) * .92); margin: calc(var(--R) * -.46) 0 0 calc(var(--R) * -.46); color: var(--ink); }
 .wheel__ring { position: absolute; left: var(--cx); top: 50%; width: 0; height: 0; transform: rotate(var(--rot, 0deg)); transition: transform 1.1s var(--ease); }
 .wheel__ring > i { position: absolute; border-radius: 50%; border: 1px solid var(--line); }
 .wheel__ring > i:first-child { inset: calc(-1 * var(--R)); background: repeating-conic-gradient(from 89.7deg, var(--ink-3) 0 .6deg, transparent .6deg 6.5deg); -webkit-mask: radial-gradient(closest-side, transparent calc(100% - 15px), #000 calc(100% - 14px)); mask: radial-gradient(closest-side, transparent calc(100% - 15px), #000 calc(100% - 14px)); }
