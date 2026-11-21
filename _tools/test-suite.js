@@ -11,7 +11,9 @@ const [base, out] = process.argv.slice(2);
 const root = base.replace(/\/$/, '');
 fs.mkdirSync(out, { recursive: true });
 const CHROME = process.env.CHROME_PATH || '';
-const chromeOpts = CHROME ? { executablePath: CHROME } : {};
+// зуб на главной рисует WebGL: без видеокарты включаем программную отрисовку
+const GL = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'];
+const chromeOpts = CHROME ? { executablePath: CHROME, args: GL } : { args: GL };
 
 // страницы сайта: адрес, есть ли форма заявки, ожидаемые интерактивные блоки
 const PAGES = [
@@ -102,7 +104,8 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
     const bad = [];
     for (const h of uniq) { const r = await page.request.get(h); if (r.status() !== 200) bad.push(`${r.status()} ${h}`); }
     log(g, 'внутренние ссылки открываются', bad.length === 0, bad.slice(0, 3).join(' | '));
-    // доступность
+    // доступность: ждём, пока доиграют появления блоков, иначе контраст считается по полупрозрачному тексту
+    await page.waitForTimeout(3500);
     await page.addScriptTag({ content: axe });
     const ax = await page.evaluate(async () => (await axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] })).violations.map(v => `${v.id} (${v.nodes.length})`));
     log(g, 'доступность WCAG 2.1 AA (axe)', ax.length === 0, ax.join(', '));
@@ -116,7 +119,7 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
       const ctx = await chromium.newContext({ viewport: { width: w, height: 860 } });
       const page = await ctx.newPage();
       await open(page, p.url); await settle(page);
-      const r = await page.evaluate(() => ({ d: document.documentElement.scrollWidth, w: document.documentElement.clientWidth, hid: [...document.querySelectorAll('.reveal, .reveal-l')].filter(e => !e.classList.contains('is-in') && e.offsetParent).length }));
+      const r = await page.evaluate(() => ({ d: document.documentElement.scrollWidth, w: document.documentElement.clientWidth, hid: [...document.querySelectorAll('.reveal, .reveal-l, [data-rv], .rvh')].filter(e => !e.classList.contains('is-in') && e.offsetParent).length }));
       if (r.d > r.w + 1) bad.push(`${w}: ${r.d}`);
       if (r.hid) hidden.push(`${w}: ${r.hid}`);
       await ctx.close();
@@ -133,7 +136,7 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
       await page.goto(root + p.url);
       const r = await page.evaluate(() => ({
         hidden: [...document.querySelectorAll('main h2, main h3, main p, main li')].filter(e => { const s = getComputedStyle(e); return s.opacity === '0' || s.visibility === 'hidden'; }).length,
-        panels: [...document.querySelectorAll('.tabs__panel')].filter(e => getComputedStyle(e).display === 'none').length,
+        panels: [...document.querySelectorAll('.tabs__panel, [data-pane]')].filter(e => getComputedStyle(e).display === 'none').length,
       }));
       log('Без JavaScript', `${p.url}: текст и вкладки видны`, r.hidden === 0 && r.panels === 0, `скрыто: ${r.hidden}, вкладок скрыто: ${r.panels}`);
     }
@@ -188,24 +191,36 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
     await open(page, '/yandex-direkt/');
     await page.click('#faq .qa__item:nth-child(2) summary');
     log('Интерактив', 'вопрос на Директе раскрывается', await page.evaluate(() => document.querySelector('#faq .qa__item:nth-child(2)').open));
-    // главная: сцена первого экрана, витрина, колесо вопросов переключается, линия-вектор дорисовывается до кнопки формы
+    // главная: зуб на первом экране, указатель кейсов, колесо вопросов, линия-вектор до кнопки формы, форма
     await open(page, '/');
-    await page.waitForTimeout(1500); // слои сцены проявляются с задержкой
-    log('Интерактив', 'объёмная сцена первого экрана показана', await page.evaluate(() => { const s = document.querySelector('[data-scene]'); return s.classList.contains('is-in') && getComputedStyle(s).display !== 'none' && getComputedStyle(s.querySelector('.art')).opacity === '1'; }));
-    log('Интерактив', 'сфера за сценой нарисована', await page.evaluate(() => { const c = document.querySelector('.scene__orb'); const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i]) n++; return c.width > 300 && n > 500; }));
-    await page.click('#show-tab-3'); await page.waitForTimeout(300);
-    log('Интерактив', 'витрина примеров переключается', await page.evaluate(() => !document.getElementById('show-map').hidden && document.getElementById('show-landing').hidden && document.getElementById('show-tab-3').getAttribute('aria-selected') === 'true'));
+    await page.waitForTimeout(1500); // зуб собирается не сразу
+    log('Интерактив', 'зуб на первом экране нарисован', await page.evaluate(() => { const c = document.querySelector('#hero canvas[data-tooth]'); return !!c.__tooth && c.classList.contains('is-live') && c.width > 200; }));
+    log('Интерактив', 'надпись первого экрана растянута на всю ширину', await page.evaluate(() => { const e = document.querySelector('#hero [data-fit]'), s = e.firstElementChild.getBoundingClientRect(); return s.width > e.clientWidth * 0.9 || s.height > innerHeight * 0.2; }));
+    await page.evaluate(() => document.getElementById('cases').scrollIntoView()); await page.waitForTimeout(500);
+    await page.click('#cases [data-tab="d"]'); await page.waitForTimeout(300);
+    log('Интерактив', 'указатель кейсов переключается', await page.evaluate(() => !document.querySelector('#cases [data-pane="d"]').hidden && document.querySelector('#cases [data-pane="a"]').hidden && document.querySelector('#cases [data-tab="d"]').getAttribute('aria-selected') === 'true'));
+    log('Интерактив', 'макеты сайтов нарисованы', await page.evaluate(() => document.querySelectorAll('#sites .mock .mk').length >= 6));
     log('Интерактив', 'в кнопках и ссылках нет стрелок', await page.evaluate(() => ![...document.querySelectorAll('a, button')].some(e => /[→←]/.test(e.textContent))));
-    log('Интерактив', 'на широком экране вопросы собраны в колесо', await page.evaluate(() => !!document.querySelector('#faq .has-wheel .wheel') && getComputedStyle(document.querySelector('#faq .qa')).display === 'none'));
-    await page.evaluate(() => document.getElementById('faq').scrollIntoView()); await page.waitForTimeout(500);
-    await page.click('.wheel__q:nth-child(3)');
+    log('Интерактив', 'на широком экране вопросы собраны в колесо', await page.evaluate(() => getComputedStyle(document.querySelector('#faq .wheel')).display === 'grid' && getComputedStyle(document.querySelector('#faq .qa')).display === 'none'));
+    await page.evaluate(() => { const e = document.querySelector('#faq .wheel'); scrollTo(0, e.getBoundingClientRect().top + scrollY - 80); }); await page.waitForTimeout(500);
+    await page.click('#wq-2');
     await page.waitForTimeout(500);
-    log('Интерактив', 'колесо показывает выбранный вопрос и ответ', await page.evaluate(() => { const t = document.querySelector('.wheel__q:nth-child(3)'); return t.getAttribute('aria-selected') === 'true' && document.querySelector('.wheel__title').textContent === t.textContent && document.querySelector('.wheel__a').textContent.length > 40; }));
+    log('Интерактив', 'колесо показывает выбранный вопрос и ответ', await page.evaluate(() => { const t = document.getElementById('wq-2'), item = document.querySelector('#faq .qa__item:nth-child(3)'); return t.getAttribute('aria-selected') === 'true' && document.querySelector('.wheel__title').textContent === item.querySelector('.qa__q').textContent && document.querySelector('.wheel__a').textContent.trim() === item.querySelector('.qa__a').textContent.trim() && document.querySelector('.wheel__count b').textContent === '3'; }));
     await page.focus('.wheel__q[aria-selected="true"]'); await page.keyboard.press('ArrowDown'); await page.waitForTimeout(500);
-    log('Интерактив', 'колесо листается стрелками', await page.evaluate(() => document.querySelector('.wheel__q:nth-child(4)').getAttribute('aria-selected') === 'true' && document.activeElement === document.querySelector('.wheel__q:nth-child(4)')));
-    await page.evaluate(() => document.getElementById('start').scrollIntoView()); await page.waitForTimeout(2500);
-    log('Интерактив', 'линия-вектор доходит до кнопки формы', await page.evaluate(() => !!document.querySelector('.vline.is-done')));
-    log('Интерактив', 'точки на пути пациента загорелись', await page.evaluate(() => document.querySelectorAll('#how .jr__st.is-on').length === 5));
+    log('Интерактив', 'колесо листается стрелками', await page.evaluate(() => document.getElementById('wq-3').getAttribute('aria-selected') === 'true' && document.activeElement === document.getElementById('wq-3')));
+    for (let i = 0; i < 5; i++) { await page.click('.wheel__btn--next'); await page.waitForTimeout(250); }
+    log('Интерактив', 'колесо замкнуто: после последнего вопроса идёт первый', await page.evaluate(() => document.getElementById('wq-0').getAttribute('aria-selected') === 'true' && document.querySelector('.wheel__ring').style.getPropertyValue('--rot') === '-208deg'));
+    log('Интерактив', 'зуб в середине колеса нарисован', await page.evaluate(() => !!document.querySelector('.wheel__hub canvas').__tooth));
+    await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight)); await page.waitForTimeout(2500);
+    log('Интерактив', 'линия-вектор доходит до кнопки формы', await page.evaluate(() => { const l = MV.line.state(); return l.total > 3000 && l.cur >= l.total - 1; }));
+    const f = '#start form';
+    await page.evaluate(() => document.getElementById('start').scrollIntoView()); await page.waitForTimeout(400);
+    await page.fill(f + ' [name="phone"]', '+7 900 000-00-00');
+    await page.click(f + ' button[type="submit"]'); await page.waitForTimeout(200);
+    const blocked = await page.evaluate(s => document.querySelector(s + ' [data-form-ok]').hidden, f);
+    await page.check(f + ' [name="agree"]');
+    await page.click(f + ' button[type="submit"]'); await page.waitForTimeout(200);
+    log('Интерактив', 'заявка: без согласия не уходит, с согласием показывает ответ', blocked && await page.evaluate(s => !document.querySelector(s + ' [data-form-ok]').hidden, f));
     await ctx.close();
   }
   {
@@ -213,7 +228,7 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
     const ctx = await chromium.newContext({ ...devices['Pixel 7'] });
     const page = await ctx.newPage();
     await open(page, '/');
-    log('Интерактив', 'на телефоне вопросы идут списком', await page.evaluate(() => !document.querySelector('#faq .has-wheel') && getComputedStyle(document.querySelector('#faq .qa')).display !== 'none'));
+    log('Интерактив', 'на телефоне вопросы идут списком', await page.evaluate(() => getComputedStyle(document.querySelector('#faq .wheel')).display === 'none' && getComputedStyle(document.querySelector('#faq .qa')).display !== 'none'));
     await page.click('#faq .qa__item:nth-child(2) summary');
     log('Интерактив', 'вопрос на телефоне раскрывается', await page.evaluate(() => document.querySelector('#faq .qa__item:nth-child(2)').open));
     await ctx.close();
