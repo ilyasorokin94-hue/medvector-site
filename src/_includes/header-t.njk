@@ -26,7 +26,7 @@
       <a href="{{ href('about') }}"{% if section == 'about' %} aria-current="page"{% endif %}>Об агентстве</a>
       <a href="{{ href('contacts') }}#contacts"{% if section == 'contacts' %} aria-current="page"{% endif %}>Контакты</a>
     </nav>
-    <a href="{{ '#start' if form != false else '/#start' }}" class="btn btn--sm hdr__cta" data-magnetic>Начать бесплатно</a>
+    <a href="{{ '#start' if form != false else '/#start' }}" class="btn btn--sm hdr__cta" data-magnetic>{{ ctaText or 'Начать бесплатно' }}</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
@@ -45,7 +45,7 @@
     <a href="{{ href('contacts') }}#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
-    <a href="{{ '#start' if form != false else '/#start' }}" class="btn btn--light">Начать бесплатно</a>
+    <a href="{{ '#start' if form != false else '/#start' }}" class="btn btn--light">{{ ctaText or 'Начать бесплатно' }}</a>
     <p>Агентство медицинского маркетинга. Основная специализация: стоматологии. Работаем по&nbsp;всей России.</p>
   </div>
 </div>

@@ -331,6 +331,149 @@
   };
   $$('canvas[data-orb]').forEach(makeOrb);
 
+  /* ---------- первый экран «Один вектор»: шесть стрелок стоят вразнобой и сходятся в одну линию ----------
+     Слой [data-vx] лежит поверх первого экрана. На широком экране ось стрелок продолжает третью строку заголовка,
+     на узком это отдельная полоса под заголовком. Когда стрелки встали в ряд, от последней начинается линия-вектор. */
+  const vxEl = $('[data-vx]'), vxMark = $('[data-vstart]');
+  let vx = null;
+  if (vxEl && vxMark) {
+    // куда и на сколько каждая стрелка уходит от оси, пока они вразнобой: сдвиг вбок в долях шага, сторона, доля свободного места, угол
+    const CHAOS = [[.12, 1, .5, 24], [-.06, -1, .62, -52], [.16, 1, .78, 142], [-.1, -1, .8, -118], [.06, 1, .5, 78], [-.22, -1, .52, -164]];
+    const items = $$('li', vxEl).map((li, i) => {
+      const text = li.textContent.trim();
+      li.textContent = '';
+      li.style.setProperty('--i', i);
+      const ar = document.createElement('span'); ar.className = 'vx__ar';
+      const lb = document.createElement('span'); lb.className = 'vx__lb'; lb.textContent = text;
+      li.append(ar, lb);
+      return { li, ar, lb, c: CHAOS[i % CHAOS.length], on: reduce, x: 0, y: 0, a: 0, vx: 0, vy: 0, va: 0, hx: 0, hy: 0, sx: 0, sy: 0, sa: 0, ph: i * 1.7, side: -1, lo: -1 };
+    });
+    vx = { items, wait: !reduce, len: 0, end: null, raf: 0, last: 0, acc: 0, px: null, py: 0, timer: 0, gen: 0, tight: false, again: $('[data-vx-again]'), started: false };
+  }
+  // расставляет стрелки: считает ось, места в ряду и места «вразнобой», которые не задевают текст
+  const vxLayout = () => {
+    if (!vx) return null;
+    const box = vxEl.getBoundingClientRect();
+    if (!box.width) return null;
+    const block = getComputedStyle(vxEl).position !== 'absolute';
+    const wrapEl = vxEl.closest('.wrap'), wr = wrapEl.getBoundingClientRect();
+    const gut = parseFloat(getComputedStyle(wrapEl).paddingLeft);
+    const Rx = wr.right - gut / 2 - box.left;
+    let x0, x1, y;
+    // полоса под заголовком: нижние 28 px заходят под следующий абзац, поэтому ось стоит чуть выше середины
+    if (block) { x0 = 0; x1 = box.width - 14; y = (box.height - 28) / 2; }
+    else { const m = vxMark.getBoundingClientRect(); x0 = m.left - box.left; x1 = Rx - 60; y = m.top + m.height / 2 - box.top; }
+    const n = vx.items.length, s = (x1 - x0) / n, gap = clamp(s * .1, 6, 12), len = s - gap;
+    vx.len = len;
+    vxEl.style.setProperty('--len', `${len.toFixed(1)}px`);
+    vx.tight = s < 84;
+    vxEl.classList.toggle('is-tight', vx.tight);
+    // препятствия: строки заголовка, подзаголовок, факты и кнопки
+    const walls = block ? [] : $$('.hero__label, .ln__t, .hero__sub, .hero__facts, .hero__acts', vxEl.closest('section')).map(el => {
+      const r = el.getBoundingClientRect(), fs = el.classList.contains('ln__t') ? parseFloat(getComputedStyle(el).fontSize) : 0;
+      const ln = fs ? el.parentElement.getBoundingClientRect() : r;
+      // у строки заголовка считаем по буквам, а не по высоте строки
+      return { l: r.left - box.left, r: r.right - box.left, t: ln.top - box.top + fs * .16, b: ln.bottom - box.top - fs * .1 };
+    });
+    vx.items.forEach((it, i) => {
+      it.hx = x0 + s * i + gap + len / 2; it.hy = y;
+      it.side = vx.tight && i % 2 ? 1 : -1;
+      const [dx, dir, f, ang] = it.c;
+      const cx = it.hx + dx * s;
+      let room;
+      if (block) room = y - 26;
+      else {
+        const l = cx - len / 2 - 12, r = cx + len / 2 + 12;
+        let top = 0, bot = box.height;
+        walls.forEach(w => { if (w.r < l || w.l > r) return; if (w.b <= y) top = Math.max(top, w.b); else if (w.t >= y) bot = Math.min(bot, w.t); });
+        room = Math.min(dir < 0 || vx.tight ? (dir < 0 ? y - top : bot - y) - 30 : bot - y - 14, len * 1.7);
+      }
+      room = Math.max(room, 6);
+      const off = room * f;
+      // наклон не больше, чем позволяет оставшееся место
+      const cap = clamp((room - off) / (len / 2), .08, 1), rad = ang * Math.PI / 180;
+      let a = ang;
+      if (Math.abs(Math.sin(rad)) > cap) { const q = Math.asin(cap) * 180 / Math.PI * Math.sign(Math.sin(rad)); a = Math.cos(rad) >= 0 ? q : (q > 0 ? 180 - q : -180 - q); }
+      it.sx = cx; it.sy = y + dir * off; it.sa = a;
+      if (!vx.started || reduce) { it.x = it.on ? it.hx : it.sx; it.y = it.on ? it.hy : it.sy; it.a = it.on ? 0 : it.sa; it.lo = it.on ? it.side : (vx.tight ? dir : -1); }
+    });
+    if (vx.again) { const g = vxEl.closest('.hero__grid').getBoundingClientRect(); vx.again.style.left = `${box.left - g.left + x1}px`; vx.again.style.top = `${box.top - g.top + y + (vx.tight ? 34 : 16)}px`; }
+    vxPaint();
+    vxRun();
+    const mr = main.getBoundingClientRect();
+    vx.end = { x: box.left - mr.left + x1, y: box.top - mr.top + y };
+    return vx.end;
+  };
+  const vxPaint = () => vx.items.forEach(it => {
+    it.li.style.transform = `translate(${it.x.toFixed(1)}px, ${it.y.toFixed(1)}px)`;
+    it.ar.style.transform = `rotate(${it.a.toFixed(2)}deg)`;
+    // подпись стоит над стрелкой или под ней и переезжает плавно: lo от -1 (над) до 1 (под)
+    const ext = Math.abs(Math.sin(it.a * Math.PI / 180)) * vx.len / 2 + 11, h = vx.tight ? 13 : 15;
+    it.lb.style.transform = `translate(-50%, ${((it.lo - 1) / 2 * (ext + h) + (it.lo + 1) / 2 * ext).toFixed(1)}px)`;
+  });
+  const turn = d => ((d + 540) % 360) - 180;
+  const vxStep = t => {
+    let live = false;
+    vx.items.forEach(it => {
+      let tx = it.on ? it.hx : it.sx, ty = it.on ? it.hy : it.sy, ta = it.on ? 0 : it.sa;
+      if (!it.on) { ta += Math.sin(t / 900 + it.ph) * 9; ty += Math.sin(t / 1300 + it.ph * 2) * 4; live = true; }
+      if (vx.px !== null) {
+        const dx = vx.px - it.x, dy = vx.py - it.y, d = Math.hypot(dx, dy);
+        // вразнобой стрелка тянется за курсором, как стрелка компаса; в ряду только слегка кланяется ему
+        if (!it.on) { const k = clamp(1 - d / 520, 0, 1); ta += turn(Math.atan2(dy, dx) * 180 / Math.PI - ta) * .45 * k; }
+        else if (d < 240) ta += dy / (d + 40) * 34 * (1 - d / 240) ** 2;
+      }
+      it.vx = (it.vx + (tx - it.x) * .075) * .79; it.x += it.vx;
+      it.vy = (it.vy + (ty - it.y) * .075) * .79; it.y += it.vy;
+      it.va = (it.va + turn(ta - it.a) * .075) * .79; it.a = turn(it.a + it.va);
+      const ts = it.on ? it.side : (vx.tight ? it.c[1] : -1);
+      it.lo += (ts - it.lo) * .12;
+      if (Math.abs(ts - it.lo) > .01) live = true;
+      if (Math.abs(it.vx) + Math.abs(it.vy) + Math.abs(it.va) > .02 || Math.abs(tx - it.x) + Math.abs(ty - it.y) + Math.abs(turn(ta - it.a)) > .05) live = true;
+    });
+    return live;
+  };
+  const vxLoop = now => {
+    vx.acc = Math.min(vx.acc + now - vx.last, 80); vx.last = now;
+    let live = true;
+    while (vx.acc >= 16.6) { live = vxStep(now); vx.acc -= 16.6; }
+    vxPaint();
+    vx.raf = live ? requestAnimationFrame(vxLoop) : 0;
+  };
+  const vxRun = () => { if (vx && !reduce && vx.started && !vx.raf) { vx.last = performance.now(); vx.raf = requestAnimationFrame(vxLoop); } };
+  // стрелки по очереди встают в ряд; после последней линия-вектор идёт дальше по странице
+  const vxCollect = () => {
+    clearTimeout(vx.timer);
+    const gen = ++vx.gen;
+    vx.items.forEach((it, i) => setTimeout(() => { if (gen !== vx.gen) return; it.on = true; it.li.classList.add('is-on'); vxRun(); }, i * 110));
+    vx.timer = setTimeout(() => { vx.wait = false; vxEl.classList.add('is-set'); if (vx.again) vx.again.hidden = false; lineTarget(); }, vx.items.length * 110 + 520);
+  };
+  const vxScatter = () => {
+    clearTimeout(vx.timer);
+    vx.gen++;
+    vxEl.classList.remove('is-set');
+    vx.items.forEach(it => { it.on = false; it.li.classList.remove('is-on'); });
+    vxRun();
+    vx.timer = setTimeout(vxCollect, 2600);
+  };
+  const vxStart = () => {
+    if (!vx || vx.started) return;
+    vx.started = true;
+    vxEl.classList.add('is-in');
+    if (reduce) { vx.items.forEach(it => it.li.classList.add('is-on')); vxEl.classList.add('is-set'); return; }
+    vxRun();
+    vx.timer = setTimeout(vxCollect, 2400);
+    // прокрутка не ждёт: стрелки сходятся сразу
+    const early = () => { if (scrollY > 24 && vx.wait) { vxCollect(); removeEventListener('scroll', early); } };
+    addEventListener('scroll', early, { passive: true });
+    if (fine) {
+      const host = vxEl.closest('section');
+      host.addEventListener('pointermove', e => { const b = vxEl.getBoundingClientRect(); vx.px = e.clientX - b.left; vx.py = e.clientY - b.top; vxRun(); });
+      host.addEventListener('pointerleave', () => { vx.px = null; vxRun(); });
+    }
+    if (vx.again) vx.again.addEventListener('click', vxScatter);
+  };
+
   /* ---------- линия-вектор: от стрелки в заголовке до кнопки формы ---------- */
   const main = $('main');
   const vStart = $('[data-vstart]'), vEnd = $('[data-vend]');
@@ -363,6 +506,8 @@
     return d + `L${z[0].toFixed(1)} ${z[1].toFixed(1)}`;
   };
   const buildLine = () => {
+    // если на первом экране стоят шесть стрелок, линия начинается от последней из них
+    const ax = vxLayout();
     if (!line) return;
 
     const W = main.clientWidth, H = main.offsetHeight;
@@ -378,11 +523,11 @@
     let pts;
     if (W <= 720) {
       // телефон: простая вертикальная линия слева
-      const y0 = hero.b - 56;
-      pts = [[L, y0], [L, btn.t + btn.h / 2], [btn.l - 4, btn.t + btn.h / 2]];
+      const y0 = hero.b - 56, by = btn.t + btn.h / 2;
+      pts = ax ? [[ax.x, ax.y], [Rx, ax.y], [Rx, y0], [L, y0], [L, by], [btn.l - 4, by]] : [[L, y0], [L, by], [btn.l - 4, by]];
     } else {
-      const ay = a.t + a.h / 2, band = hero.b - 56;
-      pts = [[a.r, ay], [Rx, ay]];
+      const ay = ax ? ax.y : a.t + a.h / 2, band = hero.b - 56;
+      pts = [[ax ? ax.x : a.r, ay], [Rx, ay]];
       // главная: линия уходит влево и проходит по ряду остановок; остальные страницы: сразу вниз по правому краю
       if (dots.length && Math.abs(dots[0].y - dots[dots.length - 1].y) < 4) {
         const ry = dots[0].y;
@@ -431,6 +576,7 @@
   const lineTarget = () => {
     if (!line || !line.segs.length) return;
     if (reduce) { line.target = line.total; return; }
+    if (vx && vx.wait) { line.target = 0; return; }
     const y = scrollY + vh * 0.62 - (main.getBoundingClientRect().top + scrollY);
     let t = 0;
     for (const s of line.segs) {
@@ -450,6 +596,8 @@
     if (!force && Math.abs(prev - line.drawn) < 0.01) return;
     const real = line.drawn / line.total * line.real;
     line.path.style.strokeDashoffset = (line.real - real).toFixed(1);
+    // пока линия не началась, круглый конец штриха не должен быть виден точкой
+    line.path.style.visibility = line.drawn < 1 ? 'hidden' : '';
     line.svg.classList.toggle('is-done', line.drawn >= line.total - 1);
     line.dots.forEach(d => d.el.classList.toggle('is-on', d.ok ? line.drawn >= d.at - 2 : false));
   };
@@ -469,7 +617,7 @@
   addEventListener('resize', rebuild);
   if (window.ResizeObserver && main) new ResizeObserver(rebuild).observe(main);
   $$('details').forEach(d => d.addEventListener('toggle', rebuild));
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { buildLine(); frame(); });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { buildLine(); frame(); vxStart(); });
   addEventListener('load', rebuild);
 
   /* ---------- форма заявки ---------- */
