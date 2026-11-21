@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- сайт в разработке: убрать noindex при запуске на боевом домене -->
 <meta name="robots" content="noindex, nofollow">
-<title>МедВектор: Яндекс Директ, сайты и Яндекс Карты для стоматологий</title>
-<meta name="description" content="Реклама имплантации и All-on-4 в Яндекс Директе для частных стоматологий. Первый тест проводим без комиссии: клиника вносит только рекламный депозит Яндексу.">
-<meta name="theme-color" content="#ffffff">
+<title>МедВектор: маркетинг для стоматологий. Яндекс Директ, сайт и Карты</title>
+<meta name="description" content="Агентство маркетинга для стоматологий. Яндекс Директ на имплантацию, All-on-4 и ортодонтию: первый тест без комиссии агентства. Сайт, Яндекс Карты, 2ГИС и ПроДокторов.">
+<meta name="theme-color" content="#000f40">
 <meta name="format-detection" content="telephone=no">
 <link rel="canonical" href="https://medvector.pro/">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
@@ -16,19 +16,19 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="МедВектор">
-<meta property="og:title" content="МедВектор: Яндекс Директ для стоматологий, первый тест без комиссии">
-<meta property="og:description" content="Реклама имплантации и All-on-4 в Яндекс Директе для частных стоматологий. Первый тест проводим без комиссии: клиника вносит только рекламный депозит Яндексу.">
+<meta property="og:title" content="МедВектор: ведём пациента от запроса до записи к врачу">
+<meta property="og:description" content="Агентство маркетинга для стоматологий. Яндекс Директ на имплантацию, All-on-4 и ортодонтию: первый тест без комиссии агентства. Сайт, Яндекс Карты, 2ГИС и ПроДокторов.">
 <meta property="og:url" content="https://medvector.pro/">
 <meta property="og:image" content="https://medvector.pro/assets/img/og-cover.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
-<link rel="preload" as="font" type="font/woff2" href="assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/trajectory.css">
-<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<!-- свой шрифт Geologica: кириллица нужна первому экрану, грузится заранее -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/geologica-cyrillic-full-normal.woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/home.css">
+<!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
+<script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
 <script type="application/ld+json">
 {
@@ -39,7 +39,7 @@
       "@id": "https://medvector.pro/#agency",
       "name": "МедВектор",
       "url": "https://medvector.pro/",
-      "description": "Реклама имплантации и All-on-4 в Яндекс Директе для частных стоматологий. Первый тест проводим без комиссии: клиника вносит только рекламный депозит Яндексу.",
+      "description": "Агентство маркетинга для стоматологий. Яндекс Директ на имплантацию, All-on-4 и ортодонтию: первый тест без комиссии агентства. Сайт, Яндекс Карты, 2ГИС и ПроДокторов.",
       "areaServed": "RU",
       "knowsAbout": [
         "Яндекс Директ",
@@ -53,8 +53,8 @@
       "@type": "WebPage",
       "@id": "https://medvector.pro/",
       "url": "https://medvector.pro/",
-      "name": "МедВектор: Яндекс Директ, сайты и Яндекс Карты для стоматологий",
-      "description": "Реклама имплантации и All-on-4 в Яндекс Директе для частных стоматологий. Первый тест проводим без комиссии: клиника вносит только рекламный депозит Яндексу.",
+      "name": "МедВектор: маркетинг для стоматологий. Яндекс Директ, сайт и Карты",
+      "description": "Агентство маркетинга для стоматологий. Яндекс Директ на имплантацию, All-on-4 и ортодонтию: первый тест без комиссии агентства. Сайт, Яндекс Карты, 2ГИС и ПроДокторов.",
       "inLanguage": "ru",
       "isPartOf": {
         "@type": "WebSite",
@@ -67,58 +67,66 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "В чём подвох?",
+          "name": "Сколько стоит ведение Директа после теста?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "На первом тесте мы действительно не берём комиссию за работу. Расчёт простой: нам выгодно, чтобы после теста вы остались на ведении, поэтому за тест мы должны показать заявки. Рекламный депозит вы вносите Яндексу сами, в свой кабинет."
+            "text": "Цену считаем по итогам теста: она зависит от числа услуг и города. Записываем её в договор до продолжения работы, и дальше она не меняется без вашего согласия."
           }
         },
         {
           "@type": "Question",
-          "name": "Сколько стоит потом?",
+          "name": "Что входит в тест Директа?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Стоимость ведения называем на разборе, до старта теста, чтобы вы знали её заранее. Рекламный бюджет после теста от 100 000 ₽ в месяц, его вы по-прежнему платите Яндексу напрямую."
+            "text": "Кампании на поиске и в РСЯ по одной-трём услугам, лендинг под каждую услугу, заявки в вашу CRM, отчёт и созвон каждую неделю. Бюджет теста 150 000 ₽ на две недели идёт в Яндекс, агентству на старте 0 ₽."
           }
         },
         {
           "@type": "Question",
-          "name": "Чей кабинет и сайт?",
+          "name": "На кого оформлены рекламные кабинеты и сайт?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Ваши. Рекламный кабинет, счётчик Метрики, домен и карточки оформляем на клинику с первого дня. Сайт с полными правами передаём после оплаты стартового пакета, абонентской платы за него нет."
+            "text": "На клинику. Кабинет Директа, домен, сайт и карточки на картах принадлежат вам, доступ у вас есть всегда. Если расстанемся, всё останется у вас."
           }
         },
         {
           "@type": "Question",
-          "name": "Когда пойдут заявки?",
+          "name": "Можно заказать одну услугу, а не всё сразу?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Рекламу включаем через 7 рабочих дней после получения доступов, показы идут с первого дня. Первые две недели кампании набирают статистику, поэтому результат оцениваем по итогам теста. Пациент All-on-4 думает дольше, там смотрим второй и третий месяц."
+            "text": "Да. Директ, сайт, Яндекс Карты, 2ГИС, ПроДокторов и SEO можно заказать по отдельности и добавить остальное позже."
           }
         },
         {
           "@type": "Question",
-          "name": "Что нужно от клиники?",
+          "name": "В каком случае вы возвращаете деньги?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Лицензия на услугу, врач со свободным временем для консультаций и администратор, который перезванивает по заявке в течение 15 минут. Ещё нужны отметки о записях в CRM или в общей таблице: без них не посчитать цену записи."
+            "text": "Пока сайт не опубликован, вернём оплату по вашему запросу. Это условие записано в договоре."
           }
         },
         {
           "@type": "Question",
-          "name": "Гарантируете пациентов?",
+          "name": "С какой CRM вы работаете?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Число пациентов не гарантируем. Оно зависит и от цен клиники, и от врача, и от того, как быстро отвечают на заявку. В договоре закрепляем то, за что отвечаем сами: состав работ, срок запуска и еженедельный отчёт."
+            "text": "С любой. Заявки с сайта и лендингов передаём в ту систему, в которой уже работает ваша клиника."
           }
         },
         {
           "@type": "Question",
-          "name": "Как расстаться?",
+          "name": "Вы работаете только со стоматологиями?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "После первого теста можно просто не продолжать: кабинет и данные остаются у вас. Пакет по сайту и Картам заключается на 3 месяца, дальше продвижение можно остановить. Порядок записан в договоре."
+            "text": "Стоматологии для нас главное направление: имплантация, All-on-4, ортодонтия. Медицинские центры тоже берём, если на разборе видим, что можем помочь."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Как вы учитываете требования к рекламе медицинских услуг?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Объявления, лендинги и сайт готовим по закону о рекламе: с предупреждением о противопоказаниях, с лицензией клиники и без обещаний результата лечения. Отзывы собираем только настоящие."
           }
         }
       ]
@@ -129,19 +137,31 @@
 </head>
 <body>
 <a class="skip" href="#main">К содержимому</a>
-<!-- ============ ШАПКА «Траектория»: логотип, четыре пункта, одна кнопка ============ -->
-<header class="hdr" id="top">
+<!-- шапка: над тёмным первым экраном прозрачная с белым знаком, после прокрутки светлая -->
+<header class="hdr hdr--over" id="top">
   <div class="hdr__in">
-    <a href="./" class="hdr__logo" aria-label="МедВектор, на главную" aria-current="page">
-      <img src="assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+    <a href="#top" class="hdr__logo" aria-label="МедВектор, наверх страницы">
+      <img class="lg-l" src="assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-d" src="assets/img/medvector-logo-w.webp" alt="" width="440" height="93">
     </a>
     <nav class="hdr__nav" aria-label="Основное меню">
-      <a href="yandex-direkt/">Яндекс Директ</a>
-      <a href="kompleksnyj-marketing/">Сайт и Карты</a>
-      <a href="kejsy/">Кейсы</a>
-      <a href="kontakty/">О нас</a>
+      <div class="drop" data-drop>
+        <button type="button" class="drop__btn" aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
+        <div class="drop__panel" id="drop-services">
+          <ul class="drop__list">
+            <li><a href="#services"><b>Яндекс Директ</b><small>Первый тест без комиссии агентства</small></a></li>
+            <li><a href="#services"><b>Комплексный маркетинг</b><small>Сайт, Карты, 2ГИС и&nbsp;ПроДокторов одним пакетом</small></a></li>
+            <li><a href="#sites"><b>Сайты и&nbsp;лендинги</b><small>Сайт клиники или страница услуги для рекламы</small></a></li>
+            <li><a href="#services"><b>Яндекс Карты и&nbsp;2ГИС</b><small>Карточка клиники, каталог услуг, ответы на&nbsp;отзывы</small></a></li>
+            <li><a href="#services"><b>SEO</b><small>Рост в&nbsp;поиске по&nbsp;услугам в&nbsp;своём городе</small></a></li>
+          </ul>
+        </div>
+      </div>
+      <a href="#cases">Кейсы</a>
+      <a href="#team">Об агентстве</a>
+      <a href="#start">Контакты</a>
     </nav>
-    <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Начать бесплатно</a>
+    <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
@@ -149,529 +169,402 @@
 <!-- мобильное меню: тёмный экран, пункты крупно -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
-    <a href="yandex-direkt/">Яндекс Директ</a>
-    <a href="kompleksnyj-marketing/">Сайт и Карты</a>
-    <a href="kejsy/">Кейсы</a>
-    <a href="kontakty/">О нас</a>
+    <p class="mnav__h">Услуги</p>
+    <ul class="mnav__sub">
+      <li><a href="#services">Яндекс Директ</a></li>
+      <li><a href="#services">Комплексный маркетинг</a></li>
+      <li><a href="#sites">Сайты и&nbsp;лендинги</a></li>
+      <li><a href="#services">Яндекс Карты и&nbsp;2ГИС</a></li>
+      <li><a href="#services">SEO</a></li>
+    </ul>
+    <a href="#cases">Кейсы</a>
+    <a href="#team">Об агентстве</a>
+    <a href="#start">Контакты</a>
   </nav>
   <div class="mnav__foot">
-    <a href="#start" class="btn btn--light">Начать бесплатно</a>
-    <p>Первый тест в&nbsp;Директе без комиссии за&nbsp;нашу работу. Сайт и&nbsp;Яндекс Карты под&nbsp;ключ за&nbsp;первый месяц.</p>
+    <a href="#start" class="btn btn--light">Разобрать клинику</a>
+    <p>Санкт-Петербург. Работаем с&nbsp;клиниками по&nbsp;всей России.</p>
   </div>
 </div>
 
 <main id="main">
-<!-- ============ 1. ПЕРВЫЙ ЭКРАН: оффер. Из стрелки в заголовке начинается линия-вектор ============ -->
-<section class="hero hero--scene" id="intro">
-  <div class="wrap hero__grid">
-    <div class="hero__text">
-      <p class="label label--orb hero__label"><canvas class="orb orb--sm" data-orb="70" width="56" height="56" aria-hidden="true"></canvas>Агентство для частных стоматологий. Работаем по&nbsp;всей России</p>
-      <h1 class="h1 hero__title">
-        <span class="ln">Яндекс Директ</span>
-        <span class="ln ln--in">для стоматологий<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></span>
-        <span class="ln">Первый тест</span>
-        <span class="ln ln--in2">проводим <em>бесплатно</em>.</span>
+
+<!-- «Ночная витрина»: тёмный экран, имя агентства во всю ширину, стеклянный зуб поверх букв -->
+<section class="sec sec--dark sec--top dark" id="hero" data-line="dark">
+  <div class="sec__body hv hv2 dark">
+    <div class="wrap hv2__grid">
+      <p class="label hv2__label" data-rv="fade">Агентство маркетинга для стоматологий. Санкт-Петербург</p>
+      <div class="hv2__stage">
+        <p class="hv2__wm" data-fit data-fit-max="32" aria-hidden="true"><span>МедВектор</span></p>
+        <div class="tooth hv2__tooth" aria-hidden="true"><canvas data-tooth="glass" data-preset="glassOver" data-yaw="0.45" data-scroll="1.2" data-scale="1.36"></canvas></div>
+        <i data-vp data-vp-node class="hv2__a"></i>
+      </div>
+      <h1 class="h2 rvh hv2__h">
+        <span class="ln" style="--l:0"><span>Ведём пациента от&nbsp;запроса</span></span>
+        <span class="ln" style="--l:1"><span>до&nbsp;записи к&nbsp;врачу</span></span>
       </h1>
-      <div class="hero__foot">
-        <p class="hero__sub">Запускаем рекламу имплантации и&nbsp;<span class="nw">All-on-4</span> и&nbsp;считаем заявки до&nbsp;записи к&nbsp;врачу. Новой клинике первый тест проводим без комиссии: вы&nbsp;вносите рекламный депозит Яндексу, например 150&nbsp;000&nbsp;₽, а&nbsp;за&nbsp;нашу работу на&nbsp;этом тесте не&nbsp;платите.</p>
-        <div class="hero__acts">
-          <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить первый тест</a>
+      <div class="hv2__say" data-rv style="--d:3">
+        <p class="lead">Реклама в&nbsp;Яндекс Директе на&nbsp;имплантацию, <span class="nw">All-on-4</span> и&nbsp;ортодонтию. Сайт, Яндекс Карты, 2ГИС и&nbsp;ПроДокторов под ключ.</p>
+        <div class="hv__acts">
+          <a href="#start" class="btn btn--light" data-magnetic>Разобрать клинику</a>
+          <a href="#cases" class="link">Смотреть кейсы</a>
         </div>
       </div>
-    </div>
-    <!-- объёмная сцена: объявление, страница услуги, заявка и запись. Только широкий экран, для вымышленной клиники -->
-    <div class="scene" data-scene aria-hidden="true">
-      <canvas class="orb scene__orb" data-orb="560" width="900" height="900"></canvas>
-      <div class="scene__in">
-        <div class="scene__l scene__l--ad" style="--i: 0"><div class="art art--ad" aria-hidden="true">
-  <span class="art__mark">Реклама</span>
-  <b>Имплантация зубов под ключ</b>
-  <span class="art__url">demo-klinika.ru › implantaciya</span>
-  <span class="art__txt">Имплант, формирователь и коронка. Цена по этапам, рассрочка.</span>
-  <span class="art__warn">Имеются противопоказания, нужна консультация специалиста</span>
-</div>
-</div>
-        <div class="scene__l scene__l--phone" style="--i: 1"><div class="art art--phone" aria-hidden="true">
-  <div class="ph">
-    <span class="ph__top"><i></i>Стоматология «Демо»</span>
-    <b>Имплантация под ключ</b>
-    <small>Имплант, формирователь и коронка: цена по этапам</small>
-    <span class="ph__btn">Записаться</span>
-    <span class="ph__row">Цена по этапам</span><span class="ph__row">Врач и его опыт</span><span class="ph__row">Если мало кости</span><span class="ph__row">Рассрочка</span>
-  </div>
-</div>
-</div>
-        <div class="scene__l scene__l--lead" style="--i: 2"><div class="art art--lead" aria-hidden="true">
-  <span class="art__top">Новая заявка<span>12:04</span></span>
-  <b>Имплантация, консультация</b>
-  <span class="art__txt">Поиск · «имплантация зубов цена»</span>
-</div>
-</div>
-        <div class="scene__l scene__l--book" style="--i: 3"><div class="art art--book" aria-hidden="true">
-  <span class="art__top">Запись<span>отметил администратор</span></span>
-  <b>Чт, 15:30</b>
-  <span class="art__txt">Консультация хирурга</span>
-</div>
-</div>
-      </div>
-    </div>
-    <a class="second" href="#site">
-      <span class="second__name"><small>Второе направление</small>Сайт клиники и&nbsp;Яндекс Карты за&nbsp;первый месяц</span>
-      <span class="second__price">80&nbsp;000&nbsp;₽, сайт входит в&nbsp;эту сумму. Дальше продвижение 60&nbsp;000&nbsp;₽ в&nbsp;месяц</span>
-      <span class="second__go" aria-hidden="true"></span>
-    </a>
-  </div>
-</section>
-
-<!-- ============ 2. ПУТЬ ПАЦИЕНТА: линия проходит через пять остановок ============ -->
-<section class="sec journey" id="how">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Путь пациента от&nbsp;запроса в&nbsp;Яндексе до&nbsp;записи к&nbsp;врачу.</h2>
-  </div>
-  <p class="shead__note">Мы&nbsp;строим и&nbsp;ведём этот путь целиком. Каждую неделю вы&nbsp;видите, сколько человек дошли до&nbsp;заявки и&nbsp;до&nbsp;записи и&nbsp;сколько стоил каждый.</p>
-</div>
-
-    <ol class="jr">
-      <li class="jr__st reveal">
-        <span class="jr__dot" data-vpoint aria-hidden="true"></span>
-        <span class="jr__n">1</span>
-        <div class="jr__art">
-<div class="art art--query" aria-hidden="true"><i class="art__glass"></i><span class="art__typed" data-type="имплантация зубов цена">имплантация зубов цена</span></div>
-        </div>
-        <h3 class="h3">Ищет в&nbsp;Яндексе</h3>
-        <p>Человек набирает запрос про имплантацию. Рекламу показываем по&nbsp;запросам, за&nbsp;которыми стоит желание лечиться.</p>
-      </li>
-      <li class="jr__st reveal">
-        <span class="jr__dot" data-vpoint aria-hidden="true"></span>
-        <span class="jr__n">2</span>
-        <div class="jr__art">
-<div class="art art--ad" aria-hidden="true">
-  <span class="art__mark">Реклама</span>
-  <b>Имплантация зубов под ключ</b>
-  <span class="art__url">demo-klinika.ru › implantaciya</span>
-  <span class="art__txt">Имплант, формирователь и коронка. Цена по этапам, рассрочка.</span>
-  <span class="art__warn">Имеются противопоказания, нужна консультация специалиста</span>
-</div>
-        </div>
-        <h3 class="h3">Видит ваше объявление</h3>
-        <p>В&nbsp;нём цена, врач и&nbsp;условия вашей клиники. Тексты проходят модерацию медицинской рекламы.</p>
-      </li>
-      <li class="jr__st reveal">
-        <span class="jr__dot" data-vpoint aria-hidden="true"></span>
-        <span class="jr__n">3</span>
-        <div class="jr__art">
-<div class="art art--phone" aria-hidden="true">
-  <div class="ph">
-    <span class="ph__top"><i></i>Стоматология «Демо»</span>
-    <b>Имплантация под ключ</b>
-    <small>Имплант, формирователь и коронка: цена по этапам</small>
-    <span class="ph__btn">Записаться</span>
-    <span class="ph__row">Цена по этапам</span><span class="ph__row">Врач и его опыт</span><span class="ph__row">Если мало кости</span><span class="ph__row">Рассрочка</span>
-  </div>
-</div>
-        </div>
-        <h3 class="h3">Открывает страницу услуги</h3>
-        <p>Отдельная страница про одну услугу: врач, этапы, полная цена и&nbsp;запись. Собираем её&nbsp;за&nbsp;7&nbsp;рабочих дней.</p>
-      </li>
-      <li class="jr__st reveal">
-        <span class="jr__dot" data-vpoint aria-hidden="true"></span>
-        <span class="jr__n">4</span>
-        <div class="jr__art">
-<div class="art art--lead" aria-hidden="true">
-  <span class="art__top">Новая заявка<span>12:04</span></span>
-  <b>Имплантация, консультация</b>
-  <span class="art__txt">Поиск · «имплантация зубов цена»</span>
-</div>
-        </div>
-        <h3 class="h3">Оставляет заявку</h3>
-        <p>Заявка сразу уходит администратору. В&nbsp;учёте видно, по&nbsp;какому запросу человек пришёл.</p>
-      </li>
-      <li class="jr__st reveal">
-        <span class="jr__dot" data-vpoint aria-hidden="true"></span>
-        <span class="jr__n">5</span>
-        <div class="jr__art">
-<div class="art art--book" aria-hidden="true">
-  <span class="art__top">Запись<span>отметил администратор</span></span>
-  <b>Чт, 15:30</b>
-  <span class="art__txt">Консультация хирурга</span>
-</div>
-        </div>
-        <h3 class="h3">Записывается к&nbsp;врачу</h3>
-        <p>Администратор отмечает запись. В&nbsp;отчёте вы&nbsp;видите цену заявки и&nbsp;цену записи.</p>
-      </li>
-    </ol>
-    <p class="jr__demo"><span class="tag">Объявление, страница и заявка на картинках сделаны для вымышленной клиники</span></p>
-  </div>
-</section>
-
-<!-- ============ 3. ТЕСТОВЫЙ МЕСЯЦ: ноль растёт до тёмного экрана ============ -->
-<section class="circle" id="test" aria-labelledby="test-title">
-  <div class="circle__track">
-    <div class="circle__stage">
-      <p class="circle__zero" aria-hidden="true"><span></span><b>₽</b><small>стоит наша работа на&nbsp;первом тесте</small></p>
-      <span class="circle__disc" aria-hidden="true"></span>
-      <div class="circle__in">
-        <h2 class="h2" id="test-title">На&nbsp;первом тесте вы&nbsp;платите только <em>Яндексу</em>.</h2>
-        <p class="circle__lead">Рекламный депозит, например 150&nbsp;000&nbsp;₽, вы&nbsp;вносите в&nbsp;свой кабинет Директа. Через нас деньги не&nbsp;проходят, комиссию за&nbsp;работу мы&nbsp;не&nbsp;берём.</p>
-      </div>
-    </div>
-  </div>
-  <div class="dark circle__body" data-dark>
-    <div class="wrap">
-      <div class="brief">
-  <div class="brief__main">
-    <div class="money">
-      <div class="money__row reveal">
-        <p class="money__who">Яндексу<small>первый рекламный депозит, напрямую в&nbsp;кабинет клиники. Рекомендуем 150&nbsp;000&nbsp;₽, минимум 100&nbsp;000&nbsp;₽</small></p>
-        <p class="money__sum"><span data-count="150000" data-sep>150&nbsp;000</span>&nbsp;₽</p>
-        <span class="money__bar" aria-hidden="true"><i></i></span>
-      </div>
-      <div class="money__row money__row--zero reveal">
-        <p class="money__who">МедВектору<small>комиссия за&nbsp;работу на&nbsp;первом тесте</small></p>
-        <p class="money__sum">0&nbsp;₽</p>
-        <span class="money__bar" aria-hidden="true"></span>
-      </div>
-    </div>
-    <p class="brief__why">Зачем нам проводить первый тест без комиссии? Мы&nbsp;зарабатываем на&nbsp;ведении, поэтому нам нужен тест, после которого вы&nbsp;захотите остаться. Если на&nbsp;разборе видим риски для запуска, говорим о&nbsp;них прямо и&nbsp;предлагаем, что подготовить сначала.</p>
-    <div class="pack__acts">
-      <a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить первый тест</a>
-      <a href="yandex-direkt/#test" class="link link--light">Все условия первого теста</a>
-    </div>
-  </div>
-  <div class="rcpt__paper reveal">
-    <p class="rcpt__top"><span>Счёт за первый тест</span><span>МедВектор</span></p>
-    <ul>
-      <li><h3>Страница под каждую услугу</h3><p>Разрабатываем индивидуально под вашу клинику, без шаблонов</p><b>0&nbsp;₽</b></li>
-      <li><h3>Рекламные кампании</h3><p>Запросы, объявления, модерация медицинской рекламы</p><b>0&nbsp;₽</b></li>
-      <li><h3>Интеграции</h3><p>Метрика и&nbsp;цели, передача заявок администратору, учёт до&nbsp;записи</p><b>0&nbsp;₽</b></li>
-      <li><h3>Личный менеджер</h3><p>Один человек на&nbsp;связи с&nbsp;клиникой по&nbsp;всем вопросам</p><b>0&nbsp;₽</b></li>
-      <li><h3>Полное сопровождение</h3><p>Ведём рекламу весь тест, отчёт каждую неделю</p><b>0&nbsp;₽</b></li>
-    </ul>
-    <p class="rcpt__total"><span>Комиссия агентства</span><b>0&nbsp;₽</b></p>
-  </div>
-</div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ 4. САЙТ И КАРТЫ ============ -->
-<section class="dark sheet" id="site" data-dark>
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Сайт клиники и&nbsp;Яндекс Карты за&nbsp;первый месяц.</h2>
-  </div>
-  <p class="shead__note">Для клиник, которые открываются или давно не&nbsp;занимались сайтом и&nbsp;карточками. Сайт входит в&nbsp;стартовый пакет на&nbsp;3&nbsp;месяца, отдельно за&nbsp;него платить не&nbsp;нужно.</p>
-</div>
-
-    <!-- три образца лежат под наклоном и выпрямляются по мере прокрутки -->
-    <div class="trio" data-trio aria-hidden="true">
-      <div class="trio__in">
-        <div class="trio__l trio__l--map"><div class="art art--map" aria-hidden="true">
-  <span class="mp__area"><i></i></span>
-  <b>Стоматология «Демо»</b>
-  <span class="mp__rate">Цены и врачи указаны, клиника отвечает на отзывы</span>
-  <span class="mp__tags"><span>Цены</span><span>Врачи</span><span>Фото</span><span>Запись</span></span>
-  <span class="mp__btns"><span>Маршрут</span><span>Позвонить</span><span>Сайт</span></span>
-</div>
-</div>
-        <div class="trio__l trio__l--site"><div class="art art--browser" aria-hidden="true">
-  <span class="br__bar"><i></i><i></i><i></i><span>demo-klinika.ru</span></span>
-  <span class="br__nav"><b>Стоматология «Демо»</b><span>Услуги</span><span>Врачи</span><span>Цены</span><span>Контакты</span></span>
-  <span class="br__h">Стоматология для всей семьи</span>
-  <span class="br__p">Лечение, имплантация, протезирование. Цены на сайте</span>
-  <span class="br__btn">Записаться онлайн</span>
-  <span class="br__cards"><span>Имплантация</span><span>All-on-4</span><span>Коронки и виниры</span></span>
-</div>
-</div>
-        <div class="trio__l trio__l--phone"><div class="art art--phone" aria-hidden="true">
-  <div class="ph">
-    <span class="ph__top"><i></i>Стоматология «Демо»</span>
-    <b>Стоматология рядом с домом</b>
-    <small>Лечение, имплантация, детский приём. Цены на сайте</small>
-    <span class="ph__btn">Записаться</span>
-    <span class="ph__row">Услуги и цены</span><span class="ph__row">Врачи</span><span class="ph__row">Отзывы с площадок</span><span class="ph__row">Как добраться</span>
-  </div>
-</div>
-</div>
-      </div>
-    </div>
-    <div class="pack">
-      <div class="pack__what">
-        <h3 class="pack__h">В первый месяц</h3>
-        <ul class="spec">
-          <li class="reveal"><h4>Сайт клиники под ключ</h4><p>Страница на&nbsp;каждую услугу, врачи, цены и&nbsp;запись. С&nbsp;учётом требований к&nbsp;сайтам медицинских организаций.</p></li>
-          <li class="reveal"><h4>Яндекс Карты</h4><p>Услуги и&nbsp;цены, фото, витрина и&nbsp;ответы на&nbsp;отзывы от&nbsp;имени клиники.</p></li>
-          <li class="reveal"><h4>2ГИС и&nbsp;ПроДокторов</h4><p>Те&nbsp;же цены, врачи и&nbsp;адрес, что на&nbsp;сайте и&nbsp;в&nbsp;Картах.</p></li>
-          <li class="reveal"><h4>Отзывы</h4><p>Учим администраторов просить об&nbsp;отзыве после визита. Отзывы не&nbsp;покупаем и&nbsp;не&nbsp;пишем за&nbsp;пациентов.</p></li>
-        </ul>
-      </div>
-      <div class="pack__plan">
-        <h3 class="pack__h">Сколько это стоит</h3>
-        <ol class="plan">
-          <li class="reveal"><span class="plan__m">Месяц 1</span><b class="plan__sum">80&nbsp;000&nbsp;₽</b><span class="plan__bar" style="--w: 100%" aria-hidden="true"></span><p>Сайт под ключ и&nbsp;карточки клиники. Сайт входит в&nbsp;эту сумму. Два платежа по&nbsp;40&nbsp;000&nbsp;₽: до&nbsp;начала работ и&nbsp;после сдачи сайта.</p></li>
-          <li class="reveal"><span class="plan__m">Месяц 2</span><b class="plan__sum">60&nbsp;000&nbsp;₽</b><span class="plan__bar" style="--w: 75%" aria-hidden="true"></span><p>Комплексное продвижение: поиск, новые страницы, Карты, отзывы.</p></li>
-          <li class="reveal"><span class="plan__m">Месяц 3</span><b class="plan__sum">60&nbsp;000&nbsp;₽</b><span class="plan__bar" style="--w: 75%" aria-hidden="true"></span><p>Первые цифры по&nbsp;сайту и&nbsp;Картам, план на&nbsp;следующие месяцы.</p></li>
-        </ol>
-        <p class="pack__own">Сайт, домен и&nbsp;карточки оформлены на&nbsp;клинику и&nbsp;остаются у&nbsp;вас, даже если мы&nbsp;перестанем работать вместе.</p>
-        <div class="pack__acts">
-          <a href="#start" class="btn btn--light" data-magnetic data-pick="site">Обсудить сайт и Карты</a>
-          <a href="kompleksnyj-marketing/" class="link link--light">Что входит в&nbsp;пакет</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 5. ПРИМЕРЫ И КЕЙСЫ: витрина. Сюда встанут настоящие лендинги, сайты и кейсы:
-     у каждой вкладки вместо образца будет снимок работы, ссылка на живой сайт и цифры из кабинета клиники ============ -->
-<section class="sec sec--fog sheet" id="works">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Что вы&nbsp;получаете на&nbsp;руки.</h2>
-  </div>
-  <p class="shead__note">Кейсы с&nbsp;цифрами готовим к&nbsp;публикации: показываем только данные из&nbsp;кабинетов клиник и&nbsp;только с&nbsp;их&nbsp;согласия. Ниже образцы для вымышленной клиники.</p>
-</div>
-
-    <div class="show" data-tabs>
-      <div class="show__list" role="tablist" aria-label="Образцы работ" aria-orientation="vertical">
-        <button type="button" class="show__tab" role="tab" id="show-tab-1" aria-controls="show-landing" aria-selected="true"><span class="show__name">Страница услуги для рекламы</span><span class="show__text">Одна услуга, врач, этапы, полная цена и&nbsp;запись на&nbsp;консультацию.</span></button>
-        <button type="button" class="show__tab" role="tab" id="show-tab-2" aria-controls="show-site" aria-selected="false"><span class="show__name">Сайт клиники</span><span class="show__text">Страница на&nbsp;каждую услугу, врачи с&nbsp;документами, цены и&nbsp;запись.</span></button>
-        <button type="button" class="show__tab" role="tab" id="show-tab-3" aria-controls="show-map" aria-selected="false"><span class="show__name">Карточка на&nbsp;Яндекс Картах</span><span class="show__text">Цены, врачи, фото и&nbsp;ответы на&nbsp;отзывы.</span></button>
-        <button type="button" class="show__tab" role="tab" id="show-tab-4" aria-controls="show-report" aria-selected="false"><span class="show__name">Недельный отчёт</span><span class="show__text">Заявки, записи, цена каждой и&nbsp;что мы&nbsp;сделали за&nbsp;неделю.</span></button>
-      </div>
-      <div class="show__stage">
-        <div class="show__panel" role="tabpanel" id="show-landing" aria-labelledby="show-tab-1" tabindex="0">
-          <div class="show__duo"><div class="art art--browser" aria-hidden="true">
-  <span class="br__bar"><i></i><i></i><i></i><span>demo-klinika.ru/all-on-4</span></span>
-  <span class="br__nav"><b>Стоматология «Демо»</b><span>Услуги</span><span>Врачи</span><span>Цены</span><span>Контакты</span></span>
-  <span class="br__h">Несъёмные зубы на 4 имплантах</span>
-  <span class="br__p">Хирург и ортопед на одной консультации, КТ в клинике</span>
-  <span class="br__btn">Записаться на консультацию</span>
-  <span class="br__cards"><span>Этапы и сроки</span><span>Врач и опыт</span><span>Цена и рассрочка</span></span>
-</div>
-<div class="art art--phone" aria-hidden="true">
-  <div class="ph">
-    <span class="ph__top"><i></i>Стоматология «Демо»</span>
-    <b>Все зубы на 4 имплантах</b>
-    <small>Хирург и ортопед на одной консультации, КТ в клинике</small>
-    <span class="ph__btn">Записаться на консультацию</span>
-    <span class="ph__row">Кому подходит метод</span><span class="ph__row">Врач и его опыт</span><span class="ph__row">Этапы и сроки</span><span class="ph__row">Полная цена и рассрочка</span>
-  </div>
-</div>
-</div>
-        </div>
-        <div class="show__panel" role="tabpanel" id="show-site" aria-labelledby="show-tab-2" tabindex="0">
-          <div class="show__duo"><div class="art art--browser" aria-hidden="true">
-  <span class="br__bar"><i></i><i></i><i></i><span>demo-klinika.ru</span></span>
-  <span class="br__nav"><b>Стоматология «Демо»</b><span>Услуги</span><span>Врачи</span><span>Цены</span><span>Контакты</span></span>
-  <span class="br__h">Стоматология для всей семьи</span>
-  <span class="br__p">Лечение, имплантация, протезирование. Цены на сайте</span>
-  <span class="br__btn">Записаться онлайн</span>
-  <span class="br__cards"><span>Имплантация</span><span>All-on-4</span><span>Коронки и виниры</span></span>
-</div>
-<div class="art art--phone" aria-hidden="true">
-  <div class="ph">
-    <span class="ph__top"><i></i>Стоматология «Демо»</span>
-    <b>Стоматология рядом с домом</b>
-    <small>Лечение, имплантация, детский приём. Цены на сайте</small>
-    <span class="ph__btn">Записаться</span>
-    <span class="ph__row">Услуги и цены</span><span class="ph__row">Врачи</span><span class="ph__row">Отзывы с площадок</span><span class="ph__row">Как добраться</span>
-  </div>
-</div>
-</div>
-        </div>
-        <div class="show__panel" role="tabpanel" id="show-map" aria-labelledby="show-tab-3" tabindex="0">
-          <div class="show__pair"><figure><figcaption>До</figcaption><div class="art art--map art--weak" aria-hidden="true">
-  <span class="mp__area"><i></i></span>
-  <b>Стоматология «Демо»</b>
-  <span class="mp__rate">Цен нет, отзывы без ответа</span>
-  <span class="mp__tags"><span>Нет цен</span><span>2 фото</span></span>
-  <span class="mp__btns"><span>Маршрут</span><span>Позвонить</span><span>Сайт</span></span>
-</div>
-</figure><figure><figcaption>После</figcaption><div class="art art--map" aria-hidden="true">
-  <span class="mp__area"><i></i></span>
-  <b>Стоматология «Демо»</b>
-  <span class="mp__rate">Цены и врачи указаны, клиника отвечает на отзывы</span>
-  <span class="mp__tags"><span>Цены</span><span>Врачи</span><span>Фото</span><span>Запись</span></span>
-  <span class="mp__btns"><span>Маршрут</span><span>Позвонить</span><span>Сайт</span></span>
-</div>
-</figure></div>
-        </div>
-        <div class="show__panel" role="tabpanel" id="show-report" aria-labelledby="show-tab-4" tabindex="0">
-          <div class="show__rep"><div class="rep">
-  <div class="rep__head"><b>Отчёт за неделю · имплантация</b><span class="tag">образец, клиника вымышленная</span></div>
-  <dl class="rep__kpis">
-    <div><dt>заявок</dt><dd>9</dd></div>
-    <div><dt>записей на консультацию</dt><dd>4</dd></div>
-    <div><dt>цена записи</dt><dd>9&nbsp;375&nbsp;₽</dd></div>
-  </dl>
-  <section class="rep__scroll" tabindex="0" aria-label="Таблица отчёта">
-    <table class="rep__table">
-      <caption class="sr">Образец недельного отчёта, клиника вымышленная</caption>
-      <thead><tr><th scope="col">Канал</th><th scope="col">Расход</th><th scope="col">Переходы</th><th scope="col">Заявки</th><th scope="col">Цена заявки</th><th scope="col">Записи</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">Поиск</th><td>27&nbsp;300&nbsp;₽</td><td>105</td><td>7</td><td>3&nbsp;900&nbsp;₽</td><td>3</td></tr>
-        <tr><th scope="row">Рекламная сеть</th><td>10&nbsp;200&nbsp;₽</td><td>290</td><td>2</td><td>5&nbsp;100&nbsp;₽</td><td>1</td></tr>
-      </tbody>
-      <tfoot><tr><th scope="row">Итого</th><td>37&nbsp;500&nbsp;₽</td><td>395</td><td>9</td><td>4&nbsp;167&nbsp;₽</td><td>4</td></tr></tfoot>
-    </table>
-  </section>
-  <ul class="rep__notes">
-    <li><b>Что сделали.</b> Убрали 23 запроса без намерения лечиться: «бесплатно», «по ОМС», «обучение», «вакансии».</li>
-    <li><b>Что дальше.</b> Проверяем второй вариант первого экрана на странице услуги.</li>
-    <li><b>От клиники.</b> Отметки записей из CRM, за неделю 2 визита.</li>
-  </ul>
-</div>
-</div>
-        </div>
-      </div>
-    </div>
-    <p class="more-row"><a class="link" href="kejsy/">Все примеры работ</a></p>
-  </div>
-</section>
-
-<!-- ============ 6. КТО ВЕДЁТ ============ -->
-<section class="sec" id="team">
-  <div class="wrap lead2">
-    <div class="lead2__main">
-      <h2 class="h2">Вашу клинику ведёт основатель агентства.</h2>
-      <p class="lead">Илья Сорокин сам разбирает клинику, согласует с&nbsp;вами цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт. Кампании ведёт директолог, страницы собирает разработчик, карточками занимается специалист по&nbsp;Картам.</p>
-      <dl class="facts">
-        <div><dt>в&nbsp;маркетинге, из&nbsp;них 5–6 в&nbsp;медицине</dt><dd><span data-count="8">8</span> лет</dd></div>
-        <div><dt>клиник в&nbsp;опыте основателя и&nbsp;команды</dt><dd><span data-count="50">50</span>+</dd></div>
-      </dl>
-    </div>
-    <div class="lead2__side">
-      <h3 class="pack__h">Как мы работаем</h3>
-      <ul class="plist plist--lg">
-        <li class="reveal"><span>Рекламный кабинет, Метрика, сайт и&nbsp;домен оформлены на&nbsp;клинику</span></li>
-        <li class="reveal"><span>Отчёт каждую неделю: заявки, записи и&nbsp;цена каждой</span></li>
-        <li class="reveal"><span>Запуск рекламы через 7&nbsp;рабочих дней после получения доступов</span></li>
-        <li class="reveal"><span>Отзывы и&nbsp;переходы не&nbsp;накручиваем</span></li>
+      <ul class="terms hv2__terms" data-rv style="--d:5">
+        <li><b class="num">0&nbsp;₽</b><span>агентству на&nbsp;первом тесте Директа</span></li>
+        <li><b class="num">3–4&nbsp;дня</b><span>от&nbsp;доступов до&nbsp;запуска рекламы</span></li>
+        <li><b class="num">Каждую неделю</b><span>отчёт и&nbsp;созвон с&nbsp;менеджером</span></li>
       </ul>
-      <p><a class="link" href="kontakty/">О нас и&nbsp;контакты</a></p>
+      <i data-vp data-vp-r="z" data-vp-f="0.04" class="vp vp--rb"></i>
     </div>
   </div>
 </section>
-
-<!-- ============ 7. ВОПРОСЫ: на широком экране колесо, на телефоне список ============ -->
-<section class="sec" id="faq">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Что владельцы клиник спрашивают до&nbsp;старта.</h2>
-  </div>
-  <p class="shead__note">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
-</div>
-
-    <div class="qa" data-wheel>
-  <details class="qa__item" open>
-    <summary><span class="qa__q">В&nbsp;чём подвох?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>На&nbsp;первом тесте мы&nbsp;действительно не&nbsp;берём комиссию за&nbsp;работу. Расчёт простой: нам выгодно, чтобы после теста вы&nbsp;остались на&nbsp;ведении, поэтому за&nbsp;тест мы&nbsp;должны показать заявки. Рекламный депозит вы&nbsp;вносите Яндексу сами, в&nbsp;свой кабинет.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Сколько стоит потом?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Стоимость ведения называем на&nbsp;разборе, до&nbsp;старта теста, чтобы вы&nbsp;знали её&nbsp;заранее. Рекламный бюджет после теста от&nbsp;100&nbsp;000&nbsp;₽ в&nbsp;месяц, его вы&nbsp;по-прежнему платите Яндексу напрямую.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Чей кабинет и&nbsp;сайт?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Ваши. Рекламный кабинет, счётчик Метрики, домен и&nbsp;карточки оформляем на&nbsp;клинику с&nbsp;первого дня. Сайт с&nbsp;полными правами передаём после оплаты стартового пакета, абонентской платы за&nbsp;него нет.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Когда пойдут заявки?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Рекламу включаем через 7&nbsp;рабочих дней после получения доступов, показы идут с&nbsp;первого дня. Первые две недели кампании набирают статистику, поэтому результат оцениваем по&nbsp;итогам теста. Пациент <span class="nw">All-on-4</span> думает дольше, там смотрим второй и&nbsp;третий месяц.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Что нужно от&nbsp;клиники?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Лицензия на&nbsp;услугу, врач со&nbsp;свободным временем для консультаций и&nbsp;администратор, который перезванивает по&nbsp;заявке в&nbsp;течение 15&nbsp;минут. Ещё нужны отметки о&nbsp;записях в&nbsp;CRM или в&nbsp;общей таблице: без них не&nbsp;посчитать цену записи.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Гарантируете пациентов?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Число пациентов не&nbsp;гарантируем. Оно зависит и&nbsp;от&nbsp;цен клиники, и&nbsp;от&nbsp;врача, и&nbsp;от&nbsp;того, как быстро отвечают на&nbsp;заявку. В&nbsp;договоре закрепляем то, за&nbsp;что отвечаем сами: состав работ, срок запуска и&nbsp;еженедельный отчёт.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Как расстаться?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>После первого теста можно просто не&nbsp;продолжать: кабинет и&nbsp;данные остаются у&nbsp;вас. Пакет по&nbsp;сайту и&nbsp;Картам заключается на&nbsp;3&nbsp;месяца, дальше продвижение можно остановить. Порядок записан в&nbsp;договоре.</p></div>
-  </details>
-</div>
-
+<!-- «Векторы из Петербурга»: светлый экран, из одной точки расходятся направления к городам -->
+<section class="sec" id="geo" data-line="light">
+  <div class="sec__body g2">
+    <div class="wrap g2__grid">
+      <i data-vp class="vp vp--xl"></i>
+      <div class="g2__text">
+        <p class="label" data-rv="fade">Агентство в&nbsp;цифрах</p>
+        <h2 class="h2 rvh"><span class="ln" style="--l:0"><span>Из&nbsp;Петербурга</span></span> <span class="ln" style="--l:1"><span>в&nbsp;20 регионов</span></span></h2>
+        <p class="lead g2__lead" data-rv style="--d:2">Занимаемся только медициной, и&nbsp;в&nbsp;первую очередь стоматологиями. Клиники ведём удалённо: кабинеты, отчёты и&nbsp;созвоны раз в&nbsp;неделю.</p>
+        <dl class="g2__nums">
+          <div data-rv style="--d:3"><dt class="num"><span data-count="40">40</span>+</dt><dd>клиник на&nbsp;ведении</dd></div>
+          <div data-rv style="--d:4"><dt class="num" data-count="20">20</dt><dd>регионов России</dd></div>
+          <div data-rv style="--d:5"><dt class="num"><span data-count="6">6</span> лет</dt><dd>в&nbsp;медицинском маркетинге</dd></div>
+        </dl>
+      </div>
+      <figure class="g2__map" data-rv="fade" style="--d:2">
+        <svg viewBox="0 26 680 334" role="img" aria-label="Схема: направления из Санкт-Петербурга к городам, где работают клиенты">
+          <g class="g2__rays">
+            <path pathLength="1" d="M70 96Q146 130 196 196" style="--i:0"/>
+            <path pathLength="1" d="M70 96Q168 162 222 268" style="--i:1"/>
+            <path pathLength="1" d="M70 96Q203 122 306 210" style="--i:2"/>
+            <path pathLength="1" d="M70 96Q247 117 392 222" style="--i:3"/>
+            <path pathLength="1" d="M70 96Q265 160 404 310" style="--i:4"/>
+            <path pathLength="1" d="M70 96Q297 130 478 270" style="--i:5"/>
+            <path pathLength="1" d="M70 96Q299 80 506 178" style="--i:6"/>
+            <path pathLength="1" d="M70 96Q325 59 566 150" style="--i:7"/>
+            <path pathLength="1" d="M70 96Q365 96 622 240" style="--i:8"/>
+          </g>
+          <g class="g2__pts">
+            <circle cx="196" cy="196" r="4.5" style="--i:0"/><circle cx="222" cy="268" r="4.5" style="--i:1"/><circle cx="306" cy="210" r="4.5" style="--i:2"/>
+            <circle cx="392" cy="222" r="4.5" style="--i:3"/><circle cx="404" cy="310" r="4.5" style="--i:4"/><circle cx="478" cy="270" r="4.5" style="--i:5"/>
+            <circle cx="506" cy="178" r="4.5" style="--i:6"/><circle cx="566" cy="150" r="4.5" style="--i:7"/><circle cx="622" cy="240" r="4.5" style="--i:8"/>
+          </g>
+          <circle class="g2__home-ring" cx="70" cy="96" r="20"/>
+          <circle class="g2__home" cx="70" cy="96" r="7"/>
+          <g class="g2__names">
+            <text x="70" y="58" text-anchor="middle" class="g2__spb">Санкт-Петербург</text>
+            <text x="196" y="222">Москва</text>
+            <text x="222" y="294">Рязань</text>
+            <text x="306" y="196" text-anchor="middle">Нижний Новгород</text>
+            <text x="392" y="248" text-anchor="middle">Казань</text>
+            <text x="404" y="336" text-anchor="middle">Самара</text>
+            <text x="478" y="296" text-anchor="middle">Уфа</text>
+            <text x="506" y="164" text-anchor="middle">Екатеринбург</text>
+            <text x="566" y="134" text-anchor="middle">Тюмень</text>
+            <text x="622" y="266" text-anchor="end">Новосибирск</text>
+          </g>
+        </svg>
+        <p class="g2__cities">Москва и&nbsp;область, Рязань, Нижний Новгород, Казань, Самара, Уфа, Екатеринбург, Тюмень, Новосибирск</p>
+        <figcaption class="stub">Заглушка: схема направлений, не&nbsp;карта. Города и&nbsp;цифры условные</figcaption>
+      </figure>
+      <i data-vp class="vp vp--lb"></i>
+    </div>
   </div>
 </section>
-
-<!-- ============ 8. ФИНАЛ: тёмный экран с формой, линия заканчивается у кнопки ============ -->
-<section class="dark sheet start" id="start" data-dark>
-  <div class="wrap">
-    <h2 class="h2 start__title">Оставьте заявку. За&nbsp;2&nbsp;рабочих дня разберём клинику и&nbsp;посчитаем запуск.</h2>
-    <div class="start__grid">
-      <div class="start__text">
-        <p class="lead">Посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;первого теста в&nbsp;Директе или с&nbsp;сайта и&nbsp;Карт.</p>
-        <ul class="plist">
-          <li>Первый тест в&nbsp;Директе: комиссия 0&nbsp;₽, депозит вы&nbsp;вносите Яндексу</li>
-          <li>Сайт и&nbsp;Яндекс Карты: старт 80&nbsp;000&nbsp;₽, сайт входит в&nbsp;эту сумму</li>
-          <li>Если видим риски для запуска, скажем о&nbsp;них на&nbsp;разборе</li>
-        </ul>
-        <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
+<!-- «Указатель»: города списком, справа карточка выбранного кейса -->
+<section class="sec" id="cases" data-line="light">
+  <div class="sec__body c3">
+    <div class="wrap">
+      <i data-vp class="vp vp--xr"></i>
+      <div class="sh">
+        <div>
+          <p class="label" data-rv="fade">Кейсы</p>
+          <h2 class="h2 rvh"><span class="ln" style="--l:0"><span>Кейсы по&nbsp;городам</span></span></h2>
+        </div>
+        <p class="sh__note" data-rv style="--d:2">Выберите город, и&nbsp;откроются цифры. В&nbsp;каждом кейсе показываем стоимость заявки и&nbsp;число записей, а&nbsp;не&nbsp;охваты и&nbsp;клики.</p>
       </div>
-      <form class="form" novalidate action="#" aria-label="Заявка">
-        <fieldset class="form__choice">
-          <legend>Что хотите запустить</legend>
-          <div class="form__opts">
-            <label class="form__opt"><input type="radio" name="service" value="direct" checked><span>Тест Директа</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="site"><span>Сайт и&nbsp;Карты</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="unsure"><span>Пока не&nbsp;знаю</span></label>
+      <div class="c3__grid" data-tabs="a" data-hover-tabs>
+        <div class="c3__list" role="tablist" aria-label="Кейсы">
+          <button type="button" role="tab" class="c3__row is-on" aria-selected="true" data-tab="a" data-rv style="--d:0"><b>Тюмень</b><span>Имплантация, Директ</span><em>2&nbsp;400&nbsp;₽ за&nbsp;заявку</em></button>
+          <button type="button" role="tab" class="c3__row" aria-selected="false" data-tab="b" data-rv style="--d:1"><b>Екатеринбург</b><span>All-on-4, Директ</span><em>3&nbsp;100&nbsp;₽ за&nbsp;заявку</em></button>
+          <button type="button" role="tab" class="c3__row" aria-selected="false" data-tab="c" data-rv style="--d:2"><b>Казань</b><span>Ортодонтия, Директ</span><em>1&nbsp;850&nbsp;₽ за&nbsp;заявку</em></button>
+          <button type="button" role="tab" class="c3__row" aria-selected="false" data-tab="d" data-rv style="--d:3"><b>Самара</b><span>Яндекс Карты</span><em>звонков в&nbsp;2,7 раза больше</em></button>
+          <button type="button" role="tab" class="c3__row" aria-selected="false" data-tab="e" data-rv style="--d:4"><b>Нижний Новгород</b><span>Яндекс Карты и&nbsp;2ГИС</span><em>звонков в&nbsp;3,2 раза больше</em></button>
+        </div>
+        <div class="c3__view" data-rv="fade" style="--d:2">
+          <article class="c3__pane" data-pane="a">
+            <p class="ctag"><span>Имплантация</span><span>Тюмень</span><span>первый месяц</span></p>
+            <p class="c3__big num">2&nbsp;400&nbsp;₽</p><p class="c3__cap">стоимость заявки</p>
+            <ul class="cnums"><li><b class="num">62</b><span>заявки</span></li><li><b class="num">21</b><span>запись</span></li><li><b class="num">150&nbsp;000&nbsp;₽</b><span>бюджет</span></li></ul>
+            <p class="c3__txt">Отдельная страница под имплантацию с&nbsp;ценой под ключ и&nbsp;врачом. Кампании на&nbsp;поиске и&nbsp;в&nbsp;РСЯ, заявки сразу уходят в&nbsp;CRM клиники.</p>
+          </article>
+          <article class="c3__pane" data-pane="b" hidden>
+            <p class="ctag"><span>All-on-4</span><span>Екатеринбург</span><span>первый месяц</span></p>
+            <p class="c3__big num">3&nbsp;100&nbsp;₽</p><p class="c3__cap">стоимость заявки</p>
+            <ul class="cnums"><li><b class="num">38</b><span>заявок</span></li><li><b class="num">16</b><span>записей</span></li><li><b class="num">120&nbsp;000&nbsp;₽</b><span>бюджет</span></li></ul>
+            <p class="c3__txt">Отдельная страница под All-on-4 с&nbsp;ценой под ключ и&nbsp;рассрочкой. Реклама только по&nbsp;запросам с&nbsp;названием методики и&nbsp;«все зубы за&nbsp;один день».</p>
+          </article>
+          <article class="c3__pane" data-pane="c" hidden>
+            <p class="ctag"><span>Ортодонтия</span><span>Казань</span><span>первый месяц</span></p>
+            <p class="c3__big num">1&nbsp;850&nbsp;₽</p><p class="c3__cap">стоимость заявки</p>
+            <ul class="cnums"><li><b class="num">54</b><span>заявки</span></li><li><b class="num">24</b><span>записи</span></li><li><b class="num">100&nbsp;000&nbsp;₽</b><span>бюджет</span></li></ul>
+            <p class="c3__txt">Две страницы: брекеты и&nbsp;элайнеры. Взрослых и&nbsp;родителей подростков развели по&nbsp;разным объявлениям.</p>
+          </article>
+          <article class="c3__pane" data-pane="d" hidden>
+            <p class="ctag"><span>Яндекс Карты</span><span>Самара</span><span>4&nbsp;месяца</span></p>
+            <p class="c3__big num">в&nbsp;2,7 раза</p><p class="c3__cap">больше звонков из&nbsp;карточки</p>
+            <div class="ba"><span class="ba__l">Звонки в&nbsp;месяц</span><p class="ba__r"><small>было</small><i style="--w:37%"></i><b>48</b></p><p class="ba__r ba__r--now"><small>стало</small><i style="--w:100%"></i><b>131</b></p></div>
+            <div class="ba"><span class="ba__l">Построили маршрут</span><p class="ba__r"><small>было</small><i style="--w:39%"></i><b>210</b></p><p class="ba__r ba__r--now"><small>стало</small><i style="--w:100%"></i><b>540</b></p></div>
+          </article>
+          <article class="c3__pane" data-pane="e" hidden>
+            <p class="ctag"><span>Яндекс Карты и&nbsp;2ГИС</span><span>Нижний Новгород</span><span>3&nbsp;месяца</span></p>
+            <p class="c3__big num">в&nbsp;3,2 раза</p><p class="c3__cap">больше звонков из&nbsp;карточек</p>
+            <div class="ba"><span class="ba__l">Звонки в&nbsp;месяц</span><p class="ba__r"><small>было</small><i style="--w:31%"></i><b>30</b></p><p class="ba__r ba__r--now"><small>стало</small><i style="--w:100%"></i><b>96</b></p></div>
+            <div class="ba"><span class="ba__l">Переходы на&nbsp;сайт</span><p class="ba__r"><small>было</small><i style="--w:37%"></i><b>95</b></p><p class="ba__r ba__r--now"><small>стало</small><i style="--w:100%"></i><b>260</b></p></div>
+          </article>
+          <a href="#start" class="btn" data-magnetic>Хочу так&nbsp;же</a>
+        </div>
+      </div>
+      <p class="stub c__stub">Заглушка: цифры в&nbsp;кейсах условные, названия клиник появятся с&nbsp;их&nbsp;согласия</p>
+      <i data-vp class="vp vp--rb"></i>
+    </div>
+  </div>
+</section>
+<!-- «Две панели»: Директ и комплекс стоят рядом, под ними услуги по отдельности -->
+<section class="sec" id="services" data-line="light">
+  <div class="sec__body s1">
+    <div class="wrap">
+      <i data-vp class="vp vp--xl"></i>
+      <div class="sh">
+        <div>
+          <p class="label" data-rv="fade">Услуги</p>
+          <h2 class="h2 rvh"><span class="ln" style="--l:0"><span>Два формата работы</span></span></h2>
+        </div>
+        <p class="sh__note" data-rv style="--d:2">Директ приводит заявки быстро. Комплекс делает так, чтобы клинику находили в&nbsp;поиске и&nbsp;на&nbsp;картах и&nbsp;без рекламы. Любую услугу можно заказать отдельно.</p>
+      </div>
+      <div class="s1__grid">
+        <article class="s1__p" data-rv>
+          <p class="s1__tag">Быстрый результат</p>
+          <h3 class="s1__h">Яндекс Директ</h3>
+          <p class="s1__big num">3–4&nbsp;дня</p>
+          <p class="s1__cap">от&nbsp;доступов до&nbsp;первых показов рекламы</p>
+          <ul class="ticks">
+            <li>Поиск и&nbsp;РСЯ по&nbsp;имплантации, <span class="nw">All-on-4</span> и&nbsp;ортодонтии</li>
+            <li>Отдельный лендинг под каждую услугу</li>
+            <li>Подключаемся к&nbsp;вашей CRM, любой</li>
+            <li>Аккаунт-менеджер, отчёт и&nbsp;созвон каждую неделю</li>
+          </ul>
+          <p class="s1__terms"><b>Первый тест без комиссии агентства.</b> Вы&nbsp;оплачиваете только рекламный бюджет: 150&nbsp;000&nbsp;₽ примерно на&nbsp;две недели. Условия дальнейшей работы фиксируем в&nbsp;договоре по&nbsp;итогам теста.</p>
+          <a href="#start" class="btn" data-magnetic>Обсудить тест</a>
+        </article>
+        <article class="s1__p s1__p--dark dark" data-rv style="--d:1">
+          <p class="s1__tag">Надолго</p>
+          <h3 class="s1__h">Комплексный маркетинг</h3>
+          <p class="s1__big num">3&nbsp;месяца</p>
+          <p class="s1__cap">ведения входит в&nbsp;первый этап</p>
+          <ul class="ticks">
+            <li>Сайт с&nbsp;нуля под поиск и&nbsp;требования к&nbsp;медицинской рекламе</li>
+            <li>Страница под каждую услугу клиники</li>
+            <li>Яндекс Карты с&nbsp;каталогом услуг, 2ГИС и&nbsp;ПроДокторов</li>
+            <li>Ответы на&nbsp;отзывы и&nbsp;SEO в&nbsp;своём городе</li>
+          </ul>
+          <p class="s1__terms"><b>Вернём деньги, пока сайт не&nbsp;опубликован.</b> Первый этап 80&nbsp;000&nbsp;₽ двумя платежами. <span class="stub">Заглушка: сумма на&nbsp;согласовании</span></p>
+          <a href="#start" class="btn btn--light" data-magnetic>Обсудить комплекс</a>
+        </article>
+      </div>
+      <div class="solo" data-rv>
+        <p class="solo__h">Можно по&nbsp;отдельности</p>
+        <ul class="chips"><li>Яндекс Директ</li><li>Сайт клиники</li><li>Лендинг под услугу</li><li>Яндекс Карты</li><li>2ГИС</li><li>ПроДокторов</li><li>SEO</li><li>Ответы на&nbsp;отзывы</li></ul>
+      </div>
+      <i data-vp class="vp vp--lb"></i>
+    </div>
+  </div>
+</section>
+<!-- «Сообщение»: отчёт приходит в мессенджер, как обычная переписка с менеджером -->
+<section class="sec sec--fog" id="process" data-line="fog">
+  <div class="sec__body p5">
+    <div class="wrap p5__grid">
+      <i data-vp class="vp vp--xr"></i>
+      <div class="p5__phone" data-rv="scale">
+        <div class="ph">
+          <p class="ph__top"><b>МедВектор, ваш менеджер</b><span>в&nbsp;сети</span></p>
+          <div class="ph__chat">
+            <p class="ph__day">пятница</p>
+            <p class="ph__m" style="--i:0">Добрый день! Отчёт за&nbsp;неделю 12–18 мая: расход 52&nbsp;400&nbsp;₽, 21 заявка, 9 записей. Цена заявки 2&nbsp;495&nbsp;₽.</p>
+            <p class="ph__m ph__m--file" style="--i:1"><b>Отчёт, неделя 3</b><span>таблица и&nbsp;скриншоты кабинета</span></p>
+            <p class="ph__m" style="--i:2">Отключили 14 запросов без записей, добавили объявления про рассрочку.</p>
+            <p class="ph__m ph__m--me" style="--i:3">Спасибо. А&nbsp;что с&nbsp;All-on-4?</p>
+            <p class="ph__m" style="--i:4">Заявок 4, запись пока одна. Предлагаю ещё неделю теста, обсудим сегодня на&nbsp;созвоне в&nbsp;16:00.</p>
           </div>
-        </fieldset>
-        <label class="fld form__dir"><span>Услуга для рекламы</span>
-          <select name="direction">
-            <option value="implant">Имплантация</option>
-            <option value="all-on-4">All-on-4, полное восстановление</option>
-            <option value="running">Реклама уже идёт, нужен разбор</option>
-            <option value="other">Другая услуга</option>
-          </select>
-        </label>
-        <div class="form__row">
-          <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
-          <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
         </div>
-        <div class="form__row">
-          <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
-          <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
+        <p class="stub">Заглушка: пример переписки, цифры условные</p>
+      </div>
+      <div class="p5__text">
+        <p class="label" data-rv="fade">Как идёт работа</p>
+        <h2 class="h2 rvh"><span class="ln" style="--l:0"><span>Отчёт приходит</span></span> <span class="ln" style="--l:1"><span>каждую пятницу</span></span></h2>
+        <p class="lead p1__lead" data-rv style="--d:2">Пишем по-человечески и&nbsp;там, где вам удобно. Сколько потратили, сколько заявок и&nbsp;записей, что меняем. Если что-то не&nbsp;сработало, говорим прямо.</p>
+        <ul class="ticks p__ticks" data-rv style="--d:3">
+          <li>Кабинеты, сайт и&nbsp;карточки оформлены на&nbsp;клинику</li>
+          <li>Один менеджер на&nbsp;связи, созвон раз в&nbsp;неделю</li>
+          <li>Подключаемся к&nbsp;вашей CRM, любой</li>
+        </ul>
+      </div>
+      <i data-vp class="vp vp--rb"></i>
+    </div>
+  </div>
+</section>
+<!-- «Стена»: макеты едут тремя колонками вверх и вниз -->
+<section class="sec sec--dark dark" id="sites" data-line="dark">
+  <div class="sec__body w5">
+    <div class="wrap w5__grid">
+      <i data-vp class="vp vp--xl"></i>
+      <div class="w5__text">
+        <p class="label" data-rv="fade">Сайты и&nbsp;лендинги</p>
+        <h2 class="h2 rvh"><span class="ln" style="--l:0"><span>Сайты</span></span> <span class="ln" style="--l:1"><span>и&nbsp;лендинги</span></span> <span class="ln" style="--l:2"><span>без шаблонов</span></span></h2>
+        <p class="lead w5__lead" data-rv style="--d:3">Сайт клиники с&nbsp;нуля или страница под одну услугу для рекламы. Этот сайт мы&nbsp;тоже собрали сами.</p>
+        <ul class="ticks p__ticks" data-rv style="--d:4">
+          <li>Структура под запросы вашего города</li>
+          <li>Страница под каждую услугу</li>
+          <li>Требования закона к&nbsp;рекламе медицинских услуг</li>
+          <li>Заявки сразу в&nbsp;вашу CRM</li>
+        </ul>
+        <a href="#start" class="btn btn--light w5__btn" data-magnetic>Обсудить сайт</a>
+        <p class="stub">Заглушка: макеты нарисованы в&nbsp;коде</p>
+      </div>
+      <div class="w5__wall" aria-hidden="true">
+        <div class="w5__col"><div><div class="mock" data-mock="implant"></div><div class="mock" data-mock="doctors"></div><div class="mock" data-mock="implant"></div><div class="mock" data-mock="doctors"></div></div></div>
+        <div class="w5__col w5__col--b"><div><div class="mock" data-mock="clinic"></div><div class="mock" data-mock="allon4"></div><div class="mock" data-mock="clinic"></div><div class="mock" data-mock="allon4"></div></div></div>
+        <div class="w5__col"><div><div class="mock" data-mock="ortho"></div><div class="mock" data-mock="implant"></div><div class="mock" data-mock="ortho"></div><div class="mock" data-mock="implant"></div></div></div>
+      </div>
+      <i data-vp class="vp vp--lb"></i>
+    </div>
+  </div>
+</section>
+<!-- «Письмо»: лист с письмом основателя владельцу клиники -->
+<section class="sec sec--azure" id="team" data-line="azure">
+  <div class="sec__body t5">
+    <div class="wrap t5__grid">
+      <i data-vp class="vp vp--xr"></i>
+      <div class="t5__text">
+        <p class="label" data-rv="fade">От&nbsp;основателя</p>
+        <h2 class="h2 rvh"><span class="ln" style="--l:0"><span>Письмо</span></span> <span class="ln" style="--l:1"><span>владельцу</span></span> <span class="ln" style="--l:2"><span>клиники</span></span></h2>
+        <ul class="t5__facts" data-rv style="--d:3">
+          <li><b class="num">8&nbsp;лет</b><span>в&nbsp;маркетинге</span></li>
+          <li><b class="num">6&nbsp;лет</b><span>в&nbsp;медицинском</span></li>
+        </ul>
+      </div>
+      <article class="t5__sheet" data-rv="scale" data-prog>
+        <p>Здравствуйте.</p>
+        <p>Я&nbsp;занимаюсь маркетингом восемь лет, шесть из&nbsp;них работаю с&nbsp;медициной. Чаще всего клиника расстаётся с&nbsp;агентством не&nbsp;из-за цифр, а&nbsp;потому что перестаёт понимать, что происходит с&nbsp;её&nbsp;деньгами.</p>
+        <p>У&nbsp;нас устроено иначе. Рекламные кабинеты, сайт и&nbsp;карточки оформлены на&nbsp;вас. Каждую неделю приходит отчёт, в&nbsp;котором есть и&nbsp;то, что не&nbsp;сработало. Первый тест Директа идёт без комиссии агентства, а&nbsp;оплату за&nbsp;сайт вернём, пока он&nbsp;не&nbsp;опубликован.</p>
+        <p>Мне важна репутация. Она складывается из&nbsp;клиник, которые остаются с&nbsp;нами надолго.</p>
+        <footer class="t__f t5__f">
+          <img src="assets/img/founder.webp" width="256" height="256" alt="Илья Сорокин, основатель МедВектора" loading="lazy">
+          <p><b class="h3">Илья Сорокин</b><span>Основатель МедВектора, Санкт-Петербург</span></p>
+        </footer>
+      </article>
+      <p class="stub t5__stub">Заглушка: текст письма черновой, фото тестовое</p>
+      <i data-vp class="vp vp--rb"></i>
+    </div>
+  </div>
+</section>
+<!-- «Колесо»: колесо из первого варианта сайта. Список вопросов раскрывается на узком экране и без скриптов, на широком из него собирается колесо -->
+<section class="sec" id="faq" data-line="light">
+  <div class="sec__body q1">
+    <div class="wrap">
+      <i data-vp class="vp vp--xl"></i>
+      <div class="sh">
+        <div>
+          <p class="label" data-rv="fade">Вопросы</p>
+          <h2 class="h2 rvh"><span class="ln" style="--l:0"><span>Спрашивают</span></span> <span class="ln" style="--l:1"><span>до&nbsp;договора</span></span></h2>
         </div>
-        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="politika/">политики</a></span></label>
-        <div class="form__send">
-          <p class="form__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
-          <button class="btn btn--light" type="submit" data-vend data-magnetic>Отправить заявку</button>
+        <p class="sh__note" data-rv style="--d:2">Если вашего вопроса здесь нет, задайте его на&nbsp;разборе клиники.</p>
+      </div>
+      <div class="qa" data-wheel>
+        <details class="qa__item" name="faq" open><summary><span class="qa__q">Сколько стоит ведение Директа после теста?</span><span class="qa__ic" aria-hidden="true"></span></summary><div class="qa__a"><p>Цену считаем по&nbsp;итогам теста: она зависит от&nbsp;числа услуг и&nbsp;города. Записываем её&nbsp;в&nbsp;договор до&nbsp;продолжения работы, и&nbsp;дальше она не&nbsp;меняется без вашего согласия.</p></div></details>
+        <details class="qa__item" name="faq"><summary><span class="qa__q">Что входит в&nbsp;тест Директа?</span><span class="qa__ic" aria-hidden="true"></span></summary><div class="qa__a"><p>Кампании на&nbsp;поиске и&nbsp;в&nbsp;РСЯ по&nbsp;одной-трём услугам, лендинг под каждую услугу, заявки в&nbsp;вашу CRM, отчёт и&nbsp;созвон каждую неделю. Бюджет теста 150&nbsp;000&nbsp;₽ на&nbsp;две недели идёт в&nbsp;Яндекс, агентству на&nbsp;старте 0&nbsp;₽.</p></div></details>
+        <details class="qa__item" name="faq"><summary><span class="qa__q">На&nbsp;кого оформлены рекламные кабинеты и&nbsp;сайт?</span><span class="qa__ic" aria-hidden="true"></span></summary><div class="qa__a"><p>На&nbsp;клинику. Кабинет Директа, домен, сайт и&nbsp;карточки на&nbsp;картах принадлежат вам, доступ у&nbsp;вас есть всегда. Если расстанемся, всё останется у&nbsp;вас.</p></div></details>
+        <details class="qa__item" name="faq"><summary><span class="qa__q">Можно заказать одну услугу, а&nbsp;не&nbsp;всё сразу?</span><span class="qa__ic" aria-hidden="true"></span></summary><div class="qa__a"><p>Да. Директ, сайт, Яндекс Карты, 2ГИС, ПроДокторов и&nbsp;SEO можно заказать по&nbsp;отдельности и&nbsp;добавить остальное позже.</p></div></details>
+        <details class="qa__item" name="faq"><summary><span class="qa__q">В&nbsp;каком случае вы&nbsp;возвращаете деньги?</span><span class="qa__ic" aria-hidden="true"></span></summary><div class="qa__a"><p>Пока сайт не&nbsp;опубликован, вернём оплату по&nbsp;вашему запросу. Это условие записано в&nbsp;договоре.</p></div></details>
+        <details class="qa__item" name="faq"><summary><span class="qa__q">С&nbsp;какой CRM вы&nbsp;работаете?</span><span class="qa__ic" aria-hidden="true"></span></summary><div class="qa__a"><p>С&nbsp;любой. Заявки с&nbsp;сайта и&nbsp;лендингов передаём в&nbsp;ту&nbsp;систему, в&nbsp;которой уже работает ваша клиника.</p></div></details>
+        <details class="qa__item" name="faq"><summary><span class="qa__q">Вы&nbsp;работаете только со&nbsp;стоматологиями?</span><span class="qa__ic" aria-hidden="true"></span></summary><div class="qa__a"><p>Стоматологии для нас главное направление: имплантация, All-on-4, ортодонтия. Медицинские центры тоже берём, если на&nbsp;разборе видим, что можем помочь.</p></div></details>
+        <details class="qa__item" name="faq"><summary><span class="qa__q">Как вы&nbsp;учитываете требования к&nbsp;рекламе медицинских услуг?</span><span class="qa__ic" aria-hidden="true"></span></summary><div class="qa__a"><p>Объявления, лендинги и&nbsp;сайт готовим по&nbsp;закону о&nbsp;рекламе: с&nbsp;предупреждением о&nbsp;противопоказаниях, с&nbsp;лицензией клиники и&nbsp;без обещаний результата лечения. Отзывы собираем только настоящие.</p></div></details>
+      </div>
+      <div class="wheel">
+        <div class="wheel__dial">
+          <div class="tooth wheel__hub" aria-hidden="true"><canvas data-tooth="points" data-yaw="0.4" data-size="2.2" data-follow="off" data-asm="off"></canvas></div>
+          <div class="wheel__ring">
+            <i aria-hidden="true"></i><i aria-hidden="true"></i>
+            <div class="wheel__tabs" role="tablist" aria-label="Вопросы" aria-orientation="vertical">
+              <button type="button" class="wheel__q" role="tab" id="wq-0" aria-controls="wheel-panel" aria-selected="true" style="--a:0deg">Цена после теста</button>
+              <button type="button" class="wheel__q" role="tab" id="wq-1" aria-controls="wheel-panel" aria-selected="false" tabindex="-1" style="--a:26deg">Что входит в&nbsp;тест</button>
+              <button type="button" class="wheel__q" role="tab" id="wq-2" aria-controls="wheel-panel" aria-selected="false" tabindex="-1" style="--a:52deg">Чьи кабинеты и&nbsp;сайт</button>
+              <button type="button" class="wheel__q is-far" role="tab" id="wq-3" aria-controls="wheel-panel" aria-selected="false" tabindex="-1" style="--a:78deg">Одна услуга отдельно</button>
+              <button type="button" class="wheel__q is-far" role="tab" id="wq-4" aria-controls="wheel-panel" aria-selected="false" tabindex="-1" style="--a:-104deg">Возврат денег</button>
+              <button type="button" class="wheel__q is-far" role="tab" id="wq-5" aria-controls="wheel-panel" aria-selected="false" tabindex="-1" style="--a:-78deg">Какая CRM</button>
+              <button type="button" class="wheel__q" role="tab" id="wq-6" aria-controls="wheel-panel" aria-selected="false" tabindex="-1" style="--a:-52deg">Только стоматологии</button>
+              <button type="button" class="wheel__q" role="tab" id="wq-7" aria-controls="wheel-panel" aria-selected="false" tabindex="-1" style="--a:-26deg">Закон о&nbsp;рекламе</button>
+            </div>
+          </div>
+          <span class="wheel__ptr" aria-hidden="true"></span>
+          <p class="wheel__count" aria-hidden="true"><b>1</b><span>из&nbsp;8</span></p>
         </div>
-        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
-      </form>
+        <div class="wheel__panel" role="tabpanel" id="wheel-panel" tabindex="0" aria-labelledby="wq-0">
+          <h3 class="wheel__title">Сколько стоит ведение Директа после теста?</h3>
+          <div class="wheel__a"><p>Цену считаем по&nbsp;итогам теста: она зависит от&nbsp;числа услуг и&nbsp;города. Записываем её&nbsp;в&nbsp;договор до&nbsp;продолжения работы, и&nbsp;дальше она не&nbsp;меняется без вашего согласия.</p></div>
+          <div class="wheel__nav"><button type="button" class="wheel__btn" data-step="-1" aria-label="Предыдущий вопрос"></button><button type="button" class="wheel__btn wheel__btn--next" data-step="1" aria-label="Следующий вопрос"></button></div>
+        </div>
+      </div>
+      <i data-vp class="vp vp--lb"></i>
+    </div>
+  </div>
+</section>
+<!-- «Одна строка»: надпись во всю ширину и форма из одного поля -->
+<section class="sec sec--azure" id="start" data-line="azure">
+  <div class="sec__body f2">
+    <div class="wrap">
+      <i data-vp class="vp vp--xr"></i>
+      <p class="label" data-rv="fade">Заявка</p>
+      <h2 class="f2__big" data-fit data-fit-max="26"><span>Начнём с&nbsp;разбора</span></h2>
+      <div class="f2__grid">
+        <p class="f2__note" data-rv>Оставьте телефон. Перезвоним, спросим про клинику и&nbsp;город и&nbsp;договоримся о&nbsp;бесплатном разборе.</p>
+        <form class="f2__form" data-demo-form data-rv style="--d:1">
+          <div class="f2__row">
+            <label><span class="sr">Телефон</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Ваш телефон" required></label>
+            <button class="btn" type="submit" data-magnetic>Жду звонка</button>
+            <i data-vp data-vp-node data-vp-r="vh"></i>
+          </div>
+          <label class="fm__c"><input type="checkbox" name="agree" required><span>Даю <a href="soglasie/">согласие</a> на&nbsp;обработку персональных данных по <a href="politika/">политике</a></span></label>
+          <p class="fm__ok" data-form-ok hidden tabindex="-1" role="status">Это макет: заявка никуда не&nbsp;ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
+          <p class="stub fm__stub">Заглушка: форма пока не&nbsp;отправляет заявки</p>
+        </form>
+      </div>
     </div>
   </div>
 </section>
 
 </main>
 
-<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top">
-      <p class="ftr__say">Реклама, сайты и&nbsp;Яндекс Карты для частных стоматологий. Честная цена: первый тест <em>бесплатно</em>.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
-        <a href="yandex-direkt/">Яндекс Директ для стоматологий</a>
-        <a href="yandex-direkt/#directions">Реклама All-on-4 и имплантации</a>
-        <a href="kompleksnyj-marketing/">Сайт и комплексный маркетинг</a>
-        <a href="kompleksnyj-marketing/#maps">Яндекс Карты</a>
+        <a href="#services">Яндекс Директ</a>
+        <a href="#services">Комплексный маркетинг</a>
+        <a href="#sites">Сайты и&nbsp;лендинги</a>
+        <a href="#services">Яндекс Карты и&nbsp;2ГИС</a>
+        <a href="#services">SEO</a>
       </nav>
       <nav class="ftr__col" aria-label="Агентство">
         <h2>Агентство</h2>
-        <a href="kejsy/">Кейсы и примеры</a>
-        <a href="kontakty/">О нас</a>
-        <a href="kontakty/#contacts">Контакты</a>
+        <a href="#cases">Кейсы</a>
+        <a href="#team">Об агентстве</a>
+        <a href="#faq">Вопросы</a>
         <a href="#start">Оставить заявку</a>
       </nav>
     </div>
@@ -687,10 +580,8 @@
     </div>
   </div>
 </footer>
-<!-- нижняя кнопка на телефоне -->
-<a href="#start" class="mcta"><span>Запустить первый тест</span></a>
 
 <script src="assets/js/vendor/lenis.min.js" defer></script>
-<script src="assets/js/trajectory.js" defer></script>
+<script src="assets/js/home.js" defer></script>
 </body>
 </html>

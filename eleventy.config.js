@@ -83,6 +83,15 @@ module.exports = function (cfg) {
       .replace(/\b(srcset|imagesrcset)="([^"]*)"/g, (m, a, list) => `${a}="${list.split(',').map(c => { const s = c.trim(); return s.startsWith('/') && !s.startsWith('//') ? relative(s.split(/\s+/)[0], depth) + s.slice(s.split(/\s+/)[0].length) : s; }).join(', ')}"`);
   });
 
+  // Главная собрана из готовой разметки секций (src/_includes/home), фильтр t к ней не применяется.
+  // Поэтому неразрывные пробелы расставляются по готовой странице: только в тексте между тегами внутри <main>.
+  cfg.addTransform('home-typography', function (content) {
+    if (this.page.url !== '/' || !(this.page.outputPath || '').endsWith('.html')) return content;
+    const a = content.indexOf('<main'), b = content.indexOf('</main>');
+    if (a < 0 || b < 0) return content;
+    return content.slice(0, a) + content.slice(a, b).replace(/>([^<>]*[А-Яа-яЁё\d][^<>]*)</g, (m, text) => '>' + glue(text) + '<') + content.slice(b);
+  });
+
   return {
     dir: { input: 'src', output: '.', includes: '_includes', data: '_data' },
     templateFormats: ['njk'],

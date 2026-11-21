@@ -1,0 +1,23 @@
+<!-- «Одна строка»: надпись во всю ширину и форма из одного поля -->
+<section class="sec sec--azure" id="start" data-line="azure">
+  <div class="sec__body f2">
+    <div class="wrap">
+      <i data-vp class="vp vp--xr"></i>
+      <p class="label" data-rv="fade">Заявка</p>
+      <h2 class="f2__big" data-fit data-fit-max="26"><span>Начнём с разбора</span></h2>
+      <div class="f2__grid">
+        <p class="f2__note" data-rv>Оставьте телефон. Перезвоним, спросим про клинику и город и договоримся о бесплатном разборе.</p>
+        <form class="f2__form" data-demo-form data-rv style="--d:1">
+          <div class="f2__row">
+            <label><span class="sr">Телефон</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="Ваш телефон" required></label>
+            <button class="btn" type="submit" data-magnetic>Жду звонка</button>
+            <i data-vp data-vp-node data-vp-r="vh"></i>
+          </div>
+          <label class="fm__c"><input type="checkbox" name="agree" required><span>Даю <a href="{{ href('consent') }}">согласие</a> на обработку персональных данных по <a href="{{ href('policy') }}">политике</a></span></label>
+          <p class="fm__ok" data-form-ok hidden tabindex="-1" role="status">Это макет: заявка никуда не ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
+          <p class="stub fm__stub">Заглушка: форма пока не отправляет заявки</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
