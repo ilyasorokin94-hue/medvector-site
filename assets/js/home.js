@@ -1,434 +1,8 @@
-/* МедВектор, главная. Один файл из четырёх частей:
-   1. Зуб: трёхмерная модель на WebGL без сторонних библиотек.
-   2. Общее: шапка, меню, появление блоков, счётчики, курсор, вкладки, форма.
-   3. Линия-вектор: одна линия через всю страницу по меткам [data-vp].
-   4. Секции: указатель кейсов, макеты сайтов, колесо вопросов.
+/* МедВектор, главная. Один файл из трёх частей:
+   1. Общее: шапка, меню, появление блоков, счётчики, шар в колесе вопросов, курсор, вкладки, форма.
+   2. Линия-вектор: одна линия через всю страницу по меткам [data-vp].
+   3. Секции: указатель кейсов, макеты сайтов, колесо вопросов.
    Плавная прокрутка: assets/js/vendor/lenis.min.js (подключается раньше). */
-
-/* МедВектор: объёмный зуб. Форма задана формулой (поле расстояний), сетка строится в браузере,
-   рисуется своим небольшим WebGL-кодом без библиотек. Режимы: enamel (эмаль, как настоящий зуб), porcelain (фарфор),
-   glass (стекло на тёмном), points (точки), wire (сетка линий). */
-(function (global) {
-  'use strict';
-
-  /* ---------- форма зуба ---------- */
-  var smin = function (a, b, k) { var h = Math.max(k - Math.abs(a - b), 0) / k; return Math.min(a, b) - h * h * k * 0.25; };
-  var smax = function (a, b, k) { return -smin(-a, -b, k); };
-  function rbox(x, y, z, bx, by, bz, r) {
-    var qx = Math.abs(x) - bx + r, qy = Math.abs(y) - by + r, qz = Math.abs(z) - bz + r;
-    var ox = Math.max(qx, 0), oy = Math.max(qy, 0), oz = Math.max(qz, 0);
-    return Math.sqrt(ox * ox + oy * oy + oz * oz) + Math.min(Math.max(qx, Math.max(qy, qz)), 0) - r;
-  }
-  function ell(x, y, z, rx, ry, rz) {
-    var k0 = Math.sqrt(x * x / (rx * rx) + y * y / (ry * ry) + z * z / (rz * rz));
-    var k1 = Math.sqrt(x * x / (rx * rx * rx * rx) + y * y / (ry * ry * ry * ry) + z * z / (rz * rz * rz * rz));
-    return k1 > 1e-9 ? k0 * (k0 - 1) / k1 : -Math.min(rx, Math.min(ry, rz));
-  }
-  function cap(x, y, z, ax, ay, az, bx, by, bz, r) {
-    var pax = x - ax, pay = y - ay, paz = z - az, bax = bx - ax, bay = by - ay, baz = bz - az;
-    var h = Math.max(0, Math.min(1, (pax * bax + pay * bay + paz * baz) / (bax * bax + bay * bay + baz * baz)));
-    var dx = pax - bax * h, dy = pay - bay * h, dz = paz - baz * h;
-    return Math.sqrt(dx * dx + dy * dy + dz * dz) - r;
-  }
-  function rcone(x, y, z, ax, ay, az, bx, by, bz, r1, r2) {
-    var bax = bx - ax, bay = by - ay, baz = bz - az;
-    var l2 = bax * bax + bay * bay + baz * baz, rr = r1 - r2, a2 = l2 - rr * rr, il2 = 1 / l2;
-    var pax = x - ax, pay = y - ay, paz = z - az;
-    var yy = pax * bax + pay * bay + paz * baz, zz = yy - l2;
-    var vx = pax * l2 - bax * yy, vy = pay * l2 - bay * yy, vz = paz * l2 - baz * yy;
-    var x2 = vx * vx + vy * vy + vz * vz, y2 = yy * yy * l2, z2 = zz * zz * l2;
-    var k = (rr > 0 ? 1 : rr < 0 ? -1 : 0) * rr * rr * x2;
-    if ((zz > 0 ? 1 : zz < 0 ? -1 : 0) * a2 * z2 > k) return Math.sqrt(x2 + z2) * il2 - r2;
-    if ((yy > 0 ? 1 : yy < 0 ? -1 : 0) * a2 * y2 < k) return Math.sqrt(x2 + y2) * il2 - r1;
-    return (Math.sqrt(x2 * a2 * il2) + yy * rr) * il2 - r1;
-  }
-  // корень: гладкая трубка сверху вниз, почти ровная и сужается к верхушке; ось выгибается (bend) и у верхушки уходит вбок (tip)
-  function tube(x, y, z, x0, y0, y1, r0, r1, bend, tip, zs) {
-    var s = Math.max(0, Math.min(1, (y0 - y) / (y0 - y1)));
-    var ax = x0 + bend * 4 * s * (1 - s) + tip * s * s * s, r = r0 + (r1 - r0) * Math.pow(s, 1.8);
-    var dx = x - ax, dz = z / zs, dr = Math.sqrt(dx * dx + dz * dz) - r;
-    if (y < y1) { var ey = y - y1; return Math.sqrt(dx * dx + dz * dz + ey * ey) - r1; }
-    if (y > y0) { var e = y - y0, q = Math.max(dr, 0); return Math.sqrt(q * q + e * e) + Math.min(dr, 0); }
-    return dr;
-  }
-  // моляр нижней челюсти, как на анатомическом рисунке: коронка с пятью буграми и бороздами,
-  // выпуклая у шейки и сужающаяся к жевательной поверхности, шейка, два изогнутых корня с развилкой
-  function sdf(x, y, z) {
-    y += 0.08;
-    // тело коронки: шире всего в нижней трети, к жевательной поверхности сужается
-    var t = Math.max(0, Math.min(1, (y - 0.5) / 0.55)), sz = 1 - 0.16 * t * t, sx = 1 - 0.07 * t * t;
-    var d = ell(x / sx, y - 0.72, z / sz, 0.57, 0.36, 0.5) * Math.min(sx, sz);
-    // бугры: три щёчных и два язычных, щёчные чуть выше
-    var c = Math.min(
-      Math.min(ell(x + 0.29, y - 0.98, z - 0.19, 0.23, 0.14, 0.21), ell(x - 0.04, y - 0.99, z - 0.23, 0.22, 0.14, 0.2)),
-      Math.min(ell(x - 0.34, y - 0.95, z - 0.13, 0.18, 0.12, 0.18), Math.min(ell(x + 0.26, y - 0.97, z + 0.19, 0.24, 0.14, 0.21), ell(x - 0.2, y - 0.97, z + 0.2, 0.25, 0.14, 0.21))));
-    d = smin(d, c, 0.16);
-    // борозды: продольная посередине, поперечные между буграми, ямка в центре
-    var f = cap(x, y, z, -0.42, 1.11, 0.01, 0.44, 1.1, -0.01, 0.03);
-    f = Math.min(f, cap(x, y, z, -0.1, 1.1, 0.0, -0.13, 1.0, 0.46, 0.026));
-    f = Math.min(f, cap(x, y, z, 0.2, 1.1, 0.0, 0.26, 0.99, 0.42, 0.024));
-    f = Math.min(f, cap(x, y, z, -0.04, 1.1, 0.0, -0.02, 1.01, -0.44, 0.026));
-    f = Math.min(f, ell(x + 0.02, y - 1.09, z, 0.08, 0.05, 0.07));
-    d = smax(d, -f, 0.06);
-    // шейка: коронка переходит в корневой ствол
-    d = smin(d, rcone(x, y, z / 1.06, 0, 0.62, 0, 0, 0.16, 0, 0.45, 0.37), 0.14);
-    // корни: передний изгибается назад к верхушке, задний прямее и короче; оба сплюснуты спереди назад
-    var r1 = tube(x, y, z, -0.21, 0.24, -0.93, 0.2, 0.055, -0.075, 0.08, 1.55);
-    var r2 = tube(x, y, z, 0.21, 0.24, -0.87, 0.2, 0.06, 0.05, 0.035, 1.5);
-    d = smin(d, Math.min(r1, r2), 0.1);
-    return d;
-  }
-  // градиент по разностям вперёд: f0 уже посчитано в точке
-  function grad(x, y, z, out, f0) {
-    var e = 0.002;
-    if (f0 === undefined) f0 = sdf(x, y, z);
-    var gx = sdf(x + e, y, z) - f0, gy = sdf(x, y + e, z) - f0, gz = sdf(x, y, z + e) - f0;
-    var l = Math.sqrt(gx * gx + gy * gy + gz * gz) || 1;
-    out[0] = gx / l; out[1] = gy / l; out[2] = gz / l;
-    return l / e;
-  }
-  function snap(p, n) { // подтянуть точку на поверхность, записать нормаль
-    var f0 = sdf(p[0], p[1], p[2]), gl = grad(p[0], p[1], p[2], n, f0), dd = f0 / (gl || 1);
-    p[0] -= n[0] * dd; p[1] -= n[1] * dd; p[2] -= n[2] * dd;
-    grad(p[0], p[1], p[2], n);
-  }
-  function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
-
-  /* ---------- сетка: «поверхностные сети» по полю расстояний ---------- */
-  function buildMesh(h) {
-    var x0 = -0.8, y0 = -1.16, z0 = -0.7;
-    var nx = Math.round(1.6 / h) + 1, ny = Math.round(2.4 / h) + 1, nz = Math.round(1.4 / h) + 1;
-    var d = new Float32Array(nx * ny * nz), C = 4, far = h * C * 1.6;
-    var i, j, k, a, b, c;
-    for (k = 0; k < nz; k += C) for (j = 0; j < ny; j += C) for (i = 0; i < nx; i += C) {
-      var cv = sdf(x0 + (i + (C - 1) / 2) * h, y0 + (j + (C - 1) / 2) * h, z0 + (k + (C - 1) / 2) * h), skip = Math.abs(cv) > far;
-      for (c = k; c < Math.min(k + C, nz); c++) for (b = j; b < Math.min(j + C, ny); b++) for (a = i; a < Math.min(i + C, nx); a++)
-        d[a + b * nx + c * nx * ny] = skip ? cv : sdf(x0 + a * h, y0 + b * h, z0 + c * h);
-    }
-    var cx = nx - 1, cy = ny - 1, cz = nz - 1, cell = new Int32Array(cx * cy * cz).fill(-1);
-    var pos = [], g = new Float32Array(8), off = [0, 1, nx, nx + 1, nx * ny, nx * ny + 1, nx * ny + nx, nx * ny + nx + 1];
-    for (k = 0; k < cz; k++) for (j = 0; j < cy; j++) for (i = 0; i < cx; i++) {
-      var base = i + j * nx + k * nx * ny, mask = 0;
-      for (a = 0; a < 8; a++) { g[a] = d[base + off[a]]; if (g[a] < 0) mask |= 1 << a; }
-      if (mask === 0 || mask === 255) continue;
-      var sx = 0, sy = 0, sz = 0, cnt = 0;
-      for (a = 0; a < 8; a++) for (b = 1; b <= 4; b <<= 1) {
-        if (a & b) continue;
-        var e1 = a | b;
-        if ((g[a] < 0) === (g[e1] < 0)) continue;
-        var tt = g[a] / (g[a] - g[e1]);
-        sx += (a & 1) + (b === 1 ? tt : 0); sy += ((a >> 1) & 1) + (b === 2 ? tt : 0); sz += ((a >> 2) & 1) + (b === 4 ? tt : 0); cnt++;
-      }
-      cell[i + j * cx + k * cx * cy] = pos.length / 3;
-      pos.push(x0 + (i + sx / cnt) * h, y0 + (j + sy / cnt) * h, z0 + (k + sz / cnt) * h);
-    }
-    var idx = [];
-    var quad = function (q0, q1, q2, q3) { if (q0 < 0 || q1 < 0 || q2 < 0 || q3 < 0) return; idx.push(q0, q1, q2, q0, q2, q3); };
-    var ci = function (i, j, k) { return cell[i + j * cx + k * cx * cy]; };
-    for (k = 1; k < cz; k++) for (j = 1; j < cy; j++) for (i = 1; i < cx; i++) {
-      var p0 = d[i + j * nx + k * nx * ny] < 0;
-      if (p0 !== (d[i + 1 + j * nx + k * nx * ny] < 0)) quad(ci(i, j - 1, k - 1), ci(i, j, k - 1), ci(i, j, k), ci(i, j - 1, k));
-      if (p0 !== (d[i + (j + 1) * nx + k * nx * ny] < 0)) quad(ci(i - 1, j, k - 1), ci(i, j, k - 1), ci(i, j, k), ci(i - 1, j, k));
-      if (p0 !== (d[i + j * nx + (k + 1) * nx * ny] < 0)) quad(ci(i - 1, j - 1, k), ci(i, j - 1, k), ci(i, j, k), ci(i - 1, j, k));
-    }
-    var n = pos.length / 3, P = new Float32Array(pos), N = new Float32Array(n * 3), AO = new Float32Array(n), p = [0, 0, 0], nn = [0, 0, 0];
-    for (i = 0; i < n; i++) {
-      p[0] = P[i * 3]; p[1] = P[i * 3 + 1]; p[2] = P[i * 3 + 2];
-      snap(p, nn);
-      P[i * 3] = p[0]; P[i * 3 + 1] = p[1]; P[i * 3 + 2] = p[2]; N[i * 3] = nn[0]; N[i * 3 + 1] = nn[1]; N[i * 3 + 2] = nn[2];
-      var o1 = sdf(p[0] + nn[0] * 0.07, p[1] + nn[1] * 0.07, p[2] + nn[2] * 0.07) / 0.07, o2 = sdf(p[0] + nn[0] * 0.24, p[1] + nn[1] * 0.24, p[2] + nn[2] * 0.24) / 0.24;
-      AO[i] = Math.max(0, Math.min(1, 0.5 * o1 + 0.5 * o2));
-    }
-    var I = n > 65535 ? new Uint32Array(idx) : new Uint16Array(idx);
-    for (i = 0; i < I.length; i += 3) { // обход треугольников наружу
-      var A = I[i] * 3, B = I[i + 1] * 3, Cc = I[i + 2] * 3;
-      var ux = P[B] - P[A], uy = P[B + 1] - P[A + 1], uz = P[B + 2] - P[A + 2], vx = P[Cc] - P[A], vy = P[Cc + 1] - P[A + 1], vz = P[Cc + 2] - P[A + 2];
-      var fx = uy * vz - uz * vy, fy = uz * vx - ux * vz, fz = ux * vy - uy * vx;
-      if (fx * (N[A] + N[B] + N[Cc]) + fy * (N[A + 1] + N[B + 1] + N[Cc + 1]) + fz * (N[A + 2] + N[B + 2] + N[Cc + 2]) < 0) { var sw = I[i + 1]; I[i + 1] = I[i + 2]; I[i + 2] = sw; }
-    }
-    return { pos: P, nor: N, ao: AO, idx: I, count: I.length, verts: n };
-  }
-
-  /* ---------- точки на поверхности с ровным шагом ---------- */
-  function buildPoints(mesh, r, max) {
-    var P = mesh.pos, I = mesh.idx, rnd = rng(7), tri = I.length / 3, cum = new Float32Array(tri), total = 0, i;
-    for (i = 0; i < tri; i++) {
-      var A = I[i * 3] * 3, B = I[i * 3 + 1] * 3, C = I[i * 3 + 2] * 3;
-      var ux = P[B] - P[A], uy = P[B + 1] - P[A + 1], uz = P[B + 2] - P[A + 2], vx = P[C] - P[A], vy = P[C + 1] - P[A + 1], vz = P[C + 2] - P[A + 2];
-      var fx = uy * vz - uz * vy, fy = uz * vx - ux * vz, fz = ux * vy - uy * vx;
-      total += Math.sqrt(fx * fx + fy * fy + fz * fz) * 0.5; cum[i] = total;
-    }
-    var hash = new Map(), inv = 1 / r, out = [], nor = [], p = [0, 0, 0], n = [0, 0, 0], tries = max * 14;
-    while (tries-- > 0 && out.length / 3 < max) {
-      var u = rnd() * total, lo = 0, hi = tri - 1;
-      while (lo < hi) { var mid = (lo + hi) >> 1; if (cum[mid] < u) lo = mid + 1; else hi = mid; }
-      var a = I[lo * 3] * 3, b = I[lo * 3 + 1] * 3, c = I[lo * 3 + 2] * 3, s = rnd(), t = rnd();
-      if (s + t > 1) { s = 1 - s; t = 1 - t; }
-      p[0] = P[a] + (P[b] - P[a]) * s + (P[c] - P[a]) * t; p[1] = P[a + 1] + (P[b + 1] - P[a + 1]) * s + (P[c + 1] - P[a + 1]) * t; p[2] = P[a + 2] + (P[b + 2] - P[a + 2]) * s + (P[c + 2] - P[a + 2]) * t;
-      var gx = Math.floor(p[0] * inv), gy = Math.floor(p[1] * inv), gz = Math.floor(p[2] * inv), ok = true;
-      for (var dx = -1; dx <= 1 && ok; dx++) for (var dy = -1; dy <= 1 && ok; dy++) for (var dz = -1; dz <= 1 && ok; dz++) {
-        var list = hash.get((gx + dx) + ',' + (gy + dy) + ',' + (gz + dz));
-        if (list) for (var q = 0; q < list.length; q += 3) { var ex = list[q] - p[0], ey = list[q + 1] - p[1], ez = list[q + 2] - p[2]; if (ex * ex + ey * ey + ez * ez < r * r) { ok = false; break; } }
-      }
-      if (!ok) continue;
-      snap(p, n);
-      var key = gx + ',' + gy + ',' + gz, cellList = hash.get(key);
-      if (!cellList) hash.set(key, cellList = []);
-      cellList.push(p[0], p[1], p[2]);
-      out.push(p[0], p[1], p[2]); nor.push(n[0], n[1], n[2]);
-    }
-    var cnt = out.length / 3, seed = new Float32Array(cnt * 4);
-    for (i = 0; i < cnt * 4; i++) seed[i] = rnd();
-    return { pos: new Float32Array(out), nor: new Float32Array(nor), seed: seed, count: cnt };
-  }
-
-  var geo = null;
-  function geometry() {
-    if (!geo) { var m = buildMesh(0.028); geo = { mesh: m, points: buildPoints(m, 0.03, 5600) }; }
-    return geo;
-  }
-
-  /* ---------- шейдеры ---------- */
-  var VS = [
-    'attribute vec3 aPos; attribute vec3 aNor; attribute float aAO;',
-    'uniform mat4 uProj; uniform mat3 uRot; uniform vec3 uOff; uniform float uDist;',
-    'varying vec3 vN; varying vec3 vP; varying vec3 vO; varying float vAO;',
-    'void main(){ vO = aPos; vec3 p = uRot * aPos + uOff; vP = p; vN = uRot * aNor; vAO = aAO;',
-    '  gl_Position = uProj * vec4(p.x, p.y, p.z - uDist, 1.0); }'
-  ].join('\n');
-  var FS_HEAD = 'precision highp float;\nvarying vec3 vN; varying vec3 vP; varying vec3 vO; varying float vAO;\nuniform float uDist; uniform float uTime; uniform vec3 uA; uniform vec3 uB; uniform vec3 uC; uniform float uK; uniform float uOcc;\n';
-  // фарфор: мягкий свет, два блика, голубой контур
-  var FS_PORCELAIN = FS_HEAD + [
-    'void main(){',
-    '  vec3 N = normalize(vN); vec3 V = normalize(vec3(0.0, 0.0, uDist) - vP);',
-    '  vec3 L1 = normalize(vec3(-0.55, 0.75, 0.62)); vec3 L2 = normalize(vec3(0.85, 0.1, 0.45));',
-    '  float d1 = dot(N, L1) * 0.58 + 0.42; d1 = clamp(d1, 0.0, 1.0); d1 *= d1;',
-    '  float d2 = max(dot(N, L2), 0.0);',
-    '  float lit = clamp(0.18 + 0.78 * d1 + 0.2 * d2, 0.0, 1.0);',
-    '  vec3 col = mix(uB, uA, lit);',
-    '  col = mix(uB * 0.92, col, mix(0.55, 1.0, vAO));',
-    // корни чуть темнее коронки, чтобы форма читалась как зуб
-    '  col = mix(col, mix(col, uB, 0.42), smoothstep(0.1, -0.16, vO.y));',
-    '  vec3 R = reflect(-V, N);',
-    '  float win = smoothstep(0.42, 0.62, R.y) * smoothstep(-0.55, -0.2, R.x) * (1.0 - smoothstep(0.15, 0.45, R.x));',
-    '  float bar = smoothstep(0.3, 0.42, R.x) * (1.0 - smoothstep(0.62, 0.74, R.x)) * smoothstep(-0.5, -0.1, R.y) * (1.0 - smoothstep(0.35, 0.6, R.y));',
-    '  float s1 = pow(max(dot(N, normalize(L1 + V)), 0.0), 110.0);',
-    '  float fr = pow(1.0 - max(dot(N, V), 0.0), 2.6);',
-    '  col += vec3(1.0) * (win * 0.34 + bar * 0.12 + s1 * 0.7) * uK;',
-    '  col = mix(col, uC, fr * 0.62);',
-    '  gl_FragColor = vec4(col, 1.0);',
-    '}'
-  ].join('\n');
-  // эмаль: как настоящий зуб. Белая коронка с холодными тенями и бликами, корни теплее и матовее,
-  // в бороздах и у развилки затенение, по краю мягкий голубой отсвет
-  var FS_ENAMEL = FS_HEAD + [
-    'void main(){',
-    '  vec3 N = normalize(vN); vec3 V = normalize(vec3(0.0, 0.0, uDist) - vP);',
-    '  vec3 L1 = normalize(vec3(-0.45, 0.8, 0.55)); vec3 L2 = normalize(vec3(0.85, 0.05, 0.5));',
-    '  float ang = atan(vO.z, vO.x); float cej = 0.31 + 0.05 * cos(2.0 * ang);',
-    '  float root = smoothstep(cej + 0.04, cej - 0.07, vO.y);',
-    '  vec3 alb = mix(uA, vec3(0.96, 0.92, 0.85), root);',
-    '  float ao = mix(0.42, 1.0, vAO);',
-    '  float dif = clamp((dot(N, L1) + 0.35) / 1.35, 0.0, 1.0); dif = dif * dif * (3.0 - 2.0 * dif);',
-    '  float fil = clamp((dot(N, L2) + 0.2) / 1.2, 0.0, 1.0);',
-    '  vec3 col = alb * (uB * 0.46 * ao + vec3(1.0, 0.99, 0.97) * 0.6 * dif * mix(0.75, 1.0, vAO) + vec3(0.92, 0.96, 1.0) * 0.16 * fil * ao);',
-    '  float nv = max(dot(N, V), 0.0);',
-    '  vec3 H1 = normalize(L1 + V); vec3 H2 = normalize(L2 + V);',
-    '  float sp = pow(max(dot(N, H1), 0.0), 80.0) * 0.6 + pow(max(dot(N, H1), 0.0), 12.0) * 0.07 + pow(max(dot(N, H2), 0.0), 110.0) * 0.28;',
-    '  sp *= mix(1.0, 0.22, root) * ao;',
-    '  vec3 R = reflect(-V, N); float fr = pow(1.0 - nv, 4.0);',
-    '  vec3 env = mix(vec3(0.86, 0.9, 0.95), vec3(1.0), smoothstep(-0.2, 0.7, R.y));',
-    '  col = mix(col, env, fr * 0.4 * (1.0 - root * 0.6));',
-    '  col *= mix(0.8, 1.0, smoothstep(0.0, 0.55, nv));',
-    '  col += vec3(1.0) * sp;',
-    '  col += uC * pow(1.0 - nv, 2.6) * 0.2 * uK;',
-    '  float tip = smoothstep(0.86, 1.02, vO.y); col = mix(col, col * vec3(0.9, 0.94, 1.0), tip * 0.3);',
-    '  gl_FragColor = vec4(min(col, vec3(1.0)), 1.0);',
-    '}'
-  ].join('\n');
-  // стекло: светится по краям, середина прозрачная
-  var FS_GLASS = FS_HEAD + [
-    'void main(){',
-    '  vec3 N = normalize(vN); vec3 V = normalize(vec3(0.0, 0.0, uDist) - vP);',
-    '  float nv = abs(dot(N, V)); float fr = pow(1.0 - nv, 2.4);',
-    '  vec3 L1 = normalize(vec3(-0.55, 0.75, 0.62));',
-    '  float s1 = pow(max(dot(N, normalize(L1 + V)), 0.0), 60.0);',
-    '  vec3 R = reflect(-V, N); float win = smoothstep(0.5, 0.7, R.y) * smoothstep(-0.5, -0.1, R.x) * (1.0 - smoothstep(0.2, 0.5, R.x));',
-    '  float band = 0.5 + 0.5 * sin(vO.y * 9.0 - uTime * 0.9);',
-    '  vec3 col = mix(uA, uC, fr) * (fr * 1.25 + 0.05 + band * 0.035) + vec3(1.0) * (s1 * 0.8 + win * 0.22);',
-    '  col *= mix(0.6, 1.0, vAO) * uK;',
-    // uOcc > 0: стекло заслоняет то, что лежит под холстом (буквы за зубом уходят в синий)
-    '  float a = uOcc * (0.4 + 0.5 * fr);',
-    '  col += uA * a * 0.8;',
-    '  gl_FragColor = vec4(col, a);',
-    '}'
-  ].join('\n');
-  // сетка линий: параллели и меридианы одной толщины в пикселях
-  var FS_WIRE = '#extension GL_OES_standard_derivatives : enable\n' + FS_HEAD + [
-    'float ln(float v){ float f = abs(fract(v - 0.5) - 0.5) / max(fwidth(v), 1e-5); return 1.0 - clamp(f - uK + 1.0, 0.0, 1.0); }',
-    'void main(){',
-    '  vec3 N = normalize(vN); vec3 V = normalize(vec3(0.0, 0.0, uDist) - vP);',
-    '  float lat = vO.y * 11.0 - uTime * 0.12;',
-    '  float a1 = atan(vO.z, vO.x) / 6.2831853 * 28.0; float a2 = atan(-vO.z, -vO.x) / 6.2831853 * 28.0;',
-    '  float lon = fwidth(a1) < fwidth(a2) ? a1 : a2;',
-    '  float l = max(ln(lat), ln(lon));',
-    '  float front = gl_FrontFacing ? 1.0 : 0.0;',
-    '  float fr = pow(1.0 - abs(dot(N, V)), 3.0);',
-    '  float a = l * mix(0.22, 0.95, front) + fr * 0.5 * front;',
-    '  vec3 col = mix(uA, uC, front * 0.0 + fr);',
-    '  gl_FragColor = vec4(col * a, a);',
-    '}'
-  ].join('\n');
-  var VS_PTS = [
-    'attribute vec3 aPos; attribute vec3 aNor; attribute vec4 aSeed;',
-    'uniform mat4 uProj; uniform mat3 uRot; uniform vec3 uOff; uniform float uDist; uniform float uTime; uniform float uAsm; uniform float uSize; uniform float uFlow;',
-    'varying float vL; varying float vS; varying float vA;',
-    'void main(){',
-    '  float w = clamp(uAsm * 1.7 - aSeed.x * 0.7, 0.0, 1.0); w = w * w * (3.0 - 2.0 * w);',
-    '  vec3 far = vec3((aSeed.y - 0.5) * 7.0, (aSeed.z - 0.5) * 3.2 + sin(aSeed.w * 40.0) * 0.4, (aSeed.w - 0.5) * 3.0);',
-    '  vec3 o = aPos + aNor * (0.012 * sin(uTime * 1.3 + aSeed.x * 60.0));',
-    // волна, которая проходит по зубу сверху вниз: точки на гребне приподнимаются
-    '  float wave = smoothstep(0.16, 0.0, abs(fract(aPos.y * 0.38 - uTime * 0.11 + 0.5) - 0.5));',
-    '  o += aNor * wave * 0.05 * uFlow;',
-    '  vec3 p = uRot * mix(far, o, w) + uOff; vec3 n = uRot * aNor;',
-    '  vec3 V = normalize(vec3(0.0, 0.0, uDist) - p);',
-    '  float nv = dot(n, V);',
-    '  vL = clamp(dot(n, normalize(vec3(-0.55, 0.75, 0.62))) * 0.5 + 0.5, 0.0, 1.0);',
-    '  vS = aSeed.y + wave * uFlow; vA = mix(1.0, smoothstep(-0.35, 0.25, nv) * 0.86 + 0.14, w) * mix(0.35, 1.0, w);',
-    '  gl_Position = uProj * vec4(p.x, p.y, p.z - uDist, 1.0);',
-    '  gl_PointSize = uSize * (0.7 + 0.6 * aSeed.z + wave * 0.9 * uFlow) * (uDist / (uDist - p.z));',
-    '}'
-  ].join('\n');
-  var FS_PTS = [
-    'precision highp float; varying float vL; varying float vS; varying float vA; uniform vec3 uA; uniform vec3 uB; uniform vec3 uC;',
-    'void main(){ vec2 q = gl_PointCoord - 0.5; float r = length(q); float a = (1.0 - smoothstep(0.34, 0.5, r)) * vA;',
-    '  vec3 col = mix(uB, uA, vL); col = mix(col, uC, step(0.9, vS)); gl_FragColor = vec4(col * a, a); }'
-  ].join('\n');
-
-  function prog(gl, vs, fs) {
-    var p = gl.createProgram();
-    [[gl.VERTEX_SHADER, vs], [gl.FRAGMENT_SHADER, fs]].forEach(function (s) {
-      var sh = gl.createShader(s[0]); gl.shaderSource(sh, s[1]); gl.compileShader(sh);
-      if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(sh));
-      gl.attachShader(p, sh);
-    });
-    gl.linkProgram(p);
-    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
-    return p;
-  }
-  var hex = function (h) { h = h.replace('#', ''); return [parseInt(h.substr(0, 2), 16) / 255, parseInt(h.substr(2, 2), 16) / 255, parseInt(h.substr(4, 2), 16) / 255]; };
-
-  var PRESET = {
-    porcelain: { a: '#ffffff', b: '#a9c4de', c: '#3aa9ea', k: 1 },
-    enamel: { a: '#fbfbfa', b: '#dde3ec', c: '#3aa9ea', k: 0.8 },
-    clay: { a: '#ffffff', b: '#7fb6e6', c: '#d9f0ff', k: 0.55 },
-    glass: { a: '#0c56c9', b: '#000f40', c: '#7fd4ff', k: 1 },
-    glassOver: { a: '#0a4fc0', b: '#000f40', c: '#8fdcff', k: 1.1, o: 0.62 },
-    wire: { a: '#008cd8', b: '#000f40', c: '#008cd8', k: 1.15 },
-    wireDark: { a: '#2aa8f2', b: '#000f40', c: '#bfe6ff', k: 1.15 },
-    points: { a: '#000f40', b: '#55618c', c: '#008cd8', k: 1 },
-    pointsDark: { a: '#ffffff', b: '#6f86c4', c: '#2aa8f2', k: 1 }
-  };
-
-  /* ---------- один зуб на одном холсте ----------
-     opts: mode (porcelain | glass | wire | points), preset, spin (оборотов в минуту), tilt, yaw, scale, fit */
-  function Tooth(canvas, opts) {
-    opts = opts || {};
-    var mode = opts.mode || 'porcelain', pre = PRESET[opts.preset || mode] || PRESET.porcelain;
-    var gl = canvas.getContext('webgl', { alpha: true, antialias: true, premultipliedAlpha: true, powerPreference: 'low-power' });
-    if (!gl) return null;
-    var G = geometry(), m = G.mesh, self = this, dead = false;
-    var reduce = global.matchMedia && global.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var program, buffers = [], isPts = mode === 'points';
-    try {
-      if (isPts) program = prog(gl, VS_PTS, FS_PTS);
-      else {
-        if (mode === 'wire' && !gl.getExtension('OES_standard_derivatives')) mode = 'glass';
-        program = prog(gl, VS, mode === 'glass' ? FS_GLASS : mode === 'wire' ? FS_WIRE : mode === 'enamel' ? FS_ENAMEL : FS_PORCELAIN);
-      }
-    } catch (e) { if (global.console) console.warn('tooth shader', e.message); return null; }
-    var attr = function (name, data, size) {
-      var loc = gl.getAttribLocation(program, name); if (loc < 0) return;
-      var b = gl.createBuffer(); buffers.push(b); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
-      gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
-    };
-    gl.useProgram(program);
-    var idxType = gl.UNSIGNED_SHORT;
-    if (isPts) { attr('aPos', G.points.pos, 3); attr('aNor', G.points.nor, 3); attr('aSeed', G.points.seed, 4); }
-    else {
-      attr('aPos', m.pos, 3); attr('aNor', m.nor, 3); attr('aAO', m.ao, 1);
-      var ib = gl.createBuffer(); buffers.push(ib); gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ib); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, m.idx, gl.STATIC_DRAW);
-      if (m.idx instanceof Uint32Array) { gl.getExtension('OES_element_index_uint'); idxType = gl.UNSIGNED_INT; }
-    }
-    var U = {}; ['uProj', 'uRot', 'uOff', 'uDist', 'uTime', 'uA', 'uB', 'uC', 'uK', 'uOcc', 'uAsm', 'uSize', 'uFlow'].forEach(function (n) { U[n] = gl.getUniformLocation(program, n); });
-    var dist = 7.2, fov = 26 * Math.PI / 180, W = 0, H = 0, dpr = 1;
-    var st = { yaw: opts.yaw || 0, tilt: opts.tilt == null ? 0.16 : opts.tilt, px: 0, py: 0, tx: 0, ty: 0, asm: reduce || opts.asm === false ? 1 : 0, asmTo: 1, extraYaw: 0, extraTilt: 0, t0: performance.now(), scale: opts.scale || 1, ox: 0, oy: 0 };
-    this.state = st;
-    var spin = opts.spin == null ? 2.2 : opts.spin; // оборотов в минуту
-    var resize = function () {
-      var r = canvas.getBoundingClientRect(); dpr = Math.min(global.devicePixelRatio || 1, opts.maxDpr || 2);
-      var w = Math.max(2, Math.round(r.width * dpr)), h = Math.max(2, Math.round(r.height * dpr));
-      if (w !== W || h !== H) { W = canvas.width = w; H = canvas.height = h; gl.viewport(0, 0, W, H); }
-    };
-    var proj = new Float32Array(16), rot = new Float32Array(9);
-    var draw = function (now) {
-      if (dead) return;
-      resize();
-      var t = (now - st.t0) / 1000, aspect = W / H, f = 1 / Math.tan(fov / 2), near = 1, farp = 30;
-      // зуб высотой 2.3 должен помещаться и по высоте, и по ширине холста
-      var fitH = 1, need = 1.75 / aspect; if (need > 2.5) fitH = 2.5 / need;
-      proj[0] = f / aspect; proj[5] = f; proj[10] = (farp + near) / (near - farp); proj[11] = -1; proj[14] = 2 * farp * near / (near - farp); proj[1] = proj[2] = proj[3] = proj[4] = proj[6] = proj[7] = proj[8] = proj[9] = proj[12] = proj[13] = proj[15] = 0;
-      st.px += (st.tx - st.px) * 0.06; st.py += (st.ty - st.py) * 0.06;
-      st.asm += (st.asmTo - st.asm) * (isPts ? 0.022 : 0.05);
-      var yaw = st.yaw + (reduce ? 0.5 : t * spin * Math.PI * 2 / 60) + st.px * 0.7 + st.extraYaw, tilt = st.tilt + st.py * 0.35 + st.extraTilt;
-      var cy = Math.cos(yaw), sy = Math.sin(yaw), cxx = Math.cos(tilt), sxx = Math.sin(tilt), s = st.scale * fitH * (isPts ? 1 : 0.6 + 0.4 * (1 - Math.pow(1 - Math.min(st.asm, 1), 3)));
-      // R = Rx(tilt) * Ry(yaw), по столбцам
-      rot[0] = cy * s; rot[1] = sxx * sy * s; rot[2] = -cxx * sy * s;
-      rot[3] = 0; rot[4] = cxx * s; rot[5] = sxx * s;
-      rot[6] = sy * s; rot[7] = -sxx * cy * s; rot[8] = cxx * cy * s;
-      gl.uniformMatrix4fv(U.uProj, false, proj); gl.uniformMatrix3fv(U.uRot, false, rot);
-      gl.uniform3f(U.uOff, st.ox, st.oy + (reduce ? 0 : Math.sin(t * 0.9) * 0.035), 0); gl.uniform1f(U.uDist, dist); gl.uniform1f(U.uTime, t);
-      var A = hex(pre.a), B = hex(pre.b), C = hex(pre.c);
-      gl.uniform3f(U.uA, A[0], A[1], A[2]); gl.uniform3f(U.uB, B[0], B[1], B[2]); gl.uniform3f(U.uC, C[0], C[1], C[2]);
-      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-      if (isPts) {
-        gl.uniform1f(U.uAsm, st.asm); gl.uniform1f(U.uSize, (opts.size || 2.6) * dpr * Math.min(1.25, Math.max(0.62, H / dpr / 620))); gl.uniform1f(U.uFlow, opts.flow == null ? 1 : opts.flow);
-        gl.disable(gl.DEPTH_TEST); gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-        gl.drawArrays(gl.POINTS, 0, G.points.count);
-      } else if (mode === 'porcelain' || mode === 'enamel') {
-        gl.uniform1f(U.uK, pre.k);
-        gl.enable(gl.DEPTH_TEST); gl.disable(gl.BLEND); gl.enable(gl.CULL_FACE); gl.cullFace(gl.BACK);
-        gl.drawElements(gl.TRIANGLES, m.count, idxType, 0);
-      } else {
-        gl.uniform1f(U.uK, pre.k);
-        gl.disable(gl.DEPTH_TEST); gl.enable(gl.BLEND); gl.enable(gl.CULL_FACE);
-        gl.uniform1f(U.uOcc, pre.o || 0); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-        gl.cullFace(gl.FRONT); gl.drawElements(gl.TRIANGLES, m.count, idxType, 0);
-        gl.cullFace(gl.BACK); gl.drawElements(gl.TRIANGLES, m.count, idxType, 0);
-      }
-    };
-    var raf = 0, running = false, visible = true;
-    var loop = function (now) { raf = 0; if (!running) return; draw(now); if (!reduce || Math.abs(st.asm - st.asmTo) > 0.002) raf = requestAnimationFrame(loop); };
-    this.start = function () { if (dead || running) return; running = true; if (!raf) raf = requestAnimationFrame(loop); };
-    this.stop = function () { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; };
-    this.render = function () { draw(performance.now()); };
-    this.pointer = function (x, y) { st.tx = x; st.ty = y; };
-    var io = global.IntersectionObserver ? new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) self.start(); else self.stop(); }, { rootMargin: '120px' }) : null;
-    if (io) io.observe(canvas); else this.start();
-    var onMove = function (e) { var r = canvas.getBoundingClientRect(); st.tx = Math.max(-1, Math.min(1, (e.clientX - r.left - r.width / 2) / (global.innerWidth / 2))); st.ty = Math.max(-1, Math.min(1, (e.clientY - r.top - r.height / 2) / (global.innerHeight / 2))); };
-    var fine = global.matchMedia && global.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    if (fine && !reduce && opts.follow !== false) global.addEventListener('pointermove', onMove, { passive: true });
-    this.destroy = function () {
-      dead = true; this.stop(); if (io) io.disconnect(); global.removeEventListener('pointermove', onMove);
-      buffers.forEach(function (b) { gl.deleteBuffer(b); }); gl.deleteProgram(program);
-      var lose = gl.getExtension('WEBGL_lose_context'); if (lose) lose.loseContext();
-    };
-    canvas.classList.add('is-live');
-  }
-
-  global.MVTooth = { create: function (canvas, opts) { try { var t = new Tooth(canvas, opts); return t && t.start ? t : null; } catch (e) { if (global.console) console.warn('tooth', e); return null; } }, geometry: geometry, sdf: sdf, presets: PRESET };
-  if (typeof module !== 'undefined' && module.exports) module.exports = global.MVTooth;
-})(typeof window !== 'undefined' ? window : globalThis);
 
 /* ===== Общее: шапка, меню, появление блоков, счётчики, зуб, курсор, вкладки, форма ===== */
 (function () {
@@ -526,6 +100,45 @@
     });
   };
   MV.teeth = function () { return teeth; };
+
+  /* ---------- шар из точек в центре колеса вопросов, как в первом варианте сайта ----------
+     Точки лежат на сфере по спирали Фибоначчи и медленно вращаются, часть точек синие. Рисуем только пока шар виден. */
+  var makeOrb = function (cv) {
+    var ctx = cv.getContext('2d'), N = +cv.dataset.orb || 360, pts = [], gold = Math.PI * (3 - Math.sqrt(5));
+    for (var i = 0; i < N; i++) { var y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), a = gold * i; pts.push([Math.cos(a) * r, y, Math.sin(a) * r, Math.abs(Math.sin(i * 12.9898) * 43758.5453) % 1 < 0.06]); }
+    var ct = Math.cos(0.42), st = Math.sin(0.42), rot = 0.6, size = 0, seen = false, raf = 0, ink = '#000f40', vec = '#008cd8';
+    var fit = function () {
+      var w = cv.clientWidth, d = Math.min(window.devicePixelRatio || 1, 2);
+      if (!w) return;
+      size = Math.round(w * d); cv.width = size; cv.height = size;
+      var cs = getComputedStyle(cv); ink = cs.color; vec = cs.getPropertyValue('--vec').trim() || vec;
+    };
+    var draw = function () {
+      if (!size) return;
+      ctx.clearRect(0, 0, size, size);
+      var R = size * 0.44, c = size / 2, sr = Math.sin(rot), cr = Math.cos(rot), unit = Math.max(1, size / 90);
+      // сначала дальние точки, потом ближние: синие не прячутся за тёмными
+      var list = pts.map(function (p) {
+        var x = p[0] * cr + p[2] * sr, z1 = p[2] * cr - p[0] * sr;
+        return [x, p[1] * ct - z1 * st, p[1] * st + z1 * ct, p[3]];
+      }).sort(function (a, b) { return a[2] - b[2]; });
+      list.forEach(function (p) {
+        var k = (p[2] + 1) / 2;
+        ctx.globalAlpha = 0.1 + 0.9 * Math.pow(k, 1.6);
+        ctx.fillStyle = p[3] && p[2] > -0.3 ? vec : ink;
+        ctx.beginPath(); ctx.arc(c + p[0] * R, c + p[1] * R, unit * (p[3] ? 0.62 : 0.32) * (0.5 + 0.9 * k), 0, 6.283); ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    };
+    var loop = function () { rot += 0.0035; draw(); raf = seen ? requestAnimationFrame(loop) : 0; };
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) {
+      seen = es[0].isIntersecting;
+      if (seen) { fit(); if (reduce) draw(); else if (!raf) raf = requestAnimationFrame(loop); }
+    }).observe(cv);
+    addEventListener('resize', function () { fit(); draw(); });
+    fit(); draw();
+  };
+  $$('canvas[data-orb]').forEach(makeOrb);
 
   /* надпись во всю ширину блока: подбираем кегль под любой набор шрифтов */
   var fit = function () {
