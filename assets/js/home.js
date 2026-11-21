@@ -6,8 +6,8 @@
    Плавная прокрутка: assets/js/vendor/lenis.min.js (подключается раньше). */
 
 /* МедВектор: объёмный зуб. Форма задана формулой (поле расстояний), сетка строится в браузере,
-   рисуется своим небольшим WebGL-кодом без библиотек. Режимы: porcelain (фарфор), glass (стекло на тёмном),
-   points (точки), wire (сетка линий). */
+   рисуется своим небольшим WebGL-кодом без библиотек. Режимы: enamel (эмаль, как настоящий зуб), porcelain (фарфор),
+   glass (стекло на тёмном), points (точки), wire (сетка линий). */
 (function (global) {
   'use strict';
 
@@ -42,22 +42,40 @@
     if ((yy > 0 ? 1 : yy < 0 ? -1 : 0) * a2 * y2 < k) return Math.sqrt(x2 + y2) * il2 - r1;
     return (Math.sqrt(x2 * a2 * il2) + yy * rr) * il2 - r1;
   }
-  // моляр: коронка с четырьмя буграми и бороздой, два корня
+  // корень: гладкая трубка сверху вниз, почти ровная и сужается к верхушке; ось выгибается (bend) и у верхушки уходит вбок (tip)
+  function tube(x, y, z, x0, y0, y1, r0, r1, bend, tip, zs) {
+    var s = Math.max(0, Math.min(1, (y0 - y) / (y0 - y1)));
+    var ax = x0 + bend * 4 * s * (1 - s) + tip * s * s * s, r = r0 + (r1 - r0) * Math.pow(s, 1.8);
+    var dx = x - ax, dz = z / zs, dr = Math.sqrt(dx * dx + dz * dz) - r;
+    if (y < y1) { var ey = y - y1; return Math.sqrt(dx * dx + dz * dz + ey * ey) - r1; }
+    if (y > y0) { var e = y - y0, q = Math.max(dr, 0); return Math.sqrt(q * q + e * e) + Math.min(dr, 0); }
+    return dr;
+  }
+  // моляр нижней челюсти, как на анатомическом рисунке: коронка с пятью буграми и бороздами,
+  // выпуклая у шейки и сужающаяся к жевательной поверхности, шейка, два изогнутых корня с развилкой
   function sdf(x, y, z) {
-    y += 0.15;
-    var t = Math.max(0, Math.min(1, (y - 0.02) / 0.6)); t = t * t * (3 - 2 * t);
-    var s = 0.8 + 0.2 * t;
-    var d = rbox(x / s, y - 0.56, z / s, 0.64, 0.47, 0.52, 0.36) * s;
+    y += 0.08;
+    // тело коронки: шире всего в нижней трети, к жевательной поверхности сужается
+    var t = Math.max(0, Math.min(1, (y - 0.5) / 0.55)), sz = 1 - 0.16 * t * t, sx = 1 - 0.07 * t * t;
+    var d = ell(x / sx, y - 0.72, z / sz, 0.57, 0.36, 0.5) * Math.min(sx, sz);
+    // бугры: три щёчных и два язычных, щёчные чуть выше
     var c = Math.min(
-      Math.min(ell(x - 0.29, y - 0.93, z - 0.235, 0.3, 0.19, 0.255), ell(x + 0.29, y - 0.93, z - 0.235, 0.3, 0.19, 0.255)),
-      Math.min(ell(x - 0.29, y - 0.93, z + 0.235, 0.3, 0.19, 0.255), ell(x + 0.29, y - 0.93, z + 0.235, 0.3, 0.19, 0.255)));
-    d = smin(d, c, 0.14);
-    var f = Math.min(cap(x, y, z, -0.5, 1.115, 0, 0.5, 1.115, 0, 0.05), cap(x, y, z, 0, 1.115, -0.45, 0, 1.115, 0.45, 0.05));
-    f = Math.min(f, ell(x, y - 1.12, z, 0.2, 0.1, 0.18));
-    d = smax(d, -f, 0.11);
-    var r1 = rcone(x, y, z * 0.8, -0.25, 0.28, 0, -0.46, -0.7, 0, 0.25, 0.105);
-    var r2 = rcone(x, y, z * 0.8, 0.25, 0.28, 0, 0.44, -0.63, 0, 0.25, 0.115);
-    d = smin(d, r1, 0.14); d = smin(d, r2, 0.14);
+      Math.min(ell(x + 0.29, y - 0.98, z - 0.19, 0.23, 0.14, 0.21), ell(x - 0.04, y - 0.99, z - 0.23, 0.22, 0.14, 0.2)),
+      Math.min(ell(x - 0.34, y - 0.95, z - 0.13, 0.18, 0.12, 0.18), Math.min(ell(x + 0.26, y - 0.97, z + 0.19, 0.24, 0.14, 0.21), ell(x - 0.2, y - 0.97, z + 0.2, 0.25, 0.14, 0.21))));
+    d = smin(d, c, 0.16);
+    // борозды: продольная посередине, поперечные между буграми, ямка в центре
+    var f = cap(x, y, z, -0.42, 1.11, 0.01, 0.44, 1.1, -0.01, 0.03);
+    f = Math.min(f, cap(x, y, z, -0.1, 1.1, 0.0, -0.13, 1.0, 0.46, 0.026));
+    f = Math.min(f, cap(x, y, z, 0.2, 1.1, 0.0, 0.26, 0.99, 0.42, 0.024));
+    f = Math.min(f, cap(x, y, z, -0.04, 1.1, 0.0, -0.02, 1.01, -0.44, 0.026));
+    f = Math.min(f, ell(x + 0.02, y - 1.09, z, 0.08, 0.05, 0.07));
+    d = smax(d, -f, 0.06);
+    // шейка: коронка переходит в корневой ствол
+    d = smin(d, rcone(x, y, z / 1.06, 0, 0.62, 0, 0, 0.16, 0, 0.45, 0.37), 0.14);
+    // корни: передний изгибается назад к верхушке, задний прямее и короче; оба сплюснуты спереди назад
+    var r1 = tube(x, y, z, -0.21, 0.24, -0.93, 0.2, 0.055, -0.075, 0.08, 1.55);
+    var r2 = tube(x, y, z, 0.21, 0.24, -0.87, 0.2, 0.06, 0.05, 0.035, 1.5);
+    d = smin(d, Math.min(r1, r2), 0.1);
     return d;
   }
   // градиент по разностям вперёд: f0 уже посчитано в точке
@@ -78,8 +96,8 @@
 
   /* ---------- сетка: «поверхностные сети» по полю расстояний ---------- */
   function buildMesh(h) {
-    var x0 = -0.8, y0 = -1.12, z0 = -0.7;
-    var nx = Math.round(1.6 / h) + 1, ny = Math.round(2.3 / h) + 1, nz = Math.round(1.4 / h) + 1;
+    var x0 = -0.8, y0 = -1.16, z0 = -0.7;
+    var nx = Math.round(1.6 / h) + 1, ny = Math.round(2.4 / h) + 1, nz = Math.round(1.4 / h) + 1;
     var d = new Float32Array(nx * ny * nz), C = 4, far = h * C * 1.6;
     var i, j, k, a, b, c;
     for (k = 0; k < nz; k += C) for (j = 0; j < ny; j += C) for (i = 0; i < nx; i += C) {
@@ -201,6 +219,33 @@
     '  gl_FragColor = vec4(col, 1.0);',
     '}'
   ].join('\n');
+  // эмаль: как настоящий зуб. Белая коронка с холодными тенями и бликами, корни теплее и матовее,
+  // в бороздах и у развилки затенение, по краю мягкий голубой отсвет
+  var FS_ENAMEL = FS_HEAD + [
+    'void main(){',
+    '  vec3 N = normalize(vN); vec3 V = normalize(vec3(0.0, 0.0, uDist) - vP);',
+    '  vec3 L1 = normalize(vec3(-0.45, 0.8, 0.55)); vec3 L2 = normalize(vec3(0.85, 0.05, 0.5));',
+    '  float ang = atan(vO.z, vO.x); float cej = 0.31 + 0.05 * cos(2.0 * ang);',
+    '  float root = smoothstep(cej + 0.04, cej - 0.07, vO.y);',
+    '  vec3 alb = mix(uA, vec3(0.96, 0.92, 0.85), root);',
+    '  float ao = mix(0.42, 1.0, vAO);',
+    '  float dif = clamp((dot(N, L1) + 0.35) / 1.35, 0.0, 1.0); dif = dif * dif * (3.0 - 2.0 * dif);',
+    '  float fil = clamp((dot(N, L2) + 0.2) / 1.2, 0.0, 1.0);',
+    '  vec3 col = alb * (uB * 0.46 * ao + vec3(1.0, 0.99, 0.97) * 0.6 * dif * mix(0.75, 1.0, vAO) + vec3(0.92, 0.96, 1.0) * 0.16 * fil * ao);',
+    '  float nv = max(dot(N, V), 0.0);',
+    '  vec3 H1 = normalize(L1 + V); vec3 H2 = normalize(L2 + V);',
+    '  float sp = pow(max(dot(N, H1), 0.0), 80.0) * 0.6 + pow(max(dot(N, H1), 0.0), 12.0) * 0.07 + pow(max(dot(N, H2), 0.0), 110.0) * 0.28;',
+    '  sp *= mix(1.0, 0.22, root) * ao;',
+    '  vec3 R = reflect(-V, N); float fr = pow(1.0 - nv, 4.0);',
+    '  vec3 env = mix(vec3(0.86, 0.9, 0.95), vec3(1.0), smoothstep(-0.2, 0.7, R.y));',
+    '  col = mix(col, env, fr * 0.4 * (1.0 - root * 0.6));',
+    '  col *= mix(0.8, 1.0, smoothstep(0.0, 0.55, nv));',
+    '  col += vec3(1.0) * sp;',
+    '  col += uC * pow(1.0 - nv, 2.6) * 0.2 * uK;',
+    '  float tip = smoothstep(0.86, 1.02, vO.y); col = mix(col, col * vec3(0.9, 0.94, 1.0), tip * 0.3);',
+    '  gl_FragColor = vec4(min(col, vec3(1.0)), 1.0);',
+    '}'
+  ].join('\n');
   // стекло: светится по краям, середина прозрачная
   var FS_GLASS = FS_HEAD + [
     'void main(){',
@@ -275,6 +320,7 @@
 
   var PRESET = {
     porcelain: { a: '#ffffff', b: '#a9c4de', c: '#3aa9ea', k: 1 },
+    enamel: { a: '#fbfbfa', b: '#dde3ec', c: '#3aa9ea', k: 0.8 },
     clay: { a: '#ffffff', b: '#7fb6e6', c: '#d9f0ff', k: 0.55 },
     glass: { a: '#0c56c9', b: '#000f40', c: '#7fd4ff', k: 1 },
     glassOver: { a: '#0a4fc0', b: '#000f40', c: '#8fdcff', k: 1.1, o: 0.62 },
@@ -298,7 +344,7 @@
       if (isPts) program = prog(gl, VS_PTS, FS_PTS);
       else {
         if (mode === 'wire' && !gl.getExtension('OES_standard_derivatives')) mode = 'glass';
-        program = prog(gl, VS, mode === 'glass' ? FS_GLASS : mode === 'wire' ? FS_WIRE : FS_PORCELAIN);
+        program = prog(gl, VS, mode === 'glass' ? FS_GLASS : mode === 'wire' ? FS_WIRE : mode === 'enamel' ? FS_ENAMEL : FS_PORCELAIN);
       }
     } catch (e) { if (global.console) console.warn('tooth shader', e.message); return null; }
     var attr = function (name, data, size) {
@@ -349,7 +395,7 @@
         gl.uniform1f(U.uAsm, st.asm); gl.uniform1f(U.uSize, (opts.size || 2.6) * dpr * Math.min(1.25, Math.max(0.62, H / dpr / 620))); gl.uniform1f(U.uFlow, opts.flow == null ? 1 : opts.flow);
         gl.disable(gl.DEPTH_TEST); gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
         gl.drawArrays(gl.POINTS, 0, G.points.count);
-      } else if (mode === 'porcelain') {
+      } else if (mode === 'porcelain' || mode === 'enamel') {
         gl.uniform1f(U.uK, pre.k);
         gl.enable(gl.DEPTH_TEST); gl.disable(gl.BLEND); gl.enable(gl.CULL_FACE); gl.cullFace(gl.BACK);
         gl.drawElements(gl.TRIANGLES, m.count, idxType, 0);
