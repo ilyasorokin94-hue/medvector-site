@@ -578,3 +578,126 @@
   });
 
 })();
+
+/* ===== Подача секций: начало ===== */
+/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон», письмо «Чтение», вопросы «Прокрутка», заявка «Контур». Разметка секций прежняя, здесь только появление и движение. */
+(function () {
+  'use strict';
+  var MV = window.MV; if (!MV) return;
+  var one = function (s, r) { return (r || document).querySelector(s); };
+  var qa = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = MV.reduce, clamp = MV.clamp;
+  var wide = function () { return innerWidth >= 1101; };
+  var el = function (tag, cls, html) { var n = document.createElement(tag); if (cls) n.className = cls; if (html) n.innerHTML = html; n.setAttribute('aria-hidden', 'true'); return n; };
+  var scrollFns = [], tick = false;
+  var runScroll = function () { tick = false; for (var i = 0; i < scrollFns.length; i++) scrollFns[i](); };
+  var reqScroll = function () { if (!tick) { tick = true; requestAnimationFrame(runScroll); } };
+  addEventListener('scroll', reqScroll, { passive: true });
+  addEventListener('resize', reqScroll);
+  var onScroll = function (fn) { scrollFns.push(fn); fn(); };
+  var later = function (fn) { requestAnimationFrame(function () { requestAnimationFrame(function () { setTimeout(fn, 40); }); }); };
+  // один раз, когда блок показался на экране
+  var seen = function (node, cb, th) {
+    var io;
+    if (reduce || !('IntersectionObserver' in window)) { cb(); return; }
+    later(function () {
+      io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); cb(); } }); }, { threshold: th || .3 });
+      io.observe(node);
+    });
+  };
+  var jumpTo = function (y) { if (MV.lenis) MV.lenis.scrollTo(y, { immediate: true, force: true }); else scrollTo(0, y); };
+  // секция стоит на месте, пока прокрутка проходит её шаги; метки линии выносим из приклеенного блока
+  var pin = function (sec, steps, cb) {
+    var body = one('.sec__body', sec), wrap = one('.wrap', sec), vps = qa('[data-vp]', wrap).filter(function (v) { return v.parentNode === wrap; }), cur = -1;
+    if (vps[0]) { vps[0].classList.add('vp--out'); body.insertBefore(vps[0], wrap); }
+    if (vps[1]) { vps[1].classList.add('vp--out'); body.appendChild(vps[1]); }
+    onScroll(function () {
+      if (!wide()) return;
+      var r = body.getBoundingClientRect(), p = clamp(-r.top / Math.max(1, r.height - innerHeight), 0, 1);
+      sec.style.setProperty('--pp', p.toFixed(3));
+      var i = Math.min(steps - 1, Math.floor(p * steps));
+      if (i !== cur) { cur = i; cb(i); }
+    });
+    return {
+      go: function (i) { var r = body.getBoundingClientRect(); jumpTo(scrollY + r.top + (i + .5) / steps * (r.height - innerHeight)); }
+    };
+  };
+  // число набегает с нуля, вид записи сохраняется: «2 400 ₽», «в 2,7 раза»
+  var roll = function (node, dur) {
+    var src = node.dataset.s3 || (node.dataset.s3 = node.textContent), m = src.match(/\d[\d\u00a0 ]*(?:,\d+)?/);
+    cancelAnimationFrame(node.__raf);
+    if (!m || reduce) { node.textContent = src; return; }
+    var raw = m[0].replace(/[\u00a0 ]+$/, ''), dec = (raw.split(',')[1] || '').length, to = parseFloat(raw.replace(/[\u00a0 ]/g, '').replace(',', '.'));
+    var sep = raw.indexOf('\u00a0') >= 0 ? '\u00a0' : ' ', pre = src.slice(0, m.index), post = src.slice(m.index + raw.length), t0 = performance.now();
+    var fmt = function (v) { var s = v.toFixed(dec).split('.'); s[0] = s[0].replace(/\B(?=(\d{3})+$)/g, sep); return s.join(','); };
+    var step = function (now) { var k = clamp((now - t0) / dur, 0, 1), e = 1 - Math.pow(1 - k, 4); node.textContent = pre + fmt(to * e) + post; if (k < 1) node.__raf = requestAnimationFrame(step); };
+    step(t0);
+  };
+  // письмо режем на слова, чтобы показывать их по одному
+  var words = function (sec) {
+    var ps = qa('.t5__sheet > p', sec);
+    ps.forEach(function (p) { p.innerHTML = p.textContent.trim().split(/[ \n\t]+/).map(function (w) { return '<span class="t5__w">' + w + '</span>'; }).join(' '); });
+    return qa('.t5__w', sec);
+  };
+  var selected = function (tabs) { for (var i = 0; i < tabs.length; i++) if (tabs[i].getAttribute('aria-selected') === 'true') return i; return 0; };
+
+  /* кейсы: «Счётчик» */
+  function cases1(sec) {
+    var list = one('.c3__list', sec), grid = one('.c3__grid', sec), mark = el('i', 'c3__mark');
+    list.insertBefore(mark, list.firstChild);
+    var place = function () { var r = one('.c3__row.is-on', list); if (!r) return; list.style.setProperty('--my', r.offsetTop + 'px'); list.style.setProperty('--mh', r.offsetHeight + 'px'); };
+    var count = function () { var p = one('.c3__pane:not([hidden])', sec); if (p) qa('.c3__big, .cnums .num, .ba__r b', p).forEach(function (n, i) { roll(n, 900 + i * 130); }); };
+    // карточка выезжает только при смене города, не при открытии страницы
+    var onClick = function () { sec.classList.add('v-sw'); setTimeout(function () { place(); count(); }, 0); };
+    grid.addEventListener('click', onClick); addEventListener('resize', place); place();
+    seen(one('.c3__view', sec), count, .4);
+  }
+
+  /* услуги: «Стопка» */
+  function services3(sec) {
+    var ps = qa('.s1__p', sec);
+    onScroll(function () {
+      if (!wide()) return;
+      var a = ps[0].getBoundingClientRect(), b = ps[1].getBoundingClientRect(), q = clamp((a.bottom - b.top) / Math.max(1, a.height), 0, 1).toFixed(3);
+      if (ps[0].__q !== q) { ps[0].__q = q; ps[0].style.setProperty('--q', q); }
+    });
+  }
+
+  /* сайты: «Наклон» */
+  function sites1(sec) { seen(one('.w5__wall', sec), function () { sec.classList.add('v-go'); }, .25); }
+
+  /* письмо: «Чтение» */
+  function team3(sec) {
+    var sheet = one('.t5__sheet', sec), w = words(sec), shown = 0;
+    onScroll(function () {
+      // пока лист ниже экрана, текст обычный; бледнеет он только когда лист входит в экран, и проявляется по ходу чтения
+      var r = sheet.getBoundingClientRect(), vh = innerHeight, p = reduce || r.top > vh + 40 ? 1 : clamp((vh * .82 - r.top) / (vh * .62), 0, 1), n = Math.round(p * w.length);
+      for (; shown < n; shown++) w[shown].classList.add('on');
+      for (; shown > n; shown--) w[shown - 1].classList.remove('on');
+      sheet.classList.toggle('is-signed', p > .97);
+    });
+  }
+
+  /* вопросы: «Прокрутка» */
+  function faq1(sec) {
+    var wheel = one('.wheel', sec), tabs = qa('.wheel__q', sec), auto = false;
+    var p = pin(sec, tabs.length, function (i) { if (selected(tabs) !== i) { auto = true; tabs[i].click(); auto = false; } });
+    var onClick = function (e) { if (auto || !wide() || !e.target.closest('.wheel__q, .wheel__btn')) return; setTimeout(function () { p.go(selected(tabs)); }, 0); };
+    wheel.addEventListener('click', onClick);
+  }
+
+  /* заявка: «Контур» */
+  function start3(sec) {
+    var h = one('.f2__big', sec), last = '';
+    h.firstElementChild.setAttribute('data-t', h.textContent.trim());
+    onScroll(function () {
+      var r = h.getBoundingClientRect(), vh = innerHeight, max = document.documentElement.scrollHeight - vh;
+      var end = Math.max(r.top + scrollY - max + vh * .12, vh * .42), f = reduce ? 1 : clamp((vh * .96 - r.top) / Math.max(1, vh * .96 - end), 0, 1), v = (f * 100).toFixed(1);
+      if (v !== last) { last = v; h.style.setProperty('--f', v); }
+      if (f >= 1) sec.classList.add('v-full'); else if (f < .6) sec.classList.remove('v-full');
+    });
+  }
+
+  [['cases', cases1], ['services', services3], ['sites', sites1], ['team', team3], ['faq', faq1], ['start', start3]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
+})();
+/* ===== Подача секций: конец ===== */

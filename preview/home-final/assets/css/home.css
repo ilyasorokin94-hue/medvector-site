@@ -409,8 +409,8 @@ main { position: relative; display: block; }
 /* 3.3 «Указатель» */
 .c3__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px clamp(24px, 4vw, 72px); align-items: start; }
 .c3__list { border-top: 1px solid var(--ink); }
-.c3__row { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 20px; align-items: baseline; width: 100%; padding: clamp(16px, 1.9vw, 28px) 0; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; transition: padding .5s var(--ease), color .3s; }
-.c3__row b { grid-row: 1 / 3; align-self: center; font: var(--h-w) calc(clamp(30px, 4.4vw, 68px) * var(--h-k))/1 var(--disp); letter-spacing: var(--h-ls); text-transform: var(--h-tt); }
+.c3__row { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 20px; align-items: baseline; width: 100%; padding: clamp(16px, 1.9vw, 28px) 0; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; transition: padding .5s var(--ease), color .3s; }
+.c3__row b { grid-row: 1 / 3; align-self: center; white-space: nowrap; font: var(--h-w) calc(clamp(30px, 4.4vw, 58px) * var(--h-k))/1 var(--disp); letter-spacing: var(--h-ls); text-transform: var(--h-tt); }
 .c3__row span { font-size: calc(15px * var(--t-k)); color: var(--ink-3); text-align: right; }
 .c3__row em { font-style: normal; font-weight: var(--t-b); font-size: calc(16px * var(--t-k)); text-align: right; }
 .c3__row.is-on { color: var(--vec-ink); border-bottom-color: var(--vec); }
@@ -751,3 +751,73 @@ button.link { border: 0; cursor: pointer; }
   .f2__row input { min-height: 56px; }
   .f2__row i { right: calc(var(--gut) / -2); top: auto; bottom: 38px; }
 }
+
+/* ===== Подача секций: начало ===== */
+/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон», письмо «Чтение», вопросы «Прокрутка», заявка «Контур» */
+.vp--out.vp--xr, .vp--out.vp--rb { right: calc(max(0px, (100% - var(--wrap)) / 2) + var(--gut) / 2); }
+.vp--out.vp--xl, .vp--out.vp--lb { left: calc(max(0px, (100% - var(--wrap)) / 2) + var(--gut) / 2); }
+/* кейсы: «Счётчик» */
+#cases .c3__list { position: relative; }
+#cases .c3__mark { display: block; position: absolute; left: 0; right: 0; top: 0; height: var(--mh, 0px); transform: translateY(var(--my, 0px)); border-left: 3px solid var(--vec); background: linear-gradient(90deg, var(--vec-soft), rgba(228, 243, 252, 0) 82%); transition: transform .65s var(--ease), height .65s var(--ease); pointer-events: none; }
+#cases .c3__row { z-index: 1; transition: opacity .9s var(--ease) calc(var(--d, 0) * 80ms), transform 1.1s var(--ease) calc(var(--d, 0) * 80ms), padding .65s var(--ease), color .3s; }
+#cases .c3__row.is-on { padding-left: 26px; border-bottom-color: var(--line); }
+.js #cases .c3__row[data-rv] { transform: translateX(-40px); }
+.js #cases .c3__row[data-rv].is-in { transform: none; }
+#cases .c3__big, #cases .cnums .num { font-variant-numeric: tabular-nums lining-nums; }
+#cases.v-sw .c3__pane:not([hidden]) { animation: s3pane .7s var(--ease) both; }
+@keyframes s3pane { from { opacity: 0; transform: translateX(30px); } }
+/* услуги: «Стопка» */
+@media (min-width: 1101px) {
+  #services .s1__grid { display: block; }
+  #services .s1__p { position: sticky; top: calc(var(--hdr) + 12px); grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: clamp(32px, 5vw, 96px); min-height: min(540px, calc(100vh - var(--hdr) - 48px)); transform-origin: 50% 0; transition: opacity .9s var(--ease); }
+  #services .s1__p + .s1__p { top: calc(var(--hdr) + 34px); margin-top: 28px; box-shadow: 0 -34px 60px -34px rgba(0, 15, 64, .55); }
+  .js #services .s1__p + .s1__p[data-rv] { opacity: 1; }
+  #services .s1__p:first-child { transform: scale(calc(1 - var(--q, 0) * .05)); }
+  #services .s1__p:first-child::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--ink); opacity: calc(var(--q, 0) * .22); pointer-events: none; }
+  #services .s1__tag { grid-area: 1 / 1; }
+  #services .s1__h { grid-area: 2 / 1; }
+  #services .s1__big { grid-area: 3 / 1; }
+  #services .s1__cap { grid-area: 4 / 1; margin-bottom: 0; }
+  #services .s1__p .ticks { grid-column: 2; grid-row: 1 / 4; justify-self: stretch; align-self: end; }
+  #services .s1__terms { grid-column: 2; grid-row: 4; margin-bottom: 0; }
+  #services .s1__p .btn { grid-column: 2; grid-row: 5; margin-top: 26px; }
+  #services .s1__p { position: sticky; }
+}
+/* сайты: «Наклон» */
+@media (min-width: 1101px) {
+  #sites { overflow: clip; }
+  #sites .w5__text { position: relative; z-index: 2; }
+  #sites .w5__wall { height: clamp(520px, 52vw, 720px); transform: perspective(1500px) rotateX(27deg) rotateZ(-9deg) scale(1.1); transition: transform 1.5s var(--ease), opacity .9s var(--ease); }
+  #sites .w5__wall { -webkit-mask-image: none; mask-image: none; }
+  #sites .w5__wall::before, #sites .w5__wall::after { content: ''; position: absolute; left: 0; right: 0; height: 18%; z-index: 2; pointer-events: none; }
+  #sites .w5__wall::before { top: 0; background: linear-gradient(var(--ink), rgba(0, 15, 64, 0)); }
+  #sites .w5__wall::after { bottom: 0; background: linear-gradient(rgba(0, 15, 64, 0), var(--ink)); }
+  #sites .w5__wall:hover { transform: perspective(1500px) rotateX(7deg) rotateZ(-2deg) scale(1.02); }
+  .js #sites:not(.v-go) .w5__wall { transform: perspective(1500px) rotateX(62deg) rotateZ(-24deg) scale(.86) translateY(160px); opacity: 0; }
+}
+/* письмо: «Чтение» */
+#team .t5__w { opacity: .2; }
+#team .t5__w.on { opacity: 1; transition: opacity .4s; }
+.js #team .t5__f { opacity: .25; }
+.js #team .t5__sheet.is-signed .t5__f { opacity: 1; transition: opacity .7s; }
+/* вопросы: «Прокрутка» */
+@media (min-width: 1101px) {
+  .js #faq .sec__body { height: calc(100vh + 8 * 42vh); }
+  .js #faq .wrap { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: calc(var(--hdr) + 1vh); }
+  .js #faq .sh { margin-bottom: 1vh; }
+  .js #faq .h2 { font-size: calc(min(5vw, 8vh) * var(--h-k)); }
+  .js #faq .wheel { --R: min(18.6vw, 27vh); }
+  .js #faq .wheel__dial { height: min(48vw, 66vh); }
+}
+/* заявка: «Контур» */
+#start .f2__big span { position: relative; color: #fff; -webkit-text-stroke: 3px #fff; }
+#start .f2__big span::before, #start .f2__big span::after { content: attr(data-t); position: absolute; left: 0; top: 0; -webkit-text-stroke: 0; }
+#start .f2__big span::before { color: var(--vec); }
+#start .f2__big span::after { color: #fff; -webkit-text-stroke: 3px #fff; clip-path: inset(-.2em calc(100% - var(--f, 0) * 1%) -.3em 0); }
+#start.v-full .f2__row { animation: s3ring 1.5s ease-out 2; }
+@keyframes s3ring { from { box-shadow: 0 0 0 0 rgba(255, 255, 255, .75); } to { box-shadow: 0 0 0 26px rgba(255, 255, 255, 0); } }
+@media (prefers-reduced-motion: reduce) {
+  #team .t5__w { opacity: 1 !important; }
+  #start .f2__big { --f: 100 !important; }
+}
+/* ===== Подача секций: конец ===== */
