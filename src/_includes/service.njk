@@ -86,7 +86,7 @@
       </div>
       <div>
         <h3 class="pack__h">{{ s.termsTitle }}</h3>
-        <dl class="terms">
+        <dl class="terms{% if not s.bigFirst %} terms--plain{% endif %}">
 {% for r in s.terms %}
           <div><dt>{{ r[0] }}</dt><dd>{{ r[1] | t | safe }}</dd></div>
 {% endfor %}

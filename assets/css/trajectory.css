@@ -941,3 +941,16 @@ html:active-view-transition { background: var(--ink); }
 .prose thead th, .prose tbody th { font-weight: 500; color: var(--ink); }
 .prose p.prose__meta, .prose p.prose__note { margin-top: 14px; font-size: 15px; color: var(--ink-3, var(--ink-2)); }
 .prose p.prose__note { margin-top: 40px; }
+
+/* ---------- страницы услуг из блоков: правки для узких экранов ---------- */
+.terms--plain div:first-child dd { font: inherit; font-size: 19px; line-height: 1.35; color: inherit; }
+@media (max-width: 1020px) { .pack { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 600px) {
+  .tabs { display: flex; flex-wrap: wrap; border-radius: 28px; }
+  .tabs__btn { flex: 1 1 auto; min-height: 46px; padding: 0 18px; }
+}
+@media (max-width: 400px) { .h1--page { font-size: clamp(30px, 9.4vw, 40px); } }
+.prose .crumbs ol { padding-left: 0; list-style: none; }
+.prose .crumbs li { font-size: 15px; line-height: inherit; color: var(--ink-3); }
+.prose .crumbs li + li { margin-top: 0; }
+.prose .crumbs a { text-decoration: none; }
