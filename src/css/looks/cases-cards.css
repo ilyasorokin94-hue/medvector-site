@@ -1,0 +1,17 @@
+/* кейсы «Карточки»: плитки, первые две крупнее, результат внизу */
+.csc { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
+.csc__i { grid-column: span 2; display: grid; grid-template-rows: auto 1fr auto; gap: 12px; padding: clamp(22px, 2.2vw, 32px); border-radius: var(--r-lg); background: var(--paper); }
+.sec:not(.sec--fog) .csc__i { background: var(--fog); }
+.csc__i:nth-child(-n + 2) { grid-column: span 3; }
+.csc__h { font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(22px, 2vw, 30px) * var(--h-k)); line-height: 1.1; letter-spacing: -.03em; }
+.csc__what { font-size: calc(15.5px * var(--t-k)); color: var(--ink-2); }
+.csc__res { display: grid; gap: 6px; margin-top: 10px; padding-top: 16px; border-top: 1px solid var(--line); font-size: calc(17px * var(--t-k)); font-weight: 500; line-height: 1.4; color: var(--ink); }
+.csc__res small { font-size: 13px; font-weight: 400; color: var(--vec-ink); }
+.csc__i:nth-child(-n + 2) .csc__res { font-size: calc(clamp(18px, 1.5vw, 21px) * var(--t-k)); }
+@media (max-width: 1020px) {
+  .csc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .csc__i, .csc__i:nth-child(-n + 2) { grid-column: auto; }
+}
+@media (max-width: 640px) {
+  .csc { grid-template-columns: minmax(0, 1fr); }
+}

@@ -1,0 +1,18 @@
+/* что остаётся у клиники «Указатель»: строки, текст слева, образец справа */
+.wkl { border-top: 1px solid var(--line); }
+.wkl__i { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px clamp(32px, 5vw, 96px); align-items: center; padding: clamp(28px, 3vw, 44px) 0; border-bottom: 1px solid var(--line); }
+.wkl__h { margin-bottom: 12px; font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(26px, 2.6vw, 40px) * var(--h-k)); line-height: 1.05; letter-spacing: -.035em; }
+.wkl__txt p { max-width: 460px; font-size: calc(clamp(17px, 1.35vw, 19px) * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+.wkl__pic { display: grid; place-items: center; min-height: 300px; padding: clamp(20px, 3vw, 40px); border-radius: var(--r-lg); background: var(--fog); overflow: hidden; }
+.sec--fog .wkl__pic { background: var(--paper); }
+.wkl__pic .art--browser, .wkl__pic .art--flow { width: 100%; }
+.wkl__pic--two { grid-template-columns: repeat(2, minmax(0, 260px)); justify-content: center; gap: 16px; }
+.wkl__pic--two .art--map { width: 100%; }
+.wkl__pic--two .art--map:first-child { opacity: .75; }
+@media (max-width: 860px) {
+  .wkl__i { grid-template-columns: minmax(0, 1fr); }
+  .wkl__pic { min-height: 240px; }
+}
+@media (max-width: 480px) {
+  .wkl__pic--two { grid-template-columns: minmax(0, 1fr); }
+}

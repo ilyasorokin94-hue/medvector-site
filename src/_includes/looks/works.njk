@@ -23,3 +23,45 @@
   </div>
 </section>
 {% endmacro %}
+
+{# образец работы по виду #}
+{% macro pic(w) %}
+{% if w.art == 'landing' %}{{ a.a_browser('landing') }}{% elif w.art == 'site' %}{{ a.a_browser('site') }}{% elif w.art == 'maps' %}{{ a.a_map(true) }}{{ a.a_map() }}{% else %}{{ bld.art('flow') }}{% endif %}
+{% endmacro %}
+
+{# «Лента»: образцы в ряд, ленту листают пальцем или колесом #}
+{% macro rail(s) %}
+<section{{ c.attrs(s, 'lk-works-rail') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="wkr" tabindex="0" role="region" aria-label="{{ s.title | nodot }}">
+{% for w in s.items %}
+      <article class="wkr__i" data-rv style="--d:{{ loop.index0 }}">
+        <div class="wkr__pic{% if w.art == 'maps' %} wkr__pic--two{% endif %}">{{ pic(w) }}</div>
+        <h3 class="h3">{{ w.title | t | safe }}</h3>
+        <p>{{ w.text | t | safe }}</p>
+      </article>
+{% endfor %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Указатель»: строками, текст слева, образец справа в рамке #}
+{% macro index(s) %}
+<section{{ c.attrs(s, 'lk-works-index') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ol class="wkl">
+{% for w in s.items %}
+      <li class="wkl__i" data-rv>
+        <div class="wkl__txt"><h3 class="wkl__h">{{ w.title | t | safe }}</h3><p>{{ w.text | t | safe }}</p></div>
+        <div class="wkl__pic{% if w.art == 'maps' %} wkl__pic--two{% endif %}">{{ pic(w) }}</div>
+      </li>
+{% endfor %}
+    </ol>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

@@ -1,0 +1,9 @@
+/* кейсы «Заголовки»: результат крупно, город и услуга над ним, что сделали сбоку */
+.csh { border-top: 2px solid var(--ink); }
+.csh__i { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 10px clamp(32px, 5vw, 96px); padding: clamp(28px, 3vw, 44px) 0; border-bottom: 1px solid var(--line); }
+.csh__where { grid-column: 1 / -1; font-size: calc(15px * var(--t-k)); font-weight: 500; color: var(--vec-ink); }
+.csh__res { font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(26px, 2.8vw, 44px) * var(--h-k)); line-height: 1.1; letter-spacing: -.035em; text-wrap: balance; }
+.csh__what { align-self: end; font-size: calc(15.5px * var(--t-k)); color: var(--ink-2); }
+@media (max-width: 860px) {
+  .csh__i { grid-template-columns: minmax(0, 1fr); }
+}

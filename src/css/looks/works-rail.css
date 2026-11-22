@@ -1,0 +1,20 @@
+/* что остаётся у клиники «Лента»: образцы в ряд, лента листается */
+.wkr { display: grid; grid-auto-flow: column; grid-auto-columns: 42%; gap: 20px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; padding-bottom: 18px; scrollbar-width: thin; scrollbar-color: var(--ink-3) transparent; }
+.wkr:focus-visible { outline-offset: 6px; }
+.wkr__i { display: grid; align-content: start; gap: 10px; scroll-snap-align: start; }
+.wkr__i p { color: var(--ink-2); }
+.wkr__pic { display: grid; place-items: center; min-height: clamp(300px, 28vw, 400px); margin-bottom: 10px; padding: 28px; border-radius: var(--r-lg); background: var(--ink); overflow: hidden; }
+.wkr__i:nth-child(even) .wkr__pic { background: var(--vec-soft); }
+.wkr__pic .art--browser { width: 100%; }
+.wkr__pic .art--flow { width: 100%; }
+.wkr__pic--two { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.wkr__pic--two .art--map { width: 100%; }
+.wkr__pic--two .art--map:first-child { opacity: .75; }
+@media (max-width: 860px) {
+  .wkr { grid-auto-columns: 78%; }
+  .wkr__pic { min-height: 260px; padding: 18px; }
+}
+@media (max-width: 480px) {
+  .wkr { grid-auto-columns: 88%; gap: 14px; }
+  .wkr__pic--two { grid-template-columns: minmax(0, 1fr); }
+}
