@@ -45,7 +45,7 @@ no:
 {% block main %}
 {% import "sec.njk" as S %}
 {% set u = page.url %}
-{{ S.section({ type: 'hero', id: 'intro', h: hero, crumbs: crumbs, page: 'about' }, u) }}
+{{ S.section({ type: 'hero', id: 'intro', h: hero, crumbs: crumbs, page: 'about', art: pageart[u] }, u) }}
 {{ S.section({ type: 'founder', id: 'founder', tone: 'fog', title: 'Илья Сорокин ведёт каждую клинику сам.', paras: ['Разбирает клинику, согласует с&nbsp;владельцем цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт.', 'Почему медицина и&nbsp;в&nbsp;первую очередь стоматология: имплантацию и&nbsp;<span class="nw">All-on-4</span> нельзя хорошо рекламировать, не&nbsp;зная пациента, его вопросов и&nbsp;страхов. Это знание копится, когда годами работаешь с&nbsp;клиниками.'], team: team }, u) }}
 {{ S.section({ type: 'links', id: 'services', title: 'Чем мы занимаемся', note: 'Каждую услугу можно заказать отдельно.', items: [
   ['Яндекс Директ для стоматологии', 'Реклама имплантации, All-on-4, брекетов и элайнеров. Первый тест без комиссии агентства.', href('direct')],

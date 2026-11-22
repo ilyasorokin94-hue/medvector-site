@@ -4,7 +4,7 @@
 
 {% block main %}
 {% import "sec.njk" as S %}
-{{ S.section({ type: 'hero', id: 'intro', h: hero, crumbs: crumbs, page: section }, page.url) }}
+{{ S.section({ type: 'hero', id: 'intro', h: hero, crumbs: crumbs, page: section, art: pageart[page.url] }, page.url) }}
 {{ S.list(sections, page.url) }}
 {% if faq %}
 {{ S.section({ type: 'faq', id: 'faq', title: faqTitle or 'Вопросы и ответы', note: 'Не нашли ответ? Задайте вопрос в заявке, ответим в рабочее время.', items: faq, tone: 'fog' if sections.length % 2 == 0 else '' }, page.url) }}

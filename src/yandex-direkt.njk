@@ -169,7 +169,7 @@ faq:
 {% block main %}
 {% import "sec.njk" as S %}
 {% set u = page.url %}
-{{ S.section({ type: 'hero', id: 'intro', h: hero, crumbs: crumbs, page: 'direct' }, u) }}
+{{ S.section({ type: 'hero', id: 'intro', h: hero, crumbs: crumbs, page: 'direct', art: pageart[u] }, u) }}
 {{ S.section({ type: 'offer', id: 'test', title: 'На первом тесте вы платите только Яндексу', note: 'Рекламный бюджет 150 000 ₽ вы вносите в свой кабинет Директа. Через нас деньги не проходят, комиссию агентства на тесте мы не берём.', o: offer }, u) }}
 {{ S.section({ type: 'loss', id: 'loss', tone: 'fog', title: 'Где клиники теряют рекламный бюджет', note: 'Всё это видно при первом разборе рекламного кабинета. Разбор делаем за 2 рабочих дня.', items: loss }, u) }}
 {{ S.section({ type: 'spec', id: 'check', title: 'Проверьте рекламу, которая уже идёт', note: 'Шесть вопросов к подрядчику или к себе, на них уходит минут десять. Если на два вопроса ответа нет, бюджет расходуется вслепую.', items: check, ownHtml: 'Не хотите проверять сами, <a href="#start" data-pick="direct" data-dir="running">оставьте заявку</a>: разберём рекламный кабинет за 2&nbsp;рабочих дня и&nbsp;покажем, где теряется бюджет.' }, u) }}

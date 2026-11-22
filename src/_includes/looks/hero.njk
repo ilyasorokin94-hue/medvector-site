@@ -1,4 +1,6 @@
-{# Первый экран внутренней страницы. Данные: s.h (title, lead, cta, pick, cta2, cta2url, pick2, dir2, facts), s.crumbs. #}
+{# Первый экран внутренней страницы. Данные: s.h (title, lead, cta, pick, cta2, cta2url, pick2, dir2, facts), s.crumbs, s.url, s.page.
+   Рисунок к услуге выбирается по адресу страницы (art). Фото для «Фото» берётся из src/_data/pageart.json: страница передаёт s.art = pageart[адрес], нужно s.art.hero = { src, alt, h },
+   файлы src-640.webp, src-1000.webp, src-1600.webp; без фото рисуется спокойная схема в цветах сайта. #}
 {% import "looks/_c.njk" as c %}
 
 {% macro acts(h, light=false) %}
@@ -22,10 +24,178 @@
 {% endif %}
 {% endmacro %}
 
+{# строка-заглушка текста в рисунке: ширина в процентах #}
+{% macro ln(w, cls='') %}<i class="ha__l{% if cls %} {{ cls }}{% endif %}" style="--w:{{ w }}%"></i>{% endmacro %}
+
+{# ---------- рисунки к услугам: нарисованы вёрсткой, клиника вымышленная, цифр и результатов нет ---------- #}
+{% macro art(k) %}
+<div class="ha ha--{{ k or 'base' }}" aria-hidden="true">
+{% if k == 'yandex-direkt' %}
+  <div class="ha__c ha__c--a ha__q" data-rv style="--d:2"><i class="art__glass"></i><span class="art__typed">имплантация зубов цена</span></div>
+  <div class="ha__c ha__c--b" data-rv style="--d:3">
+    <span class="ha__k">Реклама</span>
+    <b class="ha__t ha__t--link">Имплантация зубов под&nbsp;ключ</b>
+    <span class="ha__url">demo-klinika.ru › implantaciya</span>
+    <span class="ha__p">Имплант, формирователь и&nbsp;коронка. Цена по&nbsp;этапам, рассрочка.</span>
+    <span class="ha__warn">Имеются противопоказания, нужна консультация специалиста</span>
+  </div>
+  <div class="ha__c ha__c--c ha__c--ink" data-rv style="--d:4">
+    <span class="ha__k ha__row">Новая заявка<span>12:04</span></span>
+    <b class="ha__t">Имплантация, консультация</b>
+    <span class="ha__p">Поиск, запрос «имплантация зубов цена»</span>
+  </div>
+{% elif k == 'yandex-karty' or k == '2gis' %}
+  <span class="ha__map"><i class="ha__pin"></i><i class="ha__pin"></i><i class="ha__pin"></i><i class="ha__pin ha__pin--me"></i></span>
+{% if k == 'yandex-karty' %}
+  <div class="ha__c ha__c--a" data-rv style="--d:2">
+    <b class="ha__t">Стоматология «Демо»</b>
+    <span class="ha__p">Цены и&nbsp;врачи указаны, клиника отвечает на&nbsp;отзывы</span>
+    <span class="ha__tags"><span>Цены</span><span>Врачи</span><span>Фото</span><span>Запись</span></span>
+    <span class="ha__btns"><span>Маршрут</span><span>Позвонить</span><span>Сайт</span></span>
+  </div>
+  <div class="ha__c ha__c--b" data-rv style="--d:3">
+    <span class="ha__k">Услуги и&nbsp;цены</span>
+    <span class="ha__price"><span>Имплантация</span>{{ ln(70) }}</span>
+    <span class="ha__price"><span>Лечение кариеса</span>{{ ln(55) }}</span>
+    <span class="ha__price"><span>Брекеты</span>{{ ln(62) }}</span>
+  </div>
+  <div class="ha__c ha__c--c ha__c--reply" data-rv style="--d:4">
+    <span class="ha__k">Ответ клиники</span>{{ ln(92) }}{{ ln(64) }}
+  </div>
+{% else %}
+  <div class="ha__c ha__c--a ha__list" data-rv style="--d:2">
+    <span class="ha__k">Стоматологии рядом</span>
+    <span class="ha__li ha__li--me"><i></i><span><b>Стоматология «Демо»</b><small>Открыто, цены и&nbsp;фото в&nbsp;карточке</small></span></span>
+    <span class="ha__li"><i></i><span>{{ ln(72) }}{{ ln(48) }}</span></span>
+    <span class="ha__li"><i></i><span>{{ ln(64) }}{{ ln(40) }}</span></span>
+  </div>
+  <div class="ha__c ha__c--b" data-rv style="--d:3">
+    <span class="ha__k">Как найти вход</span>
+    <span class="ha__ph"></span>
+    {{ ln(88) }}{{ ln(58) }}
+  </div>
+{% endif %}
+{% elif k == 'prodoktorov' %}
+  <div class="ha__c ha__c--a ha__doc" data-rv style="--d:2">
+    <span class="ha__ava"></span>
+    <span><b class="ha__t">Врач клиники «Демо»</b><span class="ha__p">Стоматолог-хирург, имплантолог</span><i class="ha__stars"></i></span>
+    <span class="ha__price"><span>Стаж</span>{{ ln(40) }}</span>
+    <span class="ha__price"><span>Цена приёма</span>{{ ln(46) }}</span>
+    <span class="ha__btn">Записаться</span>
+  </div>
+  <div class="ha__c ha__c--b" data-rv style="--d:3">
+    <span class="ha__k ha__row">Отзыв пациента<i class="ha__stars"></i></span>{{ ln(94) }}{{ ln(86) }}{{ ln(52) }}
+  </div>
+  <div class="ha__c ha__c--c ha__c--reply" data-rv style="--d:4">
+    <span class="ha__k">Ответ клиники</span>{{ ln(90) }}{{ ln(60) }}
+  </div>
+{% elif k == 'otzyvy-i-reputaciya' %}
+  <div class="ha__c ha__c--a" data-rv style="--d:2">
+    <span class="ha__k ha__row">Яндекс Карты<i class="ha__stars"></i></span>{{ ln(92) }}{{ ln(70) }}
+    <span class="ha__nest"><span class="ha__k">Ответ клиники</span>{{ ln(84) }}{{ ln(50) }}</span>
+  </div>
+  <div class="ha__c ha__c--b" data-rv style="--d:3">
+    <span class="ha__k ha__row">2ГИС<i class="ha__stars"></i></span>{{ ln(88) }}{{ ln(60) }}
+    <span class="ha__nest"><span class="ha__k">Ответ клиники</span>{{ ln(76) }}</span>
+  </div>
+  <div class="ha__c ha__c--c" data-rv style="--d:4">
+    <span class="ha__k ha__row">ПроДокторов<i class="ha__stars"></i></span>{{ ln(90) }}{{ ln(44) }}
+  </div>
+{% elif k == 'sajt-dlya-stomatologii' %}
+  <div class="ha__c ha__c--a ha__br" data-rv style="--d:2">
+    <span class="ha__bar"><i></i><i></i><i></i><span>demo-klinika.ru</span></span>
+    <span class="ha__nav"><b>Стоматология «Демо»</b><span>Услуги</span><span>Врачи</span><span>Цены</span></span>
+    <b class="ha__big">Стоматология для&nbsp;всей семьи</b>
+    <span class="ha__p">Лечение, имплантация, протезирование. Цены на&nbsp;сайте</span>
+    <span class="ha__btn">Записаться онлайн</span>
+    <span class="ha__tiles"><span>Имплантация</span><span>All-on-4</span><span>Коронки и&nbsp;виниры</span></span>
+  </div>
+  <div class="ha__c ha__c--b ha__pn" data-rv style="--d:3">
+    <span class="ha__k ha__dot">Стоматология «Демо»</span>
+    <b class="ha__t">Стоматология рядом с&nbsp;домом</b>
+    <span class="ha__btn">Записаться</span>
+    <span class="ha__rowc">Услуги и&nbsp;цены</span><span class="ha__rowc">Врачи</span><span class="ha__rowc">Отзывы с&nbsp;площадок</span><span class="ha__rowc">Как добраться</span>
+  </div>
+{% elif k == 'seo-dlya-stomatologii' %}
+  <div class="ha__c ha__c--a ha__serp" data-rv style="--d:2">
+    <span class="ha__q ha__q--in"><i class="art__glass"></i>стоматология рядом</span>
+    <span class="ha__res ha__res--me"><span class="ha__url">demo-klinika.ru</span><b class="ha__t ha__t--link">Стоматология «Демо»: имплантация и&nbsp;лечение</b>{{ ln(80) }}</span>
+    <span class="ha__res">{{ ln(34, 'ha__l--v') }}{{ ln(76, 'ha__l--t') }}{{ ln(88) }}</span>
+    <span class="ha__res">{{ ln(30, 'ha__l--v') }}{{ ln(68, 'ha__l--t') }}{{ ln(82) }}</span>
+    <span class="ha__res">{{ ln(38, 'ha__l--v') }}{{ ln(72, 'ha__l--t') }}{{ ln(74) }}</span>
+  </div>
+  <div class="ha__c ha__c--b" data-rv style="--d:3">
+    <span class="ha__url">demo-klinika.ru/implantaciya</span>
+    <b class="ha__t">Имплантация зубов: цена по&nbsp;этапам</b>
+    {{ ln(90) }}{{ ln(74) }}{{ ln(56) }}
+  </div>
+{% elif k == 'geo-prodvizhenie' %}
+  <div class="ha__c ha__c--a ha__ask" data-rv style="--d:2">Какую клинику выбрать для&nbsp;имплантации рядом с&nbsp;домом?</div>
+  <div class="ha__c ha__c--b ha__ans" data-rv style="--d:3">
+    <span class="ha__k ha__dot">Ассистент</span>
+    {{ ln(94) }}{{ ln(82) }}
+    <span class="ha__hit">Стоматология «Демо»</span>
+    {{ ln(90) }}{{ ln(66) }}
+    <span class="ha__k">Источники</span>
+    <span class="ha__tags"><span>demo-klinika.ru</span><span>Яндекс Карты</span><span>ПроДокторов</span></span>
+  </div>
+{% elif k == 'lidy-dlya-stomatologii' %}
+  <svg class="ha__path" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M24 22 C 70 22, 78 40, 70 52 S 30 66, 34 84" /></svg>
+  <div class="ha__c ha__c--a" data-rv style="--d:2">
+    <span class="ha__k">Реклама</span>
+    <b class="ha__t ha__t--link">Имплантация зубов под&nbsp;ключ</b>
+    <span class="ha__url">demo-klinika.ru › implantaciya</span>
+  </div>
+  <div class="ha__c ha__c--b ha__call" data-rv style="--d:3">
+    <i class="ha__tel"></i><span><span class="ha__k">Звонок с&nbsp;сайта</span><b class="ha__t">Администратор клиники</b></span>
+  </div>
+  <div class="ha__c ha__c--c ha__c--ink" data-rv style="--d:4">
+    <span class="ha__k ha__row">Запись<span>отметил администратор</span></span>
+    <b class="ha__num">Чт, 15:30</b>
+    <span class="ha__p">Консультация хирурга</span>
+  </div>
+{% elif k == 'medicinskij-marketing' %}
+  <div class="ha__grid">
+    <span class="ha__c ha__tile ha__tile--me" data-rv style="--d:2"><i></i>Стоматологии</span>
+    <span class="ha__c ha__tile" data-rv style="--d:3"><i></i>Медицинские центры</span>
+    <span class="ha__c ha__tile" data-rv style="--d:3"><i></i>Кабинеты врачей</span>
+    <span class="ha__c ha__tile" data-rv style="--d:4"><i></i>Диагностика</span>
+    <span class="ha__c ha__tile" data-rv style="--d:4"><i></i>Косметология</span>
+    <span class="ha__c ha__tile" data-rv style="--d:5"><i></i>Новые клиники</span>
+  </div>
+{% elif k == 'kejsy' %}
+  <div class="ha__c ha__c--a ha__case" data-rv style="--d:2"><span class="ha__k">Яндекс Директ</span><b class="ha__t">Имплантация, Тюмень</b>{{ ln(86) }}{{ ln(60) }}</div>
+  <div class="ha__c ha__c--b ha__case" data-rv style="--d:3"><span class="ha__k">Яндекс Карты</span><b class="ha__t">Карточка клиники, Самара</b>{{ ln(80) }}{{ ln(52) }}</div>
+  <div class="ha__c ha__c--c ha__case" data-rv style="--d:4"><span class="ha__k">Яндекс Директ</span><b class="ha__t">Ортодонтия, Казань</b>{{ ln(84) }}{{ ln(46) }}</div>
+{% elif k == 'kontakty' %}
+  <svg class="ha__radar" viewBox="0 0 200 200"><circle cx="100" cy="100" r="30" /><circle cx="100" cy="100" r="58" /><circle cx="100" cy="100" r="86" class="ha__ring" /><g class="ha__pts"><circle cx="146" cy="66" r="2.6" /><circle cx="44" cy="84" r="2.6" /><circle cx="128" cy="150" r="2.6" /><circle cx="62" cy="142" r="2.6" /><circle cx="168" cy="118" r="2.6" /><circle cx="86" cy="44" r="2.6" /><circle cx="30" cy="120" r="2.6" /></g><circle cx="100" cy="100" r="5" class="ha__me" /></svg>
+  <div class="ha__c ha__c--c" data-rv style="--d:3">
+    <b class="ha__t">МедВектор</b>
+    <span class="ha__p">Агентство маркетинга для&nbsp;стоматологий</span>
+    <span class="ha__rowc">Офис в&nbsp;Санкт-Петербурге</span><span class="ha__rowc">Работаем по&nbsp;всей России</span>
+  </div>
+{% elif k == 'blog' %}
+  <div class="ha__c ha__c--a ha__post" data-rv style="--d:2"><span class="ha__k">Статья</span><b class="ha__t">Реклама стоматологии: каналы, примеры, тексты</b>{{ ln(90) }}{{ ln(64) }}</div>
+  <div class="ha__c ha__c--b ha__post" data-rv style="--d:3"><span class="ha__k">Статья</span><b class="ha__t">Яндекс Бизнес для&nbsp;клиники</b>{{ ln(86) }}{{ ln(58) }}</div>
+  <div class="ha__c ha__c--c ha__post" data-rv style="--d:4"><span class="ha__k">Статья</span><b class="ha__t">Закон о&nbsp;рекламе медицинских услуг</b>{{ ln(88) }}{{ ln(50) }}</div>
+{% else %}
+  {# комплексный маркетинг и всё остальное: каналы вокруг одной клиники #}
+  <svg class="ha__orb" viewBox="0 0 200 200"><circle cx="100" cy="100" r="62" /><circle cx="100" cy="100" r="92" class="ha__ring" /></svg>
+  <span class="ha__core" data-rv="scale" style="--d:2"><b>Клиника</b><small>«Демо»</small></span>
+  <span class="ha__c ha__ch" data-rv style="--a:-90deg;--d:3">Сайт</span>
+  <span class="ha__c ha__ch" data-rv style="--a:-30deg;--d:3">Яндекс Карты</span>
+  <span class="ha__c ha__ch" data-rv style="--a:30deg;--d:4">2ГИС</span>
+  <span class="ha__c ha__ch" data-rv style="--a:90deg;--d:4">ПроДокторов</span>
+  <span class="ha__c ha__ch" data-rv style="--a:150deg;--d:5">Отзывы</span>
+  <span class="ha__c ha__ch" data-rv style="--a:210deg;--d:5">Поиск</span>
+{% endif %}
+</div>
+{% endmacro %}
+
 {# «Шрифт»: белый экран, крупный заголовок, пояснение и кнопки справа, три факта под линией #}
 {% macro type(s) %}
 {% set h = s.h %}
-<section class="ph ph--type" id="intro" data-sec="hero">
+<section class="ph ph--type"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="hero">
   <div class="wrap">
     {{ c.crumbs(s.crumbs) }}
     <h1 class="ph__h" data-rv>{{ h.title | t | safe }}</h1>
@@ -33,6 +203,97 @@
       <p class="ph__lead" data-rv style="--d:1">{{ h.lead | t | safe }}</p>
       <div data-rv style="--d:2">{{ acts(h) }}</div>
     </div>
+    {{ facts(h) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Сцена»: слева заголовок и кнопки, справа рисунок именно этой услуги: объявление, карточка на Картах, профиль врача, ответ нейросети #}
+{% macro scene(s) %}
+{% set h = s.h %}{% set k = (s.url or '') | replace('/', '') %}
+{{ useLook('hero', 'art') }}
+<section class="ph phs"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="hero">
+  <div class="wrap">
+    <div class="phs__grid">
+      <div class="phs__text">
+        {{ c.crumbs(s.crumbs) }}
+        <h1 class="ph__h phs__h" data-rv>{{ h.title | t | safe }}</h1>
+        <p class="ph__lead phs__lead" data-rv style="--d:1">{{ h.lead | t | safe }}</p>
+        <div data-rv style="--d:2">{{ acts(h) }}</div>
+      </div>
+      <div class="phs__stage">{{ art(k) }}</div>
+    </div>
+    {{ facts(h) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Фото»: тёмный экран во всю ширину под прозрачной шапкой, фото клиники, заголовок внизу. Без фото рисуется схема-радар #}
+{% macro photo(s) %}
+{% set h = s.h %}{% set img = (s.art or {}).hero %}
+<section class="ph phf sec--dark dark{% if img %} phf--img{% endif %}"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="hero"{% if not PICK %} data-over{% endif %}>
+  <div class="phf__bg">
+{% if img %}
+    <img class="phf__img" src="{{ img.src }}-1000.webp" srcset="{{ img.src }}-640.webp 640w, {{ img.src }}-1000.webp 1000w, {{ img.src }}-1600.webp 1600w" sizes="100vw" width="1600" height="{{ img.h or 1000 }}" alt="{{ img.alt }}" fetchpriority="high" decoding="async">
+{% else %}
+    <svg class="phf__radar" viewBox="0 0 600 600" aria-hidden="true"><circle cx="300" cy="300" r="90" /><circle cx="300" cy="300" r="170" /><circle cx="300" cy="300" r="250" /><circle cx="300" cy="300" r="290" class="phf__ring" /><path d="M300 10 V590 M10 300 H590" /><g class="phf__pts"><circle cx="420" cy="180" r="4" /><circle cx="160" cy="236" r="4" /><circle cx="388" cy="452" r="4" /><circle cx="214" cy="420" r="4" /><circle cx="520" cy="330" r="4" /></g><circle cx="300" cy="300" r="8" class="phf__me" /></svg>
+{% endif %}
+  </div>
+  <div class="wrap phf__grid">
+    {{ c.crumbs(s.crumbs) }}
+    <h1 class="ph__h phf__h" data-rv>{{ h.title | t | safe }}</h1>
+    <div class="phf__say">
+      <p class="ph__lead" data-rv style="--d:1">{{ h.lead | t | safe }}</p>
+      <div data-rv style="--d:2">{{ acts(h, true) }}</div>
+    </div>
+    {{ facts(h) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Панель»: синяя панель на белом. Слева заголовок и кнопки, справа белая карточка с фактами крупно; без фактов в карточке пояснение #}
+{% macro panel(s) %}
+{% set h = s.h %}
+<section class="ph phn"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="hero">
+  <div class="wrap">
+    {{ c.crumbs(s.crumbs) }}
+    <div class="phn__box{% if not h.facts %} phn__box--nofacts{% endif %}">
+      <div class="phn__main">
+        <h1 class="ph__h phn__h" data-rv>{{ h.title | t | safe }}</h1>
+{% if h.facts %}
+        <p class="ph__lead phn__lead" data-rv style="--d:1">{{ h.lead | t | safe }}</p>
+{% endif %}
+        <div data-rv style="--d:2">{{ acts(h) }}</div>
+      </div>
+      <div class="phn__card" data-rv="scale" style="--d:2">
+{% if h.facts %}
+        <ul class="phn__facts">
+{% for f in h.facts %}
+          <li><b class="num">{{ f[0] | t | safe }}</b><span>{{ f[1] | t | safe }}</span></li>
+{% endfor %}
+        </ul>
+{% else %}
+        <p class="phn__say">{{ h.lead | t | safe }}</p>
+{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endmacro %}
+
+{# «Плакат»: заголовок по центру во всю ширину, под ним рисунок услуги широкой полосой, факты в конце #}
+{% macro poster(s) %}
+{% set h = s.h %}{% set k = (s.url or '') | replace('/', '') %}
+{{ useLook('hero', 'art') }}
+<section class="ph php"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="hero">
+  <div class="wrap">
+    {{ c.crumbs(s.crumbs) }}
+    <div class="php__head">
+      <h1 class="ph__h php__h" data-rv>{{ h.title | t | safe }}</h1>
+      <p class="ph__lead php__lead" data-rv style="--d:1">{{ h.lead | t | safe }}</p>
+      <div class="php__acts" data-rv style="--d:2">{{ acts(h) }}</div>
+    </div>
+    <div class="php__band">{{ art(k) }}</div>
     {{ facts(h) }}
   </div>
 </section>

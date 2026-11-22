@@ -41,7 +41,7 @@ tpl:
 {% block main %}
 {% import "sec.njk" as S %}
 {% set u = page.url %}
-{{ S.section({ type: 'hero', id: 'intro', h: hero, crumbs: crumbs, page: 'cases' }, u) }}
+{{ S.section({ type: 'hero', id: 'intro', h: hero, crumbs: crumbs, page: 'cases', art: pageart[u] }, u) }}
 {{ S.section({ type: 'cases', id: 'cities', tone: 'fog', title: 'Кейсы по городам', note: 'Реклама в Яндекс Директе по трём услугам и карточки на Яндекс Картах и в 2ГИС.', items: cases, tag: 'Цифры в кейсах условные, названия клиник появятся с их согласия', ownHtml: 'Как устроена реклама, читайте на&nbsp;странице <a href="' + href('direct') + '">Яндекс Директа для стоматологии</a>, как работаем с&nbsp;карточками: на&nbsp;странице <a href="' + href('maps') + '">Яндекс Карт</a>.' }, u) }}
 {{ S.section({ type: 'works', id: 'works', title: 'Что остаётся у клиники после работы с нами', note: 'Все образцы сделаны для вымышленной клиники. Настоящие работы покажем с согласия клиник.', items: works }, u) }}
 {{ S.section({ type: 'report', id: 'report', tone: 'fog', title: 'Так выглядит недельный отчёт', note: 'Его получает владелец клиники каждую неделю. Цифры в образце условные, клиника вымышленная.' }, u) }}
