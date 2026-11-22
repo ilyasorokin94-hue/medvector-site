@@ -465,11 +465,11 @@
     var top = main.getBoundingClientRect().top, y = innerHeight * 0.64 - top;
     target = lenAt(y);
     if (scrollY + innerHeight >= document.documentElement.scrollHeight - 6) target = total;
-    if (MV.reduce) cur = target; else cur += (target - cur) * 0.12;
+    if (MV.reduce) cur = target; else cur += (target - cur) * 0.07;
     if (Math.abs(target - cur) < 0.4) cur = target;
     var da = cur.toFixed(1) + ' ' + (total + 20).toFixed(0), i, vt = -top - 200, vb = -top + innerHeight + 200, on;
     // импульс бежит по нарисованной части к стрелке
-    var pp = MV.reduce ? -1 : (now * 0.34) % (cur + 900), pd = pp > 60 && pp < cur ? '0 ' + (pp - 60).toFixed(1) + ' 60 ' + (total + 20).toFixed(0) : '0 ' + (total + 20).toFixed(0);
+    var pp = MV.reduce ? -1 : (now * 0.17) % (cur + 900), pd = pp > 60 && pp < cur ? '0 ' + (pp - 60).toFixed(1) + ' 60 ' + (total + 20).toFixed(0) : '0 ' + (total + 20).toFixed(0);
     for (i = 0; i < drawn.length; i++) {
       on = bands[i].bottom > vt && bands[i].top < vb;
       // полосы за экраном не перерисовываем: их догонит первый кадр, когда они появятся
