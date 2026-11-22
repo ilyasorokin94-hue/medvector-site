@@ -24,11 +24,13 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/trajectory.css">
-<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+
+<!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
+<script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
 <script type="application/ld+json">
 {
@@ -165,47 +167,94 @@
 }
 </script>
 </head>
-<body>
+<body class="pg">
 <a class="skip" href="#main">К содержимому</a>
-<!-- ============ ШАПКА «Траектория»: логотип, четыре пункта, одна кнопка ============ -->
+<!-- ============ ШАПКА как на главной: логотип, «Услуги» с выпадающим списком всех услуг, кейсы, блог, агентство, контакты, одна кнопка ============ -->
 <header class="hdr" id="top">
   <div class="hdr__in">
     <a href="../" class="hdr__logo" aria-label="МедВектор, на главную">
-      <img src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-l" src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-d" src="../assets/img/medvector-logo-w.webp" alt="" width="440" height="93">
     </a>
     <nav class="hdr__nav" aria-label="Основное меню">
-      <a href="../yandex-direkt/">Яндекс Директ</a>
-      <a href="../kompleksnyj-marketing/" aria-current="page">Комплексный маркетинг</a>
+      <div class="drop drop--wide" data-drop>
+        <button type="button" class="drop__btn" data-here aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
+        <div class="drop__panel" id="drop-services">
+          <div class="drop__list drop__cols">
+            <div class="drop__col">
+              <p class="drop__h">Реклама и пациенты</p>
+              <ul>
+                <li><a href="../yandex-direkt/"><b>Яндекс Директ</b><small>Первый тест без комиссии агентства</small></a></li>
+                <li><a href="../lidy-dlya-stomatologii/"><b>Заявки для стоматологии</b><small>Пациенты из&nbsp;рекламы без покупки лидов</small></a></li>
+                <li><a href="../kompleksnyj-marketing/" aria-current="page"><b>Комплексный маркетинг</b><small>Отдел маркетинга клиники на&nbsp;аутсорсе</small></a></li>
+                <li><a href="../medicinskij-marketing/"><b>Медицинский маркетинг</b><small>Клиники и&nbsp;медицинские центры</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Сайт и поиск</p>
+              <ul>
+                <li><a href="../sajt-dlya-stomatologii/"><b>Сайт для стоматологии</b><small>С&nbsp;нуля или редизайн по&nbsp;требованиям закона</small></a></li>
+                <li><a href="../seo-dlya-stomatologii/"><b>SEO для стоматологии</b><small>Рост в&nbsp;поиске по&nbsp;услугам в&nbsp;своём городе</small></a></li>
+                <li><a href="../geo-prodvizhenie/"><b>Продвижение в&nbsp;нейросетях</b><small>Что Алиса и&nbsp;ChatGPT отвечают о&nbsp;клинике</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Карты и репутация</p>
+              <ul>
+                <li><a href="../yandex-karty/"><b>Яндекс Карты</b><small>Карточка, каталог услуг и&nbsp;ответы на&nbsp;отзывы</small></a></li>
+                <li><a href="../2gis/"><b>2ГИС</b><small>Карточка клиники и&nbsp;реклама в&nbsp;справочнике</small></a></li>
+                <li><a href="../prodoktorov/"><b>ПроДокторов</b><small>Профиль клиники и&nbsp;врачей</small></a></li>
+                <li><a href="../otzyvy-i-reputaciya/"><b>Отзывы и&nbsp;репутация</b><small>Настоящие отзывы и&nbsp;ответы на&nbsp;них</small></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <a href="../kejsy/">Кейсы</a>
       <a href="../blog/">Блог</a>
-      <a href="../kontakty/">О нас</a>
+      <a href="../kontakty/">Об агентстве</a>
+      <a href="../kontakty/#contacts">Контакты</a>
     </nav>
     <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- мобильное меню: тёмный экран, пункты крупно -->
+<!-- мобильное меню: тёмный экран, услуги списком, разделы крупно -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
-    <a href="../yandex-direkt/">Яндекс Директ</a>
-    <a href="../kompleksnyj-marketing/">Комплексный маркетинг</a>
-    <a href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a>
-    <a href="../yandex-karty/">Яндекс Карты</a>
+    <p class="mnav__h">Услуги</p>
+    <ul class="mnav__sub mnav__sub--all">
+      <li><a href="../yandex-direkt/">Яндекс Директ</a></li>
+      <li><a href="../lidy-dlya-stomatologii/">Заявки для стоматологии</a></li>
+      <li><a href="../kompleksnyj-marketing/" aria-current="page">Комплексный маркетинг</a></li>
+      <li><a href="../medicinskij-marketing/">Медицинский маркетинг</a></li>
+      <li><a href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a></li>
+      <li><a href="../seo-dlya-stomatologii/">SEO для стоматологии</a></li>
+      <li><a href="../geo-prodvizhenie/">Продвижение в&nbsp;нейросетях</a></li>
+      <li><a href="../yandex-karty/">Яндекс Карты</a></li>
+      <li><a href="../2gis/">2ГИС</a></li>
+      <li><a href="../prodoktorov/">ПроДокторов</a></li>
+      <li><a href="../otzyvy-i-reputaciya/">Отзывы и&nbsp;репутация</a></li>
+    </ul>
     <a href="../kejsy/">Кейсы</a>
     <a href="../blog/">Блог</a>
-    <a href="../kontakty/">О нас</a>
+    <a href="../kontakty/">Об агентстве</a>
+    <a href="../kontakty/#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
     <a href="#start" class="btn btn--light">Разобрать клинику</a>
-    <p>Первый тест в&nbsp;Директе без комиссии агентства. Сайт, Яндекс Карты и&nbsp;SEO одной командой.</p>
+    <p>Санкт-Петербург. Работаем с&nbsp;клиниками по&nbsp;всей России.</p>
   </div>
 </div>
 
 <main id="main">
-<section class="phero" id="intro">
+
+<section class="ph phs" id="intro" data-sec="hero">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки">
+    <div class="phs__grid">
+      <div class="phs__text">
+        <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
     <li><a href="../kompleksnyj-marketing/">Комплексный маркетинг</a></li>
@@ -213,348 +262,523 @@
   </ol>
 </nav>
 
-    <h1 class="h1 h1--page">Продвижение клиники на&nbsp;Яндекс Картах<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></h1>
-    <div class="phero__foot">
-      <p class="phero__sub">Оформляем карточку организации так, чтобы человек, который ищет стоматологию рядом, выбрал вашу: услуги с&nbsp;ценами, врачи, фото, витрина и&nbsp;ответы на&nbsp;отзывы. Каждый месяц показываем звонки, маршруты и&nbsp;переходы на&nbsp;сайт из&nbsp;карточки.</p>
-      <div class="phero__acts">
-        <a href="#start" class="btn" data-magnetic data-pick="site">Обсудить Карты</a>
-        <a href="#card" class="link">Что входит в упаковку</a>
+        <h1 class="ph__h phs__h" data-rv>Продвижение клиники на&nbsp;Яндекс Картах</h1>
+        <p class="ph__lead phs__lead" data-rv style="--d:1">Оформляем карточку организации так, чтобы человек, который ищет стоматологию рядом, выбрал вашу: услуги с&nbsp;ценами, врачи, фото, витрина и&nbsp;ответы на&nbsp;отзывы. Каждый месяц показываем звонки, маршруты и&nbsp;переходы на&nbsp;сайт из&nbsp;карточки.</p>
+        <div data-rv style="--d:2"><div class="ph__acts">
+  <a href="#start" class="btn" data-magnetic data-pick="site">Обсудить Карты</a>
+  <a href="#card" class="link">Что входит в упаковку</a>
+</div>
+</div>
       </div>
+      <div class="phs__stage"><div class="ha ha--yandex-karty" aria-hidden="true">
+  <span class="ha__map"><i class="ha__pin"></i><i class="ha__pin"></i><i class="ha__pin"></i><i class="ha__pin ha__pin--me"></i></span>
+  <div class="ha__c ha__c--a" data-rv style="--d:2">
+    <b class="ha__t">Стоматология «Демо»</b>
+    <span class="ha__p">Цены и&nbsp;врачи указаны, клиника отвечает на&nbsp;отзывы</span>
+    <span class="ha__tags"><span>Цены</span><span>Врачи</span><span>Фото</span><span>Запись</span></span>
+    <span class="ha__btns"><span>Маршрут</span><span>Позвонить</span><span>Сайт</span></span>
+  </div>
+  <div class="ha__c ha__c--b" data-rv style="--d:3">
+    <span class="ha__k">Услуги и&nbsp;цены</span>
+    <span class="ha__price"><span>Имплантация</span><i class="ha__l" style="--w:70%"></i></span>
+    <span class="ha__price"><span>Лечение кариеса</span><i class="ha__l" style="--w:55%"></i></span>
+    <span class="ha__price"><span>Брекеты</span><i class="ha__l" style="--w:62%"></i></span>
+  </div>
+  <div class="ha__c ha__c--c ha__c--reply" data-rv style="--d:4">
+    <span class="ha__k">Ответ клиники</span><i class="ha__l" style="--w:92%"></i><i class="ha__l" style="--w:64%"></i>
+  </div>
+</div>
+</div>
     </div>
+    
   </div>
 </section>
 
 
-<section class="sec sec--fog sheet" id="problems">
+
+<section class="sec lk-loss-deck sec--fog" id="problems" data-sec="loss">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Что мы&nbsp;чаще всего видим в&nbsp;карточках стоматологий.</h2>
+    <h2 class="h2" data-rv>Что мы&nbsp;чаще всего видим в&nbsp;карточках стоматологий</h2>
   </div>
-  <p class="shead__note">Пациент открывает три или четыре карточки рядом и&nbsp;сравнивает их&nbsp;за&nbsp;минуту. Вот на&nbsp;чём клиника проигрывает это сравнение.</p>
+  <p class="sh__note" data-rv style="--d:1">Пациент открывает три или четыре карточки рядом и&nbsp;сравнивает их&nbsp;за&nbsp;минуту. Вот на&nbsp;чём клиника проигрывает это сравнение.</p>
 </div>
 
-    <ol class="loss">
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Услуги перечислены одной строкой</h3><p>В&nbsp;карточке написано «лечение, протезирование, имплантация». Человек ищет «имплантация зубов рядом», а&nbsp;Карты не&nbsp;понимают, что клиника её&nbsp;делает.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Собираем каталог услуг с&nbsp;ценами так, как пациенты их&nbsp;ищут.</p>
+    <ul class="lodk">
+      <li class="lodk__i" data-rv style="--d:0">
+        <div class="lodk__top"><h3 class="h3">Услуги перечислены одной строкой</h3><p>В&nbsp;карточке написано «лечение, протезирование, имплантация». Человек ищет «имплантация зубов рядом», а&nbsp;Карты не&nbsp;понимают, что клиника её&nbsp;делает.</p></div>
+        <p class="lodk__fix"><small>Что делаем</small>Собираем каталог услуг с&nbsp;ценами так, как пациенты их&nbsp;ищут.</p>
       </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Фото ресепшена есть, врачей нет</h3><p>Десять снимков интерьера и&nbsp;ни&nbsp;одного врача. Пациент выбирает не&nbsp;диван, а&nbsp;человека, к&nbsp;которому пойдёт.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Добавляем врачей с&nbsp;именами и&nbsp;специальностями, вход, кабинеты и&nbsp;оборудование.</p>
+      <li class="lodk__i" data-rv style="--d:1">
+        <div class="lodk__top"><h3 class="h3">Фото ресепшена есть, врачей нет</h3><p>Десять снимков интерьера и&nbsp;ни&nbsp;одного врача. Пациент выбирает не&nbsp;диван, а&nbsp;человека, к&nbsp;которому пойдёт.</p></div>
+        <p class="lodk__fix"><small>Что делаем</small>Добавляем врачей с&nbsp;именами и&nbsp;специальностями, вход, кабинеты и&nbsp;оборудование.</p>
       </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Цены и&nbsp;врачи расходятся с&nbsp;сайтом</h3><p>На&nbsp;сайте одна цена, в&nbsp;карточке другая, а&nbsp;врач из&nbsp;карточки в&nbsp;клинике уже не&nbsp;работает. Пациент не&nbsp;знает, чему верить.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Сводим цены, врачей и&nbsp;график к&nbsp;одному источнику и&nbsp;обновляем каждый месяц.</p>
+      <li class="lodk__i" data-rv style="--d:0">
+        <div class="lodk__top"><h3 class="h3">Цены и&nbsp;врачи расходятся с&nbsp;сайтом</h3><p>На&nbsp;сайте одна цена, в&nbsp;карточке другая, а&nbsp;врач из&nbsp;карточки в&nbsp;клинике уже не&nbsp;работает. Пациент не&nbsp;знает, чему верить.</p></div>
+        <p class="lodk__fix"><small>Что делаем</small>Сводим цены, врачей и&nbsp;график к&nbsp;одному источнику и&nbsp;обновляем каждый месяц.</p>
       </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">На&nbsp;отзывы отвечают шаблоном или не&nbsp;отвечают</h3><p>Под каждым отзывом «Спасибо за&nbsp;отзыв» или тишина. Хуже только ответ, где клиника при всех пересказывает, как лечила пациента.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Отвечаем по&nbsp;делу и&nbsp;без медицинских подробностей. Ответы на&nbsp;негатив согласуем с&nbsp;вами.</p>
+      <li class="lodk__i" data-rv style="--d:1">
+        <div class="lodk__top"><h3 class="h3">На&nbsp;отзывы отвечают шаблоном или не&nbsp;отвечают</h3><p>Под каждым отзывом «Спасибо за&nbsp;отзыв» или тишина. Хуже только ответ, где клиника при всех пересказывает, как лечила пациента.</p></div>
+        <p class="lodk__fix"><small>Что делаем</small>Отвечаем по&nbsp;делу и&nbsp;без медицинских подробностей. Ответы на&nbsp;негатив согласуем с&nbsp;вами.</p>
       </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Кнопка в&nbsp;карточке ведёт не&nbsp;туда</h3><p>Кнопка записи открывает главную страницу сайта или старую форму, которая никуда не&nbsp;отправляет заявку.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Проверяем каждую ссылку и&nbsp;кнопку и&nbsp;ставим учёт звонков и&nbsp;переходов.</p>
+      <li class="lodk__i" data-rv style="--d:0">
+        <div class="lodk__top"><h3 class="h3">Кнопка в&nbsp;карточке ведёт не&nbsp;туда</h3><p>Кнопка записи открывает главную страницу сайта или старую форму, которая никуда не&nbsp;отправляет заявку.</p></div>
+        <p class="lodk__fix"><small>Что делаем</small>Проверяем каждую ссылку и&nbsp;кнопку и&nbsp;ставим учёт звонков и&nbsp;переходов.</p>
       </li>
-    </ol>
-  </div>
-</section>
-
-<section class="sec" id="card">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Упаковка карточки.</h2>
-  </div>
-  <p class="shead__note">Человек открывает несколько карточек рядом и&nbsp;сравнивает. Выбирает ту, где видно цены, врачей и&nbsp;живые ответы клиники.</p>
-</div>
-
-    <ul class="spec spec--sm spec--cols">
-      <li class="reveal"><h4>Рубрики и&nbsp;описание</h4><p>Подбираем рубрики под запросы пациентов и&nbsp;пишем описание по&nbsp;делу: услуги, врачи, как добраться.</p></li>
-      <li class="reveal"><h4>Услуги и&nbsp;цены</h4><p>Каталог услуг собран так, как пациенты ищут. Цены те&nbsp;же, что на&nbsp;сайте.</p></li>
-      <li class="reveal"><h4>Врачи</h4><p>Имена, специальности и&nbsp;фото врачей: человек видит, к&nbsp;кому идёт.</p></li>
-      <li class="reveal"><h4>Фото</h4><p>Вход, ресепшен, кабинеты и&nbsp;оборудование. По&nbsp;фото пациент решает, идти&nbsp;ли в&nbsp;клинику.</p></li>
-      <li class="reveal"><h4>Витрина, истории и&nbsp;акции</h4><p>Карточка отвечает на&nbsp;вопросы пациента ещё до&nbsp;звонка.</p></li>
-      <li class="reveal"><h4>Запись из&nbsp;карточки</h4><p>Кнопка записи, звонок и&nbsp;переход на&nbsp;сайт доступны прямо на&nbsp;Картах.</p></li>
     </ul>
+    
   </div>
 </section>
 
-<section class="sec sec--fog" id="paid">
+
+
+<section class="sec lk-spec-bento" id="card" data-sec="spec">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Бесплатная карточка и&nbsp;платное продвижение на&nbsp;Яндекс Картах.</h2>
+    <h2 class="h2" data-rv>Упаковка карточки</h2>
   </div>
-  <p class="shead__note">Платное продвижение организации Яндекс продаёт как рекламную подписку Яндекс Бизнеса. Она усиливает хорошо оформленную карточку, но&nbsp;не&nbsp;заменяет её.</p>
+  <p class="sh__note" data-rv style="--d:1">Человек открывает несколько карточек рядом и&nbsp;сравнивает. Выбирает ту, где видно цены, врачей и&nbsp;живые ответы клиники.</p>
 </div>
 
-    <div class="cmp-wrap">
-      <table class="cmp">
-        <caption class="sr">Чем бесплатная карточка отличается от карточки с рекламной подпиской Яндекс Бизнеса</caption>
-        <thead><tr><td></td><th scope="col">Бесплатная карточка</th><th scope="col">С рекламной подпиской</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Место в&nbsp;списке клиник</th><td data-label="Бесплатная карточка">Зависит от&nbsp;расстояния до&nbsp;человека, полноты карточки, рейтинга и&nbsp;отзывов</td><td data-label="С рекламной подпиской">Карточка показывается выше. Первое место Яндекс не&nbsp;гарантирует</td></tr>
-          <tr><th scope="row">Метка на&nbsp;карте</th><td data-label="Бесплатная карточка">Синяя, как у&nbsp;остальных</td><td data-label="С рекламной подпиской">Зелёная, крупнее и&nbsp;заметнее, в&nbsp;часы работы клиники</td></tr>
-          <tr><th scope="row">Витрина, акция и&nbsp;кнопка записи</th><td data-label="Бесплатная карточка">Доступно не&nbsp;всё</td><td data-label="С рекламной подпиской">Доступны и&nbsp;стоят на&nbsp;видном месте</td></tr>
-          <tr><th scope="row">Соседние клиники в&nbsp;вашей карточке</th><td data-label="Бесплатная карточка">Могут показываться в&nbsp;блоке похожих мест</td><td data-label="С рекламной подпиской">Блока похожих мест в&nbsp;вашей карточке нет, а&nbsp;вы&nbsp;показываетесь в&nbsp;карточках соседей</td></tr>
-          <tr><th scope="row">Где ещё видна клиника</th><td data-label="Бесплатная карточка">Только в&nbsp;Картах и&nbsp;Поиске по&nbsp;своим запросам</td><td data-label="С рекламной подпиской">Реклама идёт ещё на&nbsp;Поиске и&nbsp;внешних площадках Яндекса</td></tr>
-          <tr><th scope="row">Сколько стоит</th><td data-label="Бесплатная карточка">0&nbsp;₽</td><td data-label="С рекламной подпиской">Цену считает Яндекс по&nbsp;городу и&nbsp;рубрике. Клиника платит ему напрямую, срок от&nbsp;90&nbsp;дней</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <ul class="spbn spbn--6">
+      <li class="spbn__i" data-rv style="--d:0"><h3 class="spbn__h">Рубрики и&nbsp;описание</h3><p>Подбираем рубрики под запросы пациентов и&nbsp;пишем описание по&nbsp;делу: услуги, врачи, как добраться.</p></li>
+      <li class="spbn__i" data-rv style="--d:1"><h3 class="spbn__h">Услуги и&nbsp;цены</h3><p>Каталог услуг собран так, как пациенты ищут. Цены те&nbsp;же, что на&nbsp;сайте.</p></li>
+      <li class="spbn__i" data-rv style="--d:2"><h3 class="spbn__h">Врачи</h3><p>Имена, специальности и&nbsp;фото врачей: человек видит, к&nbsp;кому идёт.</p></li>
+      <li class="spbn__i" data-rv style="--d:0"><h3 class="spbn__h">Фото</h3><p>Вход, ресепшен, кабинеты и&nbsp;оборудование. По&nbsp;фото пациент решает, идти&nbsp;ли в&nbsp;клинику.</p></li>
+      <li class="spbn__i" data-rv style="--d:1"><h3 class="spbn__h">Витрина, истории и&nbsp;акции</h3><p>Карточка отвечает на&nbsp;вопросы пациента ещё до&nbsp;звонка.</p></li>
+      <li class="spbn__i" data-rv style="--d:2"><h3 class="spbn__h">Запись из&nbsp;карточки</h3><p>Кнопка записи, звонок и&nbsp;переход на&nbsp;сайт доступны прямо на&nbsp;Картах.</p></li>
+    </ul>
+    
   </div>
 </section>
 
-<section class="sec" id="subscription">
+
+
+<section class="sec lk-cmp-switch sec--fog" id="paid" data-sec="cmp">
   <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Подписка Яндекс Бизнеса и&nbsp;приоритетное размещение.</h2>
-  </div>
-  <p class="shead__note">В&nbsp;2026&nbsp;году приоритетное размещение Яндекс подключает сетям, одной клинике он&nbsp;предлагает рекламную подписку. Что выбрать, решаем по&nbsp;вашему району.</p>
-</div>
-
-    <ol class="deflist">
-      <li class="reveal"><h3 class="h3">Нужна&nbsp;ли подписка</h3><p>Не&nbsp;всегда. На&nbsp;разборе смотрим клиники в&nbsp;вашем районе и&nbsp;показываем, даст&nbsp;ли подписка заметную разницу.</p></li>
-      <li class="reveal"><h3 class="h3">Кому вы&nbsp;платите</h3><p>Яндексу напрямую, со&nbsp;счёта клиники. Через нас эти деньги не&nbsp;проходят. Срок подписки от&nbsp;90&nbsp;дней.</p></li>
-      <li class="reveal"><h3 class="h3">Брендированное приоритетное размещение</h3><p>Вместо зелёной метки на&nbsp;карте стоит логотип клиники. Имеет смысл там, где зелёных меток вокруг уже много. Купить такое продвижение можно тоже только у&nbsp;Яндекса.</p></li>
-      <li class="reveal"><h3 class="h3">Что делаем мы</h3><p>Помогаем выбрать тариф без лишних опций, оформляем рекламную карточку и&nbsp;следим за&nbsp;статистикой.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="sec sec--fog" id="reviews">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Отзывы и&nbsp;рейтинг: только настоящие пациенты.</h2>
-  </div>
-  <p class="shead__note">Площадки проверяют отзывы и&nbsp;скрывают те, что считают неестественными. Поэтому отзывы пишут сами пациенты после визита, а&nbsp;мы&nbsp;налаживаем, как клиника об&nbsp;этом просит.</p>
-</div>
-
-    <div class="yesno">
-      <div class="yesno__col">
-        <h3 class="pack__h">Чего не делаем</h3>
-        <ul class="plist plist--lg plist--no">
-          <li class="reveal"><span>Не&nbsp;пишем и&nbsp;не&nbsp;покупаем отзывы</span></li>
-          <li class="reveal"><span>Не&nbsp;накручиваем переходы и&nbsp;рейтинг</span></li>
-          <li class="reveal"><span>Не&nbsp;просим оставить отзыв прямо в&nbsp;клинике</span></li>
-          <li class="reveal"><span>Не&nbsp;обещаем удалить честный негативный отзыв</span></li>
-        </ul>
-      </div>
-      <div class="yesno__col">
-        <h3 class="pack__h">Как делаем</h3>
-        <ul class="plist plist--lg">
-          <li class="reveal"><span>Просьба после визита со&nbsp;ссылкой, которую пациент открывает дома</span></li>
-          <li class="reveal"><span>Сценарии для администраторов: когда и&nbsp;как просить об&nbsp;отзыве</span></li>
-          <li class="reveal"><span>Ответы на&nbsp;все отзывы от&nbsp;имени клиники</span></li>
-          <li class="reveal"><span>Работа с&nbsp;негативом: ответ, разбор и&nbsp;жалоба, если отзыв нарушает правила площадки</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="first-month">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">План первого месяца.</h2>
-  </div>
-  <p class="shead__note">За&nbsp;месяц карточка приходит в&nbsp;порядок, а&nbsp;у&nbsp;клиники появляются свои цифры по&nbsp;звонкам и&nbsp;маршрутам.</p>
-</div>
-
-    <ol class="incl__list">
-      <li class="reveal"><span class="incl__n">Неделя 1</span><h4>Разбор</h4><p>Сравниваем карточку с&nbsp;клиниками рядом, проверяем рубрики, услуги, цены, фото, ссылки и&nbsp;отзывы. Вы&nbsp;получаете список правок.</p></li>
-      <li class="reveal"><span class="incl__n">Неделя 2</span><h4>Упаковка</h4><p>Рубрики, описание, каталог услуг с&nbsp;ценами, врачи, фото, витрина, кнопка записи.</p></li>
-      <li class="reveal"><span class="incl__n">Неделя 3</span><h4>Отзывы</h4><p>Отвечаем на&nbsp;накопившиеся отзывы и&nbsp;даём администраторам сценарий, как просить об&nbsp;отзыве после визита.</p></li>
-      <li class="reveal"><span class="incl__n">Неделя 4</span><h4>Первые цифры</h4><p>Отчёт: просмотры карточки, звонки, маршруты и&nbsp;переходы на&nbsp;сайт. Решаем, нужна&nbsp;ли подписка.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="sec sec--fog" id="monthly">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Что делаем каждый месяц.</h2>
-  </div>
-  <p class="shead__note">Карточку нельзя оформить один раз и&nbsp;забыть: устаревшие цены и&nbsp;отзывы без ответа быстро снижают доверие.</p>
-</div>
-
-    <ol class="incl__list">
-      <li class="reveal"><h4>Ответы на&nbsp;отзывы</h4><p>Отвечаем на&nbsp;каждый отзыв от&nbsp;имени клиники. Ответы на&nbsp;негатив согласуем с&nbsp;вами.</p></li>
-      <li class="reveal"><h4>Обновление карточки</h4><p>Цены, врачи, график и&nbsp;фото не&nbsp;устаревают.</p></li>
-      <li class="reveal"><h4>Публикации</h4><p>Новости, акции и&nbsp;истории в&nbsp;карточке.</p></li>
-      <li class="reveal"><h4>Отчёт</h4><p>Просмотры карточки, звонки, построенные маршруты и&nbsp;переходы на&nbsp;сайт.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="sec" id="together">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Другие площадки и&nbsp;сайт.</h2>
-  </div>
-  <p class="shead__note">Пациент встречает клинику в&nbsp;нескольких местах. Везде он&nbsp;должен видеть одни цены, одних врачей и&nbsp;один адрес.</p>
-</div>
-
-    <ol class="deflist">
-      <li class="reveal"><h3 class="h3"><a class="link" href="../2gis/">2ГИС</a></h3><p>Карточка в&nbsp;2ГИС с&nbsp;теми&nbsp;же ценами, врачами и&nbsp;адресом. В&nbsp;части городов её&nbsp;открывают чаще, чем Яндекс Карты.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../prodoktorov/">ПроДокторов</a></h3><p>Профиль клиники и&nbsp;врачей, отзывы и&nbsp;платные возможности площадки.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../otzyvy-i-reputaciya/">Отзывы и&nbsp;репутация</a></h3><p>Сбор отзывов настоящих пациентов и&nbsp;ответы на&nbsp;всех площадках с&nbsp;учётом врачебной тайны.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a></h3><p>Из&nbsp;карточки человек переходит на&nbsp;сайт. Если страницы нужной услуги там нет, он&nbsp;возвращается к&nbsp;списку клиник.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../kejsy/">Кейсы</a></h3><p>Что менялось в&nbsp;карточках клиник и&nbsp;как это считали.</p></li>
-    </ol>
-    <p class="pack__own">Как устроены карточка, рейтинг и&nbsp;рекламная подписка, разобрали в&nbsp;статье <a href="../blog/yandex-biznes-dlya-kliniki/">Яндекс Бизнес для клиники</a>.</p>
-  </div>
-</section>
-
-<section class="sec sec--fog" id="price">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Сколько стоит.</h2>
-  </div>
-  <p class="shead__note">Карты можно заказать в&nbsp;составе комплексного маркетинга или отдельно.</p>
-</div>
-
-    <div class="pack">
-      <div>
-        <h3 class="pack__h">Что входит</h3>
-        <ul class="plist plist--lg">
-          <li class="reveal"><span>Упаковка карточки на&nbsp;Яндекс Картах</span></li>
-          <li class="reveal"><span>Каталог услуг и&nbsp;цен</span></li>
-          <li class="reveal"><span>Сценарии сбора отзывов для администраторов</span></li>
-          <li class="reveal"><span>Ежемесячное ведение и&nbsp;отчёт</span></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="pack__h">Условия</h3>
-        <dl class="terms terms--plain">
-          <div><dt>В комплексном маркетинге</dt><dd>упаковка входит в&nbsp;пакет, ведение в&nbsp;ежемесячную работу</dd></div>
-          <div><dt>Только Карты</dt><dd>считаем по&nbsp;заявке, после разбора карточки</dd></div>
-          <div><dt>Подписка Яндекс Бизнеса</dt><dd>клиника платит Яндексу напрямую</dd></div>
-          <div><dt>Карточка и доступы</dt><dd>оформлены на&nbsp;клинику</dd></div>
-        </dl>
-        <div class="pack__acts">
-          <a href="#start" class="btn" data-magnetic data-pick="site">Обсудить Карты</a>
+    <div class="cs cs--2">
+      <div class="cs__side">
+        <div class="cs__head">
+          <h2 class="h2 cs__h" data-rv>Бесплатная карточка и&nbsp;платное продвижение на&nbsp;Яндекс Картах</h2>
+          <p class="cs__note" data-rv style="--d:1">Платное продвижение организации Яндекс продаёт как рекламную подписку Яндекс Бизнеса. Она усиливает хорошо оформленную карточку, но&nbsp;не&nbsp;заменяет её.</p>
         </div>
+        <form class="cs__form" data-rv style="--d:2">
+          <fieldset class="cs__seg">
+            <legend class="sr">Чем бесплатная карточка отличается от карточки с рекламной подпиской Яндекс Бизнеса</legend>
+            <label class="cs__b"><input type="radio" name="col" value="1"><span>Бесплатная карточка</span></label>
+            <label class="cs__b"><input type="radio" name="col" value="2" checked><span>С&nbsp;рекламной подпиской</span></label>
+          </fieldset>
+        </form>
       </div>
-    </div>
-    <p class="pack__own">Что входит в&nbsp;пакет и&nbsp;сколько он&nbsp;стоит, смотрите на&nbsp;странице <a href="../kompleksnyj-marketing/">комплексного маркетинга для стоматологии</a>.</p>
-  </div>
-</section>
-
-<section class="sec" id="faq">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Вопросы о&nbsp;Картах.</h2>
-  </div>
-  <p class="shead__note">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
-</div>
-
-    <div class="qa">
-  <details class="qa__item" open>
-    <summary><span class="qa__q">Сколько стоит продвижение на&nbsp;Яндекс Картах?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>В&nbsp;составе комплексного маркетинга упаковка карточки входит в&nbsp;пакет, а&nbsp;ведение в&nbsp;ежемесячную работу. Если нужны только Карты, стоимость считаем после разбора карточки. Подписку Яндекс Бизнеса компания оплачивает Яндексу отдельно, её&nbsp;цена зависит от&nbsp;города и&nbsp;рубрики.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">У&nbsp;нас уже есть бесплатная карточка. Зачем платное продвижение?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Сначала стоит привести в&nbsp;порядок бесплатную карточку: это даёт результат без рекламного бюджета. Платное продвижение в&nbsp;Яндекс Картах имеет смысл, когда рядом много клиник с&nbsp;подпиской и&nbsp;вашу карточку не&nbsp;видно в&nbsp;начале списка. На&nbsp;разборе покажем, как обстоят дела в&nbsp;вашем районе.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Нужна&nbsp;ли подписка Яндекс Бизнеса?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Не&nbsp;всегда. На&nbsp;разборе покажем, стоит&nbsp;ли подключать её&nbsp;в&nbsp;вашем районе. Если подключаете, платите Яндексу напрямую, срок от&nbsp;90&nbsp;дней. Мы&nbsp;помогаем выбрать тариф и&nbsp;следим за&nbsp;статистикой.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Можно&nbsp;ли поднять рейтинг клиники?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Рейтинг растёт, когда довольные пациенты оставляют отзывы, а&nbsp;клиника на&nbsp;них отвечает. Мы&nbsp;налаживаем, как клиника просит об&nbsp;отзыве после визита. Отзывы не&nbsp;пишем и&nbsp;не&nbsp;покупаем: площадка скрывает такие отзывы и&nbsp;может пометить карточку.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Можно&nbsp;ли удалить плохой отзыв?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Только если он&nbsp;нарушает правила площадки: оскорбления, реклама, отзыв не&nbsp;о&nbsp;вашей клинике. Тогда подаём жалобу. Честный негативный отзыв удалить нельзя, на&nbsp;него нужно ответить по&nbsp;делу.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Работаете&nbsp;ли вы&nbsp;с&nbsp;2ГИС и&nbsp;ПроДокторов?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Да. В&nbsp;составе комплексного маркетинга оформляем 2ГИС и&nbsp;ПроДокторов теми&nbsp;же данными, что и&nbsp;Яндекс Карты, и&nbsp;отвечаем на&nbsp;отзывы на&nbsp;этих площадках.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Работаете&nbsp;ли вы&nbsp;с&nbsp;Google Картами?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Да, по&nbsp;запросу. Продвижение в&nbsp;Гугл Картах начинается с&nbsp;того&nbsp;же: карточку клиники в&nbsp;Google оформляем теми&nbsp;же данными, что и&nbsp;в&nbsp;Яндексе. Основная работа идёт в&nbsp;Яндекс Картах: в&nbsp;России пациенты чаще ищут клинику рядом именно там.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Что такое SEO-продвижение на&nbsp;Яндекс Картах?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>SEO, или сео, на&nbsp;Картах называют работу с&nbsp;самой карточкой без рекламы: рубрики, описание, услуги и&nbsp;цены, фото, отзывы и&nbsp;ответы на&nbsp;них. От&nbsp;этого зависит, по&nbsp;каким запросам и&nbsp;как высоко Карты показывают клинику. С&nbsp;этого мы&nbsp;и&nbsp;начинаем, а&nbsp;подписку обсуждаем потом.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Когда ждать результат?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Звонки и&nbsp;маршруты из&nbsp;карточки считаются с&nbsp;первого месяца, поэтому изменения на&nbsp;Картах видны раньше, чем в&nbsp;поиске. Число звонков заранее не&nbsp;обещаем: оно зависит от&nbsp;района и&nbsp;соседних клиник.</p></div>
-  </details>
-</div>
-
-  </div>
-</section>
-
-<section class="dark sheet start" id="start" data-dark>
-  <div class="wrap">
-    <h2 class="h2 start__title">Разберём карточку клиники на&nbsp;Яндекс Картах.</h2>
-    <div class="start__grid">
-      <div class="start__text">
-        <p class="lead">Оставьте заявку и&nbsp;ссылку на&nbsp;карточку. За&nbsp;2&nbsp;рабочих дня сравним её&nbsp;с&nbsp;клиниками рядом и&nbsp;скажем, что поправить в&nbsp;первую очередь.</p>
-        <ul class="plist">
-          <li>Упаковка карточки входит в&nbsp;пакет комплексного маркетинга</li>
-          <li>Только Карты считаем по&nbsp;заявке</li>
-          <li>Отзывы только от&nbsp;настоящих пациентов</li>
-        </ul>
-        <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
-      </div>
-      <form class="form" novalidate action="#" aria-label="Заявка">
-        <fieldset class="form__choice">
-          <legend>Что хотите запустить</legend>
-          <div class="form__opts">
-            <label class="form__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="site" checked><span>Сайт и&nbsp;Карты</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="unsure"><span>Пока не&nbsp;знаю</span></label>
+      <div class="cs__rows">
+        <div class="cs__row" data-rv>
+          <h3 class="cs__k">Место в&nbsp;списке клиник</h3>
+          <div class="cs__vals">
+            <p class="cs__v"><span class="sr">Бесплатная карточка: </span>Зависит от&nbsp;расстояния до&nbsp;человека, полноты карточки, рейтинга и&nbsp;отзывов</p>
+            <p class="cs__v"><span class="sr">С рекламной подпиской: </span>Карточка показывается выше. Первое место Яндекс не&nbsp;гарантирует</p>
           </div>
-        </fieldset>
-        <label class="fld form__dir"><span>Услуга для рекламы</span>
-          <select name="direction">
-            <option value="implant">Имплантация</option>
-            <option value="all-on-4">All-on-4, полное восстановление</option>
-            <option value="ortho">Брекеты и элайнеры</option>
-            <option value="running">Реклама уже идёт, нужен разбор</option>
-            <option value="other">Другая услуга</option>
-          </select>
-        </label>
-        <div class="form__row">
-          <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
-          <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
         </div>
-        <div class="form__row">
-          <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
-          <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
+        <div class="cs__row" data-rv>
+          <h3 class="cs__k">Метка на&nbsp;карте</h3>
+          <div class="cs__vals">
+            <p class="cs__v"><span class="sr">Бесплатная карточка: </span>Синяя, как у&nbsp;остальных</p>
+            <p class="cs__v"><span class="sr">С рекламной подпиской: </span>Зелёная, крупнее и&nbsp;заметнее, в&nbsp;часы работы клиники</p>
+          </div>
         </div>
-        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../politika/">политики</a></span></label>
-        <div class="form__send">
-          <p class="form__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
-          <button class="btn btn--light" type="submit" data-vend data-magnetic>Отправить заявку</button>
+        <div class="cs__row" data-rv>
+          <h3 class="cs__k">Витрина, акция и&nbsp;кнопка записи</h3>
+          <div class="cs__vals">
+            <p class="cs__v"><span class="sr">Бесплатная карточка: </span>Доступно не&nbsp;всё</p>
+            <p class="cs__v"><span class="sr">С рекламной подпиской: </span>Доступны и&nbsp;стоят на&nbsp;видном месте</p>
+          </div>
         </div>
-        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
-      </form>
+        <div class="cs__row" data-rv>
+          <h3 class="cs__k">Соседние клиники в&nbsp;вашей карточке</h3>
+          <div class="cs__vals">
+            <p class="cs__v"><span class="sr">Бесплатная карточка: </span>Могут показываться в&nbsp;блоке похожих мест</p>
+            <p class="cs__v"><span class="sr">С рекламной подпиской: </span>Блока похожих мест в&nbsp;вашей карточке нет, а&nbsp;вы&nbsp;показываетесь в&nbsp;карточках соседей</p>
+          </div>
+        </div>
+        <div class="cs__row" data-rv>
+          <h3 class="cs__k">Где ещё видна клиника</h3>
+          <div class="cs__vals">
+            <p class="cs__v"><span class="sr">Бесплатная карточка: </span>Только в&nbsp;Картах и&nbsp;Поиске по&nbsp;своим запросам</p>
+            <p class="cs__v"><span class="sr">С рекламной подпиской: </span>Реклама идёт ещё на&nbsp;Поиске и&nbsp;внешних площадках Яндекса</p>
+          </div>
+        </div>
+        <div class="cs__row" data-rv>
+          <h3 class="cs__k">Сколько стоит</h3>
+          <div class="cs__vals">
+            <p class="cs__v"><span class="sr">Бесплатная карточка: </span>0&nbsp;₽</p>
+            <p class="cs__v"><span class="sr">С рекламной подпиской: </span>Цену считает Яндекс по&nbsp;городу и&nbsp;рубрике. Клиника платит ему напрямую, срок от&nbsp;90&nbsp;дней</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="sec lk-deflist-fold" id="subscription" data-sec="deflist">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Подписка Яндекс Бизнеса и&nbsp;приоритетное размещение</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">В&nbsp;2026&nbsp;году приоритетное размещение Яндекс подключает сетям, одной клинике он&nbsp;предлагает рекламную подписку. Что выбрать, решаем по&nbsp;вашему району.</p>
+</div>
+
+    <div class="df">
+      <details class="df__i" data-rv open>
+        <summary class="df__s"><h3 class="df__h">Нужна&nbsp;ли подписка</h3><span class="df__ic" aria-hidden="true"></span></summary>
+        <p class="df__a">Не&nbsp;всегда. На&nbsp;разборе смотрим клиники в&nbsp;вашем районе и&nbsp;показываем, даст&nbsp;ли подписка заметную разницу.</p>
+      </details>
+      <details class="df__i" data-rv>
+        <summary class="df__s"><h3 class="df__h">Кому вы&nbsp;платите</h3><span class="df__ic" aria-hidden="true"></span></summary>
+        <p class="df__a">Яндексу напрямую, со&nbsp;счёта клиники. Через нас эти деньги не&nbsp;проходят. Срок подписки от&nbsp;90&nbsp;дней.</p>
+      </details>
+      <details class="df__i" data-rv>
+        <summary class="df__s"><h3 class="df__h">Брендированное приоритетное размещение</h3><span class="df__ic" aria-hidden="true"></span></summary>
+        <p class="df__a">Вместо зелёной метки на&nbsp;карте стоит логотип клиники. Имеет смысл там, где зелёных меток вокруг уже много. Купить такое продвижение можно тоже только у&nbsp;Яндекса.</p>
+      </details>
+      <details class="df__i" data-rv>
+        <summary class="df__s"><h3 class="df__h">Что делаем мы</h3><span class="df__ic" aria-hidden="true"></span></summary>
+        <p class="df__a">Помогаем выбрать тариф без лишних опций, оформляем рекламную карточку и&nbsp;следим за&nbsp;статистикой.</p>
+      </details>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="sec lk-yesno-cols sec--fog" id="reviews" data-sec="yesno">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Отзывы и&nbsp;рейтинг: только настоящие пациенты</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Площадки проверяют отзывы и&nbsp;скрывают те, что считают неестественными. Поэтому отзывы пишут сами пациенты после визита, а&nbsp;мы&nbsp;налаживаем, как клиника об&nbsp;этом просит.</p>
+</div>
+
+    <div class="yn" data-rv>
+      <div class="yn__col yn__col--no">
+  <h3 class="yn__h">Чего не&nbsp;делаем</h3>
+  <ul class="ticks yn__list">
+    <li>Не&nbsp;пишем и&nbsp;не&nbsp;покупаем отзывы</li>
+    <li>Не&nbsp;накручиваем переходы и&nbsp;рейтинг</li>
+    <li>Не&nbsp;просим оставить отзыв прямо в&nbsp;клинике</li>
+    <li>Не&nbsp;обещаем удалить честный негативный отзыв</li>
+  </ul>
+</div>
+
+      <div class="yn__col">
+  <h3 class="yn__h">Как делаем</h3>
+  <ul class="ticks yn__list">
+    <li>Просьба после визита со&nbsp;ссылкой, которую пациент открывает дома</li>
+    <li>Сценарии для администраторов: когда и&nbsp;как просить об&nbsp;отзыве</li>
+    <li>Ответы на&nbsp;все отзывы от&nbsp;имени клиники</li>
+    <li>Работа с&nbsp;негативом: ответ, разбор и&nbsp;жалоба, если отзыв нарушает правила площадки</li>
+  </ul>
+</div>
+
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="sec lk-steps-chart" id="first-month" data-sec="steps">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>План первого месяца</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">За&nbsp;месяц карточка приходит в&nbsp;порядок, а&nbsp;у&nbsp;клиники появляются свои цифры по&nbsp;звонкам и&nbsp;маршрутам.</p>
+</div>
+
+    <ol class="stpc" style="--n:4">
+      <li class="stpc__row" style="--i:0">
+        <div class="stpc__txt" data-rv>
+          <p class="stpc__when">Неделя 1</p>
+          <h3 class="stpc__h">Разбор</h3>
+          <p class="stpc__p">Сравниваем карточку с&nbsp;клиниками рядом, проверяем рубрики, услуги, цены, фото, ссылки и&nbsp;отзывы. Вы&nbsp;получаете список правок.</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
+      <li class="stpc__row" style="--i:1">
+        <div class="stpc__txt" data-rv>
+          <p class="stpc__when">Неделя 2</p>
+          <h3 class="stpc__h">Упаковка</h3>
+          <p class="stpc__p">Рубрики, описание, каталог услуг с&nbsp;ценами, врачи, фото, витрина, кнопка записи.</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
+      <li class="stpc__row" style="--i:2">
+        <div class="stpc__txt" data-rv>
+          <p class="stpc__when">Неделя 3</p>
+          <h3 class="stpc__h">Отзывы</h3>
+          <p class="stpc__p">Отвечаем на&nbsp;накопившиеся отзывы и&nbsp;даём администраторам сценарий, как просить об&nbsp;отзыве после визита.</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
+      <li class="stpc__row" style="--i:3">
+        <div class="stpc__txt" data-rv>
+          <p class="stpc__when">Неделя 4</p>
+          <h3 class="stpc__h">Первые цифры</h3>
+          <p class="stpc__p">Отчёт: просмотры карточки, звонки, маршруты и&nbsp;переходы на&nbsp;сайт. Решаем, нужна&nbsp;ли подписка.</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
+    </ol>
+    
+  </div>
+</section>
+
+
+
+<section class="sec lk-steps-sheet sec--fog" id="monthly" data-sec="steps">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Что делаем каждый месяц</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Карточку нельзя оформить один раз и&nbsp;забыть: устаревшие цены и&nbsp;отзывы без ответа быстро снижают доверие.</p>
+</div>
+
+    <div class="stps" data-rv>
+      <ol class="stps__list stps__list--even">
+        <li class="stps__i" style="--i:0">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Ответы на&nbsp;отзывы</h3>
+            <p class="stps__p">Отвечаем на&nbsp;каждый отзыв от&nbsp;имени клиники. Ответы на&nbsp;негатив согласуем с&nbsp;вами.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:1">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Обновление карточки</h3>
+            <p class="stps__p">Цены, врачи, график и&nbsp;фото не&nbsp;устаревают.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:2">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Публикации</h3>
+            <p class="stps__p">Новости, акции и&nbsp;истории в&nbsp;карточке.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:3">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Отчёт</h3>
+            <p class="stps__p">Просмотры карточки, звонки, построенные маршруты и&nbsp;переходы на&nbsp;сайт.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="sec lk-links-rows" id="together" data-sec="links">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Другие площадки и&nbsp;сайт</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Пациент встречает клинику в&nbsp;нескольких местах. Везде он&nbsp;должен видеть одни цены, одних врачей и&nbsp;один адрес.</p>
+</div>
+
+    <ul class="lnr">
+      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../2gis/">2ГИС</a></h3><p>Карточка в&nbsp;2ГИС с&nbsp;теми&nbsp;же ценами, врачами и&nbsp;адресом. В&nbsp;части городов её&nbsp;открывают чаще, чем Яндекс Карты.</p><span class="lnr__go" aria-hidden="true"></span></li>
+      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../prodoktorov/">ПроДокторов</a></h3><p>Профиль клиники и&nbsp;врачей, отзывы и&nbsp;платные возможности площадки.</p><span class="lnr__go" aria-hidden="true"></span></li>
+      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../otzyvy-i-reputaciya/">Отзывы и&nbsp;репутация</a></h3><p>Сбор отзывов настоящих пациентов и&nbsp;ответы на&nbsp;всех площадках с&nbsp;учётом врачебной тайны.</p><span class="lnr__go" aria-hidden="true"></span></li>
+      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a></h3><p>Из&nbsp;карточки человек переходит на&nbsp;сайт. Если страницы нужной услуги там нет, он&nbsp;возвращается к&nbsp;списку клиник.</p><span class="lnr__go" aria-hidden="true"></span></li>
+      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../kejsy/">Кейсы</a></h3><p>Что менялось в&nbsp;карточках клиник и&nbsp;как это считали.</p><span class="lnr__go" aria-hidden="true"></span></li>
+    </ul>
+    <p class="own" data-rv>Как устроены карточка, рейтинг и&nbsp;рекламная подписка, разобрали в&nbsp;статье <a href="../blog/yandex-biznes-dlya-kliniki/">Яндекс Бизнес для клиники</a>.</p>
+
+  </div>
+</section>
+
+
+
+<section class="sec sec--dark dark lk-pack-strip" id="price" data-sec="pack">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Сколько стоит</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Карты можно заказать в&nbsp;составе комплексного маркетинга или отдельно.</p>
+</div>
+
+    <h3 class="yn__h" data-rv>Условия</h3>
+    <dl class="pksp pksp--4">
+      <div class="pksp__c" data-rv style="--d:0"><dt>В&nbsp;комплексном маркетинге</dt><dd>упаковка входит в&nbsp;пакет, ведение в&nbsp;ежемесячную работу</dd></div>
+      <div class="pksp__c" data-rv style="--d:1"><dt>Только Карты</dt><dd>считаем по&nbsp;заявке, после разбора карточки</dd></div>
+      <div class="pksp__c" data-rv style="--d:2"><dt>Подписка Яндекс Бизнеса</dt><dd>клиника платит Яндексу напрямую</dd></div>
+      <div class="pksp__c" data-rv style="--d:3"><dt>Карточка и&nbsp;доступы</dt><dd>оформлены на&nbsp;клинику</dd></div>
+    </dl>
+    <div class="pksp__foot">
+      <div class="pksp__list" data-rv>
+        <h3 class="yn__h">Что входит</h3>
+        <ul class="ticks pksp__ul">
+          <li>Упаковка карточки на&nbsp;Яндекс Картах</li>
+          <li>Каталог услуг и&nbsp;цен</li>
+          <li>Сценарии сбора отзывов для администраторов</li>
+          <li>Ежемесячное ведение и&nbsp;отчёт</li>
+        </ul>
+        
+      </div>
+      <div class="pksp__act" data-rv style="--d:1"><a href="#start" class="btn btn--light" data-magnetic data-pick="site">Обсудить Карты</a></div>
+    </div>
+    <p class="own" data-rv>Что входит в&nbsp;пакет и&nbsp;сколько он&nbsp;стоит, смотрите на&nbsp;странице <a href="../kompleksnyj-marketing/">комплексного маркетинга для стоматологии</a>.</p>
+
+  </div>
+</section>
+
+
+
+
+<section class="sec fqi" id="faq" data-sec="faq">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Вопросы о&nbsp;Картах</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
+</div>
+
+    <div class="fqi__grid">
+      <nav class="fqi__nav" aria-label="Вопросы">
+        <ol>
+          <li><a href="#fq-1">Сколько стоит продвижение на&nbsp;Яндекс Картах?</a></li>
+          <li><a href="#fq-2">У&nbsp;нас уже есть бесплатная карточка. Зачем платное продвижение?</a></li>
+          <li><a href="#fq-3">Нужна&nbsp;ли подписка Яндекс Бизнеса?</a></li>
+          <li><a href="#fq-4">Можно&nbsp;ли поднять рейтинг клиники?</a></li>
+          <li><a href="#fq-5">Можно&nbsp;ли удалить плохой отзыв?</a></li>
+          <li><a href="#fq-6">Работаете&nbsp;ли вы&nbsp;с&nbsp;2ГИС и&nbsp;ПроДокторов?</a></li>
+          <li><a href="#fq-7">Работаете&nbsp;ли вы&nbsp;с&nbsp;Google Картами?</a></li>
+          <li><a href="#fq-8">Что такое SEO-продвижение на&nbsp;Яндекс Картах?</a></li>
+          <li><a href="#fq-9">Когда ждать результат?</a></li>
+        </ol>
+      </nav>
+      <div class="fqi__list">
+        <article class="fqi__i" id="fq-1" data-rv>
+          <h3 class="fqi__q">Сколько стоит продвижение на&nbsp;Яндекс Картах?</h3>
+          <p class="fqi__a">В&nbsp;составе комплексного маркетинга упаковка карточки входит в&nbsp;пакет, а&nbsp;ведение в&nbsp;ежемесячную работу. Если нужны только Карты, стоимость считаем после разбора карточки. Подписку Яндекс Бизнеса компания оплачивает Яндексу отдельно, её&nbsp;цена зависит от&nbsp;города и&nbsp;рубрики.</p>
+        </article>
+        <article class="fqi__i" id="fq-2" data-rv>
+          <h3 class="fqi__q">У&nbsp;нас уже есть бесплатная карточка. Зачем платное продвижение?</h3>
+          <p class="fqi__a">Сначала стоит привести в&nbsp;порядок бесплатную карточку: это даёт результат без рекламного бюджета. Платное продвижение в&nbsp;Яндекс Картах имеет смысл, когда рядом много клиник с&nbsp;подпиской и&nbsp;вашу карточку не&nbsp;видно в&nbsp;начале списка. На&nbsp;разборе покажем, как обстоят дела в&nbsp;вашем районе.</p>
+        </article>
+        <article class="fqi__i" id="fq-3" data-rv>
+          <h3 class="fqi__q">Нужна&nbsp;ли подписка Яндекс Бизнеса?</h3>
+          <p class="fqi__a">Не&nbsp;всегда. На&nbsp;разборе покажем, стоит&nbsp;ли подключать её&nbsp;в&nbsp;вашем районе. Если подключаете, платите Яндексу напрямую, срок от&nbsp;90&nbsp;дней. Мы&nbsp;помогаем выбрать тариф и&nbsp;следим за&nbsp;статистикой.</p>
+        </article>
+        <article class="fqi__i" id="fq-4" data-rv>
+          <h3 class="fqi__q">Можно&nbsp;ли поднять рейтинг клиники?</h3>
+          <p class="fqi__a">Рейтинг растёт, когда довольные пациенты оставляют отзывы, а&nbsp;клиника на&nbsp;них отвечает. Мы&nbsp;налаживаем, как клиника просит об&nbsp;отзыве после визита. Отзывы не&nbsp;пишем и&nbsp;не&nbsp;покупаем: площадка скрывает такие отзывы и&nbsp;может пометить карточку.</p>
+        </article>
+        <article class="fqi__i" id="fq-5" data-rv>
+          <h3 class="fqi__q">Можно&nbsp;ли удалить плохой отзыв?</h3>
+          <p class="fqi__a">Только если он&nbsp;нарушает правила площадки: оскорбления, реклама, отзыв не&nbsp;о&nbsp;вашей клинике. Тогда подаём жалобу. Честный негативный отзыв удалить нельзя, на&nbsp;него нужно ответить по&nbsp;делу.</p>
+        </article>
+        <article class="fqi__i" id="fq-6" data-rv>
+          <h3 class="fqi__q">Работаете&nbsp;ли вы&nbsp;с&nbsp;2ГИС и&nbsp;ПроДокторов?</h3>
+          <p class="fqi__a">Да. В&nbsp;составе комплексного маркетинга оформляем 2ГИС и&nbsp;ПроДокторов теми&nbsp;же данными, что и&nbsp;Яндекс Карты, и&nbsp;отвечаем на&nbsp;отзывы на&nbsp;этих площадках.</p>
+        </article>
+        <article class="fqi__i" id="fq-7" data-rv>
+          <h3 class="fqi__q">Работаете&nbsp;ли вы&nbsp;с&nbsp;Google Картами?</h3>
+          <p class="fqi__a">Да, по&nbsp;запросу. Продвижение в&nbsp;Гугл Картах начинается с&nbsp;того&nbsp;же: карточку клиники в&nbsp;Google оформляем теми&nbsp;же данными, что и&nbsp;в&nbsp;Яндексе. Основная работа идёт в&nbsp;Яндекс Картах: в&nbsp;России пациенты чаще ищут клинику рядом именно там.</p>
+        </article>
+        <article class="fqi__i" id="fq-8" data-rv>
+          <h3 class="fqi__q">Что такое SEO-продвижение на&nbsp;Яндекс Картах?</h3>
+          <p class="fqi__a">SEO, или сео, на&nbsp;Картах называют работу с&nbsp;самой карточкой без рекламы: рубрики, описание, услуги и&nbsp;цены, фото, отзывы и&nbsp;ответы на&nbsp;них. От&nbsp;этого зависит, по&nbsp;каким запросам и&nbsp;как высоко Карты показывают клинику. С&nbsp;этого мы&nbsp;и&nbsp;начинаем, а&nbsp;подписку обсуждаем потом.</p>
+        </article>
+        <article class="fqi__i" id="fq-9" data-rv>
+          <h3 class="fqi__q">Когда ждать результат?</h3>
+          <p class="fqi__a">Звонки и&nbsp;маршруты из&nbsp;карточки считаются с&nbsp;первого месяца, поэтому изменения на&nbsp;Картах видны раньше, чем в&nbsp;поиске. Число звонков заранее не&nbsp;обещаем: оно зависит от&nbsp;района и&nbsp;соседних клиник.</p>
+        </article>
+      </div>
     </div>
   </div>
 </section>
+
+
+
+<section class="sec sec--dark dark st stc" id="start" data-sec="start">
+  <div class="wrap stc__grid">
+    <div class="stc__text">
+      <p class="label" data-rv="fade">Заявка</p>
+      <h2 class="h2 stc__h" data-rv>Разберём карточку клиники на&nbsp;Яндекс Картах</h2>
+      <div data-rv style="--d:1"><p class="st__lead">Оставьте заявку и&nbsp;ссылку на&nbsp;карточку. За&nbsp;2&nbsp;рабочих дня сравним её&nbsp;с&nbsp;клиниками рядом и&nbsp;скажем, что поправить в&nbsp;первую очередь.</p>
+<ul class="ticks st__items">
+  <li>Упаковка карточки входит в&nbsp;пакет комплексного маркетинга</li>
+  <li>Только Карты считаем по&nbsp;заявке</li>
+  <li>Отзывы только от&nbsp;настоящих пациентов</li>
+</ul>
+<p class="st__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
+</div>
+    </div>
+    <form class="fm stc__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1"><fieldset class="fm__choice">
+  <legend>Что хотите запустить</legend>
+  <div class="fm__opts">
+    <label class="fm__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="site" checked><span>Сайт и&nbsp;Карты</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="unsure"><span>Пока не&nbsp;знаю</span></label>
+  </div>
+</fieldset>
+<label class="fld fm__dir"><span>Услуга для рекламы</span>
+  <select name="direction">
+    <option value="implant">Имплантация</option>
+    <option value="all-on-4">All-on-4, полное восстановление</option>
+    <option value="ortho">Брекеты и элайнеры</option>
+    <option value="running">Реклама уже идёт, нужен разбор</option>
+    <option value="other">Другая услуга</option>
+  </select>
+</label>
+<div class="fm__row">
+  <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
+  <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
+</div>
+<div class="fm__row">
+  <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
+  <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
+</div>
+<label class="fm__c"><input type="checkbox" name="consent" required> <span>Даю <a href="../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../politika/">политики</a></span></label>
+<div class="fm__send">
+  <button class="btn" type="submit" data-magnetic>Отправить заявку</button>
+  <p class="fm__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
+</div>
+<p class="fm__ok" role="status" tabindex="-1" hidden>Спасибо! Сайт пока в&nbsp;разработке, поэтому заявка никуда не&nbsp;ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
+<p class="stub">Заглушка: форма пока не отправляет заявки</p>
+</form>
+  </div>
+</section>
+
+
 
 </main>
 
-<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<!-- ============ ПОДВАЛ как на главной: тёмный, три колонки ссылок, знак во всю ширину ============ -->
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Реклама, сайты и&nbsp;Яндекс Карты для стоматологий. Первый тест в&nbsp;Директе без комиссии агентства.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -576,13 +800,13 @@
         <h2>Агентство</h2>
         <a href="../kejsy/">Кейсы</a>
         <a href="../blog/">Блог</a>
-        <a href="../kontakty/">О нас</a>
+        <a href="../kontakty/">Об агентстве</a>
         <a href="../kontakty/#contacts">Контакты</a>
         <a href="#start">Оставить заявку</a>
       </nav>
     </div>
     <div class="ftr__mark">
-      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy" decoding="async">
     </div>
     <div class="ftr__bottom">
       <p>© 2026 МедВектор</p>
@@ -594,9 +818,9 @@
   </div>
 </footer>
 <!-- нижняя кнопка на телефоне -->
-<a href="#start" class="mcta"><span>Обсудить Карты</span></a>
+<a href="#start" class="mcta" data-magnetic><span>Обсудить Карты</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/trajectory.js" defer></script>
+<script src="../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

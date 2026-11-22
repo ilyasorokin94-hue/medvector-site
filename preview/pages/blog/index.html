@@ -24,11 +24,13 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/trajectory.css">
-<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+
+<!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
+<script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
 <script type="application/ld+json">
 {
@@ -68,209 +70,302 @@
 }
 </script>
 </head>
-<body>
+<body class="pg">
 <a class="skip" href="#main">К содержимому</a>
-<!-- ============ ШАПКА «Траектория»: логотип, четыре пункта, одна кнопка ============ -->
+<!-- ============ ШАПКА как на главной: логотип, «Услуги» с выпадающим списком всех услуг, кейсы, блог, агентство, контакты, одна кнопка ============ -->
 <header class="hdr" id="top">
   <div class="hdr__in">
     <a href="../" class="hdr__logo" aria-label="МедВектор, на главную">
-      <img src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-l" src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-d" src="../assets/img/medvector-logo-w.webp" alt="" width="440" height="93">
     </a>
     <nav class="hdr__nav" aria-label="Основное меню">
-      <a href="../yandex-direkt/">Яндекс Директ</a>
-      <a href="../kompleksnyj-marketing/">Комплексный маркетинг</a>
+      <div class="drop drop--wide" data-drop>
+        <button type="button" class="drop__btn" aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
+        <div class="drop__panel" id="drop-services">
+          <div class="drop__list drop__cols">
+            <div class="drop__col">
+              <p class="drop__h">Реклама и пациенты</p>
+              <ul>
+                <li><a href="../yandex-direkt/"><b>Яндекс Директ</b><small>Первый тест без комиссии агентства</small></a></li>
+                <li><a href="../lidy-dlya-stomatologii/"><b>Заявки для стоматологии</b><small>Пациенты из&nbsp;рекламы без покупки лидов</small></a></li>
+                <li><a href="../kompleksnyj-marketing/"><b>Комплексный маркетинг</b><small>Отдел маркетинга клиники на&nbsp;аутсорсе</small></a></li>
+                <li><a href="../medicinskij-marketing/"><b>Медицинский маркетинг</b><small>Клиники и&nbsp;медицинские центры</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Сайт и поиск</p>
+              <ul>
+                <li><a href="../sajt-dlya-stomatologii/"><b>Сайт для стоматологии</b><small>С&nbsp;нуля или редизайн по&nbsp;требованиям закона</small></a></li>
+                <li><a href="../seo-dlya-stomatologii/"><b>SEO для стоматологии</b><small>Рост в&nbsp;поиске по&nbsp;услугам в&nbsp;своём городе</small></a></li>
+                <li><a href="../geo-prodvizhenie/"><b>Продвижение в&nbsp;нейросетях</b><small>Что Алиса и&nbsp;ChatGPT отвечают о&nbsp;клинике</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Карты и репутация</p>
+              <ul>
+                <li><a href="../yandex-karty/"><b>Яндекс Карты</b><small>Карточка, каталог услуг и&nbsp;ответы на&nbsp;отзывы</small></a></li>
+                <li><a href="../2gis/"><b>2ГИС</b><small>Карточка клиники и&nbsp;реклама в&nbsp;справочнике</small></a></li>
+                <li><a href="../prodoktorov/"><b>ПроДокторов</b><small>Профиль клиники и&nbsp;врачей</small></a></li>
+                <li><a href="../otzyvy-i-reputaciya/"><b>Отзывы и&nbsp;репутация</b><small>Настоящие отзывы и&nbsp;ответы на&nbsp;них</small></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <a href="../kejsy/">Кейсы</a>
       <a href="../blog/" aria-current="page">Блог</a>
-      <a href="../kontakty/">О нас</a>
+      <a href="../kontakty/">Об агентстве</a>
+      <a href="../kontakty/#contacts">Контакты</a>
     </nav>
     <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- мобильное меню: тёмный экран, пункты крупно -->
+<!-- мобильное меню: тёмный экран, услуги списком, разделы крупно -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
-    <a href="../yandex-direkt/">Яндекс Директ</a>
-    <a href="../kompleksnyj-marketing/">Комплексный маркетинг</a>
-    <a href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a>
-    <a href="../yandex-karty/">Яндекс Карты</a>
+    <p class="mnav__h">Услуги</p>
+    <ul class="mnav__sub mnav__sub--all">
+      <li><a href="../yandex-direkt/">Яндекс Директ</a></li>
+      <li><a href="../lidy-dlya-stomatologii/">Заявки для стоматологии</a></li>
+      <li><a href="../kompleksnyj-marketing/">Комплексный маркетинг</a></li>
+      <li><a href="../medicinskij-marketing/">Медицинский маркетинг</a></li>
+      <li><a href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a></li>
+      <li><a href="../seo-dlya-stomatologii/">SEO для стоматологии</a></li>
+      <li><a href="../geo-prodvizhenie/">Продвижение в&nbsp;нейросетях</a></li>
+      <li><a href="../yandex-karty/">Яндекс Карты</a></li>
+      <li><a href="../2gis/">2ГИС</a></li>
+      <li><a href="../prodoktorov/">ПроДокторов</a></li>
+      <li><a href="../otzyvy-i-reputaciya/">Отзывы и&nbsp;репутация</a></li>
+    </ul>
     <a href="../kejsy/">Кейсы</a>
     <a href="../blog/">Блог</a>
-    <a href="../kontakty/">О нас</a>
+    <a href="../kontakty/">Об агентстве</a>
+    <a href="../kontakty/#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
     <a href="#start" class="btn btn--light">Разобрать клинику</a>
-    <p>Первый тест в&nbsp;Директе без комиссии агентства. Сайт, Яндекс Карты и&nbsp;SEO одной командой.</p>
+    <p>Санкт-Петербург. Работаем с&nbsp;клиниками по&nbsp;всей России.</p>
   </div>
 </div>
 
 <main id="main">
-<section class="phero" id="intro">
+
+<section class="ph phs" id="intro" data-sec="hero">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки">
+    <div class="phs__grid">
+      <div class="phs__text">
+        <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
     <li><span aria-current="page">Блог</span></li>
   </ol>
 </nav>
 
-    <h1 class="h1 h1--page">Блог о&nbsp;маркетинге стоматологий<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></h1>
-    <div class="phero__foot">
-      <p class="phero__sub">Разбираем вопросы владельцев клиник и&nbsp;главных врачей: какая реклама работает, откуда приходят пациенты, что закон требует от&nbsp;рекламы и&nbsp;сайта и&nbsp;как не&nbsp;терять обращения после рекламы.</p>
-      <div class="phero__acts">
-        <a href="#start" class="btn" data-magnetic data-pick="unsure">Задать свой вопрос</a>
+        <h1 class="ph__h phs__h" data-rv>Блог о&nbsp;маркетинге стоматологий</h1>
+        <p class="ph__lead phs__lead" data-rv style="--d:1">Разбираем вопросы владельцев клиник и&nbsp;главных врачей: какая реклама работает, откуда приходят пациенты, что закон требует от&nbsp;рекламы и&nbsp;сайта и&nbsp;как не&nbsp;терять обращения после рекламы.</p>
+        <div data-rv style="--d:2"><div class="ph__acts">
+  <a href="#start" class="btn" data-magnetic data-pick="unsure">Задать свой вопрос</a>
+</div>
+</div>
       </div>
+      <div class="phs__stage"><div class="ha ha--blog" aria-hidden="true">
+  <div class="ha__c ha__c--a ha__post" data-rv style="--d:2"><span class="ha__k">Статья</span><b class="ha__t">Реклама стоматологии: каналы, примеры, тексты</b><i class="ha__l" style="--w:90%"></i><i class="ha__l" style="--w:64%"></i></div>
+  <div class="ha__c ha__c--b ha__post" data-rv style="--d:3"><span class="ha__k">Статья</span><b class="ha__t">Яндекс Бизнес для&nbsp;клиники</b><i class="ha__l" style="--w:86%"></i><i class="ha__l" style="--w:58%"></i></div>
+  <div class="ha__c ha__c--c ha__post" data-rv style="--d:4"><span class="ha__k">Статья</span><b class="ha__t">Закон о&nbsp;рекламе медицинских услуг</b><i class="ha__l" style="--w:88%"></i><i class="ha__l" style="--w:50%"></i></div>
+</div>
+</div>
     </div>
+    
   </div>
 </section>
 
 
-<section class="sec sec--fog sheet" id="ads">
+
+<section class="sec lk-links-photo sec--fog" id="ads" data-sec="links">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Реклама и&nbsp;привлечение пациентов.</h2>
+    <h2 class="h2" data-rv>Реклама и&nbsp;привлечение пациентов</h2>
   </div>
-  <p class="shead__note">Какие каналы приводят пациентов, что писать в&nbsp;объявлениях и&nbsp;чем клиника отличается от&nbsp;соседних.</p>
+  <p class="sh__note" data-rv style="--d:1">Какие каналы приводят пациентов, что писать в&nbsp;объявлениях и&nbsp;чем клиника отличается от&nbsp;соседних.</p>
 </div>
 
-    <ol class="deflist">
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/reklama-stomatologii/">Реклама стоматологии: каналы, примеры, тексты</a></h3><p>Какие каналы приводят пациентов, как написать объявление и&nbsp;куда его вести. С&nbsp;примерами текстов для имплантации, <span class="nw">All-on-4</span> и&nbsp;брекетов.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/kak-privlech-pacientov-v-stomatologiyu/">Как привлечь пациентов в&nbsp;стоматологию</a></h3><p>Пять шагов: от&nbsp;порядка в&nbsp;карточке и&nbsp;на&nbsp;сайте до&nbsp;рекламы, звонков и&nbsp;отзывов. Что делать новой клинике и&nbsp;клинике со&nbsp;стажем.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/akcii-dlya-stomatologii/">Акции для стоматологии</a></h3><p>Какие акции приводят пациентов, какие только снижают цену и&nbsp;что закон требует от&nbsp;рекламы скидок.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/utp-stomatologii/">УТП стоматологии</a></h3><p>Целевая аудитория, разбор конкурентов и&nbsp;позиционирование. Примеры слабых и&nbsp;сильных формулировок.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/socseti-stomatologii/">Соцсети стоматологии</a></h3><p>О&nbsp;чём писать посты, как составить контент-план и&nbsp;какие требования у&nbsp;рекламы в&nbsp;ВК.</p></li>
-    </ol>
+    <ul class="likp" data-n="5">
+      <li class="likp__i" data-rv style="--d:0">
+        <div class="likp__img"><img src="../assets/img/pages/blog-reklama-640.webp" srcset="../assets/img/pages/blog-reklama-640.webp 640w, ../assets/img/pages/blog-reklama-1000.webp 1000w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 62vw" width="1600" height="901" alt="" loading="lazy" decoding="async"></div>
+        <h3 class="likp__h"><a class="likp__a" href="../blog/reklama-stomatologii/">Реклама стоматологии: каналы, примеры, тексты</a></h3>
+        <p>Какие каналы приводят пациентов, как написать объявление и&nbsp;куда его вести. С&nbsp;примерами текстов для имплантации, <span class="nw">All-on-4</span> и&nbsp;брекетов.</p>
+      </li>
+      <li class="likp__i" data-rv style="--d:1">
+        <div class="likp__img"><img src="../assets/img/pages/blog-privlech-640.webp" srcset="../assets/img/pages/blog-privlech-640.webp 640w, ../assets/img/pages/blog-privlech-1000.webp 1000w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 32vw" width="1600" height="917" alt="" loading="lazy" decoding="async"></div>
+        <h3 class="likp__h"><a class="likp__a" href="../blog/kak-privlech-pacientov-v-stomatologiyu/">Как привлечь пациентов в&nbsp;стоматологию</a></h3>
+        <p>Пять шагов: от&nbsp;порядка в&nbsp;карточке и&nbsp;на&nbsp;сайте до&nbsp;рекламы, звонков и&nbsp;отзывов. Что делать новой клинике и&nbsp;клинике со&nbsp;стажем.</p>
+      </li>
+      <li class="likp__i" data-rv style="--d:2">
+        <div class="likp__img"><img src="../assets/img/pages/blog-akcii-640.webp" srcset="../assets/img/pages/blog-akcii-640.webp 640w, ../assets/img/pages/blog-akcii-1000.webp 1000w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 32vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"></div>
+        <h3 class="likp__h"><a class="likp__a" href="../blog/akcii-dlya-stomatologii/">Акции для стоматологии</a></h3>
+        <p>Какие акции приводят пациентов, какие только снижают цену и&nbsp;что закон требует от&nbsp;рекламы скидок.</p>
+      </li>
+      <li class="likp__i" data-rv style="--d:0">
+        <div class="likp__img"><img src="../assets/img/pages/blog-utp-640.webp" srcset="../assets/img/pages/blog-utp-640.webp 640w, ../assets/img/pages/blog-utp-1000.webp 1000w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 32vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"></div>
+        <h3 class="likp__h"><a class="likp__a" href="../blog/utp-stomatologii/">УТП стоматологии</a></h3>
+        <p>Целевая аудитория, разбор конкурентов и&nbsp;позиционирование. Примеры слабых и&nbsp;сильных формулировок.</p>
+      </li>
+      <li class="likp__i" data-rv style="--d:1">
+        <div class="likp__img"><img src="../assets/img/pages/blog-socseti-640.webp" srcset="../assets/img/pages/blog-socseti-640.webp 640w, ../assets/img/pages/blog-socseti-1000.webp 1000w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 32vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"></div>
+        <h3 class="likp__h"><a class="likp__a" href="../blog/socseti-stomatologii/">Соцсети стоматологии</a></h3>
+        <p>О&nbsp;чём писать посты, как составить контент-план и&nbsp;какие требования у&nbsp;рекламы в&nbsp;ВК.</p>
+      </li>
+    </ul>
+    
   </div>
 </section>
 
-<section class="sec" id="maps">
+
+
+<section class="sec lk-links-big" id="maps" data-sec="links">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Карты, отзывы и&nbsp;репутация.</h2>
+    <h2 class="h2" data-rv>Карты, отзывы и&nbsp;репутация</h2>
   </div>
-  <p class="shead__note">Что пациент видит, когда проверяет клинику перед записью.</p>
+  <p class="sh__note" data-rv style="--d:1">Что пациент видит, когда проверяет клинику перед записью.</p>
 </div>
 
-    <ol class="deflist">
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/yandex-biznes-dlya-kliniki/">Яндекс Бизнес для клиники</a></h3><p>Карточка организации, товары и&nbsp;услуги, как формируется рейтинг и&nbsp;что даёт рекламная подписка.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/kak-otvechat-na-otzyvy-pacientov/">Как отвечать на&nbsp;отзывы пациентов</a></h3><p>Примеры ответов на&nbsp;положительные и&nbsp;отрицательные отзывы и&nbsp;что нельзя писать из-за врачебной тайны.</p></li>
-    </ol>
+    <ul class="likb">
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../blog/yandex-biznes-dlya-kliniki/"><span>Яндекс Бизнес для клиники</span></a></h3><p>Карточка организации, товары и&nbsp;услуги, как формируется рейтинг и&nbsp;что даёт рекламная подписка.</p></li>
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../blog/kak-otvechat-na-otzyvy-pacientov/"><span>Как отвечать на&nbsp;отзывы пациентов</span></a></h3><p>Примеры ответов на&nbsp;положительные и&nbsp;отрицательные отзывы и&nbsp;что нельзя писать из-за врачебной тайны.</p></li>
+    </ul>
+    
   </div>
 </section>
 
-<section class="sec sec--fog" id="law">
+
+
+<section class="sec sec--dark dark lk-links-dark" id="law" data-sec="links">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Закон и&nbsp;требования.</h2>
+    <h2 class="h2" data-rv>Закон и&nbsp;требования</h2>
   </div>
-  <p class="shead__note">Статьи о&nbsp;законах сверены с&nbsp;редакциями, которые действуют в&nbsp;ноябре 2026&nbsp;года.</p>
+  <p class="sh__note" data-rv style="--d:1">Статьи о&nbsp;законах сверены с&nbsp;редакциями, которые действуют в&nbsp;ноябре 2026&nbsp;года.</p>
 </div>
 
-    <ol class="deflist">
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/zakon-o-reklame-medicinskih-uslug/">Закон о&nbsp;рекламе медицинских услуг</a></h3><p>Лицензия, предупреждение о&nbsp;противопоказаниях, запрещённые формулировки, маркировка и&nbsp;штрафы. Проверочный список перед запуском.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/trebovaniya-k-sajtu-medorganizacii/">Требования к&nbsp;сайту медицинской организации</a></h3><p>Какие сведения должны быть на&nbsp;сайте клиники: лицензия, цены, врачи, персональные данные. Список для проверки.</p></li>
-    </ol>
+    <ul class="likd">
+      <li class="likd__i" data-rv style="--d:0"><h3 class="likd__h"><a class="likd__a" href="../blog/zakon-o-reklame-medicinskih-uslug/">Закон о&nbsp;рекламе медицинских услуг</a></h3><p>Лицензия, предупреждение о&nbsp;противопоказаниях, запрещённые формулировки, маркировка и&nbsp;штрафы. Проверочный список перед запуском.</p><span class="likd__go" aria-hidden="true"></span></li>
+      <li class="likd__i" data-rv style="--d:1"><h3 class="likd__h"><a class="likd__a" href="../blog/trebovaniya-k-sajtu-medorganizacii/">Требования к&nbsp;сайту медицинской организации</a></h3><p>Какие сведения должны быть на&nbsp;сайте клиники: лицензия, цены, врачи, персональные данные. Список для проверки.</p><span class="likd__go" aria-hidden="true"></span></li>
+    </ul>
+    
   </div>
 </section>
 
-<section class="sec" id="manage">
+
+
+<section class="sec lk-links-rows" id="manage" data-sec="links">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Заявки, продажи и&nbsp;показатели.</h2>
+    <h2 class="h2" data-rv>Заявки, продажи и&nbsp;показатели</h2>
   </div>
-  <p class="shead__note">Что происходит с&nbsp;обращением после рекламы и&nbsp;как это считать.</p>
+  <p class="sh__note" data-rv style="--d:1">Что происходит с&nbsp;обращением после рекламы и&nbsp;как это считать.</p>
 </div>
 
-    <ol class="deflist">
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/crm-dlya-stomatologii/">CRM для стоматологии</a></h3><p>Чем CRM отличается от&nbsp;МИС, что должно быть в&nbsp;системе и&nbsp;как её&nbsp;выбрать.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/skripty-administratora-stomatologii/">Скрипты для администратора стоматологии</a></h3><p>Обязанности, скрипты для главных ситуаций, чек-лист смены и&nbsp;обучение.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/prodazhi-v-stomatologii/">Продажи в&nbsp;стоматологии</a></h3><p>Этапы от&nbsp;звонка до&nbsp;принятого плана лечения, консультация и&nbsp;работа с&nbsp;возражениями.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/voronka-i-pokazateli-kliniki/">Воронка пациентов и&nbsp;показатели</a></h3><p>Какие цифры считать на&nbsp;каждом шаге, сквозная аналитика, коллтрекинг и&nbsp;LTV пациента.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/ekonomika-stomatologii/">Экономика стоматологии</a></h3><p>Из&nbsp;чего складываются выручка и&nbsp;прибыль клиники и&nbsp;как их&nbsp;увеличить без роста рекламы.</p></li>
-    </ol>
+    <ul class="lnr">
+      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/crm-dlya-stomatologii/">CRM для стоматологии</a></h3><p>Чем CRM отличается от&nbsp;МИС, что должно быть в&nbsp;системе и&nbsp;как её&nbsp;выбрать.</p><span class="lnr__go" aria-hidden="true"></span></li>
+      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/skripty-administratora-stomatologii/">Скрипты для администратора стоматологии</a></h3><p>Обязанности, скрипты для главных ситуаций, чек-лист смены и&nbsp;обучение.</p><span class="lnr__go" aria-hidden="true"></span></li>
+      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/prodazhi-v-stomatologii/">Продажи в&nbsp;стоматологии</a></h3><p>Этапы от&nbsp;звонка до&nbsp;принятого плана лечения, консультация и&nbsp;работа с&nbsp;возражениями.</p><span class="lnr__go" aria-hidden="true"></span></li>
+      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/voronka-i-pokazateli-kliniki/">Воронка пациентов и&nbsp;показатели</a></h3><p>Какие цифры считать на&nbsp;каждом шаге, сквозная аналитика, коллтрекинг и&nbsp;LTV пациента.</p><span class="lnr__go" aria-hidden="true"></span></li>
+      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/ekonomika-stomatologii/">Экономика стоматологии</a></h3><p>Из&nbsp;чего складываются выручка и&nbsp;прибыль клиники и&nbsp;как их&nbsp;увеличить без роста рекламы.</p><span class="lnr__go" aria-hidden="true"></span></li>
+    </ul>
+    
   </div>
 </section>
 
-<section class="sec sec--fog" id="opening">
+
+
+<section class="sec lk-links-cards sec--fog" id="opening" data-sec="links">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Открытие клиники и&nbsp;бренд.</h2>
+    <h2 class="h2" data-rv>Открытие клиники и&nbsp;бренд</h2>
   </div>
-  <p class="shead__note">Решения первых месяцев, которые потом помогают или мешают привлекать пациентов.</p>
+  <p class="sh__note" data-rv style="--d:1">Решения первых месяцев, которые потом помогают или мешают привлекать пациентов.</p>
 </div>
 
-    <ol class="deflist">
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/kak-otkryt-stomatologiyu/">Как открыть стоматологию с&nbsp;нуля</a></h3><p>Пошаговый план, лицензия, требования к&nbsp;помещению, статьи бюджета и&nbsp;маркетинг к&nbsp;открытию.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/nazvanie-dlya-stomatologii/">Название стоматологии</a></h3><p>Пять подходов к&nbsp;названию, чего избегать и&nbsp;что проверить до&nbsp;заказа вывески.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../blog/brend-i-vyveska-stomatologii/">Бренд стоматологии: логотип, стиль, вывеска</a></h3><p>Из&nbsp;чего состоит бренд клиники и&nbsp;где проходит граница между вывеской и&nbsp;рекламой.</p></li>
-    </ol>
+    <ul class="likc">
+      <li class="likc__i" data-rv style="--d:0"><h3 class="likc__h"><a class="likc__a" href="../blog/kak-otkryt-stomatologiyu/">Как открыть стоматологию с&nbsp;нуля</a></h3><p>Пошаговый план, лицензия, требования к&nbsp;помещению, статьи бюджета и&nbsp;маркетинг к&nbsp;открытию.</p><span class="likc__bar" aria-hidden="true"></span></li>
+      <li class="likc__i" data-rv style="--d:1"><h3 class="likc__h"><a class="likc__a" href="../blog/nazvanie-dlya-stomatologii/">Название стоматологии</a></h3><p>Пять подходов к&nbsp;названию, чего избегать и&nbsp;что проверить до&nbsp;заказа вывески.</p><span class="likc__bar" aria-hidden="true"></span></li>
+      <li class="likc__i" data-rv style="--d:2"><h3 class="likc__h"><a class="likc__a" href="../blog/brend-i-vyveska-stomatologii/">Бренд стоматологии: логотип, стиль, вывеска</a></h3><p>Из&nbsp;чего состоит бренд клиники и&nbsp;где проходит граница между вывеской и&nbsp;рекламой.</p><span class="likc__bar" aria-hidden="true"></span></li>
+    </ul>
+    
   </div>
 </section>
 
 
-<section class="dark sheet start" id="start" data-dark>
-  <div class="wrap">
-    <h2 class="h2 start__title">Остался вопрос? Разберём на&nbsp;примере вашей клиники.</h2>
-    <div class="start__grid">
-      <div class="start__text">
-        <p class="lead">Посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;первого теста в&nbsp;Директе или с&nbsp;сайта и&nbsp;Карт.</p>
-        <ul class="plist">
-          <li>Первый тест в&nbsp;Директе: комиссия агентства 0&nbsp;₽, бюджет вы&nbsp;вносите Яндексу</li>
-          <li>Сайт и&nbsp;Яндекс Карты: старт 80&nbsp;000&nbsp;₽, сайт входит в&nbsp;эту сумму</li>
-          <li>Если видим риски для запуска, скажем о&nbsp;них на&nbsp;разборе</li>
-        </ul>
-        <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
-      </div>
-      <form class="form" novalidate action="#" aria-label="Заявка">
-        <fieldset class="form__choice">
-          <legend>Что хотите запустить</legend>
-          <div class="form__opts">
-            <label class="form__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="site"><span>Сайт и&nbsp;Карты</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="unsure" checked><span>Пока не&nbsp;знаю</span></label>
-          </div>
-        </fieldset>
-        <label class="fld form__dir"><span>Услуга для рекламы</span>
-          <select name="direction">
-            <option value="implant">Имплантация</option>
-            <option value="all-on-4">All-on-4, полное восстановление</option>
-            <option value="ortho">Брекеты и&nbsp;элайнеры</option>
-            <option value="running">Реклама уже идёт, нужен разбор</option>
-            <option value="other">Другая услуга</option>
-          </select>
-        </label>
-        <div class="form__row">
-          <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
-          <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
-        </div>
-        <div class="form__row">
-          <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
-          <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
-        </div>
-        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../politika/">политики</a></span></label>
-        <div class="form__send">
-          <p class="form__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
-          <button class="btn btn--light" type="submit" data-vend data-magnetic>Отправить заявку</button>
-        </div>
-        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
-      </form>
+
+
+<section class="sec sec--dark dark st stc" id="start" data-sec="start">
+  <div class="wrap stc__grid">
+    <div class="stc__text">
+      <p class="label" data-rv="fade">Заявка</p>
+      <h2 class="h2 stc__h" data-rv>Остался вопрос? Разберём на&nbsp;примере вашей клиники</h2>
+      <div data-rv style="--d:1"><p class="st__lead">Посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;первого теста в&nbsp;Директе или с&nbsp;сайта и&nbsp;Карт.</p>
+<ul class="ticks st__items">
+  <li>Первый тест в&nbsp;Директе: комиссия агентства 0&nbsp;₽, бюджет вы&nbsp;вносите Яндексу</li>
+  <li>Сайт и&nbsp;Яндекс Карты: старт 80&nbsp;000&nbsp;₽, сайт входит в&nbsp;эту сумму</li>
+  <li>Если видим риски для запуска, скажем о&nbsp;них на&nbsp;разборе</li>
+</ul>
+<p class="st__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
+</div>
     </div>
+    <form class="fm stc__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1"><fieldset class="fm__choice">
+  <legend>Что хотите запустить</legend>
+  <div class="fm__opts">
+    <label class="fm__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="site"><span>Сайт и&nbsp;Карты</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="unsure" checked><span>Пока не&nbsp;знаю</span></label>
+  </div>
+</fieldset>
+<label class="fld fm__dir"><span>Услуга для рекламы</span>
+  <select name="direction">
+    <option value="implant">Имплантация</option>
+    <option value="all-on-4">All-on-4, полное восстановление</option>
+    <option value="ortho">Брекеты и&nbsp;элайнеры</option>
+    <option value="running">Реклама уже идёт, нужен разбор</option>
+    <option value="other">Другая услуга</option>
+  </select>
+</label>
+<div class="fm__row">
+  <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
+  <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
+</div>
+<div class="fm__row">
+  <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
+  <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
+</div>
+<label class="fm__c"><input type="checkbox" name="consent" required> <span>Даю <a href="../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../politika/">политики</a></span></label>
+<div class="fm__send">
+  <button class="btn" type="submit" data-magnetic>Отправить заявку</button>
+  <p class="fm__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
+</div>
+<p class="fm__ok" role="status" tabindex="-1" hidden>Спасибо! Сайт пока в&nbsp;разработке, поэтому заявка никуда не&nbsp;ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
+<p class="stub">Заглушка: форма пока не&nbsp;отправляет заявки</p>
+</form>
   </div>
 </section>
+
+
 
 </main>
 
-<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<!-- ============ ПОДВАЛ как на главной: тёмный, три колонки ссылок, знак во всю ширину ============ -->
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Реклама, сайты и&nbsp;Яндекс Карты для стоматологий. Первый тест в&nbsp;Директе без комиссии агентства.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -292,13 +387,13 @@
         <h2>Агентство</h2>
         <a href="../kejsy/">Кейсы</a>
         <a href="../blog/">Блог</a>
-        <a href="../kontakty/">О нас</a>
+        <a href="../kontakty/">Об агентстве</a>
         <a href="../kontakty/#contacts">Контакты</a>
         <a href="#start">Оставить заявку</a>
       </nav>
     </div>
     <div class="ftr__mark">
-      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy" decoding="async">
     </div>
     <div class="ftr__bottom">
       <p>© 2026 МедВектор</p>
@@ -310,9 +405,9 @@
   </div>
 </footer>
 <!-- нижняя кнопка на телефоне -->
-<a href="#start" class="mcta"><span>Разобрать клинику</span></a>
+<a href="#start" class="mcta" data-magnetic><span>Разобрать клинику</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/trajectory.js" defer></script>
+<script src="../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

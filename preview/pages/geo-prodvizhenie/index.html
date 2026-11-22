@@ -24,11 +24,13 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/trajectory.css">
-<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+
+<!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
+<script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
 <script type="application/ld+json">
 {
@@ -165,47 +167,94 @@
 }
 </script>
 </head>
-<body>
+<body class="pg">
 <a class="skip" href="#main">К содержимому</a>
-<!-- ============ ШАПКА «Траектория»: логотип, четыре пункта, одна кнопка ============ -->
+<!-- ============ ШАПКА как на главной: логотип, «Услуги» с выпадающим списком всех услуг, кейсы, блог, агентство, контакты, одна кнопка ============ -->
 <header class="hdr" id="top">
   <div class="hdr__in">
     <a href="../" class="hdr__logo" aria-label="МедВектор, на главную">
-      <img src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-l" src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-d" src="../assets/img/medvector-logo-w.webp" alt="" width="440" height="93">
     </a>
     <nav class="hdr__nav" aria-label="Основное меню">
-      <a href="../yandex-direkt/">Яндекс Директ</a>
-      <a href="../kompleksnyj-marketing/">Комплексный маркетинг</a>
+      <div class="drop drop--wide" data-drop>
+        <button type="button" class="drop__btn" data-here aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
+        <div class="drop__panel" id="drop-services">
+          <div class="drop__list drop__cols">
+            <div class="drop__col">
+              <p class="drop__h">Реклама и пациенты</p>
+              <ul>
+                <li><a href="../yandex-direkt/"><b>Яндекс Директ</b><small>Первый тест без комиссии агентства</small></a></li>
+                <li><a href="../lidy-dlya-stomatologii/"><b>Заявки для стоматологии</b><small>Пациенты из&nbsp;рекламы без покупки лидов</small></a></li>
+                <li><a href="../kompleksnyj-marketing/"><b>Комплексный маркетинг</b><small>Отдел маркетинга клиники на&nbsp;аутсорсе</small></a></li>
+                <li><a href="../medicinskij-marketing/" aria-current="page"><b>Медицинский маркетинг</b><small>Клиники и&nbsp;медицинские центры</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Сайт и поиск</p>
+              <ul>
+                <li><a href="../sajt-dlya-stomatologii/"><b>Сайт для стоматологии</b><small>С&nbsp;нуля или редизайн по&nbsp;требованиям закона</small></a></li>
+                <li><a href="../seo-dlya-stomatologii/"><b>SEO для стоматологии</b><small>Рост в&nbsp;поиске по&nbsp;услугам в&nbsp;своём городе</small></a></li>
+                <li><a href="../geo-prodvizhenie/"><b>Продвижение в&nbsp;нейросетях</b><small>Что Алиса и&nbsp;ChatGPT отвечают о&nbsp;клинике</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Карты и репутация</p>
+              <ul>
+                <li><a href="../yandex-karty/"><b>Яндекс Карты</b><small>Карточка, каталог услуг и&nbsp;ответы на&nbsp;отзывы</small></a></li>
+                <li><a href="../2gis/"><b>2ГИС</b><small>Карточка клиники и&nbsp;реклама в&nbsp;справочнике</small></a></li>
+                <li><a href="../prodoktorov/"><b>ПроДокторов</b><small>Профиль клиники и&nbsp;врачей</small></a></li>
+                <li><a href="../otzyvy-i-reputaciya/"><b>Отзывы и&nbsp;репутация</b><small>Настоящие отзывы и&nbsp;ответы на&nbsp;них</small></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <a href="../kejsy/">Кейсы</a>
       <a href="../blog/">Блог</a>
-      <a href="../kontakty/">О нас</a>
+      <a href="../kontakty/">Об агентстве</a>
+      <a href="../kontakty/#contacts">Контакты</a>
     </nav>
     <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- мобильное меню: тёмный экран, пункты крупно -->
+<!-- мобильное меню: тёмный экран, услуги списком, разделы крупно -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
-    <a href="../yandex-direkt/">Яндекс Директ</a>
-    <a href="../kompleksnyj-marketing/">Комплексный маркетинг</a>
-    <a href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a>
-    <a href="../yandex-karty/">Яндекс Карты</a>
+    <p class="mnav__h">Услуги</p>
+    <ul class="mnav__sub mnav__sub--all">
+      <li><a href="../yandex-direkt/">Яндекс Директ</a></li>
+      <li><a href="../lidy-dlya-stomatologii/">Заявки для стоматологии</a></li>
+      <li><a href="../kompleksnyj-marketing/">Комплексный маркетинг</a></li>
+      <li><a href="../medicinskij-marketing/" aria-current="page">Медицинский маркетинг</a></li>
+      <li><a href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a></li>
+      <li><a href="../seo-dlya-stomatologii/">SEO для стоматологии</a></li>
+      <li><a href="../geo-prodvizhenie/">Продвижение в&nbsp;нейросетях</a></li>
+      <li><a href="../yandex-karty/">Яндекс Карты</a></li>
+      <li><a href="../2gis/">2ГИС</a></li>
+      <li><a href="../prodoktorov/">ПроДокторов</a></li>
+      <li><a href="../otzyvy-i-reputaciya/">Отзывы и&nbsp;репутация</a></li>
+    </ul>
     <a href="../kejsy/">Кейсы</a>
     <a href="../blog/">Блог</a>
-    <a href="../kontakty/">О нас</a>
+    <a href="../kontakty/">Об агентстве</a>
+    <a href="../kontakty/#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
     <a href="#start" class="btn btn--light">Разобрать клинику</a>
-    <p>Первый тест в&nbsp;Директе без комиссии агентства. Сайт, Яндекс Карты и&nbsp;SEO одной командой.</p>
+    <p>Санкт-Петербург. Работаем с&nbsp;клиниками по&nbsp;всей России.</p>
   </div>
 </div>
 
 <main id="main">
-<section class="phero" id="intro">
+
+<section class="ph phs" id="intro" data-sec="hero">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки">
+    <div class="phs__grid">
+      <div class="phs__text">
+        <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
     <li><a href="../medicinskij-marketing/">Медицинский маркетинг</a></li>
@@ -213,324 +262,471 @@
   </ol>
 </nav>
 
-    <h1 class="h1 h1--page">Продвижение клиники в&nbsp;ответах нейросетей<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></h1>
-    <div class="phero__foot">
-      <p class="phero__sub">Пациенты уже спрашивают у&nbsp;Алисы и&nbsp;ChatGPT, что лучше, имплант или мост, и&nbsp;в&nbsp;какую клинику идти. Нейросеть собирает ответ из&nbsp;сайтов, карт и&nbsp;отзывов. GEO-продвижение помогает сделать так, чтобы о&nbsp;клинике там были верные сведения и&nbsp;чтобы она попадала в&nbsp;рекомендации нейросетей.</p>
-      <div class="phero__acts">
-        <a href="#start" class="btn" data-magnetic data-pick="unsure">Проверить, что отвечают нейросети</a>
-        <a href="#path" class="link">Как это работает</a>
+        <h1 class="ph__h phs__h" data-rv>Продвижение клиники в&nbsp;ответах нейросетей</h1>
+        <p class="ph__lead phs__lead" data-rv style="--d:1">Пациенты уже спрашивают у&nbsp;Алисы и&nbsp;ChatGPT, что лучше, имплант или мост, и&nbsp;в&nbsp;какую клинику идти. Нейросеть собирает ответ из&nbsp;сайтов, карт и&nbsp;отзывов. GEO-продвижение помогает сделать так, чтобы о&nbsp;клинике там были верные сведения и&nbsp;чтобы она попадала в&nbsp;рекомендации нейросетей.</p>
+        <div data-rv style="--d:2"><div class="ph__acts">
+  <a href="#start" class="btn" data-magnetic data-pick="unsure">Проверить, что отвечают нейросети</a>
+  <a href="#path" class="link">Как это работает</a>
+</div>
+</div>
+      </div>
+      <div class="phs__stage"><div class="ha ha--geo-prodvizhenie" aria-hidden="true">
+  <div class="ha__c ha__c--a ha__ask" data-rv style="--d:2">Какую клинику выбрать для&nbsp;имплантации рядом с&nbsp;домом?</div>
+  <div class="ha__c ha__c--b ha__ans" data-rv style="--d:3">
+    <span class="ha__k ha__dot">Ассистент</span>
+    <i class="ha__l" style="--w:94%"></i><i class="ha__l" style="--w:82%"></i>
+    <span class="ha__hit">Стоматология «Демо»</span>
+    <i class="ha__l" style="--w:90%"></i><i class="ha__l" style="--w:66%"></i>
+    <span class="ha__k">Источники</span>
+    <span class="ha__tags"><span>demo-klinika.ru</span><span>Яндекс Карты</span><span>ПроДокторов</span></span>
+  </div>
+</div>
+</div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="sec lk-steps-zigzag sec--fog" id="path" data-sec="steps">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Как пациент выбирает клинику через нейросеть</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Продвижение в&nbsp;нейросетях идёт по&nbsp;тем&nbsp;же шагам, что и&nbsp;выбор пациента. На&nbsp;каждом шаге модели нужен свой источник.</p>
+</div>
+
+    <ol class="stpz">
+      <li class="stpz__i stpz__i--l" style="grid-row:1 / span 2">
+        <div class="stpz__in" data-rv="left">
+          <p class="stpz__when">Симптом</p>
+          <h3 class="stpz__h">«Болит зуб под коронкой, что делать»</h3>
+          <p class="stpz__p">Название клиники здесь не&nbsp;нужно. Нейросеть ищет понятное объяснение, и&nbsp;ссылка достаётся сайту, где его написал врач.</p>
+        </div>
+      </li>
+      <li class="stpz__i stpz__i--r" style="grid-row:2 / span 2">
+        <div class="stpz__in" data-rv="">
+          <p class="stpz__when">Метод</p>
+          <h3 class="stpz__h">«Имплант или мост, что лучше»</h3>
+          <p class="stpz__p">Нужна страница метода: показания, этапы, ограничения, сроки. Без неё модель берёт ответ с&nbsp;чужого сайта.</p>
+        </div>
+      </li>
+      <li class="stpz__i stpz__i--l" style="grid-row:3 / span 2">
+        <div class="stpz__in" data-rv="left">
+          <p class="stpz__when">Клиника и&nbsp;врач</p>
+          <h3 class="stpz__h">«Где поставить имплант в&nbsp;Казани»</h3>
+          <p class="stpz__p">Модель сверяет сайт, карты и&nbsp;отзывы. Если адрес, врачи и&nbsp;цены расходятся, клинику проще не&nbsp;назвать.</p>
+        </div>
+      </li>
+      <li class="stpz__i stpz__i--r" style="grid-row:4 / span 2">
+        <div class="stpz__in" data-rv="">
+          <p class="stpz__when">Цена и&nbsp;запись</p>
+          <h3 class="stpz__h">«Сколько стоит имплантация в&nbsp;этой клинике»</h3>
+          <p class="stpz__p">Если цены нет на&nbsp;сайте, нейросеть возьмёт её&nbsp;с&nbsp;агрегатора или назовёт чужую.</p>
+        </div>
+      </li>
+    </ol>
+    
+  </div>
+</section>
+
+
+
+<section class="sec sec--dark dark lk-loss-dark" id="errors" data-sec="loss">
+  <div class="wrap lodr">
+    <div class="lodr__head">
+      <div class="lodr__stick">
+        <h2 class="h2" data-rv>Что нейросети говорят о&nbsp;клинике неправильно</h2>
+        <p class="lodr__note" data-rv style="--d:1">Перед работой задаём нейросетям вопросы пациентов и&nbsp;записываем ответы. Чаще всего находим одно из&nbsp;четырёх.</p>
       </div>
     </div>
-  </div>
-</section>
-
-
-<section class="sec sec--fog sheet" id="path">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Как пациент выбирает клинику через нейросеть.</h2>
-  </div>
-  <p class="shead__note">Продвижение в&nbsp;нейросетях идёт по&nbsp;тем&nbsp;же шагам, что и&nbsp;выбор пациента. На&nbsp;каждом шаге модели нужен свой источник.</p>
-</div>
-
-    <ol class="incl__list">
-      <li class="reveal"><span class="incl__n">Симптом</span><h4>«Болит зуб под коронкой, что делать»</h4><p>Название клиники здесь не&nbsp;нужно. Нейросеть ищет понятное объяснение, и&nbsp;ссылка достаётся сайту, где его написал врач.</p></li>
-      <li class="reveal"><span class="incl__n">Метод</span><h4>«Имплант или мост, что лучше»</h4><p>Нужна страница метода: показания, этапы, ограничения, сроки. Без неё модель берёт ответ с&nbsp;чужого сайта.</p></li>
-      <li class="reveal"><span class="incl__n">Клиника и врач</span><h4>«Где поставить имплант в&nbsp;Казани»</h4><p>Модель сверяет сайт, карты и&nbsp;отзывы. Если адрес, врачи и&nbsp;цены расходятся, клинику проще не&nbsp;назвать.</p></li>
-      <li class="reveal"><span class="incl__n">Цена и запись</span><h4>«Сколько стоит имплантация в&nbsp;этой клинике»</h4><p>Если цены нет на&nbsp;сайте, нейросеть возьмёт её&nbsp;с&nbsp;агрегатора или назовёт чужую.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="sec" id="errors">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Что нейросети говорят о&nbsp;клинике неправильно.</h2>
-  </div>
-  <p class="shead__note">Перед работой задаём нейросетям вопросы пациентов и&nbsp;записываем ответы. Чаще всего находим одно из&nbsp;четырёх.</p>
-</div>
-
-    <ol class="loss">
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Клинику не&nbsp;называют</h3><p>На&nbsp;вопрос о&nbsp;стоматологии в&nbsp;вашем городе Алиса рекомендует клинику через дорогу и&nbsp;агрегатор с&nbsp;рейтингом.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Смотрим, на&nbsp;какие источники ссылается ответ, и&nbsp;чего там нет о&nbsp;вашей клинике.</p>
+    <ol class="lodr__list">
+      <li class="lodr__i" data-rv>
+        <h3 class="lodr__t">Клинику не&nbsp;называют</h3>
+        <p class="lodr__ex">На&nbsp;вопрос о&nbsp;стоматологии в&nbsp;вашем городе Алиса рекомендует клинику через дорогу и&nbsp;агрегатор с&nbsp;рейтингом.</p>
+        <p class="lodr__fix"><small>Что делаем</small>Смотрим, на&nbsp;какие источники ссылается ответ, и&nbsp;чего там нет о&nbsp;вашей клинике.</p>
       </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Называют со&nbsp;старыми сведениями</h3><p>В&nbsp;ответе цена двухлетней давности, закрытый филиал и&nbsp;врач, который у&nbsp;вас больше не&nbsp;принимает.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Исправляем сведения там, откуда модель их&nbsp;взяла: на&nbsp;сайте, картах и&nbsp;площадках.</p>
+      <li class="lodr__i" data-rv>
+        <h3 class="lodr__t">Называют со&nbsp;старыми сведениями</h3>
+        <p class="lodr__ex">В&nbsp;ответе цена двухлетней давности, закрытый филиал и&nbsp;врач, который у&nbsp;вас больше не&nbsp;принимает.</p>
+        <p class="lodr__fix"><small>Что делаем</small>Исправляем сведения там, откуда модель их&nbsp;взяла: на&nbsp;сайте, картах и&nbsp;площадках.</p>
       </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Путают с&nbsp;другой клиникой</h3><p>У&nbsp;клиники распространённое название, и&nbsp;нейросеть приписывает ей&nbsp;чужие отзывы и&nbsp;адрес.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Делаем сведения о&nbsp;клинике однозначными: полное название, адрес, врачи, лицензия.</p>
+      <li class="lodr__i" data-rv>
+        <h3 class="lodr__t">Путают с&nbsp;другой клиникой</h3>
+        <p class="lodr__ex">У&nbsp;клиники распространённое название, и&nbsp;нейросеть приписывает ей&nbsp;чужие отзывы и&nbsp;адрес.</p>
+        <p class="lodr__fix"><small>Что делаем</small>Делаем сведения о&nbsp;клинике однозначными: полное название, адрес, врачи, лицензия.</p>
       </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Отвечают за&nbsp;клинику сами</h3><p>Модель уверенно описывает, как у&nbsp;вас проходит имплантация, хотя на&nbsp;сайте об&nbsp;этом ничего нет.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Готовим страницу услуги с&nbsp;этапами и&nbsp;ценой, которую читает и&nbsp;согласует врач.</p>
+      <li class="lodr__i" data-rv>
+        <h3 class="lodr__t">Отвечают за&nbsp;клинику сами</h3>
+        <p class="lodr__ex">Модель уверенно описывает, как у&nbsp;вас проходит имплантация, хотя на&nbsp;сайте об&nbsp;этом ничего нет.</p>
+        <p class="lodr__fix"><small>Что делаем</small>Готовим страницу услуги с&nbsp;этапами и&nbsp;ценой, которую читает и&nbsp;согласует врач.</p>
       </li>
     </ol>
+    <div class="lodr__own"></div>
   </div>
 </section>
 
-<section class="sec sec--fog" id="seo">
+
+
+<section class="sec lk-cmp-versus sec--fog" id="seo" data-sec="cmp">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">GEO и&nbsp;SEO: чем отличаются.</h2>
+    <h2 class="h2" data-rv>GEO и&nbsp;SEO: чем отличаются</h2>
   </div>
-  <p class="shead__note">GEO-оптимизация сайта не&nbsp;заменяет SEO. Нейросети берут сведения из&nbsp;поиска, поэтому сайт, который не&nbsp;находится в&nbsp;Яндексе, в&nbsp;ответ Алисы попадает редко.</p>
+  <p class="sh__note" data-rv style="--d:1">GEO-оптимизация сайта не&nbsp;заменяет SEO. Нейросети берут сведения из&nbsp;поиска, поэтому сайт, который не&nbsp;находится в&nbsp;Яндексе, в&nbsp;ответ Алисы попадает редко.</p>
 </div>
 
-    <div class="cmp-wrap">
-      <table class="cmp">
-        <caption class="sr">Чем GEO-продвижение отличается от SEO</caption>
-        <thead><tr><td></td><th scope="col">SEO</th><th scope="col">GEO</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Что получает человек</th><td data-label="SEO">Список сайтов, из&nbsp;которых он&nbsp;выбирает сам</td><td data-label="GEO">Готовый ответ, в&nbsp;котором названы источники или клиники</td></tr>
-          <tr><th scope="row">За&nbsp;что идёт работа</th><td data-label="SEO">За&nbsp;место страницы в&nbsp;поиске по&nbsp;запросу</td><td data-label="GEO">За&nbsp;то, чтобы клинику назвали и&nbsp;сослались на&nbsp;её&nbsp;сайт</td></tr>
-          <tr><th scope="row">Что важно</th><td data-label="SEO">Страница под запрос, скорость, структура, ссылки</td><td data-label="GEO">Проверяемые факты, одинаковые сведения на&nbsp;всех площадках, автор с&nbsp;медицинским образованием</td></tr>
-          <tr><th scope="row">Как измеряется</th><td data-label="SEO">Позиции, переходы и&nbsp;заявки с&nbsp;поиска</td><td data-label="GEO">Доля ответов, где клиника названа, и&nbsp;точность сведений в&nbsp;них</td></tr>
-          <tr><th scope="row">Когда начинать</th><td data-label="SEO">Как только готов сайт</td><td data-label="GEO">Когда сайт и&nbsp;карточки уже в&nbsp;порядке</td></tr>
-        </tbody>
-      </table>
+    <div class="vx vx--2" style="--n: 2" role="group" aria-label="Чем GEO-продвижение отличается от SEO">
+      <div class="vx__top" aria-hidden="true">
+        <p class="vx__col">SEO</p>
+        <p class="vx__col vx__col--key">GEO</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Что получает человек</span></h3>
+        <p class="vx__v"><span class="vx__c">SEO</span>Список сайтов, из&nbsp;которых он&nbsp;выбирает сам</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">GEO</span>Готовый ответ, в&nbsp;котором названы источники или клиники</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>За&nbsp;что идёт работа</span></h3>
+        <p class="vx__v"><span class="vx__c">SEO</span>За&nbsp;место страницы в&nbsp;поиске по&nbsp;запросу</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">GEO</span>За&nbsp;то, чтобы клинику назвали и&nbsp;сослались на&nbsp;её&nbsp;сайт</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Что важно</span></h3>
+        <p class="vx__v"><span class="vx__c">SEO</span>Страница под запрос, скорость, структура, ссылки</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">GEO</span>Проверяемые факты, одинаковые сведения на&nbsp;всех площадках, автор с&nbsp;медицинским образованием</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Как измеряется</span></h3>
+        <p class="vx__v"><span class="vx__c">SEO</span>Позиции, переходы и&nbsp;заявки с&nbsp;поиска</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">GEO</span>Доля ответов, где клиника названа, и&nbsp;точность сведений в&nbsp;них</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Когда начинать</span></h3>
+        <p class="vx__v"><span class="vx__c">SEO</span>Как только готов сайт</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">GEO</span>Когда сайт и&nbsp;карточки уже в&nbsp;порядке</p>
+      </div>
     </div>
-    <p class="pack__own">Регулярная публикация статей входит в&nbsp;продвижение сайта и&nbsp;активно влияет на&nbsp;ответы нейросетей. Как устроена эта работа: <a href="../seo-dlya-stomatologii/">SEO для стоматологии</a>.</p>
+    <p class="own" data-rv>Регулярная публикация статей входит в&nbsp;продвижение сайта и&nbsp;активно влияет на&nbsp;ответы нейросетей. Как устроена эта работа: <a href="../seo-dlya-stomatologii/">SEO для стоматологии</a>.</p>
+
   </div>
 </section>
 
-<section class="sec" id="work">
+
+
+<section class="sec lk-spec-bento" id="work" data-sec="spec">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Что входит в&nbsp;оптимизацию под нейросети.</h2>
+    <h2 class="h2" data-rv>Что входит в&nbsp;оптимизацию под нейросети</h2>
   </div>
-  <p class="shead__note">Состав работ подбираем после проверки ответов. Ниже то, из&nbsp;чего он&nbsp;обычно складывается.</p>
+  <p class="sh__note" data-rv style="--d:1">Состав работ подбираем после проверки ответов. Ниже то, из&nbsp;чего он&nbsp;обычно складывается.</p>
 </div>
 
-    <ul class="spec spec--sm spec--cols">
-      <li class="reveal"><h4>Проверка ответов</h4><p>Список вопросов пациентов по&nbsp;услугам клиники и&nbsp;ответы Алисы, ChatGPT и&nbsp;других нейросетей на&nbsp;каждый из&nbsp;них.</p></li>
-      <li class="reveal"><h4>Сведения о&nbsp;клинике</h4><p>Название, адреса, телефоны, врачи и&nbsp;цены должны совпадать на&nbsp;сайте, Яндекс Картах, в&nbsp;2ГИС и&nbsp;на&nbsp;ПроДокторов.</p></li>
-      <li class="reveal"><h4>Страницы услуг</h4><p>Показания, этапы, сроки, ограничения и&nbsp;цена. Нейросеть цитирует то, что написано ясно и&nbsp;по&nbsp;делу.</p></li>
-      <li class="reveal"><h4>Статьи врачей</h4><p>Регулярные ответы на&nbsp;вопросы пациентов с&nbsp;именем врача, его специальностью и&nbsp;датой проверки текста. Статьи активно влияют на&nbsp;GEO: нейросети нужен текст, на&nbsp;который можно сослаться.</p></li>
-      <li class="reveal"><h4>Разметка и&nbsp;структура</h4><p>Вопросы и&nbsp;ответы, сведения об&nbsp;организации и&nbsp;врачах в&nbsp;разметке, понятные заголовки.</p></li>
-      <li class="reveal"><h4>Отзывы и&nbsp;упоминания</h4><p>Нейросети читают отзывы на&nbsp;картах и&nbsp;площадках. Свежие отзывы настоящих пациентов работают и&nbsp;здесь.</p></li>
+    <ul class="spbn spbn--6">
+      <li class="spbn__i" data-rv style="--d:0"><h3 class="spbn__h">Проверка ответов</h3><p>Список вопросов пациентов по&nbsp;услугам клиники и&nbsp;ответы Алисы, ChatGPT и&nbsp;других нейросетей на&nbsp;каждый из&nbsp;них.</p></li>
+      <li class="spbn__i" data-rv style="--d:1"><h3 class="spbn__h">Сведения о&nbsp;клинике</h3><p>Название, адреса, телефоны, врачи и&nbsp;цены должны совпадать на&nbsp;сайте, Яндекс Картах, в&nbsp;2ГИС и&nbsp;на&nbsp;ПроДокторов.</p></li>
+      <li class="spbn__i" data-rv style="--d:2"><h3 class="spbn__h">Страницы услуг</h3><p>Показания, этапы, сроки, ограничения и&nbsp;цена. Нейросеть цитирует то, что написано ясно и&nbsp;по&nbsp;делу.</p></li>
+      <li class="spbn__i" data-rv style="--d:0"><h3 class="spbn__h">Статьи врачей</h3><p>Регулярные ответы на&nbsp;вопросы пациентов с&nbsp;именем врача, его специальностью и&nbsp;датой проверки текста. Статьи активно влияют на&nbsp;GEO: нейросети нужен текст, на&nbsp;который можно сослаться.</p></li>
+      <li class="spbn__i" data-rv style="--d:1"><h3 class="spbn__h">Разметка и&nbsp;структура</h3><p>Вопросы и&nbsp;ответы, сведения об&nbsp;организации и&nbsp;врачах в&nbsp;разметке, понятные заголовки.</p></li>
+      <li class="spbn__i" data-rv style="--d:2"><h3 class="spbn__h">Отзывы и&nbsp;упоминания</h3><p>Нейросети читают отзывы на&nbsp;картах и&nbsp;площадках. Свежие отзывы настоящих пациентов работают и&nbsp;здесь.</p></li>
     </ul>
+    
   </div>
 </section>
 
-<section class="sec sec--fog" id="med">
+
+
+<section class="sec sec--dark dark lk-deflist-panels" id="med" data-sec="deflist">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Почему с&nbsp;медициной нейросети осторожнее.</h2>
+    <h2 class="h2" data-rv>Почему с&nbsp;медициной нейросети осторожнее</h2>
   </div>
-  <p class="shead__note">GEO в&nbsp;медицине отличается от&nbsp;GEO интернет-магазина: ошибка в&nbsp;ответе про лечение стоит дороже.</p>
+  <p class="sh__note" data-rv style="--d:1">GEO в&nbsp;медицине отличается от&nbsp;GEO интернет-магазина: ошибка в&nbsp;ответе про лечение стоит дороже.</p>
 </div>
 
-    <ol class="deflist">
-      <li class="reveal"><h3 class="h3">Источники отбираются строже</h3><p>В&nbsp;вопросах о&nbsp;здоровье модели чаще опираются на&nbsp;сайты клиник с&nbsp;указанными врачами, на&nbsp;справочные и&nbsp;государственные источники. Текст без автора проигрывает.</p></li>
-      <li class="reveal"><h3 class="h3">Рекламный тон мешает</h3><p>Страница из&nbsp;одних обещаний плохо годится для цитаты. Нужны факты: что делают, кому подходит, сколько длится, сколько стоит.</p></li>
-      <li class="reveal"><h3 class="h3">Закон действует и&nbsp;здесь</h3><p>Нельзя гарантировать результат лечения и&nbsp;сравнивать себя с&nbsp;другими клиниками без оснований. Тексты проверяем так&nbsp;же, как рекламу.</p></li>
-      <li class="reveal"><h3 class="h3">Врач читает текст до&nbsp;публикации</h3><p>Медицинскую часть согласует врач клиники. Его имя и&nbsp;специальность стоят на&nbsp;странице.</p></li>
+    <ul class="dp">
+      <li class="dp__i" data-rv style="--d: 0">
+        <h3 class="dp__h">Источники отбираются строже</h3>
+        <p>В&nbsp;вопросах о&nbsp;здоровье модели чаще опираются на&nbsp;сайты клиник с&nbsp;указанными врачами, на&nbsp;справочные и&nbsp;государственные источники. Текст без автора проигрывает.</p>
+      </li>
+      <li class="dp__i" data-rv style="--d: 1">
+        <h3 class="dp__h">Рекламный тон мешает</h3>
+        <p>Страница из&nbsp;одних обещаний плохо годится для цитаты. Нужны факты: что делают, кому подходит, сколько длится, сколько стоит.</p>
+      </li>
+      <li class="dp__i" data-rv style="--d: 0">
+        <h3 class="dp__h">Закон действует и&nbsp;здесь</h3>
+        <p>Нельзя гарантировать результат лечения и&nbsp;сравнивать себя с&nbsp;другими клиниками без оснований. Тексты проверяем так&nbsp;же, как рекламу.</p>
+      </li>
+      <li class="dp__i" data-rv style="--d: 1">
+        <h3 class="dp__h">Врач читает текст до&nbsp;публикации</h3>
+        <p>Медицинскую часть согласует врач клиники. Его имя и&nbsp;специальность стоят на&nbsp;странице.</p>
+      </li>
+    </ul>
+    
+  </div>
+</section>
+
+
+
+<section class="sec lk-steps-chart" id="month" data-sec="steps">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Первый месяц работы</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Сроки зависят от&nbsp;числа услуг и&nbsp;филиалов. Порядок работ один и&nbsp;тот&nbsp;же.</p>
+</div>
+
+    <ol class="stpc" style="--n:5">
+      <li class="stpc__row" style="--i:0">
+        <div class="stpc__txt" data-rv>
+          <p class="stpc__when">Вопросы</p>
+          <h3 class="stpc__h">Что спрашивают пациенты</h3>
+          <p class="stpc__p">Собираем вопросы по&nbsp;услугам клиники: симптомы, методы, выбор клиники в&nbsp;городе, цены.</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
+      <li class="stpc__row" style="--i:1">
+        <div class="stpc__txt" data-rv>
+          <p class="stpc__when">Проверка</p>
+          <h3 class="stpc__h">Что отвечают нейросети</h3>
+          <p class="stpc__p">Задаём эти вопросы Алисе, ChatGPT и&nbsp;другим нейросетям. Записываем, кого называют и&nbsp;на&nbsp;что ссылаются.</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
+      <li class="stpc__row" style="--i:2">
+        <div class="stpc__txt" data-rv>
+          <p class="stpc__when">Сверка</p>
+          <h3 class="stpc__h">Сведения о&nbsp;клинике</h3>
+          <p class="stpc__p">Находим расхождения между сайтом, картами и&nbsp;площадками и&nbsp;исправляем их.</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
+      <li class="stpc__row" style="--i:3">
+        <div class="stpc__txt" data-rv>
+          <p class="stpc__when">Материалы</p>
+          <h3 class="stpc__h">Страницы и&nbsp;статьи</h3>
+          <p class="stpc__p">Дополняем страницы услуг и&nbsp;готовим первые статьи врачей по&nbsp;вопросам из&nbsp;списка.</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
+      <li class="stpc__row" style="--i:4">
+        <div class="stpc__txt" data-rv>
+          <p class="stpc__when">Отчёт</p>
+          <h3 class="stpc__h">Что изменилось</h3>
+          <p class="stpc__p">Через месяц задаём те&nbsp;же вопросы снова и&nbsp;показываем разницу.</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
     </ol>
+    
   </div>
 </section>
 
-<section class="sec" id="month">
+
+
+<section class="sec lk-yesno-accent sec--fog" id="promise" data-sec="yesno">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Первый месяц работы.</h2>
+    <h2 class="h2" data-rv>Чего не&nbsp;обещаем</h2>
   </div>
-  <p class="shead__note">Сроки зависят от&nbsp;числа услуг и&nbsp;филиалов. Порядок работ один и&nbsp;тот&nbsp;же.</p>
+  <p class="sh__note" data-rv style="--d:1">Как нейросеть выбирает источники, не&nbsp;знает никто, кроме её&nbsp;разработчиков, и&nbsp;правила меняются. Поэтому обещаем работу, а&nbsp;не&nbsp;место в&nbsp;ответе.</p>
 </div>
 
-    <ol class="incl__list incl__list--5">
-      <li class="reveal"><span class="incl__n">Вопросы</span><h4>Что спрашивают пациенты</h4><p>Собираем вопросы по&nbsp;услугам клиники: симптомы, методы, выбор клиники в&nbsp;городе, цены.</p></li>
-      <li class="reveal"><span class="incl__n">Проверка</span><h4>Что отвечают нейросети</h4><p>Задаём эти вопросы Алисе, ChatGPT и&nbsp;другим нейросетям. Записываем, кого называют и&nbsp;на&nbsp;что ссылаются.</p></li>
-      <li class="reveal"><span class="incl__n">Сверка</span><h4>Сведения о&nbsp;клинике</h4><p>Находим расхождения между сайтом, картами и&nbsp;площадками и&nbsp;исправляем их.</p></li>
-      <li class="reveal"><span class="incl__n">Материалы</span><h4>Страницы и&nbsp;статьи</h4><p>Дополняем страницы услуг и&nbsp;готовим первые статьи врачей по&nbsp;вопросам из&nbsp;списка.</p></li>
-      <li class="reveal"><span class="incl__n">Отчёт</span><h4>Что изменилось</h4><p>Через месяц задаём те&nbsp;же вопросы снова и&nbsp;показываем разницу.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="sec sec--fog" id="promise">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Чего не&nbsp;обещаем.</h2>
-  </div>
-  <p class="shead__note">Как нейросеть выбирает источники, не&nbsp;знает никто, кроме её&nbsp;разработчиков, и&nbsp;правила меняются. Поэтому обещаем работу, а&nbsp;не&nbsp;место в&nbsp;ответе.</p>
-</div>
-
-    <div class="yesno">
-      <div class="yesno__col">
-        <h3 class="pack__h">Чего не обещаем</h3>
-        <ul class="plist plist--lg plist--no">
-          <li class="reveal"><span>Не&nbsp;гарантируем, что Алиса рекомендует клинику первой</span></li>
-          <li class="reveal"><span>Не&nbsp;называем число пациентов из&nbsp;нейросетей</span></li>
-          <li class="reveal"><span>Не&nbsp;размещаем заказные упоминания и&nbsp;отзывы</span></li>
-          <li class="reveal"><span>Не&nbsp;пишем медицинские тексты без проверки врачом</span></li>
+    <div class="ya">
+      <div class="ya__big ya--no">
+        <h3 class="ya__h" data-rv="fade">Чего не&nbsp;обещаем</h3>
+        <ul class="ya__lines">
+          <li data-rv style="--d: 0">Не&nbsp;гарантируем, что Алиса рекомендует клинику первой</li>
+          <li data-rv style="--d: 1">Не&nbsp;называем число пациентов из&nbsp;нейросетей</li>
+          <li data-rv style="--d: 2">Не&nbsp;размещаем заказные упоминания и&nbsp;отзывы</li>
+          <li data-rv style="--d: 3">Не&nbsp;пишем медицинские тексты без проверки врачом</li>
         </ul>
       </div>
-      <div class="yesno__col">
-        <h3 class="pack__h">Что делаем</h3>
-        <ul class="plist plist--lg">
-          <li class="reveal"><span>Показываем ответы нейросетей до&nbsp;и&nbsp;после работ</span></li>
-          <li class="reveal"><span>Исправляем неверные сведения о&nbsp;клинике в&nbsp;источниках</span></li>
-          <li class="reveal"><span>Готовим страницы и&nbsp;статьи, на&nbsp;которые можно сослаться</span></li>
-          <li class="reveal"><span>Совмещаем работу с&nbsp;SEO, чтобы не&nbsp;платить дважды</span></li>
+      <div class="ya__small ya--yes" data-rv>
+        <h3 class="ya__h">Что делаем</h3>
+        <ul class="ya__chips">
+          <li>Показываем ответы нейросетей до&nbsp;и&nbsp;после работ</li>
+          <li>Исправляем неверные сведения о&nbsp;клинике в&nbsp;источниках</li>
+          <li>Готовим страницы и&nbsp;статьи, на&nbsp;которые можно сослаться</li>
+          <li>Совмещаем работу с&nbsp;SEO, чтобы не&nbsp;платить дважды</li>
         </ul>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="sec sec--dark dark lk-pack-strip" id="price" data-sec="pack">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Сколько стоит продвижение в&nbsp;нейросетях</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">GEO-продвижение услуга новая, и&nbsp;состав работ у&nbsp;клиник сильно отличается. Поэтому цену называем после проверки ответов, а&nbsp;не&nbsp;до&nbsp;неё.</p>
+</div>
+
+    <h3 class="yn__h" data-rv>Условия</h3>
+    <dl class="pksp pksp--4">
+      <div class="pksp__c" data-rv style="--d:0"><dt>Проверка ответов</dt><dd>бесплатно, вместе с&nbsp;разбором клиники</dd></div>
+      <div class="pksp__c" data-rv style="--d:1"><dt>Цена работ</dt><dd>считаем по&nbsp;заявке, после проверки</dd></div>
+      <div class="pksp__c" data-rv style="--d:2"><dt>Вместе с&nbsp;SEO</dt><dd>работы по&nbsp;сайту не&nbsp;дублируются</dd></div>
+      <div class="pksp__c" data-rv style="--d:3"><dt>Сайт и&nbsp;доступы</dt><dd>оформлены на&nbsp;клинику</dd></div>
+    </dl>
+    <div class="pksp__foot">
+      <div class="pksp__list" data-rv>
+        <h3 class="yn__h">С&nbsp;чего начинаем</h3>
+        <ul class="ticks pksp__ul">
+          <li>Проверка ответов нейросетей по&nbsp;услугам клиники</li>
+          <li>Список неверных сведений и&nbsp;их&nbsp;источников</li>
+          <li>План работ на&nbsp;сайте и&nbsp;на&nbsp;площадках</li>
+        </ul>
+        
+      </div>
+      <div class="pksp__act" data-rv style="--d:1"><a href="#start" class="btn btn--light" data-magnetic data-pick="unsure">Проверить, что отвечают нейросети</a></div>
+    </div>
+    <p class="own" data-rv>Если сайта у&nbsp;клиники ещё нет, начинать стоит с&nbsp;него: <a href="../sajt-dlya-stomatologii/">сайт для стоматологии</a>.</p>
+
+  </div>
+</section>
+
+
+
+
+<section class="sec fqi sec--fog" id="faq" data-sec="faq">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Вопросы о&nbsp;продвижении в&nbsp;нейросетях</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
+</div>
+
+    <div class="fqi__grid">
+      <nav class="fqi__nav" aria-label="Вопросы">
+        <ol>
+          <li><a href="#fq-1">Что такое GEO-продвижение?</a></li>
+          <li><a href="#fq-2">Как работает GEO-оптимизация?</a></li>
+          <li><a href="#fq-3">Чем GEO отличается от&nbsp;SEO?</a></li>
+          <li><a href="#fq-4">Можно&nbsp;ли продвигаться в&nbsp;Алисе и&nbsp;ChatGPT отдельно?</a></li>
+          <li><a href="#fq-5">Сколько стоит GEO-продвижение сайта?</a></li>
+          <li><a href="#fq-6">Можно&nbsp;ли заказать GEO-продвижение под ключ?</a></li>
+          <li><a href="#fq-7">Когда будет результат?</a></li>
+          <li><a href="#fq-8">Нужно&nbsp;ли это небольшой стоматологии?</a></li>
+          <li><a href="#fq-9">Вы&nbsp;продвигаете в&nbsp;нейросетях только клиники?</a></li>
+        </ol>
+      </nav>
+      <div class="fqi__list">
+        <article class="fqi__i" id="fq-1" data-rv>
+          <h3 class="fqi__q">Что такое GEO-продвижение?</h3>
+          <p class="fqi__a">GEO это оптимизация под ответы нейросетей. Так называют работу, после которой Алиса, ChatGPT и&nbsp;другие модели находят о&nbsp;компании верные сведения и&nbsp;могут назвать её&nbsp;в&nbsp;ответе. Иногда то&nbsp;же самое называют AEO-продвижением или продвижением в&nbsp;ИИ-выдаче.</p>
+        </article>
+        <article class="fqi__i" id="fq-2" data-rv>
+          <h3 class="fqi__q">Как работает GEO-оптимизация?</h3>
+          <p class="fqi__a">Нейросеть получает вопрос, ищет источники и&nbsp;собирает из&nbsp;них ответ. GEO-оптимизация сайта делает так, чтобы среди источников был сайт клиники: на&nbsp;странице есть прямой ответ на&nbsp;вопрос, факты можно проверить, а&nbsp;сведения о&nbsp;клинике совпадают на&nbsp;сайте, картах и&nbsp;площадках.</p>
+        </article>
+        <article class="fqi__i" id="fq-3" data-rv>
+          <h3 class="fqi__q">Чем GEO отличается от&nbsp;SEO?</h3>
+          <p class="fqi__a">SEO работает на&nbsp;место страницы в&nbsp;списке результатов, GEO на&nbsp;то, чтобы клинику назвали в&nbsp;готовом ответе. На&nbsp;деле GEO и&nbsp;SEO продвижение идут вместе: нейросети берут сведения из&nbsp;поиска, и&nbsp;без сайта, который находится в&nbsp;Яндексе, в&nbsp;ответ попасть трудно. Регулярная публикация статей входит в&nbsp;продвижение сайта и&nbsp;активно влияет на&nbsp;GEO.</p>
+        </article>
+        <article class="fqi__i" id="fq-4" data-rv>
+          <h3 class="fqi__q">Можно&nbsp;ли продвигаться в&nbsp;Алисе и&nbsp;ChatGPT отдельно?</h3>
+          <p class="fqi__a">Продвижение в&nbsp;Алисе, которую раньше в&nbsp;поиске называли Яндекс Нейро, опирается на&nbsp;поиск Яндекса и&nbsp;Яндекс Карты, продвижение в&nbsp;ChatGPT на&nbsp;открытые сайты и&nbsp;зарубежный поиск. Основа одна: понятный сайт и&nbsp;одинаковые сведения о&nbsp;клинике. Поэтому начинаем с&nbsp;неё, а&nbsp;не&nbsp;с&nbsp;отдельной нейросети.</p>
+        </article>
+        <article class="fqi__i" id="fq-5" data-rv>
+          <h3 class="fqi__q">Сколько стоит GEO-продвижение сайта?</h3>
+          <p class="fqi__a">Проверку ответов нейросетей по&nbsp;услугам клиники делаем бесплатно, вместе с&nbsp;разбором. Цену работ считаем по&nbsp;заявке: она зависит от&nbsp;числа услуг, филиалов и&nbsp;от&nbsp;того, в&nbsp;каком состоянии сайт.</p>
+        </article>
+        <article class="fqi__i" id="fq-6" data-rv>
+          <h3 class="fqi__q">Можно&nbsp;ли заказать GEO-продвижение под ключ?</h3>
+          <p class="fqi__a">Да. Заказать GEO-оптимизацию можно отдельно или вместе с&nbsp;SEO. Под ключ это значит, что наши специалисты сами проверяют ответы нейросетей, исправляют сведения на&nbsp;площадках, готовят страницы и&nbsp;статьи, а&nbsp;врач клиники только согласует медицинскую часть. Продвижение бренда клиники в&nbsp;нейросетях ведём так&nbsp;же: по&nbsp;вопросам с&nbsp;её&nbsp;названием.</p>
+        </article>
+        <article class="fqi__i" id="fq-7" data-rv>
+          <h3 class="fqi__q">Когда будет результат?</h3>
+          <p class="fqi__a">Неверные сведения в&nbsp;источниках исправляются за&nbsp;недели. Когда нейросеть начнёт их&nbsp;учитывать, зависит от&nbsp;неё самой: одни модели обращаются к&nbsp;поиску при каждом вопросе, другие обновляются реже. Поэтому повторяем проверку каждый месяц.</p>
+        </article>
+        <article class="fqi__i" id="fq-8" data-rv>
+          <h3 class="fqi__q">Нужно&nbsp;ли это небольшой стоматологии?</h3>
+          <p class="fqi__a">Пока спрос на&nbsp;нейросети в&nbsp;стоматологии меньше, чем на&nbsp;поиск и&nbsp;карты. Небольшой клинике достаточно первого шага: проверить, что нейросети отвечают о&nbsp;ней сейчас, и&nbsp;исправить ошибки. Остальное имеет смысл после сайта, карт и&nbsp;отзывов.</p>
+        </article>
+        <article class="fqi__i" id="fq-9" data-rv>
+          <h3 class="fqi__q">Вы&nbsp;продвигаете в&nbsp;нейросетях только клиники?</h3>
+          <p class="fqi__a">Да. Мы&nbsp;агентство по&nbsp;продвижению клиник, и&nbsp;продвижение бизнеса в&nbsp;нейросетях из&nbsp;других отраслей не&nbsp;берём: в&nbsp;медицине свои требования к&nbsp;текстам и&nbsp;источникам.</p>
+        </article>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec" id="price">
+
+
+<section class="sec sec--azure st st--form" id="start" data-sec="start">
   <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Сколько стоит продвижение в&nbsp;нейросетях.</h2>
-  </div>
-  <p class="shead__note">GEO-продвижение услуга новая, и&nbsp;состав работ у&nbsp;клиник сильно отличается. Поэтому цену называем после проверки ответов, а&nbsp;не&nbsp;до&nbsp;неё.</p>
+    <p class="label" data-rv="fade">Заявка</p>
+    <h2 class="h2 st__h" data-rv>Проверим, что нейросети отвечают о&nbsp;вашей клинике</h2>
+    <div class="st__grid">
+      <div class="st__text" data-rv><p class="st__lead">Оставьте заявку, название клиники и&nbsp;город. За&nbsp;2&nbsp;рабочих дня зададим Алисе и&nbsp;ChatGPT вопросы пациентов по&nbsp;вашим услугам и&nbsp;покажем, кого они называют и&nbsp;где ошибаются.</p>
+<ul class="ticks st__items">
+  <li>Проверка ответов бесплатно</li>
+  <li>Без гарантий места в&nbsp;ответе</li>
+  <li>Тексты согласует врач клиники</li>
+</ul>
+<p class="st__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
 </div>
-
-    <div class="pack">
-      <div>
-        <h3 class="pack__h">С чего начинаем</h3>
-        <ul class="plist plist--lg">
-          <li class="reveal"><span>Проверка ответов нейросетей по&nbsp;услугам клиники</span></li>
-          <li class="reveal"><span>Список неверных сведений и&nbsp;их&nbsp;источников</span></li>
-          <li class="reveal"><span>План работ на&nbsp;сайте и&nbsp;на&nbsp;площадках</span></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="pack__h">Условия</h3>
-        <dl class="terms terms--plain">
-          <div><dt>Проверка ответов</dt><dd>бесплатно, вместе с&nbsp;разбором клиники</dd></div>
-          <div><dt>Цена работ</dt><dd>считаем по&nbsp;заявке, после проверки</dd></div>
-          <div><dt>Вместе с SEO</dt><dd>работы по&nbsp;сайту не&nbsp;дублируются</dd></div>
-          <div><dt>Сайт и доступы</dt><dd>оформлены на&nbsp;клинику</dd></div>
-        </dl>
-        <div class="pack__acts">
-          <a href="#start" class="btn" data-magnetic data-pick="unsure">Проверить, что отвечают нейросети</a>
-        </div>
-      </div>
-    </div>
-    <p class="pack__own">Если сайта у&nbsp;клиники ещё нет, начинать стоит с&nbsp;него: <a href="../sajt-dlya-stomatologii/">сайт для стоматологии</a>.</p>
+      <form class="fm st__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1"><fieldset class="fm__choice">
+  <legend>Что хотите запустить</legend>
+  <div class="fm__opts">
+    <label class="fm__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="site"><span>Сайт и&nbsp;Карты</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="unsure" checked><span>Пока не&nbsp;знаю</span></label>
   </div>
-</section>
-
-<section class="sec sec--fog" id="faq">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Вопросы о&nbsp;продвижении в&nbsp;нейросетях.</h2>
-  </div>
-  <p class="shead__note">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
+</fieldset>
+<label class="fld fm__dir"><span>Услуга для рекламы</span>
+  <select name="direction">
+    <option value="implant">Имплантация</option>
+    <option value="all-on-4">All-on-4, полное восстановление</option>
+    <option value="ortho">Брекеты и элайнеры</option>
+    <option value="running">Реклама уже идёт, нужен разбор</option>
+    <option value="other">Другая услуга</option>
+  </select>
+</label>
+<div class="fm__row">
+  <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
+  <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
 </div>
-
-    <div class="qa">
-  <details class="qa__item" open>
-    <summary><span class="qa__q">Что такое GEO-продвижение?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>GEO это оптимизация под ответы нейросетей. Так называют работу, после которой Алиса, ChatGPT и&nbsp;другие модели находят о&nbsp;компании верные сведения и&nbsp;могут назвать её&nbsp;в&nbsp;ответе. Иногда то&nbsp;же самое называют AEO-продвижением или продвижением в&nbsp;ИИ-выдаче.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Как работает GEO-оптимизация?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Нейросеть получает вопрос, ищет источники и&nbsp;собирает из&nbsp;них ответ. GEO-оптимизация сайта делает так, чтобы среди источников был сайт клиники: на&nbsp;странице есть прямой ответ на&nbsp;вопрос, факты можно проверить, а&nbsp;сведения о&nbsp;клинике совпадают на&nbsp;сайте, картах и&nbsp;площадках.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Чем GEO отличается от&nbsp;SEO?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>SEO работает на&nbsp;место страницы в&nbsp;списке результатов, GEO на&nbsp;то, чтобы клинику назвали в&nbsp;готовом ответе. На&nbsp;деле GEO и&nbsp;SEO продвижение идут вместе: нейросети берут сведения из&nbsp;поиска, и&nbsp;без сайта, который находится в&nbsp;Яндексе, в&nbsp;ответ попасть трудно. Регулярная публикация статей входит в&nbsp;продвижение сайта и&nbsp;активно влияет на&nbsp;GEO.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Можно&nbsp;ли продвигаться в&nbsp;Алисе и&nbsp;ChatGPT отдельно?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Продвижение в&nbsp;Алисе, которую раньше в&nbsp;поиске называли Яндекс Нейро, опирается на&nbsp;поиск Яндекса и&nbsp;Яндекс Карты, продвижение в&nbsp;ChatGPT на&nbsp;открытые сайты и&nbsp;зарубежный поиск. Основа одна: понятный сайт и&nbsp;одинаковые сведения о&nbsp;клинике. Поэтому начинаем с&nbsp;неё, а&nbsp;не&nbsp;с&nbsp;отдельной нейросети.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Сколько стоит GEO-продвижение сайта?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Проверку ответов нейросетей по&nbsp;услугам клиники делаем бесплатно, вместе с&nbsp;разбором. Цену работ считаем по&nbsp;заявке: она зависит от&nbsp;числа услуг, филиалов и&nbsp;от&nbsp;того, в&nbsp;каком состоянии сайт.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Можно&nbsp;ли заказать GEO-продвижение под ключ?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Да. Заказать GEO-оптимизацию можно отдельно или вместе с&nbsp;SEO. Под ключ это значит, что наши специалисты сами проверяют ответы нейросетей, исправляют сведения на&nbsp;площадках, готовят страницы и&nbsp;статьи, а&nbsp;врач клиники только согласует медицинскую часть. Продвижение бренда клиники в&nbsp;нейросетях ведём так&nbsp;же: по&nbsp;вопросам с&nbsp;её&nbsp;названием.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Когда будет результат?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Неверные сведения в&nbsp;источниках исправляются за&nbsp;недели. Когда нейросеть начнёт их&nbsp;учитывать, зависит от&nbsp;неё самой: одни модели обращаются к&nbsp;поиску при каждом вопросе, другие обновляются реже. Поэтому повторяем проверку каждый месяц.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Нужно&nbsp;ли это небольшой стоматологии?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Пока спрос на&nbsp;нейросети в&nbsp;стоматологии меньше, чем на&nbsp;поиск и&nbsp;карты. Небольшой клинике достаточно первого шага: проверить, что нейросети отвечают о&nbsp;ней сейчас, и&nbsp;исправить ошибки. Остальное имеет смысл после сайта, карт и&nbsp;отзывов.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Вы&nbsp;продвигаете в&nbsp;нейросетях только клиники?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Да. Мы&nbsp;агентство по&nbsp;продвижению клиник, и&nbsp;продвижение бизнеса в&nbsp;нейросетях из&nbsp;других отраслей не&nbsp;берём: в&nbsp;медицине свои требования к&nbsp;текстам и&nbsp;источникам.</p></div>
-  </details>
+<div class="fm__row">
+  <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
+  <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
 </div>
-
-  </div>
-</section>
-
-<section class="dark sheet start" id="start" data-dark>
-  <div class="wrap">
-    <h2 class="h2 start__title">Проверим, что нейросети отвечают о&nbsp;вашей клинике.</h2>
-    <div class="start__grid">
-      <div class="start__text">
-        <p class="lead">Оставьте заявку, название клиники и&nbsp;город. За&nbsp;2&nbsp;рабочих дня зададим Алисе и&nbsp;ChatGPT вопросы пациентов по&nbsp;вашим услугам и&nbsp;покажем, кого они называют и&nbsp;где ошибаются.</p>
-        <ul class="plist">
-          <li>Проверка ответов бесплатно</li>
-          <li>Без гарантий места в&nbsp;ответе</li>
-          <li>Тексты согласует врач клиники</li>
-        </ul>
-        <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
-      </div>
-      <form class="form" novalidate action="#" aria-label="Заявка">
-        <fieldset class="form__choice">
-          <legend>Что хотите запустить</legend>
-          <div class="form__opts">
-            <label class="form__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="site"><span>Сайт и&nbsp;Карты</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="unsure" checked><span>Пока не&nbsp;знаю</span></label>
-          </div>
-        </fieldset>
-        <label class="fld form__dir"><span>Услуга для рекламы</span>
-          <select name="direction">
-            <option value="implant">Имплантация</option>
-            <option value="all-on-4">All-on-4, полное восстановление</option>
-            <option value="ortho">Брекеты и элайнеры</option>
-            <option value="running">Реклама уже идёт, нужен разбор</option>
-            <option value="other">Другая услуга</option>
-          </select>
-        </label>
-        <div class="form__row">
-          <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
-          <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
-        </div>
-        <div class="form__row">
-          <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
-          <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
-        </div>
-        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../politika/">политики</a></span></label>
-        <div class="form__send">
-          <p class="form__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
-          <button class="btn btn--light" type="submit" data-vend data-magnetic>Отправить заявку</button>
-        </div>
-        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
-      </form>
+<label class="fm__c"><input type="checkbox" name="consent" required> <span>Даю <a href="../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../politika/">политики</a></span></label>
+<div class="fm__send">
+  <button class="btn" type="submit" data-magnetic>Отправить заявку</button>
+  <p class="fm__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
+</div>
+<p class="fm__ok" role="status" tabindex="-1" hidden>Спасибо! Сайт пока в&nbsp;разработке, поэтому заявка никуда не&nbsp;ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
+<p class="stub">Заглушка: форма пока не отправляет заявки</p>
+</form>
     </div>
   </div>
 </section>
+
+
 
 </main>
 
-<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<!-- ============ ПОДВАЛ как на главной: тёмный, три колонки ссылок, знак во всю ширину ============ -->
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Реклама, сайты и&nbsp;Яндекс Карты для стоматологий. Первый тест в&nbsp;Директе без комиссии агентства.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -552,13 +748,13 @@
         <h2>Агентство</h2>
         <a href="../kejsy/">Кейсы</a>
         <a href="../blog/">Блог</a>
-        <a href="../kontakty/">О нас</a>
+        <a href="../kontakty/">Об агентстве</a>
         <a href="../kontakty/#contacts">Контакты</a>
         <a href="#start">Оставить заявку</a>
       </nav>
     </div>
     <div class="ftr__mark">
-      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy" decoding="async">
     </div>
     <div class="ftr__bottom">
       <p>© 2026 МедВектор</p>
@@ -570,9 +766,9 @@
   </div>
 </footer>
 <!-- нижняя кнопка на телефоне -->
-<a href="#start" class="mcta"><span>Проверить ответы</span></a>
+<a href="#start" class="mcta" data-magnetic><span>Проверить ответы</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/trajectory.js" defer></script>
+<script src="../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

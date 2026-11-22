@@ -24,11 +24,13 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/trajectory.css">
-<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+
+<!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
+<script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
 <script type="application/ld+json">
 {
@@ -165,47 +167,94 @@
 }
 </script>
 </head>
-<body>
+<body class="pg">
 <a class="skip" href="#main">К содержимому</a>
-<!-- ============ ШАПКА «Траектория»: логотип, четыре пункта, одна кнопка ============ -->
+<!-- ============ ШАПКА как на главной: логотип, «Услуги» с выпадающим списком всех услуг, кейсы, блог, агентство, контакты, одна кнопка ============ -->
 <header class="hdr" id="top">
   <div class="hdr__in">
     <a href="../" class="hdr__logo" aria-label="МедВектор, на главную">
-      <img src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-l" src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-d" src="../assets/img/medvector-logo-w.webp" alt="" width="440" height="93">
     </a>
     <nav class="hdr__nav" aria-label="Основное меню">
-      <a href="../yandex-direkt/">Яндекс Директ</a>
-      <a href="../kompleksnyj-marketing/" aria-current="page">Комплексный маркетинг</a>
+      <div class="drop drop--wide" data-drop>
+        <button type="button" class="drop__btn" data-here aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
+        <div class="drop__panel" id="drop-services">
+          <div class="drop__list drop__cols">
+            <div class="drop__col">
+              <p class="drop__h">Реклама и пациенты</p>
+              <ul>
+                <li><a href="../yandex-direkt/"><b>Яндекс Директ</b><small>Первый тест без комиссии агентства</small></a></li>
+                <li><a href="../lidy-dlya-stomatologii/"><b>Заявки для стоматологии</b><small>Пациенты из&nbsp;рекламы без покупки лидов</small></a></li>
+                <li><a href="../kompleksnyj-marketing/" aria-current="page"><b>Комплексный маркетинг</b><small>Отдел маркетинга клиники на&nbsp;аутсорсе</small></a></li>
+                <li><a href="../medicinskij-marketing/"><b>Медицинский маркетинг</b><small>Клиники и&nbsp;медицинские центры</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Сайт и поиск</p>
+              <ul>
+                <li><a href="../sajt-dlya-stomatologii/"><b>Сайт для стоматологии</b><small>С&nbsp;нуля или редизайн по&nbsp;требованиям закона</small></a></li>
+                <li><a href="../seo-dlya-stomatologii/"><b>SEO для стоматологии</b><small>Рост в&nbsp;поиске по&nbsp;услугам в&nbsp;своём городе</small></a></li>
+                <li><a href="../geo-prodvizhenie/"><b>Продвижение в&nbsp;нейросетях</b><small>Что Алиса и&nbsp;ChatGPT отвечают о&nbsp;клинике</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Карты и репутация</p>
+              <ul>
+                <li><a href="../yandex-karty/"><b>Яндекс Карты</b><small>Карточка, каталог услуг и&nbsp;ответы на&nbsp;отзывы</small></a></li>
+                <li><a href="../2gis/"><b>2ГИС</b><small>Карточка клиники и&nbsp;реклама в&nbsp;справочнике</small></a></li>
+                <li><a href="../prodoktorov/"><b>ПроДокторов</b><small>Профиль клиники и&nbsp;врачей</small></a></li>
+                <li><a href="../otzyvy-i-reputaciya/"><b>Отзывы и&nbsp;репутация</b><small>Настоящие отзывы и&nbsp;ответы на&nbsp;них</small></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <a href="../kejsy/">Кейсы</a>
       <a href="../blog/">Блог</a>
-      <a href="../kontakty/">О нас</a>
+      <a href="../kontakty/">Об агентстве</a>
+      <a href="../kontakty/#contacts">Контакты</a>
     </nav>
     <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- мобильное меню: тёмный экран, пункты крупно -->
+<!-- мобильное меню: тёмный экран, услуги списком, разделы крупно -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
-    <a href="../yandex-direkt/">Яндекс Директ</a>
-    <a href="../kompleksnyj-marketing/">Комплексный маркетинг</a>
-    <a href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a>
-    <a href="../yandex-karty/">Яндекс Карты</a>
+    <p class="mnav__h">Услуги</p>
+    <ul class="mnav__sub mnav__sub--all">
+      <li><a href="../yandex-direkt/">Яндекс Директ</a></li>
+      <li><a href="../lidy-dlya-stomatologii/">Заявки для стоматологии</a></li>
+      <li><a href="../kompleksnyj-marketing/" aria-current="page">Комплексный маркетинг</a></li>
+      <li><a href="../medicinskij-marketing/">Медицинский маркетинг</a></li>
+      <li><a href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a></li>
+      <li><a href="../seo-dlya-stomatologii/">SEO для стоматологии</a></li>
+      <li><a href="../geo-prodvizhenie/">Продвижение в&nbsp;нейросетях</a></li>
+      <li><a href="../yandex-karty/">Яндекс Карты</a></li>
+      <li><a href="../2gis/">2ГИС</a></li>
+      <li><a href="../prodoktorov/">ПроДокторов</a></li>
+      <li><a href="../otzyvy-i-reputaciya/">Отзывы и&nbsp;репутация</a></li>
+    </ul>
     <a href="../kejsy/">Кейсы</a>
     <a href="../blog/">Блог</a>
-    <a href="../kontakty/">О нас</a>
+    <a href="../kontakty/">Об агентстве</a>
+    <a href="../kontakty/#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
     <a href="#start" class="btn btn--light">Разобрать клинику</a>
-    <p>Первый тест в&nbsp;Директе без комиссии агентства. Сайт, Яндекс Карты и&nbsp;SEO одной командой.</p>
+    <p>Санкт-Петербург. Работаем с&nbsp;клиниками по&nbsp;всей России.</p>
   </div>
 </div>
 
 <main id="main">
-<section class="phero" id="intro">
+
+<section class="ph phs" id="intro" data-sec="hero">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки">
+    <div class="phs__grid">
+      <div class="phs__text">
+        <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
     <li><a href="../kompleksnyj-marketing/">Комплексный маркетинг</a></li>
@@ -213,295 +262,444 @@
   </ol>
 </nav>
 
-    <h1 class="h1 h1--page">SEO-продвижение сайта стоматологии<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></h1>
-    <div class="phero__foot">
-      <p class="phero__sub">Сео-продвижение сайта клиники: работаем над тем, чтобы стоматологию находили в&nbsp;Яндексе и&nbsp;Google по&nbsp;ключевым услугам в&nbsp;её&nbsp;городе. Это имплантация, брекеты, лечение, детский приём. Мест в&nbsp;выдаче не&nbsp;обещаем. Каждый месяц показываем, что сделано и&nbsp;как изменились позиции, посетители и&nbsp;заявки.</p>
-      <div class="phero__acts">
-        <a href="#start" class="btn" data-magnetic data-pick="site">Обсудить продвижение</a>
-        <a href="#work" class="link">Что мы делаем</a>
+        <h1 class="ph__h phs__h" data-rv>SEO-продвижение сайта стоматологии</h1>
+        <p class="ph__lead phs__lead" data-rv style="--d:1">Сео-продвижение сайта клиники: работаем над тем, чтобы стоматологию находили в&nbsp;Яндексе и&nbsp;Google по&nbsp;ключевым услугам в&nbsp;её&nbsp;городе. Это имплантация, брекеты, лечение, детский приём. Мест в&nbsp;выдаче не&nbsp;обещаем. Каждый месяц показываем, что сделано и&nbsp;как изменились позиции, посетители и&nbsp;заявки.</p>
+        <div data-rv style="--d:2"><div class="ph__acts">
+  <a href="#start" class="btn" data-magnetic data-pick="site">Обсудить продвижение</a>
+  <a href="#work" class="link">Что мы делаем</a>
+</div>
+</div>
+      </div>
+      <div class="phs__stage"><div class="ha ha--seo-dlya-stomatologii" aria-hidden="true">
+  <div class="ha__c ha__c--a ha__serp" data-rv style="--d:2">
+    <span class="ha__q ha__q--in"><i class="art__glass"></i>стоматология рядом</span>
+    <span class="ha__res ha__res--me"><span class="ha__url">demo-klinika.ru</span><b class="ha__t ha__t--link">Стоматология «Демо»: имплантация и&nbsp;лечение</b><i class="ha__l" style="--w:80%"></i></span>
+    <span class="ha__res"><i class="ha__l ha__l--v" style="--w:34%"></i><i class="ha__l ha__l--t" style="--w:76%"></i><i class="ha__l" style="--w:88%"></i></span>
+    <span class="ha__res"><i class="ha__l ha__l--v" style="--w:30%"></i><i class="ha__l ha__l--t" style="--w:68%"></i><i class="ha__l" style="--w:82%"></i></span>
+    <span class="ha__res"><i class="ha__l ha__l--v" style="--w:38%"></i><i class="ha__l ha__l--t" style="--w:72%"></i><i class="ha__l" style="--w:74%"></i></span>
+  </div>
+  <div class="ha__c ha__c--b" data-rv style="--d:3">
+    <span class="ha__url">demo-klinika.ru/implantaciya</span>
+    <b class="ha__t">Имплантация зубов: цена по&nbsp;этапам</b>
+    <i class="ha__l" style="--w:90%"></i><i class="ha__l" style="--w:74%"></i><i class="ha__l" style="--w:56%"></i>
+  </div>
+</div>
+</div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="sec lk-loss-rows sec--fog" id="why" data-sec="loss">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Почему сайт клиники не&nbsp;находят в&nbsp;поиске</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Эти причины мы&nbsp;видим чаще всего, когда разбираем сайты стоматологий. Разбор делаем за&nbsp;2&nbsp;рабочих дня.</p>
+</div>
+
+    <ol class="lr">
+      <li class="lr__i" data-rv>
+        <div class="lr__what"><h3 class="h3">Все услуги на&nbsp;одной странице</h3><p>Имплантация, брекеты и&nbsp;отбеливание описаны одним списком. Поиску нечего показать человеку, который ищет «имплантация зубов цена».</p></div>
+        <p class="lr__fix"><small>Что делаем</small>Делаем отдельную страницу на&nbsp;каждую услугу: цена, врач, этапы.</p>
+      </li>
+      <li class="lr__i" data-rv>
+        <div class="lr__what"><h3 class="h3">На&nbsp;странице нет ответа на&nbsp;вопрос пациента</h3><p>Текст рассказывает о&nbsp;современном оборудовании и&nbsp;индивидуальном подходе. А&nbsp;человек хотел узнать цену, срок лечения и&nbsp;что делать, если мало кости.</p></div>
+        <p class="lr__fix"><small>Что делаем</small>Пишем страницы по&nbsp;реальным запросам: цена, этапы, противопоказания, рассрочка.</p>
+      </li>
+      <li class="lr__i" data-rv>
+        <div class="lr__what"><h3 class="h3">Непонятно, кто отвечает за&nbsp;медицинский текст</h3><p>Статьи без автора и&nbsp;даты. К&nbsp;текстам о&nbsp;здоровье поисковые системы относятся строже, чем к&nbsp;остальным: им&nbsp;важно, кто это написал.</p></div>
+        <p class="lr__fix"><small>Что делаем</small>Указываем врача, который проверил текст, его стаж и&nbsp;документы.</p>
+      </li>
+      <li class="lr__i" data-rv>
+        <div class="lr__what"><h3 class="h3">Сайт медленно открывается на&nbsp;телефоне</h3><p>Тяжёлые фото и&nbsp;лишние скрипты. Человек с&nbsp;телефона не&nbsp;дожидается загрузки и&nbsp;возвращается к&nbsp;списку клиник.</p></div>
+        <p class="lr__fix"><small>Что делаем</small>Облегчаем страницы и&nbsp;проверяем скорость на&nbsp;телефоне.</p>
+      </li>
+      <li class="lr__i" data-rv>
+        <div class="lr__what"><h3 class="h3">Сайт и&nbsp;карточки расходятся</h3><p>На&nbsp;сайте одна цена, на&nbsp;Яндекс Картах другая, на&nbsp;ПроДокторов третья. Ни&nbsp;поиск, ни&nbsp;пациент не&nbsp;знают, чему верить.</p></div>
+        <p class="lr__fix"><small>Что делаем</small>Сводим цены, врачей и&nbsp;адрес к&nbsp;одному источнику.</p>
+      </li>
+    </ol>
+    
+  </div>
+</section>
+
+
+
+<section class="sec sec--dark dark lk-cmp-focus" id="demand" data-sec="cmp">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Что пациенты ищут в&nbsp;Яндексе</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Показы за&nbsp;месяц по&nbsp;всей России, данные Яндекс Вордстата на&nbsp;22 ноября 2026&nbsp;года, округлены. В&nbsp;число входят все запросы с&nbsp;этими словами. Спрос в&nbsp;вашем городе считаем на&nbsp;аудите.</p>
+</div>
+
+    <div class="cf cf--stat" role="group" aria-label="Сколько раз в месяц в Яндексе ищут стоматологические услуги">
+      <p class="cf__top" aria-hidden="true"><span>Показов в&nbsp;месяц</span></p>
+      <div class="cf__row" data-rv>
+        <h3 class="cf__k">брекеты</h3>
+        <p class="cf__v"><span class="sr">Показов в месяц: </span>около 637 тысяч</p>
+        <div class="cf__o">
+          <p><span class="cf__c">Что это значит для сайта</span>Нужны страницы по&nbsp;системам и&nbsp;возрасту: взрослым, подросткам, элайнеры</p>
+        </div>
+      </div>
+      <div class="cf__row" data-rv>
+        <h3 class="cf__k">детская стоматология</h3>
+        <p class="cf__v"><span class="sr">Показов в месяц: </span>около 403 тысяч</p>
+        <div class="cf__o">
+          <p><span class="cf__c">Что это значит для сайта</span>Отдельный раздел для родителей с&nbsp;врачами и&nbsp;ценами детского приёма</p>
+        </div>
+      </div>
+      <div class="cf__row" data-rv>
+        <h3 class="cf__k">болит зуб</h3>
+        <p class="cf__v"><span class="sr">Показов в месяц: </span>около 377 тысяч</p>
+        <div class="cf__o">
+          <p><span class="cf__c">Что это значит для сайта</span>Человеку нужна помощь сегодня: страница острой боли и&nbsp;запись на&nbsp;ближайшее время</p>
+        </div>
+      </div>
+      <div class="cf__row" data-rv>
+        <h3 class="cf__k">имплантация зубов</h3>
+        <p class="cf__v"><span class="sr">Показов в месяц: </span>около 222 тысяч</p>
+        <div class="cf__o">
+          <p><span class="cf__c">Что это значит для сайта</span>Страницы под цену, методы, <span class="nw">All-on-4</span> и&nbsp;вопросы о&nbsp;противопоказаниях</p>
+        </div>
+      </div>
+      <div class="cf__row" data-rv>
+        <h3 class="cf__k">удаление зуба мудрости</h3>
+        <p class="cf__v"><span class="sr">Показов в месяц: </span>около 205 тысяч</p>
+        <div class="cf__o">
+          <p><span class="cf__c">Что это значит для сайта</span>Узкая страница по&nbsp;одной услуге находит своего пациента лучше общего раздела хирургии</p>
+        </div>
+      </div>
+      <div class="cf__row" data-rv>
+        <h3 class="cf__k">виниры</h3>
+        <p class="cf__v"><span class="sr">Показов в месяц: </span>около 170 тысяч</p>
+        <div class="cf__o">
+          <p><span class="cf__c">Что это значит для сайта</span>Страница с&nbsp;видами виниров, ценой и&nbsp;работами с&nbsp;согласия пациентов</p>
+        </div>
       </div>
     </div>
+    
   </div>
 </section>
 
 
-<section class="sec sec--fog sheet" id="why">
+
+<section class="sec lk-steps-sheet sec--fog" id="work" data-sec="steps">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Почему сайт клиники не&nbsp;находят в&nbsp;поиске.</h2>
+    <h2 class="h2" data-rv>Что мы&nbsp;делаем</h2>
   </div>
-  <p class="shead__note">Эти причины мы&nbsp;видим чаще всего, когда разбираем сайты стоматологий. Разбор делаем за&nbsp;2&nbsp;рабочих дня.</p>
+  <p class="sh__note" data-rv style="--d:1">Начинаем с&nbsp;услуг, которые важнее всего для клиники, и&nbsp;идём от&nbsp;них к&nbsp;остальным.</p>
 </div>
 
-    <ol class="loss">
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Все услуги на&nbsp;одной странице</h3><p>Имплантация, брекеты и&nbsp;отбеливание описаны одним списком. Поиску нечего показать человеку, который ищет «имплантация зубов цена».</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Делаем отдельную страницу на&nbsp;каждую услугу: цена, врач, этапы.</p>
-      </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">На&nbsp;странице нет ответа на&nbsp;вопрос пациента</h3><p>Текст рассказывает о&nbsp;современном оборудовании и&nbsp;индивидуальном подходе. А&nbsp;человек хотел узнать цену, срок лечения и&nbsp;что делать, если мало кости.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Пишем страницы по&nbsp;реальным запросам: цена, этапы, противопоказания, рассрочка.</p>
-      </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Непонятно, кто отвечает за&nbsp;медицинский текст</h3><p>Статьи без автора и&nbsp;даты. К&nbsp;текстам о&nbsp;здоровье поисковые системы относятся строже, чем к&nbsp;остальным: им&nbsp;важно, кто это написал.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Указываем врача, который проверил текст, его стаж и&nbsp;документы.</p>
-      </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Сайт медленно открывается на&nbsp;телефоне</h3><p>Тяжёлые фото и&nbsp;лишние скрипты. Человек с&nbsp;телефона не&nbsp;дожидается загрузки и&nbsp;возвращается к&nbsp;списку клиник.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Облегчаем страницы и&nbsp;проверяем скорость на&nbsp;телефоне.</p>
-      </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Сайт и&nbsp;карточки расходятся</h3><p>На&nbsp;сайте одна цена, на&nbsp;Яндекс Картах другая, на&nbsp;ПроДокторов третья. Ни&nbsp;поиск, ни&nbsp;пациент не&nbsp;знают, чему верить.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Сводим цены, врачей и&nbsp;адрес к&nbsp;одному источнику.</p>
-      </li>
-    </ol>
-  </div>
-</section>
-
-<section class="sec" id="demand">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Что пациенты ищут в&nbsp;Яндексе.</h2>
-  </div>
-  <p class="shead__note">Показы за&nbsp;месяц по&nbsp;всей России, данные Яндекс Вордстата на&nbsp;22 ноября 2026&nbsp;года, округлены. В&nbsp;число входят все запросы с&nbsp;этими словами. Спрос в&nbsp;вашем городе считаем на&nbsp;аудите.</p>
-</div>
-
-    <div class="cmp-wrap">
-      <table class="cmp cmp--stat">
-        <caption class="sr">Сколько раз в месяц в Яндексе ищут стоматологические услуги</caption>
-        <thead><tr><td></td><th scope="col">Показов в месяц</th><th scope="col">Что это значит для сайта</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">брекеты</th><td data-label="Показов в месяц">около 637 тысяч</td><td data-label="Что это значит для сайта">Нужны страницы по&nbsp;системам и&nbsp;возрасту: взрослым, подросткам, элайнеры</td></tr>
-          <tr><th scope="row">детская стоматология</th><td data-label="Показов в месяц">около 403 тысяч</td><td data-label="Что это значит для сайта">Отдельный раздел для родителей с&nbsp;врачами и&nbsp;ценами детского приёма</td></tr>
-          <tr><th scope="row">болит зуб</th><td data-label="Показов в месяц">около 377 тысяч</td><td data-label="Что это значит для сайта">Человеку нужна помощь сегодня: страница острой боли и&nbsp;запись на&nbsp;ближайшее время</td></tr>
-          <tr><th scope="row">имплантация зубов</th><td data-label="Показов в месяц">около 222 тысяч</td><td data-label="Что это значит для сайта">Страницы под цену, методы, <span class="nw">All-on-4</span> и&nbsp;вопросы о&nbsp;противопоказаниях</td></tr>
-          <tr><th scope="row">удаление зуба мудрости</th><td data-label="Показов в месяц">около 205 тысяч</td><td data-label="Что это значит для сайта">Узкая страница по&nbsp;одной услуге находит своего пациента лучше общего раздела хирургии</td></tr>
-          <tr><th scope="row">виниры</th><td data-label="Показов в месяц">около 170 тысяч</td><td data-label="Что это значит для сайта">Страница с&nbsp;видами виниров, ценой и&nbsp;работами с&nbsp;согласия пациентов</td></tr>
-        </tbody>
-      </table>
+    <div class="stps" data-rv>
+      <ol class="stps__list stps__list--even">
+        <li class="stps__i" style="--i:0">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Аудит</h3>
+            <p class="stps__p">Проверяем индексацию, скорость, ошибки, структуру и&nbsp;тексты. Показываем, что мешает сайту расти.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:1">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Семантическое ядро</h3>
+            <p class="stps__p">Собираем запросы пациентов по&nbsp;услугам и&nbsp;районам города в&nbsp;Яндексе и&nbsp;Google и&nbsp;раскладываем их&nbsp;по&nbsp;страницам.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:2">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Страницы услуг</h3>
+            <p class="stps__p">Дорабатываем существующие страницы и&nbsp;добавляем недостающие: услуги, врачи, цены.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:3">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Статьи</h3>
+            <p class="stps__p">Регулярная публикация статей входит в&nbsp;продвижение сайта. Отвечаем на&nbsp;вопросы, которые пациенты задают до&nbsp;записи: такие статьи приводят людей из&nbsp;поиска и&nbsp;активно влияют на&nbsp;ответы нейросетей о&nbsp;клинике.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:4">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Оптимизация сайта</h3>
+            <p class="stps__p">Технические правки: скорость, разметка клиники и&nbsp;врачей, заголовки страниц, карта сайта, Яндекс Вебмастер и&nbsp;Google Search Console.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:5">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Отчёт</h3>
+            <p class="stps__p">Раз в&nbsp;месяц: позиции, посетители из&nbsp;поиска, звонки и&nbsp;заявки с&nbsp;сайта, что сделано и&nbsp;что дальше.</p>
+          </div>
+        </li>
+      </ol>
     </div>
+    
   </div>
 </section>
 
-<section class="sec sec--fog" id="work">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Что мы&nbsp;делаем.</h2>
-  </div>
-  <p class="shead__note">Начинаем с&nbsp;услуг, которые важнее всего для клиники, и&nbsp;идём от&nbsp;них к&nbsp;остальным.</p>
-</div>
 
-    <ol class="incl__list">
-      <li class="reveal"><h4>Аудит</h4><p>Проверяем индексацию, скорость, ошибки, структуру и&nbsp;тексты. Показываем, что мешает сайту расти.</p></li>
-      <li class="reveal"><h4>Семантическое ядро</h4><p>Собираем запросы пациентов по&nbsp;услугам и&nbsp;районам города в&nbsp;Яндексе и&nbsp;Google и&nbsp;раскладываем их&nbsp;по&nbsp;страницам.</p></li>
-      <li class="reveal"><h4>Страницы услуг</h4><p>Дорабатываем существующие страницы и&nbsp;добавляем недостающие: услуги, врачи, цены.</p></li>
-      <li class="reveal"><h4>Статьи</h4><p>Регулярная публикация статей входит в&nbsp;продвижение сайта. Отвечаем на&nbsp;вопросы, которые пациенты задают до&nbsp;записи: такие статьи приводят людей из&nbsp;поиска и&nbsp;активно влияют на&nbsp;ответы нейросетей о&nbsp;клинике.</p></li>
-      <li class="reveal"><h4>Оптимизация сайта</h4><p>Технические правки: скорость, разметка клиники и&nbsp;врачей, заголовки страниц, карта сайта, Яндекс Вебмастер и&nbsp;Google Search Console.</p></li>
-      <li class="reveal"><h4>Отчёт</h4><p>Раз в&nbsp;месяц: позиции, посетители из&nbsp;поиска, звонки и&nbsp;заявки с&nbsp;сайта, что сделано и&nbsp;что дальше.</p></li>
-    </ol>
-  </div>
-</section>
 
-<section class="sec" id="medical">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Чем продвижение медицинского сайта отличается от&nbsp;обычного.</h2>
-  </div>
-  <p class="shead__note">Сайт клиники влияет на&nbsp;здоровье людей, поэтому поиск ждёт от&nbsp;него больше, чем от&nbsp;сайта магазина.</p>
-</div>
-
-    <ul class="spec spec--sm spec--cols">
-      <li class="reveal"><h4>Авторство врачей</h4><p>У&nbsp;текста о&nbsp;лечении должен быть автор или проверяющий с&nbsp;образованием и&nbsp;стажем. По&nbsp;этому признаку поиск судит, можно&nbsp;ли доверять странице.</p></li>
-      <li class="reveal"><h4>Лицензия и&nbsp;сведения о&nbsp;клинике</h4><p>Лицензия, адрес, реквизиты и&nbsp;контакты на&nbsp;сайте нужны и&nbsp;по&nbsp;закону, и&nbsp;для доверия поисковых систем.</p></li>
-      <li class="reveal"><h4>Осторожные формулировки</h4><p>Без обещаний результата лечения, без слов «лучший» и&nbsp;«номер один». Такие тексты не&nbsp;подводят клинику при проверке.</p></li>
-      <li class="reveal"><h4>Отзывы с&nbsp;площадок</h4><p>Отзывы на&nbsp;сайте показываем со&nbsp;ссылкой на&nbsp;источник: Яндекс Карты, ПроДокторов, 2ГИС.</p></li>
-      <li class="reveal"><h4>Свой город и&nbsp;район</h4><p>Стоматологию ищут рядом. Поэтому работаем с&nbsp;запросами по&nbsp;городу, району и&nbsp;метро и&nbsp;связываем сайт с&nbsp;карточкой на&nbsp;Яндекс Картах.</p></li>
-      <li class="reveal"><h4>Ответы нейросетей</h4><p>Алиса и&nbsp;другие нейросети собирают ответы из&nbsp;страниц, которым доверяет поиск. Понятная страница услуги с&nbsp;автором-врачом работает и&nbsp;для них.</p></li>
+<section class="sec lk-spec-sticky" id="medical" data-sec="spec">
+  <div class="wrap spst">
+    <div class="spst__head">
+      <div class="spst__stick">
+        <h2 class="h2" data-rv>Чем продвижение медицинского сайта отличается от&nbsp;обычного</h2>
+        <p class="spst__note" data-rv style="--d:1">Сайт клиники влияет на&nbsp;здоровье людей, поэтому поиск ждёт от&nbsp;него больше, чем от&nbsp;сайта магазина.</p>
+        <div class="spst__own"></div>
+      </div>
+    </div>
+    <ul class="spst__list">
+      <li class="spst__i" data-rv><h3 class="spst__h">Авторство врачей</h3><p>У&nbsp;текста о&nbsp;лечении должен быть автор или проверяющий с&nbsp;образованием и&nbsp;стажем. По&nbsp;этому признаку поиск судит, можно&nbsp;ли доверять странице.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Лицензия и&nbsp;сведения о&nbsp;клинике</h3><p>Лицензия, адрес, реквизиты и&nbsp;контакты на&nbsp;сайте нужны и&nbsp;по&nbsp;закону, и&nbsp;для доверия поисковых систем.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Осторожные формулировки</h3><p>Без обещаний результата лечения, без слов «лучший» и&nbsp;«номер один». Такие тексты не&nbsp;подводят клинику при проверке.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Отзывы с&nbsp;площадок</h3><p>Отзывы на&nbsp;сайте показываем со&nbsp;ссылкой на&nbsp;источник: Яндекс Карты, ПроДокторов, 2ГИС.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Свой город и&nbsp;район</h3><p>Стоматологию ищут рядом. Поэтому работаем с&nbsp;запросами по&nbsp;городу, району и&nbsp;метро и&nbsp;связываем сайт с&nbsp;карточкой на&nbsp;Яндекс Картах.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Ответы нейросетей</h3><p>Алиса и&nbsp;другие нейросети собирают ответы из&nbsp;страниц, которым доверяет поиск. Понятная страница услуги с&nbsp;автором-врачом работает и&nbsp;для них.</p></li>
     </ul>
   </div>
 </section>
 
-<section class="sec sec--fog" id="months">
+
+
+<section class="sec lk-steps-chart sec--fog" id="months" data-sec="steps">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Что происходит по&nbsp;месяцам.</h2>
+    <h2 class="h2" data-rv>Что происходит по&nbsp;месяцам</h2>
   </div>
-  <p class="shead__note">Это порядок работ, а&nbsp;не&nbsp;обещание позиций. Сроки сдвигаются, если сайт приходится собирать заново.</p>
+  <p class="sh__note" data-rv style="--d:1">Это порядок работ, а&nbsp;не&nbsp;обещание позиций. Сроки сдвигаются, если сайт приходится собирать заново.</p>
 </div>
 
-    <ol class="incl__list">
-      <li class="reveal"><span class="incl__n">Месяц 1</span><h4>Аудит и&nbsp;план</h4><p>Разбор сайта и&nbsp;конкурентов, семантическое ядро, список страниц и&nbsp;правок. Исправляем то, что мешает индексации.</p></li>
-      <li class="reveal"><span class="incl__n">Месяцы 2 и 3</span><h4>Страницы услуг</h4><p>Дорабатываем главные услуги клиники, добавляем недостающие страницы и&nbsp;врачей, ускоряем сайт.</p></li>
-      <li class="reveal"><span class="incl__n">Месяцы с 4 по 6</span><h4>Статьи и&nbsp;остальные услуги</h4><p>Отвечаем на&nbsp;вопросы пациентов, расширяем разделы, смотрим, какие запросы растут.</p></li>
-      <li class="reveal"><span class="incl__n">Дальше</span><h4>Развитие</h4><p>Новые услуги и&nbsp;районы, обновление цен и&nbsp;текстов, работа с&nbsp;запросами, которые выросли не&nbsp;полностью.</p></li>
+    <ol class="stpc" style="--n:4">
+      <li class="stpc__row" style="--i:0">
+        <div class="stpc__txt" data-rv>
+          <p class="stpc__when">Месяц 1</p>
+          <h3 class="stpc__h">Аудит и&nbsp;план</h3>
+          <p class="stpc__p">Разбор сайта и&nbsp;конкурентов, семантическое ядро, список страниц и&nbsp;правок. Исправляем то, что мешает индексации.</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
+      <li class="stpc__row" style="--i:1">
+        <div class="stpc__txt" data-rv>
+          <p class="stpc__when">Месяцы 2 и&nbsp;3</p>
+          <h3 class="stpc__h">Страницы услуг</h3>
+          <p class="stpc__p">Дорабатываем главные услуги клиники, добавляем недостающие страницы и&nbsp;врачей, ускоряем сайт.</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
+      <li class="stpc__row" style="--i:2">
+        <div class="stpc__txt" data-rv>
+          <p class="stpc__when">Месяцы с&nbsp;4 по&nbsp;6</p>
+          <h3 class="stpc__h">Статьи и&nbsp;остальные услуги</h3>
+          <p class="stpc__p">Отвечаем на&nbsp;вопросы пациентов, расширяем разделы, смотрим, какие запросы растут.</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
+      <li class="stpc__row" style="--i:3">
+        <div class="stpc__txt" data-rv>
+          <p class="stpc__when">Дальше</p>
+          <h3 class="stpc__h">Развитие</h3>
+          <p class="stpc__p">Новые услуги и&nbsp;районы, обновление цен и&nbsp;текстов, работа с&nbsp;запросами, которые выросли не&nbsp;полностью.</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
     </ol>
+    
   </div>
 </section>
 
-<section class="sec" id="terms">
+
+
+<section class="sec lk-yesno-mosaic" id="terms" data-sec="yesno">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Сроки и&nbsp;обещания.</h2>
+    <h2 class="h2" data-rv>Сроки и&nbsp;обещания</h2>
   </div>
-  <p class="shead__note">Поиску нужно время: первые изменения обычно видны через несколько месяцев. Место в&nbsp;выдаче не&nbsp;может обещать никто, ни&nbsp;мы, ни&nbsp;другое агентство.</p>
+  <p class="sh__note" data-rv style="--d:1">Поиску нужно время: первые изменения обычно видны через несколько месяцев. Место в&nbsp;выдаче не&nbsp;может обещать никто, ни&nbsp;мы, ни&nbsp;другое агентство.</p>
 </div>
 
-    <div class="yesno">
-      <div class="yesno__col">
-        <h3 class="pack__h">Чего не делаем</h3>
-        <ul class="plist plist--lg plist--no">
-          <li class="reveal"><span>Не&nbsp;обещаем первое место и&nbsp;точные позиции</span></li>
-          <li class="reveal"><span>Не&nbsp;закупаем ссылки пачками и&nbsp;не&nbsp;накручиваем поведение посетителей</span></li>
-          <li class="reveal"><span>Не&nbsp;пишем тексты ради ключевых слов</span></li>
-          <li class="reveal"><span>Не&nbsp;называем дату, к&nbsp;которой сайт выйдет в&nbsp;топ</span></li>
+    <div class="ym">
+      <div class="ym__row ym--no">
+        <h3 class="ym__h" data-rv="fade">Чего не&nbsp;делаем</h3>
+        <ul class="ym__tiles">
+          <li class="ym__t" data-rv style="--d: 0">Не&nbsp;обещаем первое место и&nbsp;точные позиции</li>
+          <li class="ym__t" data-rv style="--d: 1">Не&nbsp;закупаем ссылки пачками и&nbsp;не&nbsp;накручиваем поведение посетителей</li>
+          <li class="ym__t" data-rv style="--d: 2">Не&nbsp;пишем тексты ради ключевых слов</li>
+          <li class="ym__t" data-rv style="--d: 3">Не&nbsp;называем дату, к&nbsp;которой сайт выйдет в&nbsp;топ</li>
         </ul>
       </div>
-      <div class="yesno__col">
-        <h3 class="pack__h">Что делаем</h3>
-        <ul class="plist plist--lg">
-          <li class="reveal"><span>Показываем позиции и&nbsp;посетителей каждый месяц</span></li>
-          <li class="reveal"><span>Говорим, какие запросы растут, какие нет и&nbsp;почему</span></li>
-          <li class="reveal"><span>Начинаем с&nbsp;услуг, которые важнее всего для клиники</span></li>
-          <li class="reveal"><span>Ведём поиск вместе с&nbsp;Картами: там результат заметен раньше</span></li>
+      <div class="ym__row ym--yes">
+        <h3 class="ym__h" data-rv="fade">Что делаем</h3>
+        <ul class="ym__tiles">
+          <li class="ym__t" data-rv style="--d: 0">Показываем позиции и&nbsp;посетителей каждый месяц</li>
+          <li class="ym__t" data-rv style="--d: 1">Говорим, какие запросы растут, какие нет и&nbsp;почему</li>
+          <li class="ym__t" data-rv style="--d: 2">Начинаем с&nbsp;услуг, которые важнее всего для клиники</li>
+          <li class="ym__t" data-rv style="--d: 3">Ведём поиск вместе с&nbsp;Картами: там результат заметен раньше</li>
         </ul>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="sec sec--dark dark lk-links-dark" id="together" data-sec="links">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>SEO работает вместе с&nbsp;Картами и&nbsp;сайтом</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Человек ищет клинику и&nbsp;в&nbsp;поиске, и&nbsp;на&nbsp;карте. Клиника должна выглядеть одинаково хорошо в&nbsp;обоих местах.</p>
+</div>
+
+    <ul class="likd">
+      <li class="likd__i" data-rv style="--d:0"><h3 class="likd__h"><a class="likd__a" href="../yandex-karty/">Яндекс Карты</a></h3><p>По&nbsp;запросам вроде «стоматология рядом» Яндекс показывает карту с&nbsp;клиниками. Карточка и&nbsp;сайт усиливают друг друга.</p><span class="likd__go" aria-hidden="true"></span></li>
+      <li class="likd__i" data-rv style="--d:1"><h3 class="likd__h"><a class="likd__a" href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a></h3><p>Если сайт устарел или собран на&nbsp;шаблоне, который нельзя доработать, собираем новый и&nbsp;переносим нужное без потери позиций.</p><span class="likd__go" aria-hidden="true"></span></li>
+      <li class="likd__i" data-rv style="--d:0"><h3 class="likd__h"><a class="likd__a" href="../kompleksnyj-marketing/">Комплексный маркетинг</a></h3><p>SEO входит в&nbsp;ежемесячное ведение вместе с&nbsp;Картами, площадками и&nbsp;отзывами.</p><span class="likd__go" aria-hidden="true"></span></li>
+      <li class="likd__i" data-rv style="--d:1"><h3 class="likd__h"><a class="likd__a" href="../geo-prodvizhenie/">Продвижение в&nbsp;нейросетях</a></h3><p>Алиса и&nbsp;ChatGPT берут сведения из&nbsp;поиска. Статьи, которые мы&nbsp;регулярно публикуем на&nbsp;сайте, активно влияют на&nbsp;то, что они отвечают пациентам о&nbsp;клинике.</p><span class="likd__go" aria-hidden="true"></span></li>
+    </ul>
+    <p class="own" data-rv>О&nbsp;рекламе клиник, требованиях к&nbsp;медицинским сайтам и&nbsp;привлечении пациентов пишем в <a href="../blog/">блоге</a>.</p>
+
+  </div>
+</section>
+
+
+
+
+<section class="sec lk-faq-acc" id="faq" data-sec="faq">
+  <div class="wrap">
+    <div class="fq">
+      <div class="fq__head"><div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Вопросы о&nbsp;продвижении</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
+</div>
+</div>
+      <div class="qa" data-rv>
+        <details class="qa__item" open>
+          <summary><span class="qa__q">Сколько стоит SEO для стоматологии?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>SEO входит в&nbsp;ежемесячное ведение в&nbsp;составе комплексного маркетинга. Если нужно только продвижение сайта, считаем цену после аудита: она зависит от&nbsp;состояния сайта и&nbsp;числа услуг.</p></div>
+        </details>
+        <details class="qa__item">
+          <summary><span class="qa__q">Даёте&nbsp;ли вы&nbsp;гарантии позиций?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Нет. Позиции зависят от&nbsp;поисковых систем и&nbsp;от&nbsp;конкурентов, их&nbsp;никто не&nbsp;контролирует. Мы&nbsp;отвечаем за&nbsp;работу: каждый месяц вы&nbsp;видите, что сделано и&nbsp;как изменились позиции, посетители и&nbsp;заявки.</p></div>
+        </details>
+        <details class="qa__item">
+          <summary><span class="qa__q">Когда ждать результат?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Первые изменения в&nbsp;поиске обычно видны через несколько месяцев. На&nbsp;Яндекс Картах результат заметен раньше, потому что звонки и&nbsp;маршруты из&nbsp;карточки считаются с&nbsp;первого месяца.</p></div>
+        </details>
+        <details class="qa__item">
+          <summary><span class="qa__q">Нужно&nbsp;ли переделывать сайт?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Не&nbsp;всегда. На&nbsp;аудите смотрим структуру и&nbsp;движок. Если сайт можно доработать, дорабатываем. Если нет, предлагаем собрать новый и&nbsp;перенести нужное так, чтобы не&nbsp;потерять то, что уже есть в&nbsp;поиске.</p></div>
+        </details>
+        <details class="qa__item">
+          <summary><span class="qa__q">Чем SEO отличается от&nbsp;раскрутки сайта?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Ничем: раскрутка медицинского сайта, сео, поисковое продвижение и&nbsp;оптимизация сайта значат одно и&nbsp;то&nbsp;же. Разница только в&nbsp;том, как это делают. Мы&nbsp;не&nbsp;накручиваем посетителей и&nbsp;не&nbsp;покупаем ссылки пачками, а&nbsp;дорабатываем страницы под запросы пациентов.</p></div>
+        </details>
+        <details class="qa__item">
+          <summary><span class="qa__q">Продвигаете сайты медицинских центров?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Да. SEO в&nbsp;медицине устроено одинаково для стоматологии и&nbsp;для медицинского центра: страницы направлений, врачи с&nbsp;документами, осторожные формулировки. Стоматологии остаются нашей основной специализацией.</p></div>
+        </details>
+        <details class="qa__item">
+          <summary><span class="qa__q">Входят&nbsp;ли статьи в&nbsp;продвижение сайта?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Да. Регулярная публикация статей входит в&nbsp;продвижение сайта. Темы берём из&nbsp;вопросов пациентов по&nbsp;услугам клиники, медицинскую часть читает врач. Эти&nbsp;же статьи активно влияют на&nbsp;продвижение в&nbsp;нейросетях: Алисе и&nbsp;ChatGPT нужен текст, на&nbsp;который можно сослаться.</p></div>
+        </details>
+        <details class="qa__item">
+          <summary><span class="qa__q">Продвигаете в&nbsp;Google или только в&nbsp;Яндексе?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>В&nbsp;обоих. Яндекс сильнее учитывает карточку клиники на&nbsp;Картах и&nbsp;поведение посетителей, Google внимательнее к&nbsp;авторству и&nbsp;качеству медицинских текстов. Страницы и&nbsp;статьи готовим с&nbsp;учётом обоих.</p></div>
+        </details>
+        <details class="qa__item">
+          <summary><span class="qa__q">Что выбрать: SEO или Яндекс Директ?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Директ даёт заявки сразу, пока расходуется бюджет. SEO растёт медленно, зато переходы из&nbsp;поиска не&nbsp;оплачиваются по&nbsp;одному. Клинике, которой пациенты нужны сейчас, советуем начать с&nbsp;теста в&nbsp;Директе, а&nbsp;сайт и&nbsp;Карты развивать параллельно.</p></div>
+        </details>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec sec--fog" id="together">
+
+
+<section class="sec st sth" id="start" data-sec="start">
   <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">SEO работает вместе с&nbsp;Картами и&nbsp;сайтом.</h2>
-  </div>
-  <p class="shead__note">Человек ищет клинику и&nbsp;в&nbsp;поиске, и&nbsp;на&nbsp;карте. Клиника должна выглядеть одинаково хорошо в&nbsp;обоих местах.</p>
-</div>
-
-    <ol class="deflist">
-      <li class="reveal"><h3 class="h3"><a class="link" href="../yandex-karty/">Яндекс Карты</a></h3><p>По&nbsp;запросам вроде «стоматология рядом» Яндекс показывает карту с&nbsp;клиниками. Карточка и&nbsp;сайт усиливают друг друга.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a></h3><p>Если сайт устарел или собран на&nbsp;шаблоне, который нельзя доработать, собираем новый и&nbsp;переносим нужное без потери позиций.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../kompleksnyj-marketing/">Комплексный маркетинг</a></h3><p>SEO входит в&nbsp;ежемесячное ведение вместе с&nbsp;Картами, площадками и&nbsp;отзывами.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="../geo-prodvizhenie/">Продвижение в&nbsp;нейросетях</a></h3><p>Алиса и&nbsp;ChatGPT берут сведения из&nbsp;поиска. Статьи, которые мы&nbsp;регулярно публикуем на&nbsp;сайте, активно влияют на&nbsp;то, что они отвечают пациентам о&nbsp;клинике.</p></li>
-    </ol>
-    <p class="pack__own">О&nbsp;рекламе клиник, требованиях к&nbsp;медицинским сайтам и&nbsp;привлечении пациентов пишем в <a href="../blog/">блоге</a>.</p>
-  </div>
-</section>
-
-<section class="sec" id="faq">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Вопросы о&nbsp;продвижении.</h2>
-  </div>
-  <p class="shead__note">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
-</div>
-
-    <div class="qa">
-  <details class="qa__item" open>
-    <summary><span class="qa__q">Сколько стоит SEO для стоматологии?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>SEO входит в&nbsp;ежемесячное ведение в&nbsp;составе комплексного маркетинга. Если нужно только продвижение сайта, считаем цену после аудита: она зависит от&nbsp;состояния сайта и&nbsp;числа услуг.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Даёте&nbsp;ли вы&nbsp;гарантии позиций?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Нет. Позиции зависят от&nbsp;поисковых систем и&nbsp;от&nbsp;конкурентов, их&nbsp;никто не&nbsp;контролирует. Мы&nbsp;отвечаем за&nbsp;работу: каждый месяц вы&nbsp;видите, что сделано и&nbsp;как изменились позиции, посетители и&nbsp;заявки.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Когда ждать результат?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Первые изменения в&nbsp;поиске обычно видны через несколько месяцев. На&nbsp;Яндекс Картах результат заметен раньше, потому что звонки и&nbsp;маршруты из&nbsp;карточки считаются с&nbsp;первого месяца.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Нужно&nbsp;ли переделывать сайт?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Не&nbsp;всегда. На&nbsp;аудите смотрим структуру и&nbsp;движок. Если сайт можно доработать, дорабатываем. Если нет, предлагаем собрать новый и&nbsp;перенести нужное так, чтобы не&nbsp;потерять то, что уже есть в&nbsp;поиске.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Чем SEO отличается от&nbsp;раскрутки сайта?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Ничем: раскрутка медицинского сайта, сео, поисковое продвижение и&nbsp;оптимизация сайта значат одно и&nbsp;то&nbsp;же. Разница только в&nbsp;том, как это делают. Мы&nbsp;не&nbsp;накручиваем посетителей и&nbsp;не&nbsp;покупаем ссылки пачками, а&nbsp;дорабатываем страницы под запросы пациентов.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Продвигаете сайты медицинских центров?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Да. SEO в&nbsp;медицине устроено одинаково для стоматологии и&nbsp;для медицинского центра: страницы направлений, врачи с&nbsp;документами, осторожные формулировки. Стоматологии остаются нашей основной специализацией.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Входят&nbsp;ли статьи в&nbsp;продвижение сайта?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Да. Регулярная публикация статей входит в&nbsp;продвижение сайта. Темы берём из&nbsp;вопросов пациентов по&nbsp;услугам клиники, медицинскую часть читает врач. Эти&nbsp;же статьи активно влияют на&nbsp;продвижение в&nbsp;нейросетях: Алисе и&nbsp;ChatGPT нужен текст, на&nbsp;который можно сослаться.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Продвигаете в&nbsp;Google или только в&nbsp;Яндексе?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>В&nbsp;обоих. Яндекс сильнее учитывает карточку клиники на&nbsp;Картах и&nbsp;поведение посетителей, Google внимательнее к&nbsp;авторству и&nbsp;качеству медицинских текстов. Страницы и&nbsp;статьи готовим с&nbsp;учётом обоих.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Что выбрать: SEO или Яндекс Директ?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Директ даёт заявки сразу, пока расходуется бюджет. SEO растёт медленно, зато переходы из&nbsp;поиска не&nbsp;оплачиваются по&nbsp;одному. Клинике, которой пациенты нужны сейчас, советуем начать с&nbsp;теста в&nbsp;Директе, а&nbsp;сайт и&nbsp;Карты развивать параллельно.</p></div>
-  </details>
-</div>
-
-  </div>
-</section>
-
-<section class="dark sheet start" id="start" data-dark>
-  <div class="wrap">
-    <h2 class="h2 start__title">Разберём сайт клиники и&nbsp;покажем, что мешает ему расти.</h2>
-    <div class="start__grid">
-      <div class="start__text">
-        <p class="lead">Оставьте заявку. За&nbsp;2&nbsp;рабочих дня посмотрим сайт, карточки и&nbsp;сайты клиник рядом и&nbsp;скажем, с&nbsp;чего начать.</p>
-        <ul class="plist">
-          <li>SEO входит в&nbsp;ежемесячное ведение комплексного маркетинга</li>
-          <li>Только продвижение считаем по&nbsp;заявке</li>
-          <li>Позиций не&nbsp;обещаем, показываем работу и&nbsp;цифры</li>
-        </ul>
-        <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
-      </div>
-      <form class="form" novalidate action="#" aria-label="Заявка">
-        <fieldset class="form__choice">
-          <legend>Что хотите запустить</legend>
-          <div class="form__opts">
-            <label class="form__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="site" checked><span>Сайт и&nbsp;Карты</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="unsure"><span>Пока не&nbsp;знаю</span></label>
-          </div>
-        </fieldset>
-        <label class="fld form__dir"><span>Услуга для рекламы</span>
-          <select name="direction">
-            <option value="implant">Имплантация</option>
-            <option value="all-on-4">All-on-4, полное восстановление</option>
-            <option value="ortho">Брекеты и элайнеры</option>
-            <option value="running">Реклама уже идёт, нужен разбор</option>
-            <option value="other">Другая услуга</option>
-          </select>
-        </label>
-        <div class="form__row">
-          <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
-          <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
-        </div>
-        <div class="form__row">
-          <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
-          <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
-        </div>
-        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../politika/">политики</a></span></label>
-        <div class="form__send">
-          <p class="form__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
-          <button class="btn btn--light" type="submit" data-vend data-magnetic>Отправить заявку</button>
-        </div>
-        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
-      </form>
+   <div class="sth__box">
+    <div class="sth__head">
+      <p class="label" data-rv="fade">Заявка</p>
+      <h2 class="h2 sth__h" data-rv>Разберём сайт клиники и&nbsp;покажем, что мешает ему расти</h2>
     </div>
+    <div class="sth__text" data-rv style="--d:1"><p class="st__lead">Оставьте заявку. За&nbsp;2&nbsp;рабочих дня посмотрим сайт, карточки и&nbsp;сайты клиник рядом и&nbsp;скажем, с&nbsp;чего начать.</p>
+<ul class="ticks st__items">
+  <li>SEO входит в&nbsp;ежемесячное ведение комплексного маркетинга</li>
+  <li>Только продвижение считаем по&nbsp;заявке</li>
+  <li>Позиций не&nbsp;обещаем, показываем работу и&nbsp;цифры</li>
+</ul>
+<p class="st__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
+</div>
+    <form class="fm sth__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:2"><fieldset class="fm__choice">
+  <legend>Что хотите запустить</legend>
+  <div class="fm__opts">
+    <label class="fm__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="site" checked><span>Сайт и&nbsp;Карты</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="unsure"><span>Пока не&nbsp;знаю</span></label>
+  </div>
+</fieldset>
+<label class="fld fm__dir"><span>Услуга для рекламы</span>
+  <select name="direction">
+    <option value="implant">Имплантация</option>
+    <option value="all-on-4">All-on-4, полное восстановление</option>
+    <option value="ortho">Брекеты и элайнеры</option>
+    <option value="running">Реклама уже идёт, нужен разбор</option>
+    <option value="other">Другая услуга</option>
+  </select>
+</label>
+<div class="fm__row">
+  <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
+  <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
+</div>
+<div class="fm__row">
+  <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
+  <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
+</div>
+<label class="fm__c"><input type="checkbox" name="consent" required> <span>Даю <a href="../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../politika/">политики</a></span></label>
+<div class="fm__send">
+  <button class="btn" type="submit" data-magnetic>Отправить заявку</button>
+  <p class="fm__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
+</div>
+<p class="fm__ok" role="status" tabindex="-1" hidden>Спасибо! Сайт пока в&nbsp;разработке, поэтому заявка никуда не&nbsp;ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
+<p class="stub">Заглушка: форма пока не отправляет заявки</p>
+</form>
+   </div>
   </div>
 </section>
+
+
 
 </main>
 
-<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<!-- ============ ПОДВАЛ как на главной: тёмный, три колонки ссылок, знак во всю ширину ============ -->
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Реклама, сайты и&nbsp;Яндекс Карты для стоматологий. Первый тест в&nbsp;Директе без комиссии агентства.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -523,13 +721,13 @@
         <h2>Агентство</h2>
         <a href="../kejsy/">Кейсы</a>
         <a href="../blog/">Блог</a>
-        <a href="../kontakty/">О нас</a>
+        <a href="../kontakty/">Об агентстве</a>
         <a href="../kontakty/#contacts">Контакты</a>
         <a href="#start">Оставить заявку</a>
       </nav>
     </div>
     <div class="ftr__mark">
-      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy" decoding="async">
     </div>
     <div class="ftr__bottom">
       <p>© 2026 МедВектор</p>
@@ -541,9 +739,9 @@
   </div>
 </footer>
 <!-- нижняя кнопка на телефоне -->
-<a href="#start" class="mcta"><span>Обсудить продвижение</span></a>
+<a href="#start" class="mcta" data-magnetic><span>Обсудить продвижение</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/trajectory.js" defer></script>
+<script src="../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>
