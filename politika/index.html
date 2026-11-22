@@ -24,11 +24,12 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/trajectory.css">
-<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/pages.css">
+<!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
+<script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
 <script type="application/ld+json">
 {
@@ -68,40 +69,84 @@
 }
 </script>
 </head>
-<body>
+<body class="pg">
 <a class="skip" href="#main">К содержимому</a>
-<!-- ============ ШАПКА «Траектория»: логотип, четыре пункта, одна кнопка ============ -->
+<!-- ============ ШАПКА как на главной: логотип, «Услуги» с выпадающим списком всех услуг, кейсы, блог, агентство, контакты, одна кнопка ============ -->
 <header class="hdr" id="top">
   <div class="hdr__in">
     <a href="../" class="hdr__logo" aria-label="МедВектор, на главную">
-      <img src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-l" src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-d" src="../assets/img/medvector-logo-w.webp" alt="" width="440" height="93">
     </a>
     <nav class="hdr__nav" aria-label="Основное меню">
-      <a href="../yandex-direkt/">Яндекс Директ</a>
-      <a href="../kompleksnyj-marketing/">Комплексный маркетинг</a>
+      <div class="drop drop--wide" data-drop>
+        <button type="button" class="drop__btn" aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
+        <div class="drop__panel" id="drop-services">
+          <div class="drop__list drop__cols">
+            <div class="drop__col">
+              <p class="drop__h">Реклама и пациенты</p>
+              <ul>
+                <li><a href="../yandex-direkt/"><b>Яндекс Директ</b><small>Первый тест без комиссии агентства</small></a></li>
+                <li><a href="../lidy-dlya-stomatologii/"><b>Заявки для стоматологии</b><small>Пациенты из&nbsp;рекламы без покупки лидов</small></a></li>
+                <li><a href="../kompleksnyj-marketing/"><b>Комплексный маркетинг</b><small>Отдел маркетинга клиники на&nbsp;аутсорсе</small></a></li>
+                <li><a href="../medicinskij-marketing/"><b>Медицинский маркетинг</b><small>Клиники и&nbsp;медицинские центры</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Сайт и поиск</p>
+              <ul>
+                <li><a href="../sajt-dlya-stomatologii/"><b>Сайт для стоматологии</b><small>С&nbsp;нуля или редизайн по&nbsp;требованиям закона</small></a></li>
+                <li><a href="../seo-dlya-stomatologii/"><b>SEO для стоматологии</b><small>Рост в&nbsp;поиске по&nbsp;услугам в&nbsp;своём городе</small></a></li>
+                <li><a href="../geo-prodvizhenie/"><b>Продвижение в&nbsp;нейросетях</b><small>Что Алиса и&nbsp;ChatGPT отвечают о&nbsp;клинике</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Карты и репутация</p>
+              <ul>
+                <li><a href="../yandex-karty/"><b>Яндекс Карты</b><small>Карточка, каталог услуг и&nbsp;ответы на&nbsp;отзывы</small></a></li>
+                <li><a href="../2gis/"><b>2ГИС</b><small>Карточка клиники и&nbsp;реклама в&nbsp;справочнике</small></a></li>
+                <li><a href="../prodoktorov/"><b>ПроДокторов</b><small>Профиль клиники и&nbsp;врачей</small></a></li>
+                <li><a href="../otzyvy-i-reputaciya/"><b>Отзывы и&nbsp;репутация</b><small>Настоящие отзывы и&nbsp;ответы на&nbsp;них</small></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <a href="../kejsy/">Кейсы</a>
       <a href="../blog/">Блог</a>
-      <a href="../kontakty/">О нас</a>
+      <a href="../kontakty/">Об агентстве</a>
+      <a href="../kontakty/#contacts">Контакты</a>
     </nav>
     <a href="../#start" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- мобильное меню: тёмный экран, пункты крупно -->
+<!-- мобильное меню: тёмный экран, услуги списком, разделы крупно -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
-    <a href="../yandex-direkt/">Яндекс Директ</a>
-    <a href="../kompleksnyj-marketing/">Комплексный маркетинг</a>
-    <a href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a>
-    <a href="../yandex-karty/">Яндекс Карты</a>
+    <p class="mnav__h">Услуги</p>
+    <ul class="mnav__sub mnav__sub--all">
+      <li><a href="../yandex-direkt/">Яндекс Директ</a></li>
+      <li><a href="../lidy-dlya-stomatologii/">Заявки для стоматологии</a></li>
+      <li><a href="../kompleksnyj-marketing/">Комплексный маркетинг</a></li>
+      <li><a href="../medicinskij-marketing/">Медицинский маркетинг</a></li>
+      <li><a href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a></li>
+      <li><a href="../seo-dlya-stomatologii/">SEO для стоматологии</a></li>
+      <li><a href="../geo-prodvizhenie/">Продвижение в&nbsp;нейросетях</a></li>
+      <li><a href="../yandex-karty/">Яндекс Карты</a></li>
+      <li><a href="../2gis/">2ГИС</a></li>
+      <li><a href="../prodoktorov/">ПроДокторов</a></li>
+      <li><a href="../otzyvy-i-reputaciya/">Отзывы и&nbsp;репутация</a></li>
+    </ul>
     <a href="../kejsy/">Кейсы</a>
     <a href="../blog/">Блог</a>
-    <a href="../kontakty/">О нас</a>
+    <a href="../kontakty/">Об агентстве</a>
+    <a href="../kontakty/#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
     <a href="../#start" class="btn btn--light">Разобрать клинику</a>
-    <p>Первый тест в&nbsp;Директе без комиссии агентства. Сайт, Яндекс Карты и&nbsp;SEO одной командой.</p>
+    <p>Санкт-Петербург. Работаем с&nbsp;клиниками по&nbsp;всей России.</p>
   </div>
 </div>
 
@@ -147,11 +192,11 @@
 </section>
 </main>
 
-<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<!-- ============ ПОДВАЛ как на главной: тёмный, три колонки ссылок, знак во всю ширину ============ -->
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Реклама, сайты и&nbsp;Яндекс Карты для стоматологий. Первый тест в&nbsp;Директе без комиссии агентства.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -173,13 +218,13 @@
         <h2>Агентство</h2>
         <a href="../kejsy/">Кейсы</a>
         <a href="../blog/">Блог</a>
-        <a href="../kontakty/">О нас</a>
+        <a href="../kontakty/">Об агентстве</a>
         <a href="../kontakty/#contacts">Контакты</a>
         <a href="../#start">Оставить заявку</a>
       </nav>
     </div>
     <div class="ftr__mark">
-      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy" decoding="async">
     </div>
     <div class="ftr__bottom">
       <p>© 2026 МедВектор</p>
@@ -192,6 +237,6 @@
 </footer>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/trajectory.js" defer></script>
+<script src="../assets/js/pages.js" defer></script>
 </body>
 </html>
