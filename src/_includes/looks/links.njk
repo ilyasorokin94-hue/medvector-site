@@ -60,3 +60,26 @@
   </div>
 </section>
 {% endmacro %}
+
+{# «С обложками»: карточки статей с обложкой сверху, первая шире остальных, когда карточек пять #}
+{% macro photo(s) %}
+<section{{ c.attrs(s, 'lk-links-photo') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ul class="likp" data-n="{{ s.items.length }}">
+{% for r in s.items %}
+{% set a = art(r[2]) %}
+{% set im = a.cover or a.hero %}
+      <li class="likp__i{% if not im %} likp__i--bare{% endif %}" data-rv style="--d:{{ loop.index0 % 3 }}">
+{% if im %}
+        <div class="likp__img"><img src="{{ im.src }}-640.webp" srcset="{{ im.src }}-640.webp 640w, {{ im.src }}-1000.webp 1000w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, {{ '62vw' if loop.first and s.items.length == 5 else '32vw' }}" width="1600" height="{{ im.h or 1067 }}" alt="" loading="lazy" decoding="async"></div>
+{% endif %}
+        <h3 class="likp__h"><a class="likp__a" href="{{ r[2] }}">{{ r[0] | t | safe }}</a></h3>
+        <p>{{ r[1] | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ul>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

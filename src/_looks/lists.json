@@ -199,29 +199,29 @@
     },
     "/blog/": {
       "ads": [
+        "photo",
         "cards",
-        "big",
-        "rows"
+        "big"
       ],
       "maps": [
         "big",
-        "cards",
+        "photo",
         "dark"
       ],
       "law": [
         "dark",
-        "cards",
+        "photo",
         "big"
       ],
       "manage": [
         "rows",
-        "cards",
+        "photo",
         "big"
       ],
       "opening": [
         "cards",
-        "big",
-        "rows"
+        "photo",
+        "big"
       ]
     }
   },
@@ -242,6 +242,7 @@
     "links-dark": "Тёмные плитки",
     "demo-mock": "Макет",
     "demo-stage": "Витрина",
-    "demo-phone": "Телефон"
+    "demo-phone": "Телефон",
+    "links-photo": "С обложками"
   }
 }

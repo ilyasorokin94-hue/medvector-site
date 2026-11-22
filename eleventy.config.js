@@ -127,6 +127,8 @@ module.exports = function (cfg) {
   cfg.addFilter('h2ids', c => h2split(c).out);
   cfg.addFilter('h2list', c => h2split(c).items);
   cfg.addNunjucksGlobal('related', related);
+  // картинки страницы по адресу из src/_data/pageart.json: обложка статьи или фото первого экрана
+  cfg.addNunjucksGlobal('art', url => readJSON('pageart.json')[url] || {});
   cfg.addFilter('json', v => JSON.stringify(v));
   cfg.addFilter('pad2', n => String(n).padStart(2, '0'));
 
