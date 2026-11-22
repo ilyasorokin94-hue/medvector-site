@@ -44,7 +44,8 @@
 .crumbs { margin-bottom: clamp(28px, 4vw, 56px); font-size: 14px; color: var(--ink-3); }
 .crumbs ol { display: flex; flex-wrap: wrap; gap: 4px 0; }
 .crumbs li { display: inline-flex; align-items: center; }
-.crumbs li + li::before { content: ''; width: 5px; height: 5px; margin: 0 12px 0 10px; border-top: 1.5px solid currentColor; border-right: 1.5px solid currentColor; transform: rotate(45deg); opacity: .6; }
+/* разделитель крошек: тонкая косая черта, не уголок: стрелок на сайте нет */
+.crumbs li + li::before { content: ''; width: 1px; height: 13px; margin: 0 12px; background: currentColor; transform: rotate(20deg); opacity: .5; }
 .crumbs a { text-decoration: none; }
 .crumbs a:hover { color: var(--vec-ink); }
 .dark .crumbs, .crumbs--light { color: var(--on-dark-2); }
