@@ -215,7 +215,9 @@
   /* ---------- видео под первым экраном ----------
      На компьютере при обычной связи ролик ставит маленький скрипт прямо в разметке первого экрана (.is-early), до первой отрисовки,
      слово «МедВектор» сразу стекло (.is-film). Если его не было, ролик ставится здесь после загрузки. Ушли с первого экрана: пауза.
-     На телефоне (до 600 px) свой вертикальный ролик: заставка стоит сразу, сам ролик качается после загрузки страницы. */
+     На телефоне (до 600 px) свой вертикальный ролик: заставка стоит сразу, сам ролик качается после загрузки страницы.
+     На телефоне берём H.264 (.mp4): его iPhone играет везде, WebM там не всегда. Если система не дала запуститься сама
+     (на iPhone так бывает в режиме энергосбережения), ролик запускается от первого касания страницы. */
   (function () {
     var box = $('[data-hero-film]'); if (!box) return;
     var v = $('video', box), conn = navigator.connection || {};
@@ -227,11 +229,19 @@
     var early = box.classList.contains('is-early'), has = !!v.getAttribute('src'); if (early) shown = true; if (has) loaded = true;
     /* кадр-заставка (около 20 КБ) приходит вместе со страницей и ждёт под прозрачным слоем, сам ролик качается после загрузки */
     v.poster = name + '.webp';
+    v.muted = v.defaultMuted = true; v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
     var play = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
+    /* автозапуск запрещён: ждём первое касание или нажатие, оно разрешает запуск; когда ролик пошёл, больше не слушаем */
+    var acts = ['touchend', 'pointerup', 'keydown'], nudge = function () { if (loaded && seen && v.paused) play(); };
+    acts.forEach(function (t) { addEventListener(t, nudge, true); });
+    v.addEventListener('playing', function () { acts.forEach(function (t) { removeEventListener(t, nudge, true); }); }, { once: true });
     var show = function () { if (shown) return; shown = true; box.classList.add('is-on'); box.parentNode.classList.add('is-film'); };
     var start = function () {
       loaded = true;
-      v.src = name + (v.canPlayType('video/webm; codecs="vp9"') ? '.webm' : '.mp4');
+      var webm = !small && v.canPlayType('video/webm; codecs="vp9"');
+      v.src = name + (webm ? '.webm' : '.mp4');
+      /* WebM не открылся: тот же ролик в H.264 */
+      if (webm) v.addEventListener('error', function () { v.src = name + '.mp4'; if (seen) play(); }, { once: true });
       v.addEventListener('playing', show, { once: true });
       setTimeout(show, 1200); /* связь медленная: проявляем кадр-заставку, ролик подхватит с него же */
       if (seen) play();
