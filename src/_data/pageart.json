@@ -21,6 +21,62 @@
       "h": 1067
     }
   },
+  "/blog/brend-i-vyveska-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-brend",
+      "alt": "Макет фасада клиники с пустой вывеской и образцы цветов",
+      "h": 833
+    }
+  },
+  "/blog/crm-dlya-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-crm",
+      "alt": "Администратор работает за ноутбуком на стойке клиники",
+      "h": 1067
+    }
+  },
+  "/blog/ekonomika-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-ekonomika",
+      "alt": "Пустой стоматологический кабинет вечером",
+      "h": 1067
+    }
+  },
+  "/blog/kak-otkryt-stomatologiyu/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-otkryt",
+      "alt": "Новый кабинет стоматологии после ремонта, кресло ещё в плёнке",
+      "h": 1067
+    }
+  },
+  "/blog/kak-otvechat-na-otzyvy-pacientov/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-otzyvy",
+      "alt": "Сотрудница клиники пишет ответ в телефоне",
+      "h": 1067
+    }
+  },
+  "/blog/kak-privlech-pacientov-v-stomatologiyu/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-privlech",
+      "alt": "Пациенты ждут приёма в холле стоматологии",
+      "h": 917
+    }
+  },
+  "/blog/nazvanie-dlya-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-nazvanie",
+      "alt": "Пустые карточки с набросками на столе",
+      "h": 1067
+    }
+  },
+  "/blog/prodazhi-v-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-prodazhi",
+      "alt": "Врач объясняет пациенту план лечения на модели челюсти",
+      "h": 1067
+    }
+  },
   "/geo-prodvizhenie/": {
     "hero": {
       "src": "/assets/img/pages/geo-hero",
