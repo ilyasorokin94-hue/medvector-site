@@ -68,7 +68,11 @@ def main():
         still = os.path.join(OUT, f'{name}.webp')
         q = 72
         while True:
-            run(['-ss', str(start), '-i', src, '-frames:v', '1', '-vf', vf.replace(f',fps={FPS}', ''), '-c:v', 'libwebp', '-quality', str(q), still])
+            if hero:
+                # заставка совпадает с первым кадром готовой петли: ролик подхватывает её без скачка
+                run(['-i', os.path.join(OUT, f'{name}.mp4'), '-frames:v', '1', '-c:v', 'libwebp', '-quality', str(q), still])
+            else:
+                run(['-ss', str(start), '-i', src, '-frames:v', '1', '-vf', vf.replace(f',fps={FPS}', ''), '-c:v', 'libwebp', '-quality', str(q), still])
             if os.path.getsize(still) <= STILL_MAX or q <= 30:
                 break
             q -= 8
