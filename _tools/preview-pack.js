@@ -37,6 +37,11 @@ for (const f of html) {
     for (const a of ['srcset', 'imagesrcset']) { const v = attr(m[0], a); if (v) v.split(',').forEach(c => { const u = c.trim().split(/\s+/)[0]; if (u) add(u, f); }); }
   }
 }
+// ролик первого экрана главной подставляет скрипт по имени из data-hero-film: берём папку роликов целиком
+if (html.some(f => fs.readFileSync(f, 'utf8').includes('data-hero-film'))) {
+  const v = path.join(src, 'assets', 'video');
+  if (fs.existsSync(v)) for (const f of fs.readdirSync(v)) need.add(path.join(v, f));
+}
 // стили тянут шрифты и картинки через url()
 for (const f of [...need].filter(f => f.endsWith('.css'))) {
   for (const m of fs.readFileSync(f, 'utf8').matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/g)) add(m[1], f);
