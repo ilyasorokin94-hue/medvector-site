@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """Сцена для видеоряда на главной: из любого исходного ролика делает три файла в assets/video/.
 
-    python3 _tools/film.py <исходник.mp4> <имя> [секунд=6] [начало=0]
+    python3 _tools/film.py <исходник.mp4> <имя> [секунд=6] [начало=0] [--hero]
+
+    --hero   фон первого экрана: 1280x720, до 1400 КБ, конец ролика плавно переходит в начало (петля без рывка)
 
 Получается:
     assets/video/<имя>.webm   VP9, 960x540, 24 кадра, без звука
     assets/video/<имя>.mp4    H.264, то же, для браузеров без WebM
     assets/video/<имя>.webp   первый кадр, он же заставка до загрузки видео
 
-Бюджет: каждое видео не больше 500 КБ, заставка не больше 40 КБ. Если не уложились, скрипт сам
+Бюджет сцены в панели услуг: каждое видео не больше 500 КБ, заставка не больше 40 КБ. Если не уложились, скрипт сам
 понижает битрейт или качество и пишет итоговые размеры. Нужен ffmpeg с libvpx-vp9, libx264 и libwebp.
 """
 import os
@@ -29,13 +31,25 @@ def run(args):
 def main():
     if len(sys.argv) < 3:
         sys.exit(__doc__)
-    src, name = sys.argv[1], sys.argv[2]
-    secs = float(sys.argv[3]) if len(sys.argv) > 3 else 6.0
-    start = float(sys.argv[4]) if len(sys.argv) > 4 else 0.0
+    global W, H, VIDEO_MAX, STILL_MAX
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    hero = '--hero' in sys.argv
+    src, name = args[0], args[1]
+    secs = float(args[2]) if len(args) > 2 else 6.0
+    start = float(args[3]) if len(args) > 3 else 0.0
+    if hero:
+        W, H, VIDEO_MAX, STILL_MAX = 1280, 720, 1400 * 1024, 70 * 1024
     os.makedirs(OUT, exist_ok=True)
     # кадр заполняет 960x540 целиком: лишнее по краям обрезается
     vf = f'scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},fps={FPS},format=yuv420p'
     cut = ['-ss', str(start), '-t', str(secs), '-i', src, '-an', '-vf', vf]
+    if hero:
+        # петля: последняя секунда растворяется в первой, ролик становится на секунду короче
+        X = 1.0
+        graph = (f'[0:v]{vf},split[a][b];[a]trim={X}:{secs},setpts=PTS-STARTPTS[body];[b]trim=0:{X},setpts=PTS-STARTPTS[head];'
+                 f'[body][head]xfade=transition=fade:duration={X}:offset={secs - 2 * X},format=yuv420p[out]')
+        cut = ['-ss', str(start), '-t', str(secs), '-i', src, '-an', '-filter_complex', graph, '-map', '[out]']
+        secs -= X
     sizes = {}
     with tempfile.TemporaryDirectory() as tmp:
         log = os.path.join(tmp, 'pass')
@@ -54,7 +68,11 @@ def main():
         still = os.path.join(OUT, f'{name}.webp')
         q = 72
         while True:
-            run(['-ss', str(start), '-i', src, '-frames:v', '1', '-vf', vf.replace(f',fps={FPS}', ''), '-c:v', 'libwebp', '-quality', str(q), still])
+            if hero:
+                # заставка совпадает с первым кадром готовой петли: ролик подхватывает её без скачка
+                run(['-i', os.path.join(OUT, f'{name}.mp4'), '-frames:v', '1', '-c:v', 'libwebp', '-quality', str(q), still])
+            else:
+                run(['-ss', str(start), '-i', src, '-frames:v', '1', '-vf', vf.replace(f',fps={FPS}', ''), '-c:v', 'libwebp', '-quality', str(q), still])
             if os.path.getsize(still) <= STILL_MAX or q <= 30:
                 break
             q -= 8
