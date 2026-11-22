@@ -213,8 +213,8 @@
   });
 
   /* ---------- видео под первым экраном ----------
-     Страница открывается без него. После загрузки, только на компьютере и при обычной связи, ролик скачивается
-     и проявляется под синим слоем, слово «МедВектор» при этом становится стеклом (.is-film). Ушли с первого экрана: пауза. */
+     На компьютере при обычной связи ролик ставит маленький скрипт прямо в разметке первого экрана (.is-early), до первой отрисовки,
+     слово «МедВектор» сразу стекло (.is-film). Если его не было, ролик ставится здесь после загрузки. Ушли с первого экрана: пауза. */
   (function () {
     var box = $('[data-hero-film]'); if (!box) return;
     var v = $('video', box), conn = navigator.connection || {};
@@ -222,6 +222,7 @@
     var me = document.currentScript || $('script[src*="home.js"]'), src = me && me.getAttribute('src');
     var base = src ? src.replace(/js\/[^/]*$/, 'video/') : 'assets/video/';
     var name = base + box.getAttribute('data-hero-film'), seen = true, loaded = false, shown = false;
+    var early = box.classList.contains('is-early'); if (early) loaded = shown = true;
     /* кадр-заставка (около 20 КБ) приходит вместе со страницей и ждёт под прозрачным слоем, сам ролик качается после загрузки */
     v.poster = name + '.webp';
     var play = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
@@ -240,7 +241,72 @@
     }, { threshold: 0.15 }).observe(box);
     document.addEventListener('visibilitychange', function () { if (!loaded) return; if (document.hidden) v.pause(); else if (seen) play(); });
     var later = function () { (window.requestIdleCallback || function (f) { setTimeout(f, 400); })(start, { timeout: 1500 }); };
+    if (early) return;
     if (document.readyState === 'complete') later(); else addEventListener('load', later);
+  })();
+
+  /* ---------- «Как идёт работа»: живая переписка в телефоне ----------
+     Когда телефон на экране, менеджер «печатает» и присылает сообщения по одному, клиент набирает ответ в поле
+     и отправляет, лента подъезжает вверх. Двигается только transform, раскладка страницы не меняется.
+     Без JS и при «уменьшить движение» видна вся переписка сразу. */
+  (function () {
+    var ph = $('#process .cx'); if (!ph) return;
+    var sec = ph.closest('section'), view = $('.cx__view', ph), feed = $('.cx__feed', ph), typing = $('.cx__typing', ph),
+      status = $('.cx__status', ph), field = $('.cx__field', ph), send = $('.cx__send', ph), hint = field.textContent,
+      items = $$('.cx__feed > *', ph), msgs = items.filter(function (x) { return x.classList.contains('cx__m'); });
+    var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+    var fit = function (extra) {
+      var last = null; items.forEach(function (x) { if (x.classList.contains('on')) last = x; });
+      var y = Math.min(0, view.clientHeight - 14 - (extra || 0) - (last ? last.offsetTop + last.offsetHeight : 0));
+      feed.style.transform = 'translateY(' + y + 'px)';
+    };
+    var show = function (i) {
+      var m = msgs[i];
+      for (var k = items.indexOf(m) - 1; k >= 0 && !items[k].classList.contains('cx__m'); k--) items[k].classList.add('on');
+      m.classList.add('on'); fit();
+      $$('[data-at]', sec).forEach(function (x) { x.classList.toggle('on', +x.dataset.at <= i); });
+    };
+    var one = function (i) {
+      var m = msgs[i];
+      if (m.classList.contains('cx__m--me')) {
+        var t = $('.cx__t', m).textContent, c = 0;
+        field.classList.add('is-typing');
+        var type = function () {
+          if (c < t.length) { c++; field.textContent = t.slice(0, c); return wait(t[c - 1] === ' ' ? 70 : 38).then(type); }
+          return wait(380).then(function () { send.classList.add('is-on'); return wait(260); }).then(function () {
+            field.textContent = hint; field.classList.remove('is-typing'); send.classList.remove('is-on'); show(i);
+            return wait(900);
+          }).then(function () { m.classList.add('is-read'); return wait(600); });
+        };
+        return type();
+      }
+      status.textContent = 'печатает'; status.classList.add('is-typing');
+      if (items.slice(0, items.indexOf(m)).some(function (x) { return x.classList.contains('on'); })) fit(46);
+      typing.classList.add('on');
+      return wait(Math.min(1800, 600 + m.textContent.length * 12)).then(function () {
+        typing.classList.remove('on'); status.textContent = 'в сети'; status.classList.remove('is-typing'); show(i);
+        return wait(750);
+      });
+    };
+    var run = function (i) { if (i < msgs.length) one(i).then(function () { run(i + 1); }); };
+    if (reduce || !('IntersectionObserver' in window)) { msgs.forEach(function (m, i) { show(i); m.classList.add('is-read'); }); return; }
+    var io = new IntersectionObserver(function (es) {
+      if (!es[es.length - 1].isIntersecting) return;
+      io.disconnect(); wait(400).then(function () { run(0); });
+    }, { threshold: 0.45 });
+    io.observe(ph);
+    addEventListener('resize', function () { fit(); });
+
+    /* телефон чуть поворачивается за мышью */
+    var stage = $('[data-tilt]', sec), dev = stage && $('.c5__dev', stage);
+    if (stage && dev && fine) {
+      var raf = 0, px = 0.5, py = 0.5;
+      stage.addEventListener('pointermove', function (e) {
+        var r = stage.getBoundingClientRect(); px = (e.clientX - r.left) / r.width; py = (e.clientY - r.top) / r.height;
+        if (!raf) raf = requestAnimationFrame(function () { raf = 0; dev.style.setProperty('--ry', (-16 + (px - 0.5) * 14).toFixed(2) + 'deg'); dev.style.setProperty('--rx', (6 - (py - 0.5) * 8).toFixed(2) + 'deg'); });
+      });
+      stage.addEventListener('pointerleave', function () { dev.style.removeProperty('--ry'); dev.style.removeProperty('--rx'); });
+    }
   })();
 
   /* ---------- секции за экраном ставят свои бесконечные анимации на паузу ---------- */
