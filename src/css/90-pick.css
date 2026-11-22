@@ -6,7 +6,7 @@
 .vset__num { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: #fff; font-weight: 500; font-size: 13px; }
 .vset__name { flex: 1 1 200px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
 .vset__btns { display: flex; gap: 6px; }
-.vset__b { display: inline-flex; align-items: baseline; gap: 6px; min-height: 36px; padding: 0 14px; border: 1px solid rgba(0, 15, 64, .25); border-radius: 99px; background: #fff; cursor: pointer; font-size: 14px; transition: background-color .3s, color .3s; }
+.vset__b { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 14px; border: 1px solid rgba(0, 15, 64, .25); border-radius: 99px; background: #fff; cursor: pointer; font-size: 14px; transition: background-color .3s, color .3s; }
 .vset__b b { font-weight: 600; }
 .vset__b small { font-size: 13px; color: var(--ink-3); }
 .vset__b[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
