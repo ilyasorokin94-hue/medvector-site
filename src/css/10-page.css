@@ -115,6 +115,10 @@
   .ct td::before { content: attr(data-label); font-size: calc(14px * var(--t-k)); color: var(--ink-3); }
   .ct td:last-child::before { color: var(--vec-ink); }
 }
+/* узкий телефон: подпись строки над значением, а не слева, чтобы значению хватало ширины */
+@media (max-width: 379px) {
+  .ct td { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 8px 0; }
+}
 
 /* ---------- вопросы: раскрывающийся список ---------- */
 .qa { border-top: 1px solid var(--line); }
