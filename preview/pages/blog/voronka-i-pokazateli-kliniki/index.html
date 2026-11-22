@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ru" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- сайт в разработке: убрать noindex при запуске на боевом домене -->
+<meta name="robots" content="noindex, nofollow">
+<title>Воронка пациентов и показатели маркетинга стоматологии | МедВектор</title>
+<meta name="description" content="Воронка продаж в стоматологии от показа до повторного визита: какие показатели считать, как устроены сквозная аналитика и коллтрекинг, что такое LTV пациента.">
+<meta name="theme-color" content="#ffffff">
+<meta name="format-detection" content="telephone=no">
+<link rel="canonical" href="https://medvector.pro/blog/voronka-i-pokazateli-kliniki/">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-22">
+<meta property="article:modified_time" content="2026-11-22">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="МедВектор">
+<meta property="og:title" content="Воронка пациентов и показатели маркетинга стоматологии | МедВектор">
+<meta property="og:description" content="Воронка продаж в стоматологии от показа до повторного визита: какие показатели считать, как устроены сквозная аналитика и коллтрекинг, что такое LTV пациента.">
+<meta property="og:url" content="https://medvector.pro/blog/voronka-i-pokazateli-kliniki/">
+<meta property="og:image" content="https://medvector.pro/assets/img/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/trajectory.css">
+<script>document.documentElement.classList.replace('no-js', 'js');</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://medvector.pro/blog/voronka-i-pokazateli-kliniki/",
+      "url": "https://medvector.pro/blog/voronka-i-pokazateli-kliniki/",
+      "name": "Воронка пациентов и показатели маркетинга стоматологии | МедВектор",
+      "description": "Воронка продаж в стоматологии от показа до повторного визита: какие показатели считать, как устроены сквозная аналитика и коллтрекинг, что такое LTV пациента.",
+      "inLanguage": "ru",
+      "isPartOf": {
+        "@type": "WebSite",
+        "url": "https://medvector.pro/",
+        "name": "МедВектор"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Главная",
+          "item": "https://medvector.pro/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Блог",
+          "item": "https://medvector.pro/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Воронка и показатели клиники",
+          "item": "https://medvector.pro/blog/voronka-i-pokazateli-kliniki/"
+        }
+      ]
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://medvector.pro/blog/voronka-i-pokazateli-kliniki/#article",
+      "headline": "Воронка пациентов: какие показатели считать клинике",
+      "description": "Воронка продаж в стоматологии от показа до повторного визита: какие показатели считать, как устроены сквозная аналитика и коллтрекинг, что такое LTV пациента.",
+      "datePublished": "2026-11-22",
+      "dateModified": "2026-11-22",
+      "inLanguage": "ru",
+      "mainEntityOfPage": {
+        "@id": "https://medvector.pro/blog/voronka-i-pokazateli-kliniki/"
+      },
+      "author": {
+        "@type": "ProfessionalService",
+        "@id": "https://medvector.pro/#agency",
+        "name": "МедВектор",
+        "url": "https://medvector.pro/"
+      },
+      "publisher": {
+        "@type": "ProfessionalService",
+        "@id": "https://medvector.pro/#agency",
+        "name": "МедВектор",
+        "url": "https://medvector.pro/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://medvector.pro/assets/img/medvector-logo.png"
+        }
+      },
+      "image": "https://medvector.pro/assets/img/og-cover.jpg"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Что такое стоимость привлечения пациента?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Это все расходы на рекламу за период, поделённые на число новых пациентов, которые пришли на приём. Считать её по заявкам неправильно: заявка ещё не пациент."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Что такое LTV пациента?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "LTV это сумма, которую пациент приносит клинике за всё время. В стоматологии её считают по оплатам за несколько лет: первый визит часто недорогой, а основное лечение и повторные визиты идут позже."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Нужна ли небольшой клинике сквозная аналитика?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "В полном виде нет. Хватит трёх вещей: заявки с сайта и звонки попадают в один список, у каждой есть источник, администратор отмечает запись и визит. Это уже позволяет сравнивать источники по пациентам."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Какие KPI ставить маркетингу стоматологии?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Число первичных пациентов по нужным услугам и стоимость привлечения одного пациента. Клики, показы и даже заявки это промежуточные цифры: по ним удобно настраивать рекламу, но оценивать по ним результат нельзя."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">К содержимому</a>
+<!-- ============ ШАПКА «Траектория»: логотип, четыре пункта, одна кнопка ============ -->
+<header class="hdr" id="top">
+  <div class="hdr__in">
+    <a href="../../" class="hdr__logo" aria-label="МедВектор, на главную">
+      <img src="../../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+    </a>
+    <nav class="hdr__nav" aria-label="Основное меню">
+      <a href="../../yandex-direkt/">Яндекс Директ</a>
+      <a href="../../kompleksnyj-marketing/">Комплексный маркетинг</a>
+      <a href="../../kejsy/">Кейсы</a>
+      <a href="../../blog/" aria-current="page">Блог</a>
+      <a href="../../kontakty/">О нас</a>
+    </nav>
+    <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
+    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- мобильное меню: тёмный экран, пункты крупно -->
+<div class="mnav" id="mnav" inert>
+  <nav class="mnav__nav" aria-label="Мобильное меню">
+    <a href="../../yandex-direkt/">Яндекс Директ</a>
+    <a href="../../kompleksnyj-marketing/">Комплексный маркетинг</a>
+    <a href="../../sajt-dlya-stomatologii/">Сайт для стоматологии</a>
+    <a href="../../yandex-karty/">Яндекс Карты</a>
+    <a href="../../kejsy/">Кейсы</a>
+    <a href="../../blog/">Блог</a>
+    <a href="../../kontakty/">О нас</a>
+  </nav>
+  <div class="mnav__foot">
+    <a href="#start" class="btn btn--light">Разобрать клинику</a>
+    <p>Первый тест в&nbsp;Директе без комиссии агентства. Сайт, Яндекс Карты и&nbsp;SEO одной командой.</p>
+  </div>
+</div>
+
+<main id="main">
+<section>
+  <div class="wrap">
+    <article class="prose prose--article">
+      <nav class="crumbs" aria-label="Хлебные крошки">
+  <ol>
+    <li><a href="../../">Главная</a></li>
+    <li><a href="../../blog/">Блог</a></li>
+    <li><span aria-current="page">Воронка и&nbsp;показатели клиники</span></li>
+  </ol>
+</nav>
+
+      <h1>Воронка пациентов: какие показатели считать клинике</h1>
+      <p class="prose__lead">Реклама может приносить сто заявок в&nbsp;месяц и&nbsp;не&nbsp;приносить денег. Чтобы увидеть, где теряются пациенты, клинике нужна воронка: путь от&nbsp;показа объявления до&nbsp;повторного визита, разложенный на&nbsp;шаги. Разбираем, какие показатели считать на&nbsp;каждом шаге и&nbsp;какие инструменты для этого нужны.</p>
+      <p class="prose__meta">Обновлено: ноябрь 2026</p>
+      <nav class="prose__toc" aria-label="Содержание статьи">
+        <p>В&nbsp;статье</p>
+        <ul>
+          <li><a href="#p1">Из&nbsp;каких шагов состоит воронка</a></li>
+          <li><a href="#p2">Главные показатели</a></li>
+          <li><a href="#p3">Сквозная аналитика и&nbsp;коллтрекинг</a></li>
+          <li><a href="#p4">Как возвращать пациентов</a></li>
+          <li><a href="#p5">С&nbsp;чего начать, если учёта нет</a></li>
+        </ul>
+      </nav>
+      <h2 id="p1">Из&nbsp;каких шагов состоит воронка</h2>
+<p>Воронка продаж в&nbsp;стоматологии длиннее, чем в&nbsp;магазине. Между первым обращением и&nbsp;оплатой лечения могут пройти недели, а&nbsp;главный доход клиника получает на&nbsp;повторных визитах.</p>
+<section class="tbl" aria-label="Таблица: шаги воронки пациентов и показатели на каждом шаге" tabindex="0">
+<table>
+  <thead>
+    <tr><th scope="col">Шаг</th><th scope="col">Что считаем</th><th scope="col">Где теряются люди</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">Показ и&nbsp;переход</th><td>Показы, клики, цена клика</td><td>Объявление не&nbsp;отвечает на&nbsp;запрос</td></tr>
+    <tr><th scope="row">Обращение</th><td>Заявки и&nbsp;звонки, доля обращений от&nbsp;переходов</td><td>На&nbsp;странице нет цены, врача, понятной записи</td></tr>
+    <tr><th scope="row">Целевое обращение</th><td>Доля обращений по&nbsp;нужной услуге</td><td>Реклама идёт по&nbsp;общим запросам</td></tr>
+    <tr><th scope="row">Запись</th><td>Доля записей от&nbsp;целевых обращений</td><td>Перезвонили поздно, не&nbsp;назвали цену, нет удобного времени</td></tr>
+    <tr><th scope="row">Визит</th><td>Доля пришедших от&nbsp;записанных</td><td>Не&nbsp;напомнили, записали слишком далеко</td></tr>
+    <tr><th scope="row">Лечение</th><td>Доля принявших план лечения, средний чек</td><td>План непонятен, нет рассрочки, врач не&nbsp;объяснил этапы</td></tr>
+    <tr><th scope="row">Повторный визит</th><td>Доля вернувшихся, выручка на&nbsp;пациента за&nbsp;год</td><td>Никто не&nbsp;позвал на&nbsp;осмотр и&nbsp;продолжение лечения</td></tr>
+  </tbody>
+</table>
+</section>
+<p>Готовых «нормальных» значений для этих долей нет: они зависят от&nbsp;услуги, города и&nbsp;цены. Сравнивать нужно клинику с&nbsp;самой собой, месяц к&nbsp;месяцу, и&nbsp;услуги между собой.</p>
+
+<h2 id="p2">Главные показатели</h2>
+<h3>Стоимость привлечения пациента</h3>
+<p>Расходы на&nbsp;рекламу делим на&nbsp;число новых пациентов, которые пришли на&nbsp;приём. Считать нужно по&nbsp;услугам: пациент на&nbsp;имплантацию и&nbsp;пациент на&nbsp;гигиену стоят по-разному и&nbsp;приносят разные деньги. Стоимость заявки показывает, как работает реклама. Стоимость привлечения пациента показывает, как работают реклама и&nbsp;администраторы вместе.</p>
+<h3>Доля записей и&nbsp;доля визитов</h3>
+<p>Если из&nbsp;десяти целевых обращений записываются трое, дело чаще в&nbsp;разговоре, чем в&nbsp;рекламе. Эту цифру называют конверсией администратора. Доля визитов показывает, сколько записанных дошли до&nbsp;клиники.</p>
+<h3>Средний чек и&nbsp;принятые планы лечения</h3>
+<p>Средний чек первого визита и&nbsp;средний чек пациента за&nbsp;год это разные числа. Для клиники важнее второе. Доля принятых планов лечения показывает, насколько понятно врач объясняет, что и&nbsp;зачем нужно делать.</p>
+<h3>LTV пациента и&nbsp;возврат пациентов</h3>
+<p>LTV пациента складывается из&nbsp;всех его оплат. Возврат пациентов считают как долю тех, кто пришёл снова в&nbsp;течение года. Чем она выше, тем меньше клиника зависит от&nbsp;рекламы: новых пациентов нужно меньше, чтобы заполнить расписание.</p>
+
+<h2 id="p3">Сквозная аналитика и&nbsp;коллтрекинг</h2>
+<p>Сквозная аналитика для клиники это связка трёх источников: рекламных кабинетов, сайта и&nbsp;системы, где ведётся запись. Она показывает не&nbsp;«сколько кликов», а&nbsp;«сколько денег принёс каждый рубль рекламы». В&nbsp;стоматологии значительная часть обращений приходит по&nbsp;телефону, поэтому без учёта звонков картина неполная.</p>
+<p>Коллтрекинг для клиники подменяет номер на&nbsp;сайте в&nbsp;зависимости от&nbsp;источника: человек из&nbsp;рекламы видит один номер, из&nbsp;поиска другой. Так звонок привязывается к&nbsp;объявлению и&nbsp;запросу. Разговоры записываются, и&nbsp;по&nbsp;ним можно разбирать работу администраторов.</p>
+<p>Что нужно, чтобы это работало:</p>
+<ul>
+  <li>счётчик Метрики с&nbsp;целями на&nbsp;заявку, звонок и&nbsp;переход в&nbsp;мессенджер;</li>
+  <li>подмена номеров хотя&nbsp;бы для рекламы;</li>
+  <li>передача заявок с&nbsp;сайта в&nbsp;CRM или МИС без ручного переноса;</li>
+  <li>статусы «записан» и&nbsp;«пришёл» у&nbsp;каждого обращения;</li>
+  <li>согласие посетителя на&nbsp;обработку данных и&nbsp;запись разговора.</li>
+</ul>
+<p>О&nbsp;выборе системы для учёта обращений читайте в&nbsp;статье <a href="../../blog/crm-dlya-stomatologii/">о&nbsp;CRM для стоматологии</a>.</p>
+
+<h2 id="p4">Как возвращать пациентов</h2>
+<p>Привлечь нового пациента дороже, чем позвать прежнего. Что обычно работает:</p>
+<ul>
+  <li><b>Напоминание о&nbsp;профилактическом осмотре.</b> Через полгода после последнего визита, от&nbsp;имени клиники или врача.</li>
+  <li><b>Неоконченный план лечения.</b> Пациенту поставили имплант и&nbsp;не&nbsp;позвали на&nbsp;коронку. Список таких пациентов есть в&nbsp;любой МИС.</li>
+  <li><b>Программа лояльности для стоматологий.</b> Простая: накопительная скидка или семейная карта. Сложные баллы пациенты не&nbsp;понимают и&nbsp;не&nbsp;используют.</li>
+  <li><b>Отзыв после лечения.</b> Просьба об&nbsp;отзыве это ещё и&nbsp;повод узнать, всё&nbsp;ли в&nbsp;порядке.</li>
+</ul>
+<p>Сообщения можно отправлять только тем, кто дал на&nbsp;это согласие. Содержание лечения в&nbsp;сообщении не&nbsp;раскрывают: это врачебная тайна.</p>
+
+<h2 id="p5">С&nbsp;чего начать, если учёта нет</h2>
+<ol>
+  <li>Заведите один список обращений, куда попадают заявки и&nbsp;звонки.</li>
+  <li>Отмечайте у&nbsp;каждого источник и&nbsp;услугу.</li>
+  <li>Раз в&nbsp;неделю считайте: обращения, записи, визиты.</li>
+  <li>Через месяц сравните источники по&nbsp;числу пришедших пациентов, а&nbsp;не&nbsp;заявок.</li>
+</ol>
+<p>Уже этого достаточно, чтобы увидеть, на&nbsp;каком шаге клиника теряет больше всего, и&nbsp;начать с&nbsp;него.</p>
+
+      <p class="prose__next">В&nbsp;отчётах мы&nbsp;показываем заявки, целевые заявки и&nbsp;записи по&nbsp;каждой услуге. Что входит в&nbsp;работу на&nbsp;месяц: <a href="../../kompleksnyj-marketing/">Комплексный маркетинг для стоматологии</a>.</p>
+      <nav class="prose__rel" aria-label="Читайте также">
+        <h2>Читайте также</h2>
+        <ul>
+          <li><a href="../../blog/crm-dlya-stomatologii/">CRM для стоматологии: зачем клинике система и&nbsp;как её&nbsp;выбрать</a></li>
+          <li><a href="../../blog/ekonomika-stomatologii/">Экономика стоматологии: из&nbsp;чего складываются выручка и&nbsp;прибыль</a></li>
+          <li><a href="../../blog/prodazhi-v-stomatologii/">Продажи в&nbsp;стоматологии: как пациент соглашается на&nbsp;лечение</a></li>
+        </ul>
+      </nav>
+    </article>
+  </div>
+</section>
+
+<section class="sec sec--fog" id="faq">
+  <div class="wrap">
+    <div class="shead">
+  <div>
+    <h2 class="h2">Короткие ответы.</h2>
+  </div>
+  <p class="shead__note">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
+</div>
+
+    <div class="qa">
+  <details class="qa__item" open>
+    <summary><span class="qa__q">Что такое стоимость привлечения пациента?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+    <div class="qa__a"><p>Это все расходы на&nbsp;рекламу за&nbsp;период, поделённые на&nbsp;число новых пациентов, которые пришли на&nbsp;приём. Считать её&nbsp;по&nbsp;заявкам неправильно: заявка ещё не&nbsp;пациент.</p></div>
+  </details>
+  <details class="qa__item">
+    <summary><span class="qa__q">Что такое LTV пациента?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+    <div class="qa__a"><p>LTV это сумма, которую пациент приносит клинике за&nbsp;всё время. В&nbsp;стоматологии её&nbsp;считают по&nbsp;оплатам за&nbsp;несколько лет: первый визит часто недорогой, а&nbsp;основное лечение и&nbsp;повторные визиты идут позже.</p></div>
+  </details>
+  <details class="qa__item">
+    <summary><span class="qa__q">Нужна&nbsp;ли небольшой клинике сквозная аналитика?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+    <div class="qa__a"><p>В&nbsp;полном виде нет. Хватит трёх вещей: заявки с&nbsp;сайта и&nbsp;звонки попадают в&nbsp;один список, у&nbsp;каждой есть источник, администратор отмечает запись и&nbsp;визит. Это уже позволяет сравнивать источники по&nbsp;пациентам.</p></div>
+  </details>
+  <details class="qa__item">
+    <summary><span class="qa__q">Какие KPI ставить маркетингу стоматологии?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+    <div class="qa__a"><p>Число первичных пациентов по&nbsp;нужным услугам и&nbsp;стоимость привлечения одного пациента. Клики, показы и&nbsp;даже заявки это промежуточные цифры: по&nbsp;ним удобно настраивать рекламу, но&nbsp;оценивать по&nbsp;ним результат нельзя.</p></div>
+  </details>
+</div>
+
+  </div>
+</section>
+
+<section class="dark sheet start" id="start" data-dark>
+  <div class="wrap">
+    <h2 class="h2 start__title">Разберём воронку вашей клиники.</h2>
+    <div class="start__grid">
+      <div class="start__text">
+        <p class="lead">Посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;первого теста в&nbsp;Директе или с&nbsp;сайта и&nbsp;Карт.</p>
+        <ul class="plist">
+          <li>Первый тест в&nbsp;Директе: комиссия агентства 0&nbsp;₽, бюджет вы&nbsp;вносите Яндексу</li>
+          <li>Сайт и&nbsp;Яндекс Карты: старт 80&nbsp;000&nbsp;₽, сайт входит в&nbsp;эту сумму</li>
+          <li>Если видим риски для запуска, скажем о&nbsp;них на&nbsp;разборе</li>
+        </ul>
+        <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
+      </div>
+      <form class="form" novalidate action="#" aria-label="Заявка">
+        <fieldset class="form__choice">
+          <legend>Что хотите запустить</legend>
+          <div class="form__opts">
+            <label class="form__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
+            <label class="form__opt"><input type="radio" name="service" value="site"><span>Сайт и&nbsp;Карты</span></label>
+            <label class="form__opt"><input type="radio" name="service" value="unsure" checked><span>Пока не&nbsp;знаю</span></label>
+          </div>
+        </fieldset>
+        <label class="fld form__dir"><span>Услуга для рекламы</span>
+          <select name="direction">
+            <option value="implant">Имплантация</option>
+            <option value="all-on-4">All-on-4, полное восстановление</option>
+            <option value="ortho">Брекеты и&nbsp;элайнеры</option>
+            <option value="running">Реклама уже идёт, нужен разбор</option>
+            <option value="other">Другая услуга</option>
+          </select>
+        </label>
+        <div class="form__row">
+          <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
+          <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
+        </div>
+        <div class="form__row">
+          <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
+          <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
+        </div>
+        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="../../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../../politika/">политики</a></span></label>
+        <div class="form__send">
+          <p class="form__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
+          <button class="btn btn--light" type="submit" data-vend data-magnetic>Отправить заявку</button>
+        </div>
+        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__top ftr__top--3">
+      <p class="ftr__say">Реклама, сайты и&nbsp;Яндекс Карты для стоматологий. Первый тест в&nbsp;Директе без комиссии агентства.</p>
+      <nav class="ftr__col" aria-label="Услуги">
+        <h2>Услуги</h2>
+        <a href="../../yandex-direkt/">Яндекс Директ для стоматологии</a>
+        <a href="../../lidy-dlya-stomatologii/">Заявки для стоматологии</a>
+        <a href="../../kompleksnyj-marketing/">Комплексный маркетинг</a>
+        <a href="../../sajt-dlya-stomatologii/">Сайт для стоматологии</a>
+        <a href="../../seo-dlya-stomatologii/">SEO для стоматологии</a>
+        <a href="../../yandex-karty/">Яндекс Карты</a>
+      </nav>
+      <nav class="ftr__col" aria-label="Площадки и репутация">
+        <h2>Площадки и репутация</h2>
+        <a href="../../medicinskij-marketing/">Медицинский маркетинг</a>
+        <a href="../../otzyvy-i-reputaciya/">Отзывы и репутация</a>
+        <a href="../../prodoktorov/">ПроДокторов</a>
+        <a href="../../2gis/">2ГИС</a>
+        <a href="../../geo-prodvizhenie/">Продвижение в нейросетях</a>
+      </nav>
+      <nav class="ftr__col" aria-label="Агентство">
+        <h2>Агентство</h2>
+        <a href="../../kejsy/">Кейсы</a>
+        <a href="../../blog/">Блог</a>
+        <a href="../../kontakty/">О нас</a>
+        <a href="../../kontakty/#contacts">Контакты</a>
+        <a href="#start">Оставить заявку</a>
+      </nav>
+    </div>
+    <div class="ftr__mark">
+      <img src="../../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+    </div>
+    <div class="ftr__bottom">
+      <p>© 2026 МедВектор</p>
+      <nav aria-label="Документы">
+        <a href="../../politika/">Политика обработки персональных данных</a>
+        <a href="../../soglasie/">Согласие на обработку данных</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+<!-- нижняя кнопка на телефоне -->
+<a href="#start" class="mcta"><span>Разобрать клинику</span></a>
+
+<script src="../../assets/js/vendor/lenis.min.js" defer></script>
+<script src="../../assets/js/trajectory.js" defer></script>
+</body>
+</html>
