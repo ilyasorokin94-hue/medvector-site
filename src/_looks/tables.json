@@ -1,0 +1,38 @@
+{
+  "types": {
+    "cmp": ["table", "cards", "versus"],
+    "deflist": ["list", "side", "panels"],
+    "yesno": ["cols", "split", "accent"]
+  },
+  "pages": {
+    "/2gis/": { "paid": ["versus", "cards", "table"], "when": ["zigzag", "side", "list"] },
+    "/geo-prodvizhenie/": { "seo": ["versus", "focus", "switch"], "med": ["panels", "list", "fold"], "promise": ["accent", "split", "cols"] },
+    "/lidy-dlya-stomatologii/": { "compare": ["focus", "versus", "cards"], "promise": ["split", "sheet", "mosaic"] },
+    "/medicinskij-marketing/": { "law": ["focus", "table", "switch"], "promise": ["sheet", "accent", "cols"] },
+    "/otzyvy-i-reputaciya/": { "white": ["split", "accent", "mosaic"], "law": ["table", "focus", "cards"], "months": ["switch", "table", "versus"], "serm": ["versus", "cards", "switch"], "limits": ["side", "panels", "zigzag"] },
+    "/prodoktorov/": { "paid": ["cards", "versus", "switch"], "tariffs": ["list", "fold", "panels"], "reviews": ["table", "focus", "versus"] },
+    "/sajt-dlya-stomatologii/": { "compare": ["cards", "switch", "table"] },
+    "/seo-dlya-stomatologii/": { "demand": ["focus", "table", "versus"], "terms": ["mosaic", "cols", "sheet"] },
+    "/yandex-karty/": { "paid": ["switch", "versus", "cards"], "subscription": ["fold", "zigzag", "side"], "reviews": ["cols", "mosaic", "split"] },
+    "/yandex-direkt/": { "promise": ["sheet", "split", "cols"] },
+    "/kompleksnyj-marketing/": { "compare": ["focus", "cards", "versus"], "reviews": ["mosaic", "split", "cols"], "fit": ["accent", "cols", "sheet"] },
+    "/kontakty/": { "principles": ["cols", "accent", "sheet"] }
+  },
+  "names": {
+    "cmp-table": "Таблица",
+    "cmp-cards": "Карточки",
+    "cmp-switch": "Переключатель",
+    "cmp-versus": "Против",
+    "cmp-focus": "Главное",
+    "deflist-list": "Список",
+    "deflist-fold": "По клику",
+    "deflist-zigzag": "Лесенка",
+    "deflist-side": "Сбоку",
+    "deflist-panels": "Тёмные плитки",
+    "yesno-cols": "Колонки",
+    "yesno-split": "Две половины",
+    "yesno-accent": "Акцент",
+    "yesno-sheet": "Лист",
+    "yesno-mosaic": "Мозаика"
+  }
+}
