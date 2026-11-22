@@ -57,7 +57,8 @@
         <h2>Читайте также</h2>
         <ul>
 {% for a in rel %}
-          <li><a href="{{ a.url }}">{{ a.data.h1 | t | safe }}</a></li>
+{% set ra = art(a.url).cover %}
+          <li><a href="{{ a.url }}">{% if ra %}<span class="prose__rel-img"><img src="{{ ra.src }}-640.webp" width="640" height="{{ (ra.h * 0.4) | round }}" alt="" loading="lazy" decoding="async"></span>{% endif %}<span class="prose__rel-t">{{ a.data.h1 | t | safe }}</span></a></li>
 {% endfor %}
         </ul>
       </nav>
