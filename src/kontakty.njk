@@ -43,88 +43,21 @@ no:
 {% extends "base.njk" %}
 
 {% block main %}
-{% import "t.njk" as b %}
-{{ b.phero(hero, crumbs) }}
-
-<section class="sec sec--fog sheet" id="founder">
-  <div class="wrap lead2">
-    <div class="lead2__main">
-      <h2 class="h2">Илья Сорокин ведёт каждую клинику сам.</h2>
-      <p class="lead">Разбирает клинику, согласует с&nbsp;владельцем цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт.</p>
-      <p class="lead">Почему медицина и&nbsp;в&nbsp;первую очередь стоматология: имплантацию и&nbsp;<span class="nw">All-on-4</span> нельзя хорошо рекламировать, не&nbsp;зная пациента, его вопросов и&nbsp;страхов. Это знание копится, когда годами работаешь с&nbsp;клиниками.</p>
-    </div>
-    <div class="lead2__side">
-      <h3 class="pack__h">В команде</h3>
-      <ul class="plist plist--lg">
-{% for c in team %}
-        <li class="reveal"><span>{{ c | t | safe }}</span></li>
-{% endfor %}
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="services">
-  <div class="wrap">
-    {{ b.shead({ title: 'Чем мы занимаемся.', note: 'Каждую услугу можно заказать отдельно.' }) }}
-    <ol class="deflist">
-      <li class="reveal"><h3 class="h3"><a class="link" href="{{ href('direct') }}">Яндекс Директ для стоматологии</a></h3><p>Реклама имплантации, <span class="nw">All-on-4</span>, брекетов и&nbsp;элайнеров. Первый тест без комиссии агентства.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="{{ href('complex') }}">Комплексный маркетинг</a></h3><p>Сайт, Яндекс Карты, 2ГИС, ПроДокторов, отзывы и&nbsp;SEO одной командой.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="{{ href('sites') }}">Сайт для стоматологии</a></h3><p>Сайт клиники с&nbsp;нуля или редизайн, оформленный по&nbsp;требованиям к&nbsp;медицинским сайтам.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="{{ href('seo') }}">SEO для стоматологии</a></h3><p>Рост в&nbsp;Яндексе и&nbsp;Google по&nbsp;ключевым услугам в&nbsp;своём городе.</p></li>
-      <li class="reveal"><h3 class="h3"><a class="link" href="{{ href('maps') }}">Яндекс Карты</a></h3><p>Упаковка карточки, отзывы в&nbsp;белую и&nbsp;ежемесячное ведение.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="sec sec--fog" id="principles">
-  <div class="wrap">
-    {{ b.shead({ title: 'Что мы делаем и чего не делаем.', note: 'Шаблон договора пришлём до начала работ, чтобы вы прочитали его без спешки.' }) }}
-    <div class="yesno">
-      <div class="yesno__col">
-        <h3 class="pack__h">Что делаем</h3>
-        <ul class="plist plist--lg">
-{% for i in yes %}
-          <li class="reveal"><span>{{ i | t | safe }}</span></li>
-{% endfor %}
-        </ul>
-      </div>
-      <div class="yesno__col">
-        <h3 class="pack__h">Чего не делаем</h3>
-        <ul class="plist plist--lg plist--no">
-{% for i in no %}
-          <li class="reveal"><span>{{ i | t | safe }}</span></li>
-{% endfor %}
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="contacts">
-  <div class="wrap">
-    {{ b.shead({ title: 'Как с нами связаться.', note: 'Офис в Санкт-Петербурге. Отвечаем в рабочее время по Москве.' }) }}
-{% set c = site.contacts %}
-{% if c.phone or c.telegram or c.max or c.email %}
-    <dl class="contacts">
-{% if c.phone %}
-      <div><dt>Телефон</dt><dd><a href="tel:{{ c.phoneHref }}">{{ c.phone }}</a></dd></div>
-{% endif %}
-{% if c.telegram %}
-      <div><dt>Telegram</dt><dd><a href="{{ c.telegram }}">Написать в Telegram</a></dd></div>
-{% endif %}
-{% if c.max %}
-      <div><dt>MAX</dt><dd><a href="{{ c.max }}">Написать в MAX</a></dd></div>
-{% endif %}
-{% if c.email %}
-      <div><dt>Почта</dt><dd><a href="mailto:{{ c.email }}">{{ c.email }}</a></dd></div>
-{% endif %}
-    </dl>
-{% else %}
-    <p class="note-lg">Сейчас самый быстрый способ связаться с&nbsp;нами: <a href="#start">заявка ниже</a>. Телефон, Telegram и&nbsp;почта появятся на&nbsp;этой странице перед запуском сайта.</p>
-{% endif %}
-  </div>
-</section>
-
-{{ b.start({ pick: 'unsure' }) }}
+{% import "sec.njk" as S %}
+{% set u = page.url %}
+{{ S.section({ type: 'hero', id: 'intro', h: hero, crumbs: crumbs, page: 'about' }, u) }}
+{{ S.section({ type: 'founder', id: 'founder', tone: 'fog', title: 'Илья Сорокин ведёт каждую клинику сам.', paras: ['Разбирает клинику, согласует с&nbsp;владельцем цены и&nbsp;условия для рекламы и&nbsp;смотрит каждый недельный отчёт.', 'Почему медицина и&nbsp;в&nbsp;первую очередь стоматология: имплантацию и&nbsp;<span class="nw">All-on-4</span> нельзя хорошо рекламировать, не&nbsp;зная пациента, его вопросов и&nbsp;страхов. Это знание копится, когда годами работаешь с&nbsp;клиниками.'], team: team }, u) }}
+{{ S.section({ type: 'links', id: 'services', title: 'Чем мы занимаемся', note: 'Каждую услугу можно заказать отдельно.', items: [
+  ['Яндекс Директ для стоматологии', 'Реклама имплантации, All-on-4, брекетов и элайнеров. Первый тест без комиссии агентства.', href('direct')],
+  ['Комплексный маркетинг', 'Сайт, Яндекс Карты, 2ГИС, ПроДокторов, отзывы и SEO одной командой.', href('complex')],
+  ['Сайт для стоматологии', 'Сайт клиники с нуля или редизайн, оформленный по требованиям к медицинским сайтам.', href('sites')],
+  ['SEO для стоматологии', 'Рост в Яндексе и Google по ключевым услугам в своём городе.', href('seo')],
+  ['Яндекс Карты', 'Упаковка карточки, отзывы в белую и ежемесячное ведение.', href('maps')],
+  ['2ГИС и ПроДокторов', 'Карточки клиники и врачей с теми же ценами и адресом, что на сайте.', href('gis')],
+  ['Отзывы и репутация', 'Как клиника просит об отзыве и отвечает на него.', href('reviews')],
+  ['Продвижение в нейросетях', 'Что Алиса и ChatGPT отвечают пациенту о клинике.', href('geo')]
+] }, u) }}
+{{ S.section({ type: 'yesno', id: 'principles', tone: 'fog', title: 'Что мы делаем и чего не делаем', note: 'Шаблон договора пришлём до начала работ, чтобы вы прочитали его без спешки.', yes: yes, no: no, yesTitle: 'Что делаем', noTitle: 'Чего не делаем', yesFirst: true }, u) }}
+{{ S.section({ type: 'contacts', id: 'contacts', title: 'Как с нами связаться', note: 'Офис в Санкт-Петербурге. Отвечаем в рабочее время по Москве.', c: site.contacts }, u) }}
+{{ S.section({ type: 'start', id: 'start', d: { pick: 'unsure' } }, u) }}
 {% endblock %}
