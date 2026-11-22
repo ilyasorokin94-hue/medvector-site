@@ -843,4 +843,13 @@ button.link { border: 0; cursor: pointer; }
 @media (max-width: 720px) {
   :root { --sec: 72px; }
 }
+/* кейсы: города компактным списком (название, под ним услуга и итог в одну строку), карточка сразу под списком: оба на одном экране */
+@media (max-width: 860px) {
+  #cases .c3__row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 12px; padding: 13px 0 14px; }
+  #cases .c3__row b { flex: 0 0 100%; font-size: calc(clamp(26px, 7.6vw, 34px) * var(--h-k)); }
+  #cases .c3__row span, #cases .c3__row em { font-size: calc(14px * var(--t-k)); line-height: 1.35; }
+  #cases .c3__row.is-on { padding-left: 18px; }
+  /* метки карточки обычной строкой: при переносе запятая остаётся у слова, а не начинает новую строку */
+  .ctag { display: block; }
+}
 /* ===== Телефон: конец ===== */

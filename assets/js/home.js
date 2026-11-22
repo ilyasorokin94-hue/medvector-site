@@ -740,3 +740,24 @@
   [['cases', cases1], ['services', services3], ['sites', sites1], ['team', team3], ['faq', faq1], ['start', start3]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
 })();
 /* ===== Подача секций: конец ===== */
+
+/* ===== Телефон: начало ===== */
+/* Поведение, нужное только телефону и планшету. Компьютер этот блок не меняет. */
+(function () {
+  'use strict';
+  var MV = window.MV; if (!MV) return;
+  var one = function (s, r) { return (r || document).querySelector(s); };
+  var stacked = matchMedia('(max-width: 1100px)');
+
+  /* кейсы: на узком экране карточка стоит под списком городов. Если после выбора города её начало ушло под нижний край,
+     плавно подкручиваем страницу, но так, чтобы выбранный город остался на экране */
+  var cases = document.getElementById('cases'), view = cases && one('.c3__view', cases);
+  if (view) one('.c3__grid', cases).addEventListener('click', function (e) {
+    var row = e.target.closest('.c3__row'); if (!row || !stacked.matches) return;
+    setTimeout(function () {
+      var v = view.getBoundingClientRect(), r = row.getBoundingClientRect(), need = v.top + Math.min(v.height, 300) - (innerHeight - 16), by = Math.min(need, r.top - 12);
+      if (by > 4) scrollBy({ top: by, behavior: MV.reduce ? 'auto' : 'smooth' });
+    }, 30);
+  });
+})();
+/* ===== Телефон: конец ===== */
