@@ -23,3 +23,48 @@
   </div>
 </section>
 {% endmacro %}
+
+{# «Витрина»: крупный экран сайта с телефоном на широкой подложке, пункты под ним в три колонки #}
+{% macro stage(s) %}
+<section{{ c.attrs(s, 'lk-demo-stage') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="dmst__pic" data-rv="scale">
+      <div class="dmst__screen">
+        {{ a.a_browser(s.kind or 'site') }}
+        {{ a.a_phone(s.kind or 'site') }}
+      </div>
+    </div>
+    <ul class="dmst__list">
+{% for r in s.items %}
+      <li class="dmst__i" data-rv style="--d:{{ loop.index0 % 3 }}"><h3 class="dmst__h">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+    </ul>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Телефон»: тёмная секция, телефон с сайтом по центру, пункты слева и справа от него #}
+{% macro phone(s) %}
+{% set half = (s.items.length / 2) | round(0, 'ceil') %}
+<section class="sec sec--dark dark lk-demo-phone"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="{{ s.type }}">
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="dmph">
+      <ul class="dmph__col dmph__col--l">
+{% for r in s.items.slice(0, half) %}
+        <li class="dmph__i" data-rv><h3 class="dmph__h">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+      </ul>
+      <div class="dmph__pic" data-rv="scale">{{ a.a_phone(s.kind or 'site') }}</div>
+      <ul class="dmph__col dmph__col--r">
+{% for r in s.items.slice(half) %}
+        <li class="dmph__i" data-rv style="--d:1"><h3 class="dmph__h">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+      </ul>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
