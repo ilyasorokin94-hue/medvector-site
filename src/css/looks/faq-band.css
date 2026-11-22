@@ -1,0 +1,8 @@
+/* ---------- вопросы «Тёмная лента»: тёмный блок, все ответы открыты в две колонки ---------- */
+.fqb__cols { columns: 2; column-gap: clamp(24px, 4vw, 72px); }
+.fqb__i { break-inside: avoid; display: grid; gap: 12px; padding: 26px 0 28px; border-top: 1px solid var(--line-dark); }
+.fqb__q { font: 500 calc(clamp(19px, 1.5vw, 23px) * var(--t-k))/1.3 var(--text); letter-spacing: -.015em; color: #fff; }
+.fqb__a { color: var(--on-dark-2); }
+@media (max-width: 860px) {
+  .fqb__cols { columns: 1; }
+}

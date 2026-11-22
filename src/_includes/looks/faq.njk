@@ -19,3 +19,47 @@
   </div>
 </section>
 {% endmacro %}
+
+{# «Оглавление»: слева список вопросов ссылками и заголовок, справа все ответы открыты #}
+{% macro index(s) %}
+{% set p = 'fq' ~ (s.vsuf or '') ~ '-' %}
+<section{{ c.attrs(s, 'fqi') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="fqi__grid">
+      <nav class="fqi__nav" aria-label="Вопросы">
+        <ol>
+{% for f in s.items %}
+          <li><a href="#{{ p }}{{ loop.index }}">{{ f.q | t | safe }}</a></li>
+{% endfor %}
+        </ol>
+      </nav>
+      <div class="fqi__list">
+{% for f in s.items %}
+        <article class="fqi__i" id="{{ p }}{{ loop.index }}" data-rv>
+          <h3 class="fqi__q">{{ f.q | t | safe }}</h3>
+          <p class="fqi__a">{{ f.a | t | safe }}</p>
+        </article>
+{% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endmacro %}
+
+{# «Тёмная лента»: тёмный блок, вопросы и ответы открыты в две колонки #}
+{% macro band(s) %}
+<section class="sec sec--dark dark fqb"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="faq">
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="fqb__cols">
+{% for f in s.items %}
+      <article class="fqb__i" data-rv style="--d:{{ loop.index0 % 2 }}">
+        <h3 class="fqb__q">{{ f.q | t | safe }}</h3>
+        <p class="fqb__a">{{ f.a | t | safe }}</p>
+      </article>
+{% endfor %}
+    </div>
+  </div>
+</section>
+{% endmacro %}
