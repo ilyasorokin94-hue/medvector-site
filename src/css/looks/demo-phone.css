@@ -1,4 +1,6 @@
 /* сайт на образце «Телефон»: телефон по центру на тёмном фоне, пункты слева и справа */
+/* круги вокруг телефона шире колонки: на телефоне обрезаются краем секции, страница не сдвигается вбок */
+.lk-demo-phone { overflow-x: clip; }
 .dmph { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 300px) minmax(0, 1fr); gap: clamp(24px, 4vw, 72px); align-items: center; }
 .dmph__col { display: grid; gap: 0; border-top: 1px solid var(--line-dark); }
 .dmph__i { display: grid; gap: 8px; padding: 24px 0 26px; border-bottom: 1px solid var(--line-dark); }
