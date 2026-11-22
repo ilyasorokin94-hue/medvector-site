@@ -243,6 +243,9 @@ main { position: relative; display: block; }
 /* видео под первым экраном: проявляется, когда готово к показу; синий слой сверху держит цвет сайта и читаемость текста */
 .hv2__film { position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: 0 0 var(--r-lg) var(--r-lg); opacity: 0; transition: opacity 1.8s ease; pointer-events: none; }
 .hv2__film.is-on { opacity: 1; }
+/* ролик поставлен сразу при открытии: показываем без плавного проявления */
+.hv2__film.is-early, .hv2.is-early .hv2__stage::before, .hv2.is-early .hv2__label { transition: none; }
+.hv2.is-film.is-early .hv2__wm b { animation: hv2sweep 9s cubic-bezier(.45, 0, .25, 1) 1.2s infinite; }
 .hv2__v { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
 .hv2__film::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 15, 64, .66) 0, rgba(0, 15, 64, .3) 15%, rgba(0, 15, 64, .34) 38%, rgba(0, 15, 64, .86) 66%, var(--ink) 100%); }
 /* слово стоит в одном слое с роликом, иначе буквы не смешиваются с кадром; тексты остаются выше линии-вектора */
