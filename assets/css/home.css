@@ -753,7 +753,7 @@ button.link { border: 0; cursor: pointer; }
 }
 
 /* ===== Подача секций: начало ===== */
-/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон» */
+/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон», письмо «Чтение» */
 /* кейсы: «Счётчик» */
 #cases .c3__list { position: relative; }
 #cases .c3__mark { display: block; position: absolute; left: 0; right: 0; top: 0; height: var(--mh, 0px); transform: translateY(var(--my, 0px)); border-left: 3px solid var(--vec); background: linear-gradient(90deg, var(--vec-soft), rgba(228, 243, 252, 0) 82%); transition: transform .65s var(--ease), height .65s var(--ease); pointer-events: none; }
@@ -792,5 +792,13 @@ button.link { border: 0; cursor: pointer; }
   #sites .w5__wall::after { bottom: 0; background: linear-gradient(rgba(0, 15, 64, 0), var(--ink)); }
   #sites .w5__wall:hover { transform: perspective(1500px) rotateX(7deg) rotateZ(-2deg) scale(1.02); }
   .js #sites:not(.v-go) .w5__wall { transform: perspective(1500px) rotateX(62deg) rotateZ(-24deg) scale(.86) translateY(160px); opacity: 0; }
+}
+/* письмо: «Чтение» */
+#team .t5__w { opacity: .2; }
+#team .t5__w.on { opacity: 1; transition: opacity .4s; }
+.js #team .t5__f { opacity: .25; }
+.js #team .t5__sheet.is-signed .t5__f { opacity: 1; transition: opacity .7s; }
+@media (prefers-reduced-motion: reduce) {
+  #team .t5__w { opacity: 1 !important; }
 }
 /* ===== Подача секций: конец ===== */

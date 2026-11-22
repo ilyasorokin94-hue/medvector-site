@@ -580,7 +580,7 @@
 })();
 
 /* ===== Подача секций: начало ===== */
-/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон». Разметка секций прежняя, здесь только появление и движение. */
+/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон», письмо «Чтение». Разметка секций прежняя, здесь только появление и движение. */
 (function () {
   'use strict';
   var MV = window.MV; if (!MV) return;
@@ -616,6 +616,12 @@
     var step = function (now) { var k = clamp((now - t0) / dur, 0, 1), e = 1 - Math.pow(1 - k, 4); node.textContent = pre + fmt(to * e) + post; if (k < 1) node.__raf = requestAnimationFrame(step); };
     step(t0);
   };
+  // письмо режем на слова, чтобы показывать их по одному
+  var words = function (sec) {
+    var ps = qa('.t5__sheet > p', sec);
+    ps.forEach(function (p) { p.innerHTML = p.textContent.trim().split(/[ \n\t]+/).map(function (w) { return '<span class="t5__w">' + w + '</span>'; }).join(' '); });
+    return qa('.t5__w', sec);
+  };
 
   /* кейсы: «Счётчик» */
   function cases1(sec) {
@@ -642,6 +648,18 @@
   /* сайты: «Наклон» */
   function sites1(sec) { seen(one('.w5__wall', sec), function () { sec.classList.add('v-go'); }, .25); }
 
-  [['cases', cases1], ['services', services3], ['sites', sites1]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
+  /* письмо: «Чтение» */
+  function team3(sec) {
+    var sheet = one('.t5__sheet', sec), w = words(sec), shown = 0;
+    onScroll(function () {
+      // пока лист ниже экрана, текст обычный; бледнеет он только когда лист входит в экран, и проявляется по ходу чтения
+      var r = sheet.getBoundingClientRect(), vh = innerHeight, p = reduce || r.top > vh + 40 ? 1 : clamp((vh * .82 - r.top) / (vh * .62), 0, 1), n = Math.round(p * w.length);
+      for (; shown < n; shown++) w[shown].classList.add('on');
+      for (; shown > n; shown--) w[shown - 1].classList.remove('on');
+      sheet.classList.toggle('is-signed', p > .97);
+    });
+  }
+
+  [['cases', cases1], ['services', services3], ['sites', sites1], ['team', team3]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
 })();
 /* ===== Подача секций: конец ===== */
