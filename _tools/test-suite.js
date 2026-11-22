@@ -247,6 +247,8 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
     log('Интерактив', 'на телефоне вопросы идут списком', await page.evaluate(() => getComputedStyle(document.querySelector('#faq .wheel')).display === 'none' && getComputedStyle(document.querySelector('#faq .qa')).display !== 'none'));
     await page.click('#faq .qa__item:nth-child(2) summary');
     log('Интерактив', 'вопрос на телефоне раскрывается', await page.evaluate(() => document.querySelector('#faq .qa__item:nth-child(2)').open));
+    await page.evaluate(() => scrollTo(0, 0)); await page.waitForTimeout(1800);
+    log('Интерактив', 'первый экран на телефоне: стоит вертикальный ролик с заставкой и играет', await page.evaluate(() => { const f = document.querySelector('[data-hero-film]'), v = f.querySelector('video'); return f.classList.contains('is-on') && /hero-m\.webp$/.test(v.poster) && /hero-m\.(webm|mp4)$/.test(v.currentSrc) && !v.paused && v.videoWidth < v.videoHeight && f.getBoundingClientRect().height < document.querySelector('.hv2').getBoundingClientRect().height; }));
     await ctx.close();
   }
   await chromium.close();
