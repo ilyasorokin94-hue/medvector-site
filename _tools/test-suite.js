@@ -99,7 +99,7 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
       ids: [...document.querySelectorAll('[id]')].map(e => e.id),
       hashLinks: [...document.querySelectorAll('a[href^="#"]')].map(a => a.getAttribute('href')).filter(h => h.length > 1),
       links: [...document.querySelectorAll('a[href]')].map(a => a.href).filter(h => h.startsWith(location.origin)),
-      faqVisible: [...document.querySelectorAll('.qa__item summary .qa__q, .qa__item summary:not(:has(.qa__q)), .faq__list dt')].map(e => e.textContent),
+      faqVisible: [...document.querySelectorAll('.qa__item summary .qa__q, .qa__item summary:not(:has(.qa__q)), .faq__list dt, .fqi__q, .fqb__q')].map(e => e.textContent),
     }));
     log(g, 'ровно один H1', seo.h1 === 1, `H1: ${seo.h1}`);
     log(g, 'title 20–80 знаков', seo.title.length >= 20 && seo.title.length <= 80, `${seo.title.length}: ${seo.title}`);
