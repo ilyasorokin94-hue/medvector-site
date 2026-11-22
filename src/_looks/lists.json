@@ -54,7 +54,7 @@
       "together": [
         "rows",
         "dark",
-        "cards"
+        "photo"
       ]
     },
     "/2gis/": {
@@ -107,7 +107,7 @@
       "services": [
         "cards",
         "big",
-        "rows"
+        "photo"
       ]
     },
     "/otzyvy-i-reputaciya/": {
