@@ -20,6 +20,11 @@ const LINKS = {
   seo: ['/seo-dlya-stomatologii/', '/kompleksnyj-marketing/'],
   maps: ['/yandex-karty/', '/kompleksnyj-marketing/'],
   blog: ['/blog/', '/'],
+  med: ['/medicinskij-marketing/', '/kompleksnyj-marketing/'],
+  reviews: ['/otzyvy-i-reputaciya/', '/yandex-karty/'],
+  prodoc: ['/prodoktorov/', '/yandex-karty/'],
+  gis: ['/2gis/', '/yandex-karty/'],
+  geo: ['/geo-prodvizhenie/', '/seo-dlya-stomatologii/'],
   policy: ['/politika/', '#'],
   consent: ['/soglasie/', '#'],
   thanks: ['/spasibo/', '#'],
@@ -47,7 +52,7 @@ const typo = s => (s == null ? '' : glue(esc(s)).replace(/All-on-\d|[А-Яа-я�
 const plain = s => String(s == null ? '' : s).replace(/<[^>]+>/g, '').replace(/\*/g, '').replace(/&nbsp;/g, ' ').replace(/ /g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
 
 // Разметка schema.org внутренней страницы: сама страница, хлебные крошки, услуга и вопросы (те же, что видны в тексте).
-const jsonld = (site, page, title, description, crumbs, service, faq) => {
+const jsonld = (site, page, title, description, crumbs, service, faq, article) => {
   const url = site.url + page.url;
   const agency = { '@type': 'ProfessionalService', '@id': site.url + '/#agency', name: site.name, url: site.url + '/' };
   const graph = [];
@@ -55,6 +60,7 @@ const jsonld = (site, page, title, description, crumbs, service, faq) => {
   graph.push({ '@type': 'WebPage', '@id': url, url, name: plain(title), description: plain(description), inLanguage: 'ru', isPartOf: { '@type': 'WebSite', url: site.url + '/', name: site.name } });
   if (crumbs && crumbs.length) graph.push({ '@type': 'BreadcrumbList', itemListElement: [{ name: 'Главная', url: '/' }, ...crumbs].map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: plain(c.name), item: site.url + c.url })) });
   if (service) graph.push({ '@type': 'Service', name: plain(service.name), serviceType: plain(service.type || service.name), description: plain(service.description || description), url, areaServed: 'RU', provider: agency, ...(service.price ? { offers: { '@type': 'Offer', price: String(service.price), priceCurrency: 'RUB', ...(service.priceNote ? { description: plain(service.priceNote) } : {}) } } : {}) });
+  if (article) graph.push({ '@type': 'BlogPosting', '@id': url + '#article', headline: plain(article.headline), description: plain(description), datePublished: article.published, dateModified: article.modified || article.published, inLanguage: 'ru', mainEntityOfPage: { '@id': url }, author: agency, publisher: { ...agency, logo: { '@type': 'ImageObject', url: site.url + '/assets/img/medvector-logo.png' } }, image: site.url + '/assets/img/og-cover.jpg' });
   if (faq && faq.length) graph.push({ '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: plain(f.q), acceptedAnswer: { '@type': 'Answer', text: plain(f.a) } })) });
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2).replace(/</g, '\\u003c');
 };
@@ -68,6 +74,15 @@ const relative = (url, depth) => {
   return pre + rest;
 };
 
+// Статьи блога: содержание по заголовкам второго уровня и похожие статьи (сначала той же темы).
+const h2split = html => { let i = 0; const items = []; const out = String(html || '').replace(/<h2>([\s\S]*?)<\/h2>/g, (m, t) => { i++; items.push({ id: 'p' + i, text: t }); return `<h2 id="p${i}">${t}</h2>`; }); return { out, items }; };
+const TOPICS = ['ads', 'maps', 'law', 'manage', 'start'];
+const related = (all, url, topic, n = 3) => {
+  const arts = (all || []).filter(a => a.data.layout === 'article.njk' && a.url !== url);
+  const dist = a => { const d = Math.abs(TOPICS.indexOf(a.data.topic) - TOPICS.indexOf(topic)); return a.data.topic === topic ? -1 : d; };
+  return arts.sort((a, b) => dist(a) - dist(b) || a.url.localeCompare(b.url)).slice(0, n);
+};
+
 module.exports = function (cfg) {
   cfg.setNunjucksEnvironmentOptions({ trimBlocks: true, lstripBlocks: true });
   cfg.addGlobalData('year', () => new Date().getFullYear());
@@ -75,6 +90,9 @@ module.exports = function (cfg) {
   cfg.addNunjucksGlobal('jsonld', jsonld);
   cfg.addFilter('t', typo);
   cfg.addFilter('plain', plain);
+  cfg.addFilter('h2ids', c => h2split(c).out);
+  cfg.addFilter('h2list', c => h2split(c).items);
+  cfg.addNunjucksGlobal('related', related);
   cfg.addFilter('json', v => JSON.stringify(v));
   cfg.addFilter('pad2', n => String(n).padStart(2, '0'));
 

@@ -952,6 +952,17 @@ html:active-view-transition { background: var(--ink); }
 .prose thead th, .prose tbody th { font-weight: 500; color: var(--ink); }
 .prose p.prose__meta, .prose p.prose__note { margin-top: 14px; font-size: 15px; color: var(--ink-3, var(--ink-2)); }
 .prose p.prose__note { margin-top: 40px; }
+.prose .prose__toc { margin: 28px 0 8px; padding: 20px 24px; background: var(--fog); }
+.prose .prose__toc p { margin: 0 0 10px; font-size: 15px; color: var(--ink-3, var(--ink-2)); }
+.prose .prose__toc ul, .prose .prose__rel ul { padding-left: 0; list-style: none; }
+.prose .prose__toc li, .prose .prose__rel li { font-size: 16px; line-height: 1.45; }
+.prose .prose__toc li + li { margin-top: 8px; }
+.prose .prose__rel { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line, rgba(0, 0, 0, .12)); }
+.prose .prose__rel h2 { margin: 0 0 16px; }
+.prose .prose__rel li + li { margin-top: 10px; }
+.ftr__top--3 .ftr__say { grid-column: 1 / -1; max-width: 760px; margin-bottom: 48px; }
+.ftr__top--3 .ftr__col { grid-column: span 4; }
+@media (max-width: 900px) { .ftr__top--3 .ftr__say { margin-bottom: 0; } .ftr__top--3 .ftr__col { grid-column: auto; } }
 
 /* ---------- страницы услуг из блоков: правки для узких экранов ---------- */
 .terms--plain div:first-child dd { font: inherit; font-size: 19px; line-height: 1.35; color: inherit; }
