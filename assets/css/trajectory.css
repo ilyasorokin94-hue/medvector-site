@@ -714,6 +714,8 @@ small { font-size: 14px; }
 .yesno { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 112px); }
 .plist--no li::before { background: linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat; color: var(--ink-3); }
 .incl__list--3 { grid-template-columns: repeat(3, 1fr); row-gap: 48px; }
+@media (min-width: 1200px) { .incl__list--5 { grid-template-columns: repeat(5, 1fr); gap: 20px; } }
+@media (min-width: 1021px) and (max-width: 1199px) { .incl__list--5 { grid-template-columns: repeat(3, 1fr); row-gap: 48px; } }
 .sec > .wrap > .pack__own { max-width: 900px; margin-top: clamp(40px, 5vw, 64px); font-size: clamp(18px, 1.5vw, 21px); line-height: 1.5; }
 @media (max-width: 1020px) {
   .sitebox, .mapbox { grid-template-columns: minmax(0, 1fr); }

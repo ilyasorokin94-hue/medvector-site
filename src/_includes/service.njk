@@ -26,7 +26,7 @@
 {% endfor %}
     </ul>
 {% elif s.type == 'steps' %}
-    <ol class="incl__list{% if s.items.length == 3 %} incl__list--3{% endif %}">
+    <ol class="incl__list{% if s.items.length == 3 %} incl__list--3{% endif %}{% if s.items.length == 5 %} incl__list--5{% endif %}">
 {% for r in s.items %}
       <li class="reveal">{% if r[2] %}<span class="incl__n">{{ r[0] }}</span><h4>{{ r[1] | t | safe }}</h4><p>{{ r[2] | t | safe }}</p>{% else %}<h4>{{ r[0] | t | safe }}</h4><p>{{ r[1] | t | safe }}</p>{% endif %}</li>
 {% endfor %}
