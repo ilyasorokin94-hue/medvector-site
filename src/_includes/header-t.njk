@@ -6,11 +6,12 @@
     </a>
     <nav class="hdr__nav" aria-label="Основное меню">
       <a href="{{ href('direct') }}"{% if section == 'direct' %} aria-current="page"{% endif %}>Яндекс Директ</a>
-      <a href="{{ href('complex') }}"{% if section == 'complex' %} aria-current="page"{% endif %}>Сайт и Карты</a>
+      <a href="{{ href('complex') }}"{% if section == 'complex' %} aria-current="page"{% endif %}>Комплексный маркетинг</a>
       <a href="{{ href('cases') }}"{% if section == 'cases' %} aria-current="page"{% endif %}>Кейсы</a>
+      <a href="{{ href('blog') }}"{% if section == 'blog' %} aria-current="page"{% endif %}>Блог</a>
       <a href="{{ href('about') }}"{% if section == 'about' %} aria-current="page"{% endif %}>О нас</a>
     </nav>
-    <a href="{{ '#start' if form != false else '/#start' }}" class="btn btn--sm hdr__cta" data-magnetic>Начать бесплатно</a>
+    <a href="{{ '#start' if form != false else '/#start' }}" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
@@ -19,12 +20,15 @@
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
     <a href="{{ href('direct') }}">Яндекс Директ</a>
-    <a href="{{ href('complex') }}">Сайт и Карты</a>
+    <a href="{{ href('complex') }}">Комплексный маркетинг</a>
+    <a href="{{ href('sites') }}">Сайт для стоматологии</a>
+    <a href="{{ href('maps') }}">Яндекс Карты</a>
     <a href="{{ href('cases') }}">Кейсы</a>
+    <a href="{{ href('blog') }}">Блог</a>
     <a href="{{ href('about') }}">О нас</a>
   </nav>
   <div class="mnav__foot">
-    <a href="{{ '#start' if form != false else '/#start' }}" class="btn btn--light">Начать бесплатно</a>
-    <p>Первый тест в&nbsp;Директе без комиссии за&nbsp;нашу работу. Сайт и&nbsp;Яндекс Карты под&nbsp;ключ за&nbsp;первый месяц.</p>
+    <a href="{{ '#start' if form != false else '/#start' }}" class="btn btn--light">Разобрать клинику</a>
+    <p>Первый тест в&nbsp;Директе без комиссии агентства. Сайт, Яндекс Карты и&nbsp;SEO одной командой.</p>
   </div>
 </div>
