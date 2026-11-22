@@ -1,0 +1,30 @@
+/* ---------- заявка «Карточка»: тёмный блок, широкая белая форма в две колонки ---------- */
+.stc__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.stc__text { grid-column: 1 / 5; position: sticky; top: calc(var(--hdr) + 32px); }
+.stc .label { color: var(--on-dark-2); }
+.stc__h { font-size: calc(clamp(30px, 3.4vw, 54px) * var(--h-k)); margin-bottom: clamp(24px, 2.6vw, 36px); }
+.stc .st__lead { color: #fff; }
+.stc .ticks li::after { background: var(--vec-dark); }
+.stc .st__promise { color: var(--on-dark-2); opacity: 1; }
+.stc__form { grid-column: 6 / 13; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; align-items: start; }
+.stc__form > .fm__choice, .stc__form > .fm__dir { grid-column: 1; }
+.stc__form > .fm__row { grid-column: 2; grid-template-columns: minmax(0, 1fr); }
+.stc__form > .fm__choice { grid-row: 1; }
+.stc__form > .fm__dir { grid-row: 2; }
+.stc__form > .fm__row:nth-of-type(1) { grid-row: 1; }
+.stc__form > .fm__row:nth-of-type(2) { grid-row: 2; }
+.stc__form > .fm__c, .stc__form > .fm__send, .stc__form > .fm__ok, .stc__form > .stub { grid-column: 1 / -1; }
+.stc__form > .fm__c { margin-top: 8px; padding-top: 20px; border-top: 1px solid var(--line); }
+.stc__form .fm__opts { display: grid; }
+.stc__form .fm__opt span { width: 100%; }
+@media (max-width: 1020px) {
+  .stc__text { grid-column: 1 / -1; position: static; }
+  .stc__form { grid-column: 1 / -1; margin-top: 36px; }
+}
+@media (max-width: 640px) {
+  .stc__form { grid-template-columns: minmax(0, 1fr); }
+  .stc__form > * { grid-column: 1 / -1 !important; grid-row: auto !important; }
+  .stc__form .fm__opts { display: flex; }
+  .stc__form .fm__opt span { width: auto; }
+}
+.stc__form .stub { color: var(--ink-3); }

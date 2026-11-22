@@ -60,3 +60,35 @@
   </div>
 </section>
 {% endmacro %}
+
+{# «Карточка»: тёмный блок, слева заголовок и что будет после заявки, справа широкая белая форма в две колонки #}
+{% macro card(s) %}
+{% set d = s.d %}
+<section class="sec sec--dark dark st stc"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="start">
+  <div class="wrap stc__grid">
+    <div class="stc__text">
+      <p class="label" data-rv="fade">Заявка</p>
+      <h2 class="h2 stc__h" data-rv>{{ (d.title or 'Оставьте заявку. За 2 рабочих дня разберём клинику и посчитаем запуск.') | nodot | t | safe }}</h2>
+      <div data-rv style="--d:1">{{ text(d) }}</div>
+    </div>
+    <form class="fm stc__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1">{{ fields(d) }}</form>
+  </div>
+</section>
+{% endmacro %}
+
+{# «Выбор»: светло-голубая панель по центру. Сначала крупный выбор услуги плитками, потом контакты; что будет после заявки строкой над формой #}
+{% macro choice(s) %}
+{% set d = s.d %}
+<section class="sec st sth"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="start">
+  <div class="wrap">
+   <div class="sth__box">
+    <div class="sth__head">
+      <p class="label" data-rv="fade">Заявка</p>
+      <h2 class="h2 sth__h" data-rv>{{ (d.title or 'Оставьте заявку. За 2 рабочих дня разберём клинику и посчитаем запуск.') | nodot | t | safe }}</h2>
+    </div>
+    <div class="sth__text" data-rv style="--d:1">{{ text(d) }}</div>
+    <form class="fm sth__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:2">{{ fields(d) }}</form>
+   </div>
+  </div>
+</section>
+{% endmacro %}
