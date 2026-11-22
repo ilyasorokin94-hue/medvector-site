@@ -1,0 +1,33 @@
+{
+  "types": {
+    "hero": ["scene", "photo", "type"],
+    "faq": ["acc", "index", "band"],
+    "start": ["form", "card", "choice"]
+  },
+  "pages": {
+    "/yandex-direkt/": { "intro": ["scene", "photo", "panel"], "faq": ["acc", "band", "index"], "start": ["form", "choice", "card"] },
+    "/yandex-karty/": { "intro": ["scene", "poster", "photo"], "faq": ["index", "acc", "band"], "start": ["card", "form", "choice"] },
+    "/2gis/": { "intro": ["scene", "photo", "type"], "faq": ["band", "index", "acc"], "start": ["choice", "card", "form"] },
+    "/prodoktorov/": { "intro": ["scene", "poster", "type"], "faq": ["acc", "index", "band"], "start": ["card", "choice", "form"] },
+    "/otzyvy-i-reputaciya/": { "intro": ["scene", "photo", "poster"], "faq": ["index", "band", "acc"], "start": ["form", "card", "choice"] },
+    "/sajt-dlya-stomatologii/": { "intro": ["scene", "panel", "photo"], "faq": ["band", "acc", "index"], "start": ["card", "form", "choice"] },
+    "/seo-dlya-stomatologii/": { "intro": ["scene", "poster", "photo"], "faq": ["acc", "band", "index"], "start": ["choice", "form", "card"] },
+    "/geo-prodvizhenie/": { "intro": ["scene", "photo", "poster"], "faq": ["index", "acc", "band"], "start": ["form", "choice", "card"] },
+    "/lidy-dlya-stomatologii/": { "intro": ["scene", "panel", "type"], "faq": ["band", "index", "acc"], "start": ["choice", "card", "form"] },
+    "/medicinskij-marketing/": { "intro": ["scene", "photo", "poster"], "faq": ["acc", "index", "band"], "start": ["card", "choice", "form"] },
+    "/kompleksnyj-marketing/": { "intro": ["scene", "panel", "photo"], "faq": ["index", "band", "acc"], "start": ["form", "card", "choice"] },
+    "/kejsy/": { "intro": ["poster", "type", "photo"], "start": ["card", "form", "choice"] },
+    "/kontakty/": { "intro": ["photo", "scene", "panel"], "start": ["form", "choice", "card"] },
+    "/blog/": { "intro": ["scene", "type", "poster"], "start": ["card", "form", "choice"] }
+  },
+  "names": {
+    "hero-scene": "Сцена",
+    "hero-photo": "Фото",
+    "hero-panel": "Панель",
+    "hero-poster": "Плакат",
+    "faq-index": "Оглавление",
+    "faq-band": "Тёмная лента",
+    "start-card": "Карточка",
+    "start-choice": "Выбор"
+  }
+}
