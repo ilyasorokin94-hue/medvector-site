@@ -24,3 +24,43 @@
   </div>
 </section>
 {% endmacro %}
+
+{# «Крупно»: тёмный блок, образец отчёта по центру, слова отчёта рядом под ним #}
+{% macro focus(s) %}
+<section class="sec sec--dark dark lk-report-focus"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="report">
+  <div class="wrap">
+    {{ c.head(s, 'rpf__head') }}
+    <div class="rpf__stage" data-rv="scale">{{ a.a_report() }}</div>
+{% if s.gloss %}
+    <div class="rpf__gloss">
+      <h3 class="yn__h">{{ s.glossTitle or 'Слова в отчёте значат одно и то же каждую неделю' }}</h3>
+      <dl>
+{% for g in s.gloss %}
+        <div data-rv style="--d:{{ loop.index0 }}"><dt>{{ g[0] }}</dt><dd>{{ g[1] | t | safe }}</dd></div>
+{% endfor %}
+      </dl>
+    </div>
+{% endif %}
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Словарь»: сначала слова отчёта крупными строками, под ними образец в рамке #}
+{% macro notes(s) %}
+<section{{ c.attrs(s, 'lk-report-notes') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+{% if s.gloss %}
+    <h3 class="yn__h">{{ s.glossTitle or 'Слова в отчёте значат одно и то же каждую неделю' }}</h3>
+    <dl class="rpn__gloss">
+{% for g in s.gloss %}
+      <div data-rv><dt>{{ g[0] }}</dt><dd>{{ g[1] | t | safe }}</dd></div>
+{% endfor %}
+    </dl>
+{% endif %}
+    <div class="rpn__frame{% if not s.gloss %} rpn__frame--solo{% endif %}" data-rv="scale">{{ a.a_report() }}</div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
