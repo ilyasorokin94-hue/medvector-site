@@ -178,7 +178,7 @@ module.exports = function (cfg) {
     for (const r of results || []) {
       if (!r.outputPath || !String(r.outputPath).endsWith('.html') || !fs.existsSync(r.outputPath)) continue;
       const html = fs.readFileSync(r.outputPath, 'utf8');
-      const next = html.replace(/\/assets\/css\/pages\.css(\?v=\w+)?"/g, `/assets/css/pages.css?v=${cssV}"`).replace(/\/assets\/js\/pages\.js(\?v=\w+)?"/g, `/assets/js/pages.js?v=${jsV}"`);
+      const next = html.replace(/assets\/css\/pages\.css(\?v=\w+)?"/g, `assets/css/pages.css?v=${cssV}"`).replace(/assets\/js\/pages\.js(\?v=\w+)?"/g, `assets/js/pages.js?v=${jsV}"`);
       if (next !== html) fs.writeFileSync(r.outputPath, next);
     }
   });
@@ -187,10 +187,10 @@ module.exports = function (cfg) {
   cfg.addTransform('relative-urls', function (content) {
     if (!(this.page.outputPath || '').endsWith('.html')) return content;
     const url = this.page.url || '/';
-    // страница 404 показывается по любому адресу, поэтому её ссылки считаются от корня (см. <base> в шаблоне)
+    // страница 404 показывается по любому адресу, поэтому её ссылки считаются от корня (см. <base> в шаблоне), а сам <base href="/"> не трогаем
     const depth = url.endsWith('/') ? url.split('/').filter(Boolean).length : 0;
     return content
-      .replace(/\b(href|src|action|poster)="(\/(?!\/)[^"]*)"/g, (m, a, u) => `${a}="${relative(u, depth)}"`)
+      .replace(/(?<!<base )\b(href|src|action|poster)="(\/(?!\/)[^"]*)"/g, (m, a, u) => `${a}="${relative(u, depth)}"`)
       .replace(/\b(srcset|imagesrcset)="([^"]*)"/g, (m, a, list) => `${a}="${list.split(',').map(c => { const s = c.trim(); return s.startsWith('/') && !s.startsWith('//') ? relative(s.split(/\s+/)[0], depth) + s.slice(s.split(/\s+/)[0].length) : s; }).join(', ')}"`);
   });
 
