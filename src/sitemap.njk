@@ -4,7 +4,10 @@ eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{%- for u in ['/', '/yandex-direkt/', '/lidy-dlya-stomatologii/', '/kompleksnyj-marketing/', '/sajt-dlya-stomatologii/', '/seo-dlya-stomatologii/', '/yandex-karty/', '/kejsy/', '/kontakty/', '/blog/', '/blog/reklama-stomatologii/', '/blog/kak-privlech-pacientov-v-stomatologiyu/', '/blog/zakon-o-reklame-medicinskih-uslug/', '/blog/trebovaniya-k-sajtu-medorganizacii/'] %}
-  <url><loc>{{ site.url }}{{ u }}</loc></url>
-{%- endfor %}
+{# В карту попадают все страницы, кроме служебных: 404, «спасибо» и документы. #}
+{% for p in collections.all | sort(false, false, 'url') %}
+{% if p.url and p.url.endsWith('/') and p.url not in ['/spasibo/', '/politika/', '/soglasie/'] and p.data.sitemap != false %}
+  <url><loc>{{ site.url }}{{ p.url }}</loc>{% if p.data.dateModified %}<lastmod>{{ p.data.dateModified }}</lastmod>{% endif %}</url>
+{% endif %}
+{% endfor %}
 </urlset>
