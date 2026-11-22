@@ -1,0 +1,21 @@
+/* контакты «Визитка»: заголовок слева, тёмная карточка со способами связи справа */
+.cnc { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px clamp(32px, 6vw, 120px); align-items: start; }
+.cnc__head .sh { display: block; }
+.cnc__head .sh__note { margin-top: 18px; }
+.cnc__card { display: grid; gap: clamp(28px, 3vw, 44px); padding: clamp(28px, 3.4vw, 56px); border-radius: var(--r-lg); background: var(--ink); color: #fff; }
+.cnc__ways > div { display: grid; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--line-dark); }
+.cnc__ways dt, .cnc__meta dt { font-size: 14px; color: var(--on-dark-2); }
+.cnc__ways dd { font-size: calc(clamp(20px, 1.8vw, 26px) * var(--t-k)); font-weight: 500; letter-spacing: -.02em; }
+.cnc__ways a { text-decoration: none; }
+.cnc__wait { display: grid; gap: 14px; justify-items: start; }
+.cnc__big { font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(26px, 2.6vw, 40px) * var(--h-k)); line-height: 1.12; letter-spacing: -.035em; }
+.cnc__big a { color: var(--vec-dark); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.cnc__meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 24px; padding-top: 24px; border-top: 1px solid var(--line-dark); }
+.cnc__meta div { display: grid; align-content: start; gap: 4px; }
+.cnc__meta dd { font-size: calc(17px * var(--t-k)); }
+@media (max-width: 1020px) {
+  .cnc { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .cnc__meta { grid-template-columns: minmax(0, 1fr); }
+}

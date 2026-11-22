@@ -24,3 +24,58 @@
   </div>
 </section>
 {% endmacro %}
+
+{# «Портрет»: фото и подпись слева колонкой, текст справа, команда ниже в три колонки #}
+{% macro portrait(s) %}
+<section{{ c.attrs(s, 'lk-founder-portrait') }}>
+  <div class="wrap">
+    <div class="fdp">
+      <figure class="fdp__ph" data-rv="scale">
+        <img src="/assets/img/founder.webp" width="256" height="256" alt="Илья Сорокин, основатель МедВектора" loading="lazy" decoding="async">
+        <figcaption><b>Илья Сорокин</b>основатель, Санкт-Петербург</figcaption>
+        <p class="stub">Заглушка: фото тестовое</p>
+      </figure>
+      <div class="fdp__txt">
+        <h2 class="h2" data-rv>{{ s.title | nodot | t | safe }}</h2>
+{% for p in s.paras %}
+        <p class="fdp__p" data-rv>{{ p | safe }}</p>
+{% endfor %}
+      </div>
+    </div>
+    <div class="fdp__team">
+      <h3 class="yn__h">{{ s.teamTitle or 'В команде' }}</h3>
+      <ul>
+{% for t in s.team %}
+        <li data-rv style="--d:{{ loop.index0 % 3 }}">{{ t | t | safe }}</li>
+{% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+{% endmacro %}
+
+{# «Слово основателя»: тёмный блок, первый абзац крупно, подпись с фото, команда справа #}
+{% macro word(s) %}
+<section class="sec sec--dark dark lk-founder-word"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="founder">
+  <div class="wrap fdq">
+    <div class="fdq__main">
+      <h2 class="h2" data-rv>{{ s.title | nodot | t | safe }}</h2>
+{% for p in s.paras %}
+      <p class="fdq__p{% if loop.first %} fdq__p--big{% endif %}" data-rv>{{ p | safe }}</p>
+{% endfor %}
+      <figure class="fdq__sign" data-rv>
+        <img src="/assets/img/founder.webp" width="256" height="256" alt="Илья Сорокин, основатель МедВектора" loading="lazy" decoding="async">
+        <figcaption><b>Илья Сорокин</b>основатель, Санкт-Петербург<span class="stub">Заглушка: фото тестовое</span></figcaption>
+      </figure>
+    </div>
+    <div class="fdq__side" data-rv style="--d:1">
+      <h3 class="yn__h">{{ s.teamTitle or 'В команде' }}</h3>
+      <ul class="ticks">
+{% for t in s.team %}
+        <li>{{ t | t | safe }}</li>
+{% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+{% endmacro %}
