@@ -714,6 +714,8 @@ small { font-size: 14px; }
 .yesno { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 112px); }
 .plist--no li::before { background: linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat; color: var(--ink-3); }
 .incl__list--3 { grid-template-columns: repeat(3, 1fr); row-gap: 48px; }
+@media (min-width: 1200px) { .incl__list--5 { grid-template-columns: repeat(5, 1fr); gap: 20px; } }
+@media (min-width: 1021px) and (max-width: 1199px) { .incl__list--5 { grid-template-columns: repeat(3, 1fr); row-gap: 48px; } }
 .sec > .wrap > .pack__own { max-width: 900px; margin-top: clamp(40px, 5vw, 64px); font-size: clamp(18px, 1.5vw, 21px); line-height: 1.5; }
 @media (max-width: 1020px) {
   .sitebox, .mapbox { grid-template-columns: minmax(0, 1fr); }
@@ -950,6 +952,17 @@ html:active-view-transition { background: var(--ink); }
 .prose thead th, .prose tbody th { font-weight: 500; color: var(--ink); }
 .prose p.prose__meta, .prose p.prose__note { margin-top: 14px; font-size: 15px; color: var(--ink-3, var(--ink-2)); }
 .prose p.prose__note { margin-top: 40px; }
+.prose .prose__toc { margin: 28px 0 8px; padding: 20px 24px; background: var(--fog); }
+.prose .prose__toc p { margin: 0 0 10px; font-size: 15px; color: var(--ink-3, var(--ink-2)); }
+.prose .prose__toc ul, .prose .prose__rel ul { padding-left: 0; list-style: none; }
+.prose .prose__toc li, .prose .prose__rel li { font-size: 16px; line-height: 1.45; }
+.prose .prose__toc li + li { margin-top: 8px; }
+.prose .prose__rel { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line, rgba(0, 0, 0, .12)); }
+.prose .prose__rel h2 { margin: 0 0 16px; }
+.prose .prose__rel li + li { margin-top: 10px; }
+.ftr__top--3 .ftr__say { grid-column: 1 / -1; max-width: 760px; margin-bottom: 48px; }
+.ftr__top--3 .ftr__col { grid-column: span 4; }
+@media (max-width: 900px) { .ftr__top--3 .ftr__say { margin-bottom: 0; } .ftr__top--3 .ftr__col { grid-column: auto; } }
 
 /* ---------- страницы услуг из блоков: правки для узких экранов ---------- */
 .terms--plain div:first-child dd { font: inherit; font-size: 19px; line-height: 1.35; color: inherit; }
