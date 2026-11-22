@@ -34,3 +34,144 @@
   </div>
 </section>
 {% endmacro %}
+
+{# части условий для всех видов #}
+{% macro btn(s, cls='btn') %}
+{% if s.cta %}<a href="#start" class="{{ cls }}" data-magnetic{% if s.pick %} data-pick="{{ s.pick }}"{% endif %}>{{ s.cta }}</a>{% endif %}
+{% endmacro %}
+{% macro listnote(s, cls) %}
+{% if s.listNote %}<p class="{{ cls }}">{{ s.listNote | safe }}</p>{% endif %}
+{% endmacro %}
+
+{# «Итог»: всё по центру; главное условие крупно, остальные строкой под ним, состав на светлой плашке #}
+{% macro statement(s) %}
+<section{{ c.attrs(s, 'lk-pack-statement') }}>
+  <div class="wrap pkst">
+    <div class="pkst__head">
+{% if s.label %}
+      <p class="label" data-rv="fade">{{ s.label }}</p>
+{% endif %}
+      <h2 class="h2" data-rv>{{ s.title | nodot | t | safe }}</h2>
+{% if s.note %}
+      <p class="pkst__note" data-rv style="--d:1">{{ s.note | t | safe }}</p>
+{% endif %}
+    </div>
+    <h3 class="pkst__cap" data-rv>{{ s.termsTitle | t | safe }}</h3>
+{% set rest = s.terms.slice(1) if s.bigFirst else s.terms %}
+{% if s.bigFirst %}
+    <p class="pkst__big" data-rv><b class="num">{{ s.terms[0][1] | t | safe }}</b><span>{{ s.terms[0][0] | t | safe }}</span></p>
+{% endif %}
+    <dl class="pkst__terms pkst__terms--{{ rest.length }}">
+{% for r in rest %}
+      <div data-rv style="--d:{{ loop.index0 }}"><dt>{{ r[0] | t | safe }}</dt><dd>{{ r[1] | t | safe }}</dd></div>
+{% endfor %}
+    </dl>
+    <div class="pkst__list" data-rv>
+      <h3 class="pkst__lh">{{ s.listTitle | t | safe }}</h3>
+      <ul class="pkst__ul">
+{% for n in s.list %}
+        <li>{{ n | t | safe }}</li>
+{% endfor %}
+      </ul>
+      {{ listnote(s, 'pkst__ln') }}
+    </div>
+{% if s.cta %}
+    <div class="pkst__act" data-rv>{{ btn(s) }}</div>
+{% endif %}
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Закреп»: тёмная карточка условий закреплена слева, состав крупными строками справа #}
+{% macro sticky(s) %}
+<section{{ c.attrs(s, 'lk-pack-sticky') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="pkpn">
+      <div class="pkpn__list">
+        <h3 class="yn__h" data-rv>{{ s.listTitle | t | safe }}</h3>
+        <ul class="pkpn__ul">
+{% for n in s.list %}
+          <li data-rv style="--d:{{ loop.index0 % 3 }}">{{ n | t | safe }}</li>
+{% endfor %}
+        </ul>
+        {{ listnote(s, 'pkpn__ln') }}
+      </div>
+      <div class="pkpn__side">
+        <div class="pkpn__card dark" data-rv="scale">
+          <h3 class="yn__h">{{ s.termsTitle | t | safe }}</h3>
+          <dl class="pkpn__terms{% if s.bigFirst %} pkpn__terms--big{% endif %}">
+{% for r in s.terms %}
+            <div><dt>{{ r[0] | t | safe }}</dt><dd>{{ r[1] | t | safe }}</dd></div>
+{% endfor %}
+          </dl>
+          {{ btn(s, 'btn btn--light') }}
+        </div>
+      </div>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Полоса»: тёмная секция, условия строкой крупных значений, под ними состав в две колонки и кнопка #}
+{% macro strip(s) %}
+<section class="sec sec--dark dark lk-pack-strip"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="pack">
+  <div class="wrap">
+    {{ c.head(s) }}
+    <h3 class="yn__h" data-rv>{{ s.termsTitle | t | safe }}</h3>
+    <dl class="pksp pksp--{{ s.terms.length }}{% if s.bigFirst %} pksp--big{% endif %}">
+{% for r in s.terms %}
+      <div class="pksp__c" data-rv style="--d:{{ loop.index0 }}"><dt>{{ r[0] | t | safe }}</dt><dd>{{ r[1] | t | safe }}</dd></div>
+{% endfor %}
+    </dl>
+    <div class="pksp__foot">
+      <div class="pksp__list" data-rv>
+        <h3 class="yn__h">{{ s.listTitle | t | safe }}</h3>
+        <ul class="ticks pksp__ul">
+{% for n in s.list %}
+          <li>{{ n | t | safe }}</li>
+{% endfor %}
+        </ul>
+        {{ listnote(s, 'pksp__ln') }}
+      </div>
+{% if s.cta %}
+      <div class="pksp__act" data-rv style="--d:1">{{ btn(s, 'btn btn--light') }}</div>
+{% endif %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Талон»: одна светлая карточка, разделённая линией отрыва: слева состав, справа условия и кнопка #}
+{% macro ticket(s) %}
+<section{{ c.attrs(s, 'lk-pack-ticket') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="pktk" data-rv="scale">
+      <div class="pktk__a">
+        <h3 class="yn__h">{{ s.listTitle | t | safe }}</h3>
+        <ul class="pktk__ul">
+{% for n in s.list %}
+          <li>{{ n | t | safe }}</li>
+{% endfor %}
+        </ul>
+        {{ listnote(s, 'pktk__ln') }}
+      </div>
+      <div class="pktk__cut" aria-hidden="true"></div>
+      <div class="pktk__b">
+        <h3 class="yn__h">{{ s.termsTitle | t | safe }}</h3>
+        <dl class="pktk__terms{% if s.bigFirst %} pktk__terms--big{% endif %}">
+{% for r in s.terms %}
+          <div><dt>{{ r[0] | t | safe }}</dt><dd>{{ r[1] | t | safe }}</dd></div>
+{% endfor %}
+        </dl>
+        {{ btn(s) }}
+      </div>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

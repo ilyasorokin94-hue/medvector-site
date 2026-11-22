@@ -1,0 +1,24 @@
+/* условия «Закреп»: тёмная карточка условий закреплена слева, состав крупными строками справа */
+.pkpn { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.pkpn__side { grid-column: 1 / 6; grid-row: 1; position: sticky; top: calc(var(--hdr) + 28px); }
+.pkpn__list { grid-column: 7 / 13; grid-row: 1; }
+.pkpn__ul { border-top: 1px solid var(--line); }
+.pkpn__ul li { position: relative; padding: clamp(18px, 2vw, 26px) 0 clamp(18px, 2vw, 26px) 46px; border-bottom: 1px solid var(--line); font: var(--h-w) calc(clamp(20px, 1.9vw, 28px) * var(--h-k))/1.2 var(--disp); letter-spacing: -.03em; text-wrap: balance; }
+.pkpn__ul li::before { content: ''; position: absolute; left: 0; top: calc(clamp(18px, 2vw, 26px) + .1em); width: 26px; height: 26px; border-radius: 50%; background: var(--vec-soft); }
+.pkpn__ul li::after { content: ''; position: absolute; left: 9.5px; top: calc(clamp(18px, 2vw, 26px) + .1em + 6px); width: 6px; height: 11px; border: solid var(--vec-ink); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.pkpn__ln { margin-top: 24px; font-size: calc(16px * var(--t-k)); color: var(--ink-2); }
+.pkpn__ln a { color: var(--ink); text-decoration-color: var(--vec); text-underline-offset: 3px; }
+.pkpn__card { display: grid; gap: 8px; padding: clamp(26px, 3vw, 44px); border-radius: var(--r-lg); background: var(--ink); color: #fff; }
+.pkpn__terms { display: grid; margin-bottom: 24px; }
+.pkpn__terms div { display: grid; gap: 4px; padding: 14px 0; border-top: 1px solid var(--line-dark); }
+.pkpn__terms dt { font-size: calc(14px * var(--t-k)); color: var(--on-dark-2); }
+.pkpn__terms dd { font-size: calc(17px * var(--t-k)); line-height: 1.4; }
+.pkpn__terms--big div:first-child dd { font: var(--num-w) calc(clamp(48px, 5vw, 76px) * var(--h-k))/1 var(--disp); letter-spacing: var(--h-ls); }
+.pkpn__card .btn { justify-self: start; }
+@media (max-width: 900px) {
+  .pkpn { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 32px; }
+  .pkpn__side, .pkpn__list { grid-column: 1; grid-row: auto; position: static; }
+  .pkpn__ul li { padding-left: 40px; }
+  .pkpn__card { border-radius: var(--r); }
+  .pkpn__card .btn { justify-self: stretch; }
+}

@@ -1,0 +1,31 @@
+/* условия «Талон»: светлая карточка с линией отрыва: слева состав, справа условия и кнопка */
+.pktk { --ptk-bg: var(--paper); --ptk-card: var(--fog); position: relative; display: grid; grid-template-columns: minmax(0, 6fr) 1px minmax(0, 5fr); border-radius: var(--r-lg); background: var(--ptk-card); }
+.sec--fog .pktk { --ptk-bg: var(--fog); --ptk-card: var(--paper); box-shadow: 0 40px 80px -60px rgba(0, 15, 64, .45); }
+.pktk__a, .pktk__b { padding: clamp(28px, 3.4vw, 56px); }
+.pktk__cut { position: relative; margin: 34px 0; background: repeating-linear-gradient(var(--line) 0 8px, transparent 8px 16px); }
+.pktk__cut::before, .pktk__cut::after { content: ''; position: absolute; left: -17px; width: 34px; height: 34px; border-radius: 50%; background: var(--ptk-bg); }
+.pktk__cut::before { top: -51px; }
+.pktk__cut::after { bottom: -51px; }
+.pktk__ul { display: grid; gap: 2px; }
+.pktk__ul li { position: relative; padding: 10px 0 10px 32px; font-size: calc(17px * var(--t-k)); line-height: 1.4; }
+.pktk__ul li::before { content: ''; position: absolute; left: 4px; top: 15px; width: 6px; height: 11px; border: solid var(--vec-ink); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.pktk__ln { margin-top: 18px; font-size: calc(16px * var(--t-k)); color: var(--ink-2); }
+.pktk__ln a { color: var(--ink); text-decoration-color: var(--vec); text-underline-offset: 3px; }
+.pktk__b { display: grid; align-content: start; }
+.pktk__terms { display: grid; margin-bottom: 28px; }
+.pktk__terms div { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 16px; padding: 13px 0; border-top: 1px solid var(--line); }
+.pktk__terms dt { font-size: calc(15px * var(--t-k)); color: var(--ink-3); }
+.pktk__terms dd { font-size: calc(16px * var(--t-k)); font-weight: 500; }
+.pktk__terms--big div:first-child { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+.pktk__terms--big div:first-child dd { font: var(--num-w) calc(clamp(48px, 5vw, 76px) * var(--h-k))/1 var(--disp); letter-spacing: var(--h-ls); color: var(--vec-ink); }
+.pktk__b .btn { justify-self: start; }
+@media (max-width: 900px) {
+  .pktk { grid-template-columns: minmax(0, 1fr); border-radius: var(--r); }
+  .pktk__a, .pktk__b { padding: 26px 22px; }
+  .pktk__cut { height: 1px; margin: 0 26px; background: repeating-linear-gradient(90deg, var(--line) 0 8px, transparent 8px 16px); }
+  .pktk__cut::before, .pktk__cut::after { top: -12px; width: 24px; height: 24px; }
+  .pktk__cut::before { left: -38px; }
+  .pktk__cut::after { left: auto; right: -38px; bottom: auto; }
+  .pktk__terms div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .pktk__b .btn { justify-self: stretch; }
+}

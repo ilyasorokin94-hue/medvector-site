@@ -1,0 +1,27 @@
+/* условия «Полоса»: тёмная секция, условия строкой крупных значений, под ними состав и кнопка */
+.pksp { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: calc(100% + 24px); margin: 0 0 clamp(48px, 5vw, 80px) -24px; overflow: hidden; }
+.pksp--3, .pksp--5, .pksp--6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.pksp__c { display: grid; grid-template-rows: auto 1fr; gap: 14px; padding: 22px 24px 26px; border-top: 1px solid var(--line-dark); box-shadow: -1px 0 0 var(--line-dark); }
+.pksp dt { font-size: calc(14px * var(--t-k)); line-height: 1.35; color: var(--on-dark-2); }
+.pksp dd { font: var(--h-w) calc(clamp(20px, 1.8vw, 26px) * var(--h-k))/1.18 var(--disp); letter-spacing: -.025em; color: #fff; text-wrap: balance; }
+.pksp--big .pksp__c:first-child dd { font-size: calc(clamp(56px, 6vw, 96px) * var(--h-k)); font-weight: var(--num-w); line-height: .9; letter-spacing: var(--h-ls); color: var(--vec-dark); }
+.pksp__foot { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: end; }
+.pksp__list { grid-column: 1 / 9; }
+.pksp__ul { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+.pksp__ul li { font-size: calc(16px * var(--t-k)); }
+.pksp__ln { margin-top: 22px; font-size: calc(16px * var(--t-k)); color: var(--on-dark-2); }
+.pksp__ln a { color: #fff; text-decoration-color: var(--vec-dark); text-underline-offset: 3px; }
+.pksp__act { grid-column: 10 / 13; justify-self: end; }
+@media (max-width: 1020px) {
+  .pksp, .pksp--3, .pksp--5, .pksp--6 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pksp__foot { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 32px; }
+  .pksp__list, .pksp__act { grid-column: 1; justify-self: start; }
+}
+@media (max-width: 600px) {
+  .pksp, .pksp--3, .pksp--5, .pksp--6 { grid-template-columns: minmax(0, 1fr); }
+  .pksp { width: 100%; margin-left: 0; }
+  .pksp__c { grid-template-rows: auto; gap: 6px; padding: 16px 0; box-shadow: none; }
+  .pksp__ul { grid-template-columns: minmax(0, 1fr); }
+  .pksp__act { justify-self: stretch; }
+  .pksp__act .btn { width: 100%; }
+}
