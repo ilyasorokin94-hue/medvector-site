@@ -240,6 +240,15 @@ main { position: relative; display: block; }
 .hv .lead { max-width: 560px; }
 /* 1.2 «Ночная витрина» */
 .hv2__grid { grid-template-rows: auto 1fr auto auto; }
+/* видео под первым экраном: проявляется, когда готово к показу; синий слой сверху держит цвет сайта и читаемость текста */
+.hv2__film { position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: 0 0 var(--r-lg) var(--r-lg); opacity: 0; transition: opacity 1.8s ease; pointer-events: none; }
+.hv2__film.is-on { opacity: 1; }
+.hv2__v { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+.hv2__film::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 15, 64, .38) 0, rgba(0, 15, 64, .5) 40%, rgba(0, 15, 64, .88) 66%, var(--ink) 100%); }
+.hv2__stub { position: absolute; z-index: 1; right: var(--gut); top: calc(var(--hdr) + 12px); padding: 5px 12px; border-radius: 99px; background: rgba(0, 15, 64, .78); color: #fff; font-size: 13px; line-height: 1.3; }
+.hv2 > .wrap { position: relative; z-index: 1; }
+.hv2__stage::before { transition: opacity 1.8s ease; }
+.hv2:has(.hv2__film.is-on) .hv2__stage::before { opacity: .35; }
 .hv2__label { grid-column: 1 / 13; justify-self: center; }
 .hv2__stage { grid-column: 1 / 13; grid-row: 2; position: relative; isolation: isolate; align-self: center; padding: clamp(30px, 6.5vh, 72px) 0; }
 .hv2__wm { margin: 0; font: var(--h-w) 13vw/.9 var(--disp); letter-spacing: var(--h-ls); text-transform: var(--h-tt); white-space: nowrap; text-align: center; color: #fff; }
