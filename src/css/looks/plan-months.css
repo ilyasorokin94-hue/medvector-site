@@ -13,7 +13,7 @@
 .pl__plan li:first-child .pl__bar i { background: #fff; }
 .pl__money.is-in .pl__bar i, .no-js .pl__bar i { transform: none; }
 .pl__plan p { grid-column: 1 / -1; color: var(--on-dark-2); font-size: calc(15.5px * var(--t-k)); }
-.lk-plan .af__why { margin-top: clamp(40px, 4vw, 64px); padding-top: 24px; border-top: 1px solid var(--line-dark); }
+.lk-plan .af__why { max-width: 820px; margin-top: clamp(40px, 4vw, 64px); padding-top: 24px; border-top: 1px solid var(--line-dark); font-size: calc(clamp(18px, 1.5vw, 21px) * var(--t-k)); line-height: 1.5; color: var(--on-dark-2); }
 @media (max-width: 1020px) {
   .pl { grid-template-columns: minmax(0, 1fr); }
 }
