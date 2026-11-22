@@ -1,0 +1,26 @@
+/* ===================== Сборка выбора: переключатель вариантов над каждой секцией и панель с кодом выбора ===================== */
+.vset { position: relative; }
+.vset + .vset { border-top: 2px dashed rgba(0, 140, 216, .45); }
+.vset__bar { position: sticky; top: 0; z-index: 30; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 8px var(--gut); background: rgba(228, 243, 252, .97); border-bottom: 1px solid rgba(0, 140, 216, .3); font: 400 14px/1.3 var(--text); color: var(--ink); }
+.hdr:not(.is-hidden) ~ main .vset__bar { top: var(--hdr); }
+.vset__num { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: #fff; font-weight: 500; font-size: 13px; }
+.vset__name { flex: 1 1 200px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+.vset__btns { display: flex; gap: 6px; }
+.vset__b { display: inline-flex; align-items: baseline; gap: 6px; min-height: 36px; padding: 0 14px; border: 1px solid rgba(0, 15, 64, .25); border-radius: 99px; background: #fff; cursor: pointer; font-size: 14px; transition: background-color .3s, color .3s; }
+.vset__b b { font-weight: 600; }
+.vset__b small { font-size: 13px; color: var(--ink-3); }
+.vset__b[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.vset__b[aria-pressed="true"] small { color: var(--on-dark-2); }
+.pick-bar { position: fixed; left: 50%; bottom: 14px; z-index: 90; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 12px; width: max-content; max-width: calc(100vw - 24px); padding: 10px 12px 10px 20px; border-radius: 99px; background: var(--ink); color: #fff; box-shadow: 0 20px 40px -16px rgba(0, 15, 64, .6); transform: translateX(-50%); font: 400 14px/1.3 var(--text); }
+.pick-bar__t b { font-weight: 600; letter-spacing: .04em; color: var(--vec-dark); }
+.pick-bar__btn { min-height: 36px; padding: 0 16px; border: 0; border-radius: 99px; background: #fff; color: var(--ink); font-weight: 500; cursor: pointer; }
+.pick-bar__btn--ghost { background: transparent; color: var(--on-dark-2); border: 1px solid var(--line-dark); }
+.is-pick .mcta { display: none !important; }
+@media (max-width: 720px) {
+  .vset__bar { gap: 6px 10px; padding: 6px 12px; }
+  .vset__name { flex-basis: calc(100% - 40px); order: 0; }
+  .vset__btns { width: 100%; }
+  .vset__b { flex: 1; justify-content: center; padding: 0 8px; }
+  .vset__b small { display: none; }
+  .pick-bar { bottom: 8px; border-radius: 18px; padding: 8px 10px; }
+}

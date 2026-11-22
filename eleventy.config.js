@@ -83,6 +83,27 @@ const related = (all, url, topic, n = 3) => {
   return arts.sort((a, b) => dist(a) - dist(b) || a.url.localeCompare(b.url)).slice(0, n);
 };
 
+
+// ---------- варианты секций ----------
+// У каждой секции страницы три варианта подачи («вида»). Какие три, задаёт src/_data/looks.json, какой стоит на сайте, src/_data/picks.json.
+// Обычная сборка ставит выбранный вариант. Сборка выбора (MV_PICK=1, см. _tools/pick.sh) ставит все три с переключателем.
+const PICK = !!process.env.MV_PICK;
+const readJSON = f => JSON.parse(fs.readFileSync(path.join(SRC, '_data', f), 'utf8'));
+const usedLooks = new Set();
+const trio = (url, s) => {
+  if (s.looks) return s.looks;
+  const L = readJSON('looks.json');
+  const byPage = (L.pages[url] || {})[s.id];
+  return byPage || L.types[s.type] || ['base'];
+};
+const chosen = (url, s) => {
+  const P = readJSON('picks.json');
+  const n = +((P[url] || {})[s.id] || 1);
+  const t = trio(url, s);
+  return t[Math.min(Math.max(n, 1), t.length) - 1];
+};
+const lookName = (type, look) => (readJSON('looks.json').names[type + '-' + look]) || look;
+
 module.exports = function (cfg) {
   cfg.setNunjucksEnvironmentOptions({ trimBlocks: true, lstripBlocks: true });
   cfg.addGlobalData('year', () => new Date().getFullYear());
@@ -95,6 +116,43 @@ module.exports = function (cfg) {
   cfg.addNunjucksGlobal('related', related);
   cfg.addFilter('json', v => JSON.stringify(v));
   cfg.addFilter('pad2', n => String(n).padStart(2, '0'));
+
+  cfg.addGlobalData('pick', PICK);
+  cfg.addNunjucksGlobal('PICK', PICK);
+  // точку в конце заголовка секции не показываем: на главной заголовки без точек
+  cfg.addFilter('nodot', v => String(v == null ? '' : v).replace(/\.\s*$/, ''));
+  cfg.addNunjucksGlobal('trio', trio);
+  cfg.addNunjucksGlobal('chosen', chosen);
+  cfg.addNunjucksGlobal('lookName', lookName);
+  cfg.addNunjucksGlobal('useLook', (type, look) => { usedLooks.add(type + '-' + look); return ''; });
+  // копия объекта секции с другими полями: id для варианта, тон фона по порядку
+  cfg.addNunjucksGlobal('extend', (o, extra) => Object.assign({}, o, extra));
+
+  // Стили внутренних страниц: основа и блоки из src/css, плюс только те варианты секций, что стоят на страницах.
+  // В сборке выбора в файл идут все варианты и панель переключателя.
+  cfg.on('eleventy.after', ({ dir }) => {
+    const cssDir = path.join(SRC, 'css');
+    const parts = fs.readdirSync(cssDir).filter(f => f.endsWith('.css') && (PICK || !f.startsWith('90-'))).sort();
+    let out = parts.map(f => fs.readFileSync(path.join(cssDir, f), 'utf8')).join('\n');
+    const looksDir = path.join(cssDir, 'looks');
+    fs.readdirSync(looksDir).filter(f => f.endsWith('.css')).sort().forEach(f => {
+      if (PICK || usedLooks.has(f.slice(0, -4))) out += '\n' + fs.readFileSync(path.join(looksDir, f), 'utf8');
+    });
+    const target = path.join(dir.output, 'assets', 'css', 'pages.css');
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, out);
+    // скрипт так же: основа, поведение использованных вариантов, запуск
+    const jsDir = path.join(SRC, 'js');
+    let js = fs.readFileSync(path.join(jsDir, '00-core.js'), 'utf8');
+    fs.readdirSync(path.join(jsDir, 'looks')).filter(f => f.endsWith('.js')).sort().forEach(f => {
+      if (PICK || usedLooks.has(f.slice(0, -3))) js += '\n' + fs.readFileSync(path.join(jsDir, 'looks', f), 'utf8');
+    });
+    js += '\n' + fs.readFileSync(path.join(jsDir, '99-run.js'), 'utf8');
+    const jsTarget = path.join(dir.output, 'assets', 'js', 'pages.js');
+    fs.mkdirSync(path.dirname(jsTarget), { recursive: true });
+    fs.writeFileSync(jsTarget, js);
+  });
+
 
   cfg.addTransform('relative-urls', function (content) {
     if (!(this.page.outputPath || '').endsWith('.html')) return content;
