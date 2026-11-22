@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """Сцена для видеоряда на главной: из любого исходного ролика делает три файла в assets/video/.
 
-    python3 _tools/film.py <исходник.mp4> <имя> [секунд=6] [начало=0] [--hero]
+    python3 _tools/film.py <исходник.mp4> <имя> [секунд=6] [начало=0] [--hero] [--phone] [--pan=x0:x1:секунд]
 
     --hero   фон первого экрана: 1280x720, до 1400 КБ, конец ролика плавно переходит в начало (петля без рывка)
+    --phone  тот же фон для телефона: вертикальный кадр 540x720, до 600 КБ, петля как у --hero
+    --pan    какую часть широкого кадра брать: левый край выреза едет от x0 к x1 за указанное время и остаётся на x1
+             (в точках исходника, приведённого к высоте кадра). Без --pan вырез по центру
 
 Получается:
     assets/video/<имя>.webm   VP9, 960x540, 24 кадра, без звука
@@ -33,15 +36,24 @@ def main():
         sys.exit(__doc__)
     global W, H, VIDEO_MAX, STILL_MAX
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
-    hero = '--hero' in sys.argv
+    phone = '--phone' in sys.argv
+    hero = '--hero' in sys.argv or phone
+    pan = next((a[6:].split(':') for a in sys.argv if a.startswith('--pan=')), None)
     src, name = args[0], args[1]
     secs = float(args[2]) if len(args) > 2 else 6.0
     start = float(args[3]) if len(args) > 3 else 0.0
     if hero:
         W, H, VIDEO_MAX, STILL_MAX = 1280, 720, 1400 * 1024, 70 * 1024
+    if phone:
+        W, H, VIDEO_MAX, STILL_MAX = 540, 720, 600 * 1024, 40 * 1024
     os.makedirs(OUT, exist_ok=True)
     # кадр заполняет 960x540 целиком: лишнее по краям обрезается
     vf = f'scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},fps={FPS},format=yuv420p'
+    if pan:
+        # вырез плавно едет за героем кадра: разгон и остановка без рывка
+        x0, x1, dur = float(pan[0]), float(pan[1]), float(pan[2])
+        k = f'min(t/{dur}\\,1)'
+        vf = (f"scale=-2:{H},crop={W}:{H}:x='{x0}+({x1}-{x0})*(3*pow({k}\\,2)-2*pow({k}\\,3))':y=0,fps={FPS},format=yuv420p")
     cut = ['-ss', str(start), '-t', str(secs), '-i', src, '-an', '-vf', vf]
     if hero:
         # петля: последняя секунда растворяется в первой, ролик становится на секунду короче
