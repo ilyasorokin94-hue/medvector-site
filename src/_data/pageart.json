@@ -77,6 +77,62 @@
       "h": 1067
     }
   },
+  "/blog/reklama-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-reklama",
+      "alt": "Женщина с телефоном на эскалаторе метро",
+      "h": 901
+    }
+  },
+  "/blog/skripty-administratora-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-skripty",
+      "alt": "Администраторы клиники у стойки регистрации, одна говорит по телефону",
+      "h": 1067
+    }
+  },
+  "/blog/socseti-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-socseti",
+      "alt": "Врач записывает видео на телефон, коллега проверяет кадр",
+      "h": 1067
+    }
+  },
+  "/blog/trebovaniya-k-sajtu-medorganizacii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-trebovaniya",
+      "alt": "Папка с чистыми листами и очки рядом с закрытым ноутбуком",
+      "h": 1067
+    }
+  },
+  "/blog/utp-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-utp",
+      "alt": "Синяя зубная щётка среди белых в стаканах на полке",
+      "h": 1067
+    }
+  },
+  "/blog/voronka-i-pokazateli-kliniki/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-voronka",
+      "alt": "Пациентка идёт из зоны ожидания в кабинет, медсестра открывает дверь",
+      "h": 1067
+    }
+  },
+  "/blog/yandex-biznes-dlya-kliniki/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-yabiznes",
+      "alt": "Мужчина с телефоном у входа в клинику вечером",
+      "h": 1067
+    }
+  },
+  "/blog/zakon-o-reklame-medicinskih-uslug/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-zakon",
+      "alt": "Закрытая синяя книга, очки и перьевая ручка на столе",
+      "h": 1067
+    }
+  },
   "/geo-prodvizhenie/": {
     "hero": {
       "src": "/assets/img/pages/geo-hero",
