@@ -1,0 +1,26 @@
+/* карточка до и после «Шторка»: две карточки наложены, граница двигается ползунком */
+.mbs { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px clamp(32px, 6vw, 120px); align-items: start; }
+.mbs__stage { --x: 50; position: sticky; top: calc(var(--hdr) + 32px); display: grid; padding: clamp(28px, 3vw, 48px) clamp(28px, 4vw, 64px) clamp(56px, 5vw, 72px); border-radius: var(--r-lg); background: var(--vec-soft); overflow: hidden; }
+.mbs__layer { grid-area: 1 / 1; display: grid; }
+.mbs__layer .art--map { width: 100%; height: 100%; box-shadow: 0 30px 60px -40px rgba(0, 15, 64, .45); }
+.mbs__layer--before .art--map { filter: grayscale(1); opacity: .8; box-shadow: none; }
+.mbs__layer--after { clip-path: inset(0 0 0 calc(var(--x) * 1%)); }
+.mbs__line { position: absolute; top: 0; bottom: 0; left: calc(clamp(28px, 4vw, 64px) + (100% - 2 * clamp(28px, 4vw, 64px)) * var(--x) / 100); width: 2px; margin-left: -1px; background: var(--ink); pointer-events: none; }
+.mbs__line::after { content: ''; position: absolute; left: 50%; top: 50%; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%; background: var(--ink); box-shadow: inset 0 0 0 10px var(--ink), inset 0 0 0 12px #fff; }
+.mbs__lab { position: absolute; left: clamp(28px, 4vw, 64px); bottom: 20px; font-size: 15px; color: var(--ink-3); }
+.mbs__lab--r { left: auto; right: clamp(28px, 4vw, 64px); color: var(--ink); font-weight: 500; }
+.mbs__range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+.mbs__stage:focus-within .mbs__line { background: var(--vec); }
+.mbs__stage:focus-within .mbs__line::after { box-shadow: inset 0 0 0 10px var(--vec), inset 0 0 0 12px #fff; }
+.mbs__stage:not(.is-live) .mbs__range { display: none; }
+.mbs__list { border-top: 1px solid var(--line); }
+.mbs__list li { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 6px 24px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.mbs__list h3 { font-size: calc(18px * var(--t-k)); font-weight: 500; }
+.mbs__list p { color: var(--ink-2); }
+@media (max-width: 1020px) {
+  .mbs { grid-template-columns: minmax(0, 1fr); }
+  .mbs__stage { position: relative; top: 0; justify-self: center; width: min(100%, 440px); }
+}
+@media (max-width: 640px) {
+  .mbs__list li { grid-template-columns: minmax(0, 1fr); }
+}
