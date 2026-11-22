@@ -13,13 +13,6 @@
       <p class="prose__meta">Обновлено: {{ updated }}</p>
 {% endif %}
       {{ content | safe }}
-{% if faq %}
-      <h2>Короткие ответы</h2>
-{% for f in faq %}
-      <h3>{{ f.q | t | safe }}</h3>
-      <p>{{ f.a | t | safe }}</p>
-{% endfor %}
-{% endif %}
 {% if legal %}
       <p class="prose__note">Статья описывает общие требования и не заменяет консультацию юриста. Документы меняются: перед запуском сверяйтесь с действующей редакцией.</p>
 {% endif %}
@@ -29,6 +22,15 @@
     </article>
   </div>
 </section>
+
+{% if faq %}
+<section class="sec sec--fog" id="faq">
+  <div class="wrap">
+    {{ b.shead({ title: 'Короткие ответы.', note: 'Не нашли ответ? Задайте вопрос в заявке, ответим в рабочее время.' }) }}
+    {{ b.qa(faq) }}
+  </div>
+</section>
+{% endif %}
 
 {{ b.start(start or { pick: 'unsure' }) }}
 {% endblock %}
