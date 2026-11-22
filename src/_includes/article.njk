@@ -1,28 +1,47 @@
-{# Статья блога: текст в теле файла страницы, вопросы и ссылка на услугу в шапке. #}
+{# Статья блога: текст в теле файла страницы, вопросы и ссылка на услугу в шапке.
+   Содержание собирается по заголовкам второго уровня (фильтры h2list и h2ids), «Читайте также» по полю topic. #}
 {% extends "base.njk" %}
 
+{% block preload %}
+{% if cover %}
+<link rel="preload" as="image" href="{{ cover.src }}-1000.webp" imagesrcset="{{ cover.src }}-640.webp 640w, {{ cover.src }}-1000.webp 1000w, {{ cover.src }}-1600.webp 1600w" imagesizes="(max-width: 1020px) 100vw, 1180px" fetchpriority="high">
+{% endif %}
+{% endblock %}
+
 {% block main %}
-{% import "t.njk" as b %}
-<section>
-  <div class="wrap">
-    <article class="prose prose--article">
-      {{ b.crumbs(crumbs) }}
-      <h1>{{ h1 | t | safe }}</h1>
-      <p class="prose__lead">{{ lead | t | safe }}</p>
-{% if updated %}
-      <p class="prose__meta">Обновлено: {{ updated }}</p>
-{% endif %}
+{% import "sec.njk" as S %}
+{% import "looks/_c.njk" as c %}
 {% set toc = content | h2list %}
-{% if toc.length > 2 %}
-      <nav class="prose__toc" aria-label="Содержание статьи">
-        <p>В статье</p>
-        <ul>
-{% for i in toc %}
-          <li><a href="#{{ i.id }}">{{ i.text | safe }}</a></li>
-{% endfor %}
-        </ul>
-      </nav>
+<article class="art-p">
+  <header class="art-p__head" data-sec="hero">
+    <div class="wrap">
+      {{ c.crumbs(crumbs) }}
+      <h1 class="art-p__h" data-rv>{{ h1 | t | safe }}</h1>
+      <div class="art-p__sub">
+        <p class="art-p__lead" data-rv style="--d:1">{{ lead | t | safe }}</p>
+{% if updated %}
+        <p class="art-p__meta" data-rv style="--d:2">Обновлено: {{ updated }}<br>Читать {{ ((content | plain).length / 1100) | round }}&nbsp;мин</p>
 {% endif %}
+      </div>
+{% if cover %}
+      <figure class="art-p__cover" data-rv="scale">
+        <img src="{{ cover.src }}-1000.webp" srcset="{{ cover.src }}-640.webp 640w, {{ cover.src }}-1000.webp 1000w, {{ cover.src }}-1600.webp 1600w" sizes="(max-width: 1020px) 100vw, 1180px" width="1600" height="{{ cover.h or 900 }}" alt="{{ cover.alt }}" fetchpriority="high" decoding="async">
+      </figure>
+{% endif %}
+    </div>
+  </header>
+  <div class="wrap art-p__grid">
+{% if toc.length > 2 %}
+    <nav class="art-p__toc" aria-label="Содержание статьи">
+      <p>В статье</p>
+      <ol>
+{% for i in toc %}
+        <li><a href="#{{ i.id }}">{{ i.text | safe }}</a></li>
+{% endfor %}
+      </ol>
+    </nav>
+{% endif %}
+    <div class="prose prose--article">
       {{ content | h2ids | safe }}
 {% if legal %}
       <p class="prose__note">Статья описывает общие требования и не заменяет консультацию юриста. Документы меняются: перед запуском сверяйтесь с действующей редакцией.</p>
@@ -41,18 +60,13 @@
         </ul>
       </nav>
 {% endif %}
-    </article>
+    </div>
   </div>
-</section>
+</article>
 
 {% if faq %}
-<section class="sec sec--fog" id="faq">
-  <div class="wrap">
-    {{ b.shead({ title: 'Короткие ответы.', note: 'Не нашли ответ? Задайте вопрос в заявке, ответим в рабочее время.' }) }}
-    {{ b.qa(faq) }}
-  </div>
-</section>
+{{ S.section({ type: 'faq', id: 'faq', title: 'Короткие ответы', note: 'Не нашли ответ? Задайте вопрос в заявке, ответим в рабочее время.', items: faq, tone: 'fog' }, page.url) }}
 {% endif %}
 
-{{ b.start(start or { pick: 'unsure' }) }}
+{{ S.section({ type: 'start', id: 'start', d: start or { pick: 'unsure' } }, page.url) }}
 {% endblock %}
