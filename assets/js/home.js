@@ -173,7 +173,8 @@
     MV.frames.push(function () {
       if (Math.abs(tx - cx) < 0.15 && Math.abs(ty - cy) < 0.15) { cx = tx; cy = ty; } else { cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2; }
       var t = 'translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)';
-      if (t !== ctf) { ctf = t; curEl.style.transform = t; }
+      if (t !== ctf) { ctf = t; curEl.style.transform = t; return true; }
+      return false;
     });
   }
 
@@ -181,6 +182,8 @@
   var onScroll = function () {
     onHeader();
     $$('[data-prog]').forEach(function (el) {
+      // data-prog-min: ниже этой ширины прогресс не нужен (поворот листа письма есть только на широком экране), лишний пересчёт стилей не делаем
+      if (el.dataset.progMin && innerWidth < +el.dataset.progMin) return;
       var r = el.getBoundingClientRect(), p;
       if (el.dataset.prog === 'pin') p = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
       else p = clamp((vh - r.top) / (vh + r.height), 0, 1);
@@ -191,9 +194,26 @@
   };
   var ticking = false;
   addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; onScroll(); }); } }, { passive: true });
-  var rt;
-  addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { vh = innerHeight; fit(); onScroll(); if (MV.line) MV.line.rebuild(); }, 140); });
-  var loop = function (now) { for (var i = 0; i < MV.frames.length; i++) MV.frames[i](now); requestAnimationFrame(loop); };
+  /* на телефоне при прокрутке прячется и появляется адресная строка, высота окна меняется. Ширина та же:
+     надписи и линию не пересчитываем, иначе каждое такое изменение дёргает раскладку всей страницы */
+  var rt, lastW = innerWidth;
+  addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () {
+    var wide = innerWidth !== lastW; lastW = innerWidth; vh = innerHeight;
+    if (wide || fine) fit();
+    onScroll(); if (MV.line && (wide || fine)) MV.line.rebuild();
+  }, 140); });
+  /* цикл кадров: каждая функция кадра возвращает false, когда ей больше нечего двигать. Если так ответили все,
+     цикл засыпает и не будит браузер каждые 16 мс; будят его прокрутка, размер окна, мышь и проверка четыре раза в секунду */
+  var awake = false, nap = 0;
+  var loop = function (now) {
+    var busy = false;
+    for (var i = 0; i < MV.frames.length; i++) if (MV.frames[i](now) !== false) busy = true;
+    if (busy) requestAnimationFrame(loop); else { awake = false; nap = setTimeout(MV.wake, 250); }
+  };
+  MV.wake = function () { if (awake) return; awake = true; clearTimeout(nap); requestAnimationFrame(loop); };
+  addEventListener('scroll', MV.wake, { passive: true });
+  addEventListener('resize', MV.wake);
+  if (fine) document.addEventListener('pointermove', MV.wake, { passive: true });
 
   /* ---------- вкладки и форма: общее поведение по атрибутам ---------- */
   document.addEventListener('click', function (e) {
@@ -302,10 +322,14 @@
     };
     var run = function (i) { if (i < msgs.length) one(i).then(function () { run(i + 1); }); };
     if (reduce || !('IntersectionObserver' in window)) { msgs.forEach(function (m, i) { show(i); m.classList.add('is-read'); }); return; }
+    /* на телефоне телефон проезжает экран за пару секунд: отчёт менеджера уже в ленте, а живая переписка начинается,
+       как только верх телефона показался, поэтому пустого чата никто не увидит */
+    var from = fine ? 0 : 1;
+    if (!fine) show(0);
     var io = new IntersectionObserver(function (es) {
       if (!es[es.length - 1].isIntersecting) return;
-      io.disconnect(); wait(400).then(function () { run(0); });
-    }, { threshold: 0.45 });
+      io.disconnect(); wait(fine ? 400 : 150).then(function () { run(from); });
+    }, fine ? { threshold: 0.45 } : { threshold: 0, rootMargin: '0px 0px -12% 0px' });
     io.observe(ph);
     addEventListener('resize', function () { fit(); });
 
@@ -329,7 +353,7 @@
 
   /* ---------- запуск ---------- */
   fit(); mountTeeth(); counts(document); watch(document, false); onScroll();
-  requestAnimationFrame(loop);
+  MV.wake();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fit(); if (MV.line) MV.line.rebuild(); });
   addEventListener('load', function () { vh = innerHeight; onScroll(); if (MV.line) MV.line.rebuild(); });
 })();
@@ -348,6 +372,8 @@
   var COLOR = { light: '#008cd8', fog: '#008cd8', dark: '#2aa8f2', azure: '#ffffff' };
   var BG = { light: '#ffffff', fog: '#f2f4f7', dark: '#000f40', azure: '#008cd8' };
   var total = 0, samples = [], drawn = [], pulses = [], dots = [], bands = [], head = null, cur = 0, target = 0, ready = false, R = 30;
+  // положение main и высота документа запоминаются при перестройке: кадр читает только scrollY и не заставляет браузер пересчитывать раскладку
+  var mainTop = 0, docH = 0;
 
   // положение метки относительно main без учёта анимаций transform
   var pos = function (e) { var x = 0, y = 0, n = e; while (n && n !== main) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; } return n === main ? { x: x + 0.5, y: y + 0.5 } : null; };
@@ -451,6 +477,7 @@
       svg.appendChild(c); dots.push({ el: c, len: best, bg: b.bg, col: b.col, on: null });
     });
     head = el('path', { d: 'M-10 -7.5L0 0L-10 7.5', 'class': 'vl-head' }); head.__band = band; svg.appendChild(head);
+    mainTop = main.getBoundingClientRect().top + scrollY; docH = document.documentElement.scrollHeight;
     cur = Math.min(cur, total); ready = true; frame(performance.now(), true);
   };
 
@@ -461,15 +488,17 @@
     return Math.min(total, lo * 10 + 10);
   };
   var frame = function (now, force) {
-    if (!ready) return;
-    var top = main.getBoundingClientRect().top, y = innerHeight * 0.64 - top;
+    if (!ready) return false;
+    var top = mainTop - scrollY, y = innerHeight * 0.64 - top;
     target = lenAt(y);
-    if (scrollY + innerHeight >= document.documentElement.scrollHeight - 6) target = total;
+    if (scrollY + innerHeight >= docH - 6) target = total;
     if (MV.reduce) cur = target; else cur += (target - cur) * 0.07;
     if (Math.abs(target - cur) < 0.4) cur = target;
     var da = cur.toFixed(1) + ' ' + (total + 20).toFixed(0), i, vt = -top - 200, vb = -top + innerHeight + 200, on;
     // импульс бежит по нарисованной части к стрелке
-    var pp = MV.reduce ? -1 : (now * 0.17) % (cur + 900), pd = pp > 60 && pp < cur ? '0 ' + (pp - 60).toFixed(1) + ' 60 ' + (total + 20).toFixed(0) : '0 ' + (total + 20).toFixed(0);
+    // импульс пишется в стили, только пока он на экране: остальное время кадр ничего не перерисовывает
+    var pp = MV.reduce ? -1 : (now * 0.17) % (cur + 900), inView = function (l) { return l > 60 && l < cur && Math.abs(pointAt(l - 30).y - (vt + vb) / 2) < (vb - vt) / 2 - 140; }, pv = inView(pp);
+    var pd = pv ? '0 ' + (pp - 60).toFixed(1) + ' 60 ' + (total + 20).toFixed(0) : '0 ' + (total + 20).toFixed(0);
     for (i = 0; i < drawn.length; i++) {
       on = bands[i].bottom > vt && bands[i].top < vb;
       // полосы за экраном не перерисовываем: их догонит первый кадр, когда они появятся
@@ -486,11 +515,16 @@
       if (head.__o !== 1) { head.__o = 1; head.style.opacity = 1; }
     } else if (head.__o !== 0) { head.__o = 0; head.style.opacity = 0; }
     for (i = 0; i < dots.length; i++) { on = cur >= dots[i].len; if (dots[i].on !== on) { dots[i].on = on; dots[i].el.style.fill = on ? dots[i].col : dots[i].bg; } }
+    // импульс за 0,4 секунды проходит около 140 px: проверяем и это место, чтобы проснуться до его появления
+    return cur !== target || pv || (!MV.reduce && inView(pp + 140));
   };
   var rt = 0;
-  MV.line = { rebuild: function () { cancelAnimationFrame(rt); rt = requestAnimationFrame(rebuild); }, state: function () { return { cur: cur, total: total }; } };
+  MV.line = { rebuild: function () { cancelAnimationFrame(rt); rt = requestAnimationFrame(function () { rebuild(); if (MV.wake) MV.wake(); }); }, state: function () { return { cur: cur, total: total }; } };
   MV.frames.push(frame);
   MV.line.rebuild();
+  // высота содержимого поменялась (раскрыли вопрос, догрузилась картинка): метки сдвинулись, линию перестраиваем
+  // пока вопрос плавно раскрывается, высота меняется каждый кадр: перестраиваем один раз, когда она остановилась
+  if ('ResizeObserver' in window) { var mh = 0, mt = 0; new ResizeObserver(function () { var h = main.offsetHeight; if (h === mh) return; mh = h; clearTimeout(mt); mt = setTimeout(MV.line.rebuild, 90); }).observe(main); }
 })();
 
 /* ===== Секции: указатель кейсов, макеты сайтов, колесо вопросов ===== */
@@ -574,7 +608,7 @@
     });
     pick(0);
     // зуб в середине доворачивается вслед за колесом
-    MV.frames.push(function () { var t = hub && hub.__tooth; if (t && t.state) t.state.extraYaw += (pos * 0.7 - t.state.extraYaw) * 0.06; });
+    MV.frames.push(function () { var t = hub && hub.__tooth; if (!t || !t.state) return false; t.state.extraYaw += (pos * 0.7 - t.state.extraYaw) * 0.06; });
   });
   /* стрелки на клавиатуре переключают вкладки */
   document.addEventListener('keydown', function (e) {
@@ -713,3 +747,42 @@
   [['cases', cases1], ['services', services3], ['sites', sites1], ['team', team3], ['faq', faq1], ['start', start3]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
 })();
 /* ===== Подача секций: конец ===== */
+
+/* ===== Телефон: начало ===== */
+/* Поведение, нужное только телефону и планшету. Компьютер этот блок не меняет. */
+(function () {
+  'use strict';
+  var MV = window.MV; if (!MV) return;
+  var one = function (s, r) { return (r || document).querySelector(s); };
+  var stacked = matchMedia('(max-width: 1100px)');
+
+  /* кейсы: на узком экране карточка стоит под списком городов. Если после выбора города её начало ушло под нижний край,
+     плавно подкручиваем страницу, но так, чтобы выбранный город остался на экране */
+  var cases = document.getElementById('cases'), view = cases && one('.c3__view', cases);
+  if (view) one('.c3__grid', cases).addEventListener('click', function (e) {
+    var row = e.target.closest('.c3__row'); if (!row || !stacked.matches) return;
+    setTimeout(function () {
+      var v = view.getBoundingClientRect(), r = row.getBoundingClientRect(), need = v.top + Math.min(v.height, 300) - (innerHeight - 16), by = Math.min(need, r.top - 12);
+      if (by > 4) scrollBy({ top: by, behavior: MV.reduce ? 'auto' : 'smooth' });
+    }, 30);
+  });
+
+  /* услуги «Стопка» на узком экране: высота нижней панели для её остановки у края экрана (--ph)
+     и доля, на которую её закрыла верхняя (--q). Считается, только пока секция на экране */
+  var svc = document.getElementById('services'), ps = svc ? svc.querySelectorAll('.s1__p') : [];
+  if (ps.length > 1 && 'IntersectionObserver' in window) {
+    var pa = ps[0], pb = ps[1], near = false, q = '';
+    var size = function () { if (stacked.matches) pa.style.setProperty('--ph', pa.offsetHeight + 'px'); };
+    size(); addEventListener('resize', size);
+    if ('ResizeObserver' in window) new ResizeObserver(size).observe(pa);
+    new IntersectionObserver(function (es) { near = es[es.length - 1].isIntersecting; if (near && MV.wake) MV.wake(); }, { rootMargin: '200px 0px' }).observe(svc);
+    MV.frames.push(function () {
+      if (!near || !stacked.matches) return false;
+      var a = pa.getBoundingClientRect(), b = pb.getBoundingClientRect(), v = Math.max(1, Math.min(a.height, innerHeight - 80));
+      var nq = Math.min(1, Math.max(0, (a.bottom - b.top) / v)).toFixed(3);
+      if (nq !== q) { q = nq; pa.style.setProperty('--q', q); }
+      return false;
+    });
+  }
+})();
+/* ===== Телефон: конец ===== */

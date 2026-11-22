@@ -303,11 +303,10 @@ main { position: relative; display: block; }
 .g2__map { grid-column: 1 / 13; grid-row: 2; margin-top: clamp(28px, 3.4vw, 52px); }
 .g2__frame { position: relative; overflow: hidden; border-radius: var(--r-lg); }
 /* подложка и луч живут в координатах карты: на телефоне рамка вырезает кусок, а центр остаётся в Петербурге */
-.g2__art { position: relative; background: radial-gradient(120% 90% at 16.7% 28.2%, var(--vec-soft), var(--paper) 60%); }
-.g2__svg, .g2__base { display: block; width: 100%; height: auto; overflow: visible; }
-.g2__base { position: absolute; left: 0; top: 0; }
-/* вспышки городов на своём слое: их кадры не трогают подложку с точками */
-.g2__svg { position: relative; will-change: transform; }
+.g2__art { position: relative; container-type: inline-size; background: radial-gradient(120% 90% at 16.7% 28.2%, var(--vec-soft), var(--paper) 60%); }
+.g2__svg, .g2__base, .g2__dots { display: block; width: 100%; height: auto; overflow: visible; }
+.g2__base, .g2__dots { position: absolute; left: 0; top: 0; }
+.g2__svg { position: relative; }
 /* карта проявляется волной от Петербурга */
 .js .g2__frame { -webkit-mask-image: radial-gradient(farthest-corner at 16.7% 28.2%, #000 calc(var(--g2r) - 18%), transparent var(--g2r)); mask-image: radial-gradient(farthest-corner at 16.7% 28.2%, #000 calc(var(--g2r) - 18%), transparent var(--g2r)); --g2r: 0%; transition: --g2r 2.6s cubic-bezier(.3, .1, .3, 1) .15s; }
 .js .is-in > .g2__frame { --g2r: 150%; }
@@ -323,18 +322,27 @@ main { position: relative; display: block; }
 .is-in .g2__sweep { opacity: 1; animation: g2spin 9s linear infinite; }
 @keyframes g2spin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
 .g2__pt { fill: var(--paper); stroke: var(--vec); stroke-width: 2; }
-.g2__ring { fill: none; stroke: var(--vec); stroke-width: 1.4; opacity: 0; transform-box: fill-box; transform-origin: center; }
-.js .g2__pts g { opacity: 0; transition: opacity .6s .8s; }
-.js .is-in .g2__pts g { opacity: 1; }
+.js .g2__pts { opacity: 0; transition: opacity .6s .8s; }
+.js .is-in .g2__pts { opacity: 1; }
+/* вспышки и круги: обычные элементы поверх точек, анимируются только transform и opacity, поэтому их ведёт видеокарта
+   и главный поток телефона в это время свободен. Размеры в долях ширины карты: 1cqw равен 10 единицам её рисунка */
+.g2__fx { position: absolute; inset: 0; pointer-events: none; }
+.g2__fx > * { position: absolute; width: 0; height: 0; }
+.g2__fx i::before, .g2__fx i::after, .g2__fx b::before { content: ''; position: absolute; border-radius: 50%; opacity: 0; }
+/* круг от города радиусом 5 расходится в 4,4 раза; нарисован сразу в конечном размере, чтобы края не мылились */
+.g2__fx i::before { width: 5.016cqw; height: 5.016cqw; margin: -2.508cqw 0 0 -2.508cqw; box-shadow: inset 0 0 0 .616cqw var(--vec); transform: scale(.2273); }
+/* вспышка: синий круг поверх белой точки */
+.g2__fx i::after { width: 1.2cqw; height: 1.2cqw; margin: -.6cqw 0 0 -.6cqw; background: var(--vec); }
 /* город загорается в ту секунду, когда над ним проходит луч: задержка равна его азимуту от Петербурга */
-.is-in .g2__pt { animation: g2hit 9s linear var(--d) infinite; }
-.is-in .g2__ring { animation: g2ping 9s linear var(--d) infinite; }
-@keyframes g2hit { 0%, 14% { fill: var(--vec); } 30%, 100% { fill: var(--paper); } }
-@keyframes g2ping { 0% { opacity: .9; transform: scale(1); } 22%, 100% { opacity: 0; transform: scale(4.4); } }
+.is-in .g2__fx i::after { animation: g2hit 9s linear var(--d) infinite; }
+.is-in .g2__fx i::before { animation: g2ping 9s linear var(--d) infinite; }
+@keyframes g2hit { 0%, 14% { opacity: 1; } 30%, 100% { opacity: 0; } }
+@keyframes g2ping { 0% { opacity: .9; transform: scale(.2273); } 22%, 100% { opacity: 0; transform: none; } }
 .g2__home { fill: var(--ink); }
-.g2__home-ring { fill: none; stroke: var(--ink); stroke-width: 1.4; opacity: 0; transform-box: fill-box; transform-origin: center; animation: g2home 3s cubic-bezier(.2, .6, .3, 1) infinite; }
-.g2__home-ring--b { animation-delay: 1.5s; }
-@keyframes g2home { 0% { opacity: .55; transform: scale(.8); } 100% { opacity: 0; transform: scale(3.6); } }
+/* два круга расходятся от Петербурга по очереди */
+.g2__fx b::before { width: 6.984cqw; height: 6.984cqw; margin: -3.492cqw 0 0 -3.492cqw; box-shadow: inset 0 0 0 .504cqw var(--ink); transform: scale(.2222); animation: g2home 3s cubic-bezier(.2, .6, .3, 1) infinite; }
+.g2__fx .g2__fx-b::before { animation-delay: 1.5s; }
+@keyframes g2home { 0% { opacity: .55; transform: scale(.2222); } 100% { opacity: 0; transform: none; } }
 /* обводка цветом фона, чтобы круги и спицы не перечёркивали подписи */
 .g2__names text { fill: var(--ink-2); font: 400 10.5px var(--text); paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round; }
 .g2__names .g2__spb { fill: var(--ink); font-weight: 500; font-size: 12px; }
@@ -361,7 +369,7 @@ main { position: relative; display: block; }
   /* на телефоне видна западная часть карты, где города: рамка вырезает её из большой карты */
   .g2__frame { aspect-ratio: 620 / 385; }
   .g2__art { width: 161.29%; margin-top: -17.74%; }
-  .g2__svg, .g2__base { max-width: none; }
+  .g2__svg, .g2__base, .g2__dots { max-width: none; }
   .g2__names text { font-size: 19px; stroke-width: 5px; }
   .g2__names text:not(.g2__key) { display: none; }
   .g2__cities { display: block; margin-top: 14px; font-size: calc(14px * var(--t-k)); line-height: 1.5; color: var(--ink-3); }
@@ -371,14 +379,15 @@ main { position: relative; display: block; }
   .g2__rings path { stroke-width: 1.6; stroke-dasharray: 5 9; }
   .g2__spokes line { stroke-width: 1.4; }
   .g2__pt { r: 6px; }
+  .g2__fx i::after { width: 1.4cqw; height: 1.4cqw; margin: -.7cqw 0 0 -.7cqw; }
   .g2__home { r: 9px; }
   .g2__kms { display: none; }
   .js .g2__frame { -webkit-mask-image: radial-gradient(farthest-corner at 26.9% 11.2%, #000 calc(var(--g2r) - 18%), transparent var(--g2r)); mask-image: radial-gradient(farthest-corner at 26.9% 11.2%, #000 calc(var(--g2r) - 18%), transparent var(--g2r)); }
   .g2__map figcaption { text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .g2__home-ring, .is-in .g2__pt, .is-in .g2__ring, .is-in .g2__sweep { animation: none; }
-  .g2__home-ring, .g2__sweep { display: none; }
+  .is-in .g2__sweep { animation: none; }
+  .g2__fx, .g2__sweep { display: none; }
 }
 
 /* ---------- общие детали кейсов и карточек ---------- */
@@ -826,3 +835,120 @@ button.link { border: 0; cursor: pointer; }
   #start .f2__big { --f: 100 !important; }
 }
 /* ===== Подача секций: конец ===== */
+
+/* ===== Телефон: начало ===== */
+/* Телефонная версия главной: отступы, кейсы, айфон, макеты сайтов, вопросы, подвал, зоны нажатия.
+   Правила только для узких экранов и сенсорных устройств, компьютер этот блок не меняет. */
+/* отступы между секциями: на телефоне 72 px сверху и снизу вместо 96, линия-вектор переходит между ними посередине */
+@media (max-width: 720px) {
+  :root { --sec: 72px; }
+}
+/* кейсы: города компактным списком (название, под ним услуга и итог в одну строку), карточка сразу под списком: оба на одном экране */
+@media (max-width: 860px) {
+  #cases .c3__row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 12px; padding: 13px 0 14px; }
+  #cases .c3__row b { flex: 0 0 100%; font-size: calc(clamp(26px, 7.6vw, 34px) * var(--h-k)); }
+  #cases .c3__row span, #cases .c3__row em { font-size: calc(14px * var(--t-k)); line-height: 1.35; }
+  #cases .c3__row.is-on { padding-left: 18px; }
+  /* метки карточки обычной строкой: при переносе запятая остаётся у слова, а не начинает новую строку */
+  .ctag { display: block; }
+}
+/* «Как идёт работа»: компоновка как на компьютере, только меньше. Айфон уменьшен целиком (zoom сохраняет пропорции и раскладку),
+   цифры отчёта висят перед его левым краем. Вся группа по центру и занимает около половины экрана телефона */
+@media (max-width: 860px) {
+  #process { --cx-z: .9; --cx-l: 150px; }
+  #process .c5__phone { margin-top: 36px; }
+  #process .c5__dev { width: fit-content; margin: 0 auto; padding-left: var(--cx-l); transform-origin: 70% 50%; }
+  #process .cx { width: 334px; max-width: none; margin: 0; zoom: var(--cx-z); }
+  #process .cx__view { height: 430px; }
+  #process .c5__chip { position: absolute; display: grid; margin: 0; padding: 10px 13px; transform: translateZ(60px) !important; }
+  .js #process .c5__chip:not(.on) { transform: translateZ(20px) scale(.9) !important; }
+  #process .c5__chip b { font-size: calc(26px * var(--h-k)); }
+  #process .c5__chip--1 { left: 10px; top: 12%; }
+  #process .c5__chip--2 { left: 0; top: 40%; }
+  #process .c5__chip--3 { left: 14px; top: 68%; }
+}
+@media (max-width: 600px) {
+  #process { --cx-z: .66; --cx-l: 112px; }
+}
+@media (max-width: 374px) {
+  #process { --cx-z: .62; --cx-l: 96px; }
+}
+@media (max-width: 359px) {
+  #process { --cx-z: .58; --cx-l: 74px; }
+  #process .c5__chip { padding: 8px 11px; }
+  #process .c5__chip b { font-size: calc(22px * var(--h-k)); }
+}
+/* телефон повёрнут боком: экран низкий, айфон уменьшается сильнее, чтобы влезал по высоте целиком */
+@media (max-width: 860px) and (max-height: 520px) {
+  #process { --cx-z: .5; --cx-l: 120px; }
+  #process .c5__chip { padding: 8px 11px; }
+  #process .c5__chip b { font-size: calc(22px * var(--h-k)); }
+}
+/* «Объём» на телефоне: мыши нет, поэтому телефон один раз доворачивается к читателю, когда появляется на экране, и дальше стоит ровно.
+   Ровно, а не с наклоном: текст переписки мелкий, а в наклонённом слое браузер его размывает */
+@media (max-width: 860px) and (prefers-reduced-motion: no-preference) {
+  .js #process .c5__stage { perspective: 1200px; }
+  .js #process .c5__dev { transform: rotateY(-18deg) rotateX(10deg); transition: transform 1.6s var(--ease) .1s; }
+  .js #process .is-in .c5__dev { transform: none; }
+}
+/* сайты «Наклон» на телефоне: стена макетов наклонена, как на компьютере, только мягче, и выезжает из глубины при появлении.
+   Края гаснут градиентом цвета секции, без маски: маска на наклонённом слое тяжела для телефона */
+@media (max-width: 1100px) {
+  #sites { overflow: clip; }
+}
+@media (max-width: 860px) {
+  #sites .w5__wall { position: relative; height: 430px; margin: 30px calc(var(--gut) * -1) -24px; -webkit-mask-image: none; mask-image: none; transform: perspective(1100px) rotateX(24deg) rotateZ(-8deg) scale(1.14); transition: transform 1.5s var(--ease), opacity .9s var(--ease); }
+  #sites .w5__wall::before, #sites .w5__wall::after { content: ''; position: absolute; left: -10%; right: -10%; height: 22%; z-index: 2; pointer-events: none; }
+  #sites .w5__wall::before { top: -1px; background: linear-gradient(var(--ink), rgba(0, 15, 64, 0)); }
+  #sites .w5__wall::after { bottom: -1px; background: linear-gradient(rgba(0, 15, 64, 0), var(--ink)); }
+  #sites .w5__col .mock { font-size: 4.3px; }
+  .js #sites:not(.v-go) .w5__wall { transform: perspective(1100px) rotateX(56deg) rotateZ(-20deg) scale(.9) translateY(110px); opacity: 0; }
+}
+/* вопросы списком (телефон и планшет): ответ раскрывается плавно, где браузер это умеет; в остальных открывается сразу, как раньше */
+@supports (interpolate-size: allow-keywords) and selector(::details-content) {
+  #faq .qa { interpolate-size: allow-keywords; }
+  #faq .qa__item::details-content { height: 0; overflow: clip; transition: height .55s var(--ease), content-visibility .55s allow-discrete; }
+  #faq .qa__item[open]::details-content { height: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #faq .qa__item::details-content { transition: none; }
+}
+/* подвал на телефоне: две колонки ссылок вместо одной длинной, у каждой ссылки зона нажатия не меньше 44 px, снизу без пустого поля */
+@media (max-width: 720px) {
+  .ftr { padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)); }
+  .ftr__top { padding: 56px 0 40px; gap: 36px 20px; }
+  .ftr__col { gap: 0; }
+  .ftr__col h2 { margin-bottom: 4px; }
+  .ftr__col a { display: flex; align-items: center; min-height: 44px; line-height: 1.3; }
+  .ftr__bottom { gap: 0 28px; margin-top: 28px; padding-top: 12px; }
+  .ftr__bottom p { padding: 12px 0 4px; }
+  .ftr__bottom a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+@media (min-width: 360px) and (max-width: 480px) {
+  .ftr__top { grid-template-columns: 1fr 1fr; }
+}
+/* под палец: логотип в шапке, ссылки-подчёркивания и строка согласия получают зону нажатия не меньше 44 px; вид не меняется */
+@media (hover: none) {
+  .hdr__logo { padding: 6px 0; }
+  .link::before { content: ''; position: absolute; inset: -4px -6px; }
+  .fm__c { padding: 8px 0; min-height: 44px; }
+  /* подвал на планшете и телефоне боком: ссылки той же высоты 44 px, что и на узком телефоне */
+  .ftr__col { gap: 0; }
+  .ftr__col a { display: flex; align-items: center; min-height: 44px; }
+  .ftr__bottom a { display: inline-flex; align-items: center; min-height: 44px; }
+  /* магнитных кнопок без мыши нет: кнопкам не нужен свой слой видеокарты */
+  .btn { will-change: auto; }
+}
+/* меню на телефоне: прокрутка внутри меню не передаётся странице под ним */
+.mnav { overscroll-behavior: contain; }
+/* услуги «Стопка» на телефоне и планшете: Директ дочитывается до кнопки и останавливается нижним краем у края экрана,
+   Комплексный маркетинг наезжает на него сверху, нижняя панель уходит в глубину и темнеет, как на компьютере.
+   Высоту панели (--ph) и долю наезда (--q) пишет скрипт; без скрипта панели просто идут друг под другом */
+@media (max-width: 1100px) {
+  .js #services .s1__grid { display: block; }
+  .js #services .s1__p:first-child { position: sticky; top: calc(var(--hdr) + 12px); top: min(calc(var(--hdr) + 12px), calc(100vh - var(--ph, 100vh) - 12px)); top: min(calc(var(--hdr) + 12px), calc(100dvh - var(--ph, 100dvh) - 12px)); transform-origin: 50% 100%; transform: scale(calc(1 - var(--q, 0) * .06)); transition: opacity .9s var(--ease); will-change: transform; }
+  .js #services .s1__p:first-child::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--ink); opacity: calc(var(--q, 0) * .3); pointer-events: none; will-change: opacity; }
+  .js #services .s1__p + .s1__p { position: relative; z-index: 1; margin-top: 16px; box-shadow: 0 -30px 50px -30px rgba(0, 15, 64, .55); }
+  .js #services .s1__p + .s1__p[data-rv] { opacity: 1; }
+}
+/* ===== Телефон: конец ===== */
