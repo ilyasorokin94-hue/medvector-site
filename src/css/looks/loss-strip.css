@@ -1,0 +1,14 @@
+/* потери «Лента»: карточки в ряд, прокрутка вбок с привязкой к карточке, первая карточка тёмная */
+.lost { display: flex; gap: 16px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; padding-bottom: 22px; scrollbar-width: thin; scrollbar-color: var(--vec) var(--line); }
+.lost:focus-visible { outline: 2px solid var(--vec); outline-offset: 6px; border-radius: var(--r); }
+.lost__i { flex: 0 0 min(420px, 30%); display: flex; flex-direction: column; gap: 14px; padding: clamp(26px, 2.4vw, 38px); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--paper); scroll-snap-align: start; }
+.sec--fog .lost__i { border-color: transparent; }
+.lost__ex { color: var(--ink-2); }
+.lost__fix { display: grid; gap: 6px; margin-top: auto; padding-top: 22px; border-top: 1px solid var(--line); font-weight: 500; line-height: 1.45; }
+.lost__fix small { font-size: 13px; font-weight: 400; color: var(--vec-ink); }
+.lost__i:first-child { background: var(--ink); color: #fff; border-color: var(--ink); }
+.lost__i:first-child .lost__ex { color: var(--on-dark-2); }
+.lost__i:first-child .lost__fix { border-top-color: var(--line-dark); }
+.lost__i:first-child .lost__fix small { color: var(--vec-dark); }
+@media (max-width: 1100px) { .lost__i { flex-basis: min(420px, 46%); } }
+@media (max-width: 640px) { .lost { gap: 12px; } .lost__i { flex-basis: 84%; } }
