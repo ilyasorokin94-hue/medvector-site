@@ -1,0 +1,16 @@
+/* пункты «Тёмная сетка»: ячейки из тонких линий на тёмном фоне */
+.spdk { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line-dark); border-left: 1px solid var(--line-dark); }
+.spdk__i { position: relative; display: flex; flex-direction: column; gap: 10px; min-height: 240px; padding: clamp(24px, 2.6vw, 40px); border-right: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); transition: background-color .5s var(--ease); }
+.spdk__i:hover { background: rgba(255, 255, 255, .04); }
+.spdk__dot { width: 10px; height: 10px; margin-bottom: auto; padding-bottom: 28px; box-sizing: content-box; background: radial-gradient(circle at 5px 5px, var(--vec-dark) 4.5px, transparent 5px) no-repeat; }
+.spdk__h { font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(22px, 1.9vw, 28px) * var(--h-k)); line-height: 1.14; letter-spacing: -.03em; }
+.spdk__i p { color: var(--on-dark-2); }
+.spdk--4, .spdk--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 960px) {
+  .spdk, .spdk--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .spdk, .spdk--4, .spdk--2 { grid-template-columns: minmax(0, 1fr); }
+  .spdk__i { min-height: 0; }
+  .spdk__dot { padding-bottom: 14px; }
+}
