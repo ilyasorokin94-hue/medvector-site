@@ -409,8 +409,8 @@ main { position: relative; display: block; }
 /* 3.3 «Указатель» */
 .c3__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px clamp(24px, 4vw, 72px); align-items: start; }
 .c3__list { border-top: 1px solid var(--ink); }
-.c3__row { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 20px; align-items: baseline; width: 100%; padding: clamp(16px, 1.9vw, 28px) 0; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; transition: padding .5s var(--ease), color .3s; }
-.c3__row b { grid-row: 1 / 3; align-self: center; font: var(--h-w) calc(clamp(30px, 4.4vw, 68px) * var(--h-k))/1 var(--disp); letter-spacing: var(--h-ls); text-transform: var(--h-tt); }
+.c3__row { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 20px; align-items: baseline; width: 100%; padding: clamp(16px, 1.9vw, 28px) 0; border: 0; border-bottom: 1px solid var(--line); background: none; text-align: left; cursor: pointer; transition: padding .5s var(--ease), color .3s; }
+.c3__row b { grid-row: 1 / 3; align-self: center; white-space: nowrap; font: var(--h-w) calc(clamp(30px, 4.4vw, 58px) * var(--h-k))/1 var(--disp); letter-spacing: var(--h-ls); text-transform: var(--h-tt); }
 .c3__row span { font-size: calc(15px * var(--t-k)); color: var(--ink-3); text-align: right; }
 .c3__row em { font-style: normal; font-weight: var(--t-b); font-size: calc(16px * var(--t-k)); text-align: right; }
 .c3__row.is-on { color: var(--vec-ink); border-bottom-color: var(--vec); }
