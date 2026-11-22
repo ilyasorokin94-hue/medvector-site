@@ -244,18 +244,28 @@ main { position: relative; display: block; }
 .hv2__film { position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: 0 0 var(--r-lg) var(--r-lg); opacity: 0; transition: opacity 1.8s ease; pointer-events: none; }
 .hv2__film.is-on { opacity: 1; }
 .hv2__v { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
-.hv2__film::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 15, 64, .38) 0, rgba(0, 15, 64, .5) 40%, rgba(0, 15, 64, .88) 66%, var(--ink) 100%); }
-.hv2__stub { position: absolute; z-index: 1; right: var(--gut); top: calc(var(--hdr) + 12px); padding: 5px 12px; border-radius: 99px; background: rgba(0, 15, 64, .78); color: #fff; font-size: 13px; line-height: 1.3; }
-.hv2 > .wrap { position: relative; z-index: 1; }
+.hv2__film::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 15, 64, .66) 0, rgba(0, 15, 64, .3) 15%, rgba(0, 15, 64, .34) 38%, rgba(0, 15, 64, .86) 66%, var(--ink) 100%); }
+/* слово стоит в одном слое с роликом, иначе буквы не смешиваются с кадром; тексты остаются выше линии-вектора */
+.hv2 > .wrap { z-index: auto; }
+.hv2__label, .hv2__h, .hv2__say, .hv2__terms { position: relative; z-index: 2; }
 .hv2__stage::before { transition: opacity 1.8s ease; }
-.hv2:has(.hv2__film.is-on) .hv2__stage::before { opacity: .35; }
+.hv2.is-film .hv2__stage::before { opacity: .3; }
+/* с роликом буквы становятся стеклом: белое слово тает до лёгкого следа, а его копия смешивается с кадром, и врачи видны сквозь буквы */
+/* копия нарисована с первого кадра страницы, но почти прозрачна: при включении ролика браузер не считает её новым крупным содержимым */
+.hv2__glass { position: absolute; left: 0; top: 0; color: #fff; opacity: .01; pointer-events: none; }
+.hv2.is-film .hv2__glass { opacity: 1; mix-blend-mode: overlay; }
+.hv2.is-film .hv2__wm b { opacity: .2; animation: hv2ghost 2.4s ease both, hv2sweep 9s cubic-bezier(.45, 0, .25, 1) 1.2s infinite; }
+.hv2__label { transition: color 1.8s ease; }
+.hv2.is-film .hv2__label { color: rgba(255, 255, 255, .88); text-shadow: 0 0 14px rgba(0, 15, 64, .9); }
+@keyframes hv2ghost { from { opacity: 1; } to { opacity: .2; } }
 .hv2__label { grid-column: 1 / 13; justify-self: center; }
-.hv2__stage { grid-column: 1 / 13; grid-row: 2; position: relative; isolation: isolate; align-self: center; padding: clamp(30px, 6.5vh, 72px) 0; }
+.hv2__stage { grid-column: 1 / 13; grid-row: 2; position: relative; align-self: center; padding: clamp(30px, 6.5vh, 72px) 0; }
 .hv2__wm { margin: 0; font: var(--h-w) 13vw/.9 var(--disp); letter-spacing: var(--h-ls); text-transform: var(--h-tt); white-space: nowrap; text-align: center; color: #fff; }
 /* имя агентства: по буквам раз в несколько секунд проходит голубой блик, за надписью мягкое свечение */
-.hv2__wm span { display: inline-block; color: transparent; background: #fff linear-gradient(100deg, #fff 0 40%, #8fd8ff 47%, #2aa8f2 50%, #8fd8ff 53%, #fff 60% 100%) 130% 0 / 260% 100% no-repeat; -webkit-background-clip: text; background-clip: text; animation: hv2sweep 9s cubic-bezier(.45, 0, .25, 1) 1.2s infinite; }
+.hv2__wm > span { display: inline-block; position: relative; }
+.hv2__wm b { display: inline-block; padding-bottom: .16em; margin-bottom: -.16em; font-weight: inherit; color: transparent; background: #fff linear-gradient(100deg, #fff 0 40%, #8fd8ff 47%, #2aa8f2 50%, #8fd8ff 53%, #fff 60% 100%) 130% 0 / 260% 100% no-repeat; -webkit-background-clip: text; background-clip: text; animation: hv2sweep 9s cubic-bezier(.45, 0, .25, 1) 1.2s infinite; }
 @keyframes hv2sweep { 0% { background-position: 130% 0; } 32%, 100% { background-position: -30% 0; } }
-.hv2__stage::before { content: ''; position: absolute; left: 18%; right: 18%; top: 8%; bottom: 8%; z-index: -1; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 140, 216, .34), rgba(0, 140, 216, 0)); filter: blur(24px); }
+.hv2__stage::before { content: ''; position: absolute; left: 18%; right: 18%; top: 8%; bottom: 8%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 140, 216, .34), rgba(0, 140, 216, 0)); filter: blur(24px); }
 .hv2__a { left: 50%; bottom: 4px; }
 .hv2__h { grid-column: 1 / 7; grid-row: 3; align-self: end; font-size: calc(clamp(28px, 3.5vw, 52px) * var(--h-k)); }
 .hv2__say { grid-column: 8 / 13; grid-row: 3; align-self: end; }

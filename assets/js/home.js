@@ -214,19 +214,23 @@
 
   /* ---------- видео под первым экраном ----------
      Страница открывается без него. После загрузки, только на компьютере и при обычной связи, ролик скачивается
-     и проявляется под синим слоем. Ушли с первого экрана: пауза. */
+     и проявляется под синим слоем, слово «МедВектор» при этом становится стеклом (.is-film). Ушли с первого экрана: пауза. */
   (function () {
     var box = $('[data-hero-film]'); if (!box) return;
     var v = $('video', box), conn = navigator.connection || {};
     if (reduce || !fine || innerWidth < 1021 || conn.saveData || /2g|3g/.test(conn.effectiveType || '') || !v.canPlayType || !('IntersectionObserver' in window)) return;
-    var me = document.currentScript || $('script[src*="home.js"]');
-    var base = me ? me.getAttribute('src').replace(/js\/[^/]*$/, 'video/') : 'assets/video/';
-    var seen = true, loaded = false;
+    var me = document.currentScript || $('script[src*="home.js"]'), src = me && me.getAttribute('src');
+    var base = src ? src.replace(/js\/[^/]*$/, 'video/') : 'assets/video/';
+    var name = base + box.getAttribute('data-hero-film'), seen = true, loaded = false, shown = false;
+    /* кадр-заставка (около 20 КБ) приходит вместе со страницей и ждёт под прозрачным слоем, сам ролик качается после загрузки */
+    v.poster = name + '.webp';
     var play = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
+    var show = function () { if (shown) return; shown = true; box.classList.add('is-on'); box.parentNode.classList.add('is-film'); };
     var start = function () {
       loaded = true;
-      v.src = base + box.getAttribute('data-hero-film') + (v.canPlayType('video/webm; codecs="vp9"') ? '.webm' : '.mp4');
-      v.addEventListener('playing', function () { box.classList.add('is-on'); }, { once: true });
+      v.src = name + (v.canPlayType('video/webm; codecs="vp9"') ? '.webm' : '.mp4');
+      v.addEventListener('playing', show, { once: true });
+      setTimeout(show, 1200); /* связь медленная: проявляем кадр-заставку, ролик подхватит с него же */
       if (seen) play();
     };
     new IntersectionObserver(function (es) {
