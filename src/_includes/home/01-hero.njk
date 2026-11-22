@@ -1,10 +1,21 @@
 <!-- «Ночная витрина»: тёмный экран, имя агентства во всю ширину, стеклянный зуб поверх букв -->
 <section class="sec sec--dark sec--top dark" id="hero" data-line="dark">
   <div class="sec__body hv hv2 dark">
+    <!-- фон первого экрана: врачи за работой. На компьютере широкий ролик, на телефоне вертикальный, только при обычной связи -->
+    <div class="hv2__film" data-hero-film="hero" aria-hidden="true"><video class="hv2__v" muted playsinline loop preload="none" tabindex="-1"></video></div>
+    <!-- на компьютере ролик ставится сразу, ещё до первой отрисовки: экран открывается уже с врачами, без задержки.
+         На телефоне сразу ставится только лёгкий кадр-заставка, сам ролик догружается после страницы -->
+    <script>(function () { var b = document.querySelector('[data-hero-film]'), v = b && b.firstChild, c = navigator.connection || {}, m = function (q) { return matchMedia(q).matches; }, l = document.querySelector('link[href*="home.css"]');
+      var wide = innerWidth > 1020 && m('(hover: hover) and (pointer: fine)'), small = innerWidth < 601;
+      if (!v || !v.canPlayType || !(wide || small) || m('(prefers-reduced-motion: reduce)') || c.saveData || /2g|3g/.test(c.effectiveType || '')) return;
+      var n = (l ? l.getAttribute('href').replace(/css\/[^/]*$/, 'video/') : 'assets/video/') + b.getAttribute('data-hero-film') + (small ? '-m' : '');
+      v.poster = n + '.webp'; b.classList.add('is-on', 'is-early'); b.parentNode.classList.add('is-film', 'is-early'); if (small) return;
+      v.preload = 'auto'; v.src = n + (v.canPlayType('video/webm; codecs="vp9"') ? '.webm' : '.mp4');
+      var p = v.play(); if (p && p.catch) p.catch(function () {}); })();</script>
     <div class="wrap hv2__grid">
-      <p class="label hv2__label" data-rv="fade">Агентство маркетинга для стоматологий. Санкт-Петербург</p>
+      <p class="label hv2__label" data-rv="fade"><span>Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург</span></span></p>
       <div class="hv2__stage">
-        <p class="hv2__wm" data-fit data-fit-max="32" aria-hidden="true"><span>МедВектор</span></p>
+        <p class="hv2__wm" data-fit data-fit-max="32" aria-hidden="true"><span><b>МедВектор</b><span class="hv2__glass">МедВектор</span></span></p>
         <i data-vp data-vp-node class="hv2__a"></i>
       </div>
       <h1 class="h2 rvh hv2__h">
