@@ -173,7 +173,8 @@
     MV.frames.push(function () {
       if (Math.abs(tx - cx) < 0.15 && Math.abs(ty - cy) < 0.15) { cx = tx; cy = ty; } else { cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2; }
       var t = 'translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)';
-      if (t !== ctf) { ctf = t; curEl.style.transform = t; }
+      if (t !== ctf) { ctf = t; curEl.style.transform = t; return true; }
+      return false;
     });
   }
 
@@ -191,9 +192,26 @@
   };
   var ticking = false;
   addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; onScroll(); }); } }, { passive: true });
-  var rt;
-  addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { vh = innerHeight; fit(); onScroll(); if (MV.line) MV.line.rebuild(); }, 140); });
-  var loop = function (now) { for (var i = 0; i < MV.frames.length; i++) MV.frames[i](now); requestAnimationFrame(loop); };
+  /* на телефоне при прокрутке прячется и появляется адресная строка, высота окна меняется. Ширина та же:
+     надписи и линию не пересчитываем, иначе каждое такое изменение дёргает раскладку всей страницы */
+  var rt, lastW = innerWidth;
+  addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () {
+    var wide = innerWidth !== lastW; lastW = innerWidth; vh = innerHeight;
+    if (wide || fine) fit();
+    onScroll(); if (MV.line && (wide || fine)) MV.line.rebuild();
+  }, 140); });
+  /* цикл кадров: каждая функция кадра возвращает false, когда ей больше нечего двигать. Если так ответили все,
+     цикл засыпает и не будит браузер каждые 16 мс; будят его прокрутка, размер окна, мышь и проверка четыре раза в секунду */
+  var awake = false, nap = 0;
+  var loop = function (now) {
+    var busy = false;
+    for (var i = 0; i < MV.frames.length; i++) if (MV.frames[i](now) !== false) busy = true;
+    if (busy) requestAnimationFrame(loop); else { awake = false; nap = setTimeout(MV.wake, 250); }
+  };
+  MV.wake = function () { if (awake) return; awake = true; clearTimeout(nap); requestAnimationFrame(loop); };
+  addEventListener('scroll', MV.wake, { passive: true });
+  addEventListener('resize', MV.wake);
+  if (fine) document.addEventListener('pointermove', MV.wake, { passive: true });
 
   /* ---------- вкладки и форма: общее поведение по атрибутам ---------- */
   document.addEventListener('click', function (e) {
@@ -329,7 +347,7 @@
 
   /* ---------- запуск ---------- */
   fit(); mountTeeth(); counts(document); watch(document, false); onScroll();
-  requestAnimationFrame(loop);
+  MV.wake();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fit(); if (MV.line) MV.line.rebuild(); });
   addEventListener('load', function () { vh = innerHeight; onScroll(); if (MV.line) MV.line.rebuild(); });
 })();
@@ -348,6 +366,8 @@
   var COLOR = { light: '#008cd8', fog: '#008cd8', dark: '#2aa8f2', azure: '#ffffff' };
   var BG = { light: '#ffffff', fog: '#f2f4f7', dark: '#000f40', azure: '#008cd8' };
   var total = 0, samples = [], drawn = [], pulses = [], dots = [], bands = [], head = null, cur = 0, target = 0, ready = false, R = 30;
+  // положение main и высота документа запоминаются при перестройке: кадр читает только scrollY и не заставляет браузер пересчитывать раскладку
+  var mainTop = 0, docH = 0;
 
   // положение метки относительно main без учёта анимаций transform
   var pos = function (e) { var x = 0, y = 0, n = e; while (n && n !== main) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; } return n === main ? { x: x + 0.5, y: y + 0.5 } : null; };
@@ -451,6 +471,7 @@
       svg.appendChild(c); dots.push({ el: c, len: best, bg: b.bg, col: b.col, on: null });
     });
     head = el('path', { d: 'M-10 -7.5L0 0L-10 7.5', 'class': 'vl-head' }); head.__band = band; svg.appendChild(head);
+    mainTop = main.getBoundingClientRect().top + scrollY; docH = document.documentElement.scrollHeight;
     cur = Math.min(cur, total); ready = true; frame(performance.now(), true);
   };
 
@@ -461,15 +482,17 @@
     return Math.min(total, lo * 10 + 10);
   };
   var frame = function (now, force) {
-    if (!ready) return;
-    var top = main.getBoundingClientRect().top, y = innerHeight * 0.64 - top;
+    if (!ready) return false;
+    var top = mainTop - scrollY, y = innerHeight * 0.64 - top;
     target = lenAt(y);
-    if (scrollY + innerHeight >= document.documentElement.scrollHeight - 6) target = total;
+    if (scrollY + innerHeight >= docH - 6) target = total;
     if (MV.reduce) cur = target; else cur += (target - cur) * 0.07;
     if (Math.abs(target - cur) < 0.4) cur = target;
     var da = cur.toFixed(1) + ' ' + (total + 20).toFixed(0), i, vt = -top - 200, vb = -top + innerHeight + 200, on;
     // импульс бежит по нарисованной части к стрелке
-    var pp = MV.reduce ? -1 : (now * 0.17) % (cur + 900), pd = pp > 60 && pp < cur ? '0 ' + (pp - 60).toFixed(1) + ' 60 ' + (total + 20).toFixed(0) : '0 ' + (total + 20).toFixed(0);
+    // импульс пишется в стили, только пока он на экране: остальное время кадр ничего не перерисовывает
+    var pp = MV.reduce ? -1 : (now * 0.17) % (cur + 900), inView = function (l) { return l > 60 && l < cur && Math.abs(pointAt(l - 30).y - (vt + vb) / 2) < (vb - vt) / 2 - 140; }, pv = inView(pp);
+    var pd = pv ? '0 ' + (pp - 60).toFixed(1) + ' 60 ' + (total + 20).toFixed(0) : '0 ' + (total + 20).toFixed(0);
     for (i = 0; i < drawn.length; i++) {
       on = bands[i].bottom > vt && bands[i].top < vb;
       // полосы за экраном не перерисовываем: их догонит первый кадр, когда они появятся
@@ -486,11 +509,15 @@
       if (head.__o !== 1) { head.__o = 1; head.style.opacity = 1; }
     } else if (head.__o !== 0) { head.__o = 0; head.style.opacity = 0; }
     for (i = 0; i < dots.length; i++) { on = cur >= dots[i].len; if (dots[i].on !== on) { dots[i].on = on; dots[i].el.style.fill = on ? dots[i].col : dots[i].bg; } }
+    // импульс за 0,4 секунды проходит около 140 px: проверяем и это место, чтобы проснуться до его появления
+    return cur !== target || pv || (!MV.reduce && inView(pp + 140));
   };
   var rt = 0;
-  MV.line = { rebuild: function () { cancelAnimationFrame(rt); rt = requestAnimationFrame(rebuild); }, state: function () { return { cur: cur, total: total }; } };
+  MV.line = { rebuild: function () { cancelAnimationFrame(rt); rt = requestAnimationFrame(function () { rebuild(); if (MV.wake) MV.wake(); }); }, state: function () { return { cur: cur, total: total }; } };
   MV.frames.push(frame);
   MV.line.rebuild();
+  // высота содержимого поменялась (раскрыли вопрос, догрузилась картинка): метки сдвинулись, линию перестраиваем
+  if ('ResizeObserver' in window) { var mh = 0; new ResizeObserver(function () { var h = main.offsetHeight; if (h !== mh) { mh = h; MV.line.rebuild(); } }).observe(main); }
 })();
 
 /* ===== Секции: указатель кейсов, макеты сайтов, колесо вопросов ===== */
@@ -574,7 +601,7 @@
     });
     pick(0);
     // зуб в середине доворачивается вслед за колесом
-    MV.frames.push(function () { var t = hub && hub.__tooth; if (t && t.state) t.state.extraYaw += (pos * 0.7 - t.state.extraYaw) * 0.06; });
+    MV.frames.push(function () { var t = hub && hub.__tooth; if (!t || !t.state) return false; t.state.extraYaw += (pos * 0.7 - t.state.extraYaw) * 0.06; });
   });
   /* стрелки на клавиатуре переключают вкладки */
   document.addEventListener('keydown', function (e) {
