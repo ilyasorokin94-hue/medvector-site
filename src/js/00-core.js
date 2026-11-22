@@ -230,7 +230,8 @@
   /* ---------- сборка выбора: у секции три варианта подачи, переключатель над ней, выбор копируется кодом ---------- */
   var pickUI = function () {
     var sets = $$('[data-vset]');
-    if (!sets.length) return;
+    // сборка MV_PICK=all показывает все варианты подряд для скриншотов: переключатель не нужен
+    if (!sets.length || document.body.classList.contains('is-pick-all')) return;
     var key = 'mv-pick:' + location.pathname.replace(/\/index\.html$/, '/').split('/').filter(Boolean).slice(-1)[0];
     var saved = {}; try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) { saved = {}; }
     var page = (document.querySelector('h1') || {}).textContent || document.title;

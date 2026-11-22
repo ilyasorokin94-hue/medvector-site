@@ -45,7 +45,7 @@
 </script>
 {% endblock %}
 </head>
-<body class="pg{% if pick %} is-pick{% endif %}{% if bodyClass %} {{ bodyClass }}{% endif %}">
+<body class="pg{% if pick %} is-pick{% endif %}{% if pick == 'all' %} is-pick-all{% endif %}{% if bodyClass %} {{ bodyClass }}{% endif %}">
 <a class="skip" href="#main">К содержимому</a>
 {% include "header-t.njk" %}
 
