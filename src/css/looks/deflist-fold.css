@@ -1,0 +1,20 @@
+/* крупные пункты «По клику»: заголовок во всю ширину, текст раскрывается */
+.df { border-top: 1px solid var(--line); }
+.df__i { border-bottom: 1px solid var(--line); }
+.df__s { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 44px; padding: clamp(22px, 2.4vw, 34px) 0; list-style: none; cursor: pointer; }
+.df__s::-webkit-details-marker { display: none; }
+.df__h { font: var(--h-w) calc(clamp(22px, 2.5vw, 38px) * var(--h-k))/1.12 var(--disp); letter-spacing: var(--h3-ls); transition: color .3s; }
+.df__s:hover .df__h { color: var(--vec-ink); }
+.df__s:focus-visible { outline: 2px solid var(--vec); outline-offset: 4px; }
+.df__ic { position: relative; flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); transition: background-color .4s var(--ease), border-color .4s; }
+.df__ic::before { content: ''; position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -7px 0 0 -5px; border-right: 2px solid var(--vec); border-bottom: 2px solid var(--vec); transform: rotate(45deg); transition: transform .5s var(--ease), margin .5s var(--ease); }
+.sec--fog .df__ic { background: var(--paper); }
+.df__i[open] .df__ic { background: var(--ink); border-color: var(--ink); }
+.df__i[open] .df__ic::before { border-color: #fff; transform: rotate(225deg); margin-top: -2px; }
+.df__a { max-width: 820px; padding: 0 68px clamp(26px, 2.6vw, 38px) 0; font-size: calc(18px * var(--t-k)); line-height: 1.55; color: var(--ink-2); }
+@media (max-width: 760px) {
+  .df__s { gap: 16px; padding: 20px 0; }
+  .df__h { font-size: calc(21px * var(--h-k)); }
+  .df__ic { width: 40px; height: 40px; }
+  .df__a { padding-right: 0; font-size: calc(16px * var(--t-k)); }
+}

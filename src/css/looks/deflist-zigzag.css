@@ -1,0 +1,12 @@
+/* крупные пункты «Лесенка»: две колонки, правая опущена на полшага, заголовки крупные под тёмной линией */
+.dz { --dz-shift: clamp(48px, 7vw, 120px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(32px, 7vw, 128px); row-gap: clamp(40px, 4.6vw, 72px); padding-bottom: var(--dz-shift); }
+.dz__i { position: relative; padding-top: 22px; border-top: 1px solid var(--ink); }
+.dz__i:nth-child(even) { top: var(--dz-shift); }
+.dz__h { margin-bottom: 14px; font: var(--h-w) calc(clamp(24px, 2.6vw, 40px) * var(--h-k))/1.08 var(--disp); letter-spacing: var(--h3-ls); text-wrap: balance; }
+.dz__p { max-width: 560px; font-size: calc(18px * var(--t-k)); line-height: 1.55; color: var(--ink-2); }
+@media (max-width: 860px) {
+  .dz { grid-template-columns: minmax(0, 1fr); row-gap: 32px; padding-bottom: 0; }
+  .dz__i:nth-child(even) { top: 0; margin-left: 12%; }
+  .dz__h { font-size: calc(23px * var(--h-k)); }
+  .dz__p { font-size: calc(16px * var(--t-k)); }
+}
