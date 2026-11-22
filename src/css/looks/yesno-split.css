@@ -1,0 +1,16 @@
+/* два списка «Две половины»: один блок, «нет» на светлой половине, «да» на тёмной */
+.ys { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-radius: var(--r-lg); overflow: hidden; }
+.ys__half { padding: clamp(28px, 3.8vw, 64px); background: var(--fog); }
+.sec--fog .ys__half { background: var(--paper); }
+.ys .ys--yes { background: var(--ink); }
+.ys__h { margin-bottom: 26px; font: var(--h-w) calc(clamp(24px, 2.3vw, 34px) * var(--h-k))/1.1 var(--disp); letter-spacing: var(--h3-ls); }
+.ys__list li { position: relative; padding: 17px 0 17px 38px; border-top: 1px solid var(--line); font-size: calc(17px * var(--t-k)); line-height: 1.45; }
+.ys--no li { color: var(--ink-2); }
+.ys--yes li { border-top-color: var(--line-dark); color: #fff; }
+.ys--no li::before { content: ''; position: absolute; left: 2px; top: 20px; width: 17px; height: 17px; border: 1.5px solid var(--ink-3); border-radius: 50%; box-sizing: border-box; background: linear-gradient(45deg, transparent calc(50% - .75px), var(--ink-3) calc(50% - .75px) calc(50% + .75px), transparent calc(50% + .75px)); }
+.ys--yes li::before { content: ''; position: absolute; left: 3px; top: 21px; width: 15px; height: 8px; border-left: 2px solid var(--vec-dark); border-bottom: 2px solid var(--vec-dark); transform: rotate(-45deg); transform-origin: 40% 60%; }
+@media (max-width: 760px) {
+  .ys { grid-template-columns: minmax(0, 1fr); border-radius: var(--r-lg); }
+  .ys__half { padding: 28px 22px 18px; }
+  .ys__list li { font-size: calc(16px * var(--t-k)); }
+}

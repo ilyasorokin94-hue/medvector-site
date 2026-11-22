@@ -1,0 +1,21 @@
+/* два списка «Мозаика»: пункт на плитку, строка «нет» с пунктирной рамкой, строка «да» тёмная */
+.ym { display: grid; gap: clamp(28px, 3vw, 44px); }
+.ym__row { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 16px 24px; align-items: start; }
+.ym__h { padding-top: 16px; font: var(--h-w) calc(clamp(20px, 1.8vw, 26px) * var(--h-k))/1.15 var(--disp); letter-spacing: var(--h3-ls); }
+.ym__tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.ym__t { position: relative; min-height: 160px; padding: 58px 22px 22px; border-radius: var(--r); font-size: calc(16px * var(--t-k)); line-height: 1.42; }
+.ym--no .ym__t { border: 1px dashed rgba(0, 15, 64, .3); color: var(--ink-2); }
+.ym--yes .ym__t { background: var(--ink); color: #fff; }
+.ym--no .ym__t::before { content: ''; position: absolute; left: 22px; top: 22px; width: 18px; height: 18px; border: 1.5px solid var(--ink-3); border-radius: 50%; box-sizing: border-box; background: linear-gradient(45deg, transparent calc(50% - .75px), var(--ink-3) calc(50% - .75px) calc(50% + .75px), transparent calc(50% + .75px)); }
+.ym--yes .ym__t::before { content: ''; position: absolute; left: 23px; top: 24px; width: 16px; height: 8px; border-left: 2px solid var(--vec-dark); border-bottom: 2px solid var(--vec-dark); transform: rotate(-45deg); transform-origin: 40% 60%; }
+@media (max-width: 860px) {
+  .ym__row { grid-template-columns: minmax(0, 1fr); }
+  .ym__h { padding-top: 0; }
+  .ym__tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .ym__t { min-height: 0; padding: 50px 16px 18px; font-size: calc(15px * var(--t-k)); }
+  .ym--no .ym__t::before, .ym--yes .ym__t::before { left: 16px; top: 18px; }
+  .ym--yes .ym__t::before { left: 17px; top: 20px; }
+}
+@media (max-width: 360px) {
+  .ym__tiles { grid-template-columns: minmax(0, 1fr); }
+}

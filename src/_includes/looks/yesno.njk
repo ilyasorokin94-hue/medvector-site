@@ -30,3 +30,106 @@
   </div>
 </section>
 {% endmacro %}
+
+{# «Две половины»: один блок из двух половин, «нет» на светлой, «да» на тёмной #}
+{% macro split(s) %}
+{% set noT = s.noTitle or 'Чего не делаем' %}{% set yesT = s.yesTitle or 'Как делаем' %}
+<section{{ c.attrs(s, 'lk-yesno-split') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="ys" data-rv="scale">
+{% for part in ([['yes', yesT, s.yes], ['no', noT, s.no]] if s.yesFirst else [['no', noT, s.no], ['yes', yesT, s.yes]]) %}
+      <div class="ys__half ys--{{ part[0] }}{% if part[0] == 'yes' %} dark{% endif %}">
+        <h3 class="ys__h">{{ part[1] | t | safe }}</h3>
+        <ul class="ys__list">
+{% for i in part[2] %}
+          <li>{{ i | t | safe }}</li>
+{% endfor %}
+        </ul>
+      </div>
+{% endfor %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Акцент»: первый список крупными строками, второй под ним мелкими плашками #}
+{% macro accent(s) %}
+{% set noT = s.noTitle or 'Чего не делаем' %}{% set yesT = s.yesTitle or 'Как делаем' %}
+<section{{ c.attrs(s, 'lk-yesno-accent') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="ya">
+{% for part in ([['yes', yesT, s.yes], ['no', noT, s.no]] if s.yesFirst else [['no', noT, s.no], ['yes', yesT, s.yes]]) %}
+{% if loop.first %}
+      <div class="ya__big ya--{{ part[0] }}">
+        <h3 class="ya__h" data-rv="fade">{{ part[1] | t | safe }}</h3>
+        <ul class="ya__lines">
+{% for i in part[2] %}
+          <li data-rv style="--d: {{ loop.index0 }}">{{ i | t | safe }}</li>
+{% endfor %}
+        </ul>
+      </div>
+{% else %}
+      <div class="ya__small ya--{{ part[0] }}" data-rv>
+        <h3 class="ya__h">{{ part[1] | t | safe }}</h3>
+        <ul class="ya__chips">
+{% for i in part[2] %}
+          <li>{{ i | t | safe }}</li>
+{% endfor %}
+        </ul>
+      </div>
+{% endif %}
+{% endfor %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Лист»: оба списка на одном листе посередине, как страница договора #}
+{% macro sheet(s) %}
+{% set noT = s.noTitle or 'Чего не делаем' %}{% set yesT = s.yesTitle or 'Как делаем' %}
+<section{{ c.attrs(s, 'lk-yesno-sheet') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="yl" data-rv>
+{% for part in ([['yes', yesT, s.yes], ['no', noT, s.no]] if s.yesFirst else [['no', noT, s.no], ['yes', yesT, s.yes]]) %}
+      <div class="yl__part yl--{{ part[0] }}">
+        <h3 class="yl__h">{{ part[1] | t | safe }}</h3>
+        <ul class="yl__list">
+{% for i in part[2] %}
+          <li>{{ i | t | safe }}</li>
+{% endfor %}
+        </ul>
+      </div>
+{% endfor %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Мозаика»: каждый пункт отдельной плиткой, две строки плиток с подписью слева #}
+{% macro mosaic(s) %}
+{% set noT = s.noTitle or 'Чего не делаем' %}{% set yesT = s.yesTitle or 'Как делаем' %}
+<section{{ c.attrs(s, 'lk-yesno-mosaic') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="ym">
+{% for part in ([['yes', yesT, s.yes], ['no', noT, s.no]] if s.yesFirst else [['no', noT, s.no], ['yes', yesT, s.yes]]) %}
+      <div class="ym__row ym--{{ part[0] }}">
+        <h3 class="ym__h" data-rv="fade">{{ part[1] | t | safe }}</h3>
+        <ul class="ym__tiles">
+{% for i in part[2] %}
+          <li class="ym__t" data-rv style="--d: {{ loop.index0 }}">{{ i | t | safe }}</li>
+{% endfor %}
+        </ul>
+      </div>
+{% endfor %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
