@@ -278,3 +278,32 @@
   .art-p__meta { margin-top: 16px; text-align: left; }
   .art-p__cover { aspect-ratio: 16 / 9; }
 }
+/* ===== Телефон и сенсорные экраны: зоны нажатия как на главной (значения из её блока «Телефон») ===== */
+/* подвал на телефоне: ссылки высотой не меньше 44 px, две колонки ссылок на узком телефоне, снизу без пустого поля */
+@media (max-width: 720px) {
+  .ftr { padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)); }
+  .ftr__top { padding: 56px 0 40px; gap: 36px 20px; }
+  .ftr__col { gap: 0; }
+  .ftr__col h2 { margin-bottom: 4px; }
+  .ftr__col a { display: flex; align-items: center; min-height: 44px; line-height: 1.3; }
+  .ftr__bottom { gap: 0 28px; margin-top: 28px; padding-top: 12px; }
+  .ftr__bottom p { padding: 12px 0 4px; }
+  .ftr__bottom a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+@media (min-width: 360px) and (max-width: 480px) {
+  .ftr__top--3 { grid-template-columns: 1fr 1fr; }
+}
+/* под палец: логотип в шапке, ссылки-подчёркивания и строка согласия получают зону нажатия не меньше 44 px; вид не меняется */
+@media (hover: none) {
+  .hdr__logo { padding: 6px 0; }
+  .link::before { content: ''; position: absolute; inset: -4px -6px; }
+  .fm__c { padding: 8px 0; min-height: 44px; }
+  /* подвал на планшете и телефоне боком: ссылки той же высоты 44 px, что и на узком телефоне */
+  .ftr__col { gap: 0; }
+  .ftr__col a { display: flex; align-items: center; min-height: 44px; }
+  .ftr__bottom a { display: inline-flex; align-items: center; min-height: 44px; }
+  /* магнитных кнопок без мыши нет: кнопкам не нужен свой слой видеокарты */
+  .btn { will-change: auto; }
+}
+/* меню на телефоне: прокрутка внутри меню не передаётся странице под ним */
+.mnav { overscroll-behavior: contain; }
