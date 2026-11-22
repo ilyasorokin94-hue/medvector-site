@@ -158,10 +158,11 @@
         if (focus) btns[i].focus();
       };
       btns.forEach(function (b, i) {
-        b.addEventListener('click', function () { show(i); });
+        // панель выезжает только при переключении: при загрузке первая вкладка стоит на месте
+        b.addEventListener('click', function () { box.classList.add('is-used'); show(i); });
         b.addEventListener('keydown', function (e) {
           var step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
-          if (step) { e.preventDefault(); show((i + step + btns.length) % btns.length, true); }
+          if (step) { e.preventDefault(); box.classList.add('is-used'); show((i + step + btns.length) % btns.length, true); }
         });
       });
       var byHash = function () { var i = panels.findIndex(function (p) { return p && '#' + p.id === location.hash; }); if (i >= 0) show(i); return i >= 0; };
