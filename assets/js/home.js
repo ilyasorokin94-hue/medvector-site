@@ -182,6 +182,8 @@
   var onScroll = function () {
     onHeader();
     $$('[data-prog]').forEach(function (el) {
+      // data-prog-min: ниже этой ширины прогресс не нужен (поворот листа письма есть только на широком экране), лишний пересчёт стилей не делаем
+      if (el.dataset.progMin && innerWidth < +el.dataset.progMin) return;
       var r = el.getBoundingClientRect(), p;
       if (el.dataset.prog === 'pin') p = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
       else p = clamp((vh - r.top) / (vh + r.height), 0, 1);
