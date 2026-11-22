@@ -227,6 +227,23 @@
     $$('main section').forEach(function (s) { offIO.observe(s); });
   }
 
+  /* ---------- содержание статьи: подсвечен раздел, который сейчас читают ---------- */
+  var tocSpy = function () {
+    var links = $$('.art-p__toc a[href^="#"]');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    var byId = {};
+    links.forEach(function (a) { byId[decodeURIComponent(a.hash.slice(1))] = a; });
+    var hs = Object.keys(byId).map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    if (!hs.length) return;
+    var io = new IntersectionObserver(function () {
+      // текущий раздел: последний заголовок, который уже поднялся выше середины экрана
+      var cur = hs[0];
+      hs.forEach(function (h) { if (h.getBoundingClientRect().top < innerHeight * .5) cur = h; });
+      links.forEach(function (a) { a.classList.toggle('is-here', a === byId[cur.id]); });
+    }, { rootMargin: '0px 0px -50% 0px', threshold: [0, 1] });
+    hs.forEach(function (h) { io.observe(h); });
+  };
+
   /* ---------- сборка выбора: у секции три варианта подачи, переключатель над ней, выбор копируется кодом ---------- */
   var pickUI = function () {
     var sets = $$('[data-vset]');
@@ -274,6 +291,7 @@
   /* ---------- запуск ---------- */
   var boot = function () {
     pickUI();
+    tocSpy();
     mount(document);
     onHeader();
     requestAnimationFrame(loop);
