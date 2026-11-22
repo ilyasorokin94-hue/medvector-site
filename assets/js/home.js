@@ -213,8 +213,8 @@
   });
 
   /* ---------- видео под первым экраном ----------
-     Страница открывается без него. После загрузки, только на компьютере и при обычной связи, ролик скачивается
-     и проявляется под синим слоем, слово «МедВектор» при этом становится стеклом (.is-film). Ушли с первого экрана: пауза. */
+     На компьютере при обычной связи ролик ставит маленький скрипт прямо в разметке первого экрана (.is-early), до первой отрисовки,
+     слово «МедВектор» сразу стекло (.is-film). Если его не было, ролик ставится здесь после загрузки. Ушли с первого экрана: пауза. */
   (function () {
     var box = $('[data-hero-film]'); if (!box) return;
     var v = $('video', box), conn = navigator.connection || {};
@@ -222,6 +222,7 @@
     var me = document.currentScript || $('script[src*="home.js"]'), src = me && me.getAttribute('src');
     var base = src ? src.replace(/js\/[^/]*$/, 'video/') : 'assets/video/';
     var name = base + box.getAttribute('data-hero-film'), seen = true, loaded = false, shown = false;
+    var early = box.classList.contains('is-early'); if (early) loaded = shown = true;
     /* кадр-заставка (около 20 КБ) приходит вместе со страницей и ждёт под прозрачным слоем, сам ролик качается после загрузки */
     v.poster = name + '.webp';
     var play = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
@@ -240,6 +241,7 @@
     }, { threshold: 0.15 }).observe(box);
     document.addEventListener('visibilitychange', function () { if (!loaded) return; if (document.hidden) v.pause(); else if (seen) play(); });
     var later = function () { (window.requestIdleCallback || function (f) { setTimeout(f, 400); })(start, { timeout: 1500 }); };
+    if (early) return;
     if (document.readyState === 'complete') later(); else addEventListener('load', later);
   })();
 

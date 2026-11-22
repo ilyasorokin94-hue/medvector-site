@@ -1,8 +1,14 @@
 <!-- «Ночная витрина»: тёмный экран, имя агентства во всю ширину, стеклянный зуб поверх букв -->
 <section class="sec sec--dark sec--top dark" id="hero" data-line="dark">
   <div class="sec__body hv hv2 dark">
-    <!-- фон первого экрана: врачи за работой. Видео подгружает home.js после открытия страницы, только на компьютере -->
+    <!-- фон первого экрана: врачи за работой. Только на компьютере при обычной связи -->
     <div class="hv2__film" data-hero-film="hero" aria-hidden="true"><video class="hv2__v" muted playsinline loop preload="none" tabindex="-1"></video></div>
+    <!-- на компьютере ролик ставится сразу, ещё до первой отрисовки: экран открывается уже с врачами, без задержки -->
+    <script>(function () { var b = document.querySelector('[data-hero-film]'), v = b && b.firstChild, c = navigator.connection || {}, m = function (q) { return matchMedia(q).matches; }, l = document.querySelector('link[href*="home.css"]');
+      if (!v || !v.canPlayType || !l || innerWidth < 1021 || !m('(hover: hover) and (pointer: fine)') || m('(prefers-reduced-motion: reduce)') || c.saveData || /2g|3g/.test(c.effectiveType || '')) return;
+      var n = l.getAttribute('href').replace(/css\/[^/]*$/, 'video/') + b.getAttribute('data-hero-film');
+      v.poster = n + '.webp'; v.preload = 'auto'; v.src = n + (v.canPlayType('video/webm; codecs="vp9"') ? '.webm' : '.mp4');
+      b.classList.add('is-on', 'is-early'); b.parentNode.classList.add('is-film'); var p = v.play(); if (p && p.catch) p.catch(function () {}); })();</script>
     <div class="wrap hv2__grid">
       <p class="label hv2__label" data-rv="fade">Агентство маркетинга для стоматологий. Санкт-Петербург</p>
       <div class="hv2__stage">

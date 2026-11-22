@@ -193,8 +193,14 @@
 <!-- «Ночная витрина»: тёмный экран, имя агентства во всю ширину, стеклянный зуб поверх букв -->
 <section class="sec sec--dark sec--top dark" id="hero" data-line="dark">
   <div class="sec__body hv hv2 dark">
-    <!-- фон первого экрана: врачи за работой. Видео подгружает home.js после открытия страницы, только на компьютере -->
+    <!-- фон первого экрана: врачи за работой. Только на компьютере при обычной связи -->
     <div class="hv2__film" data-hero-film="hero" aria-hidden="true"><video class="hv2__v" muted playsinline loop preload="none" tabindex="-1"></video></div>
+    <!-- на компьютере ролик ставится сразу, ещё до первой отрисовки: экран открывается уже с врачами, без задержки -->
+    <script>(function () { var b = document.querySelector('[data-hero-film]'), v = b && b.firstChild, c = navigator.connection || {}, m = function (q) { return matchMedia(q).matches; }, l = document.querySelector('link[href*="home.css"]');
+      if (!v || !v.canPlayType || !l || innerWidth < 1021 || !m('(hover: hover) and (pointer: fine)') || m('(prefers-reduced-motion: reduce)') || c.saveData || /2g|3g/.test(c.effectiveType || '')) return;
+      var n = l.getAttribute('href').replace(/css\/[^/]*$/, 'video/') + b.getAttribute('data-hero-film');
+      v.poster = n + '.webp'; v.preload = 'auto'; v.src = n + (v.canPlayType('video/webm; codecs="vp9"') ? '.webm' : '.mp4');
+      b.classList.add('is-on', 'is-early'); b.parentNode.classList.add('is-film'); var p = v.play(); if (p && p.catch) p.catch(function () {}); })();</script>
     <div class="wrap hv2__grid">
       <p class="label hv2__label" data-rv="fade">Агентство маркетинга для стоматологий. Санкт-Петербург</p>
       <div class="hv2__stage">
@@ -371,26 +377,12 @@
     </div>
   </div>
 </section>
-<!-- «Сообщение»: отчёт приходит в мессенджер, как обычная переписка с менеджером -->
-<section class="sec sec--fog" id="process" data-line="fog">
-  <div class="sec__body p5">
-    <div class="wrap p5__grid">
+<!-- «Объём»: айфон в перспективе с живой перепиской, перед ним цифры из отчёта, телефон чуть поворачивается за мышью -->
+<section class="sec sec--fog c5 c5--4" id="process" data-line="fog">
+  <div class="sec__body">
+    <div class="wrap c5__grid">
       <i data-vp class="vp vp--xr"></i>
-      <div class="p5__phone" data-rv="scale">
-        <div class="ph">
-          <p class="ph__top"><b>МедВектор, ваш менеджер</b><span>в&nbsp;сети</span></p>
-          <div class="ph__chat">
-            <p class="ph__day">пятница</p>
-            <p class="ph__m" style="--i:0">Добрый день! Отчёт за&nbsp;неделю с&nbsp;12 по&nbsp;18 мая: расход 52&nbsp;400&nbsp;₽, 21 заявка, 9 записей. Цена заявки 2&nbsp;495&nbsp;₽.</p>
-            <p class="ph__m ph__m--file" style="--i:1"><b>Отчёт, неделя 3</b><span>таблица и&nbsp;скриншоты кабинета</span></p>
-            <p class="ph__m" style="--i:2">Отключили 14 запросов без записей, добавили объявления про рассрочку.</p>
-            <p class="ph__m ph__m--me" style="--i:3">Спасибо. А&nbsp;что с&nbsp;All-on-4?</p>
-            <p class="ph__m" style="--i:4">Заявок 4, запись пока одна. Предлагаю ещё неделю теста, обсудим сегодня на&nbsp;созвоне в&nbsp;16:00.</p>
-          </div>
-        </div>
-        <p class="stub">Заглушка: пример переписки, цифры условные</p>
-      </div>
-      <div class="p5__text">
+      <div class="c5__text">
         <p class="label" data-rv="fade">Как идёт работа</p>
         <h2 class="h2 rvh"><span class="ln" style="--l:0"><span>Отчёт приходит</span></span> <span class="ln" style="--l:1"><span>каждую пятницу</span></span></h2>
         <p class="lead p1__lead" data-rv style="--d:2">Пишем по-человечески и&nbsp;там, где вам удобно. Сколько потратили, сколько заявок и&nbsp;записей, что меняем. Если что-то не&nbsp;сработало, говорим прямо.</p>
@@ -399,6 +391,29 @@
           <li>Один менеджер на&nbsp;связи, созвон раз в&nbsp;неделю</li>
           <li>Подключаемся к&nbsp;вашей CRM, любой</li>
         </ul>
+      </div>
+      <div class="c5__phone" data-rv="scale">
+        <div class="c5__stage" data-tilt>
+          <div class="c5__dev">
+            <div class="cx">
+          <i class="cx__btn cx__btn--l" aria-hidden="true"></i><i class="cx__btn cx__btn--r" aria-hidden="true"></i>
+          <div class="cx__scr">
+          <div class="cx__sb" aria-hidden="true"><span>10:02</span><i class="cx__island"></i><svg class="cx__ico" viewBox="0 0 68 12" aria-hidden="true" focusable="false"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.6" y="6" width="3" height="6" rx="1"/><rect x="9.2" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="1" width="3" height="11" rx="1"/><path d="M29 11.6l2.6-2.8a3.6 3.6 0 0 0-5.2 0zM24.5 6.9l1.2 1.3a4.6 4.6 0 0 1 6.6 0l1.2-1.3a6.4 6.4 0 0 0-9 0zM22 4.2l1.2 1.3a8.1 8.1 0 0 1 11.6 0L36 4.2a9.9 9.9 0 0 0-14 0z"/><rect x="42.5" y=".5" width="22" height="11" rx="3.4" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="44.5" y="2.5" width="15" height="7" rx="1.8"/><path d="M66 4.2v3.6a1.9 1.9 0 0 0 0-3.6z" fill-opacity=".45"/></svg></div>
+          <div class="cx__top"><i class="cx__back" aria-hidden="true"></i><i class="cx__ava" aria-hidden="true">МВ</i><p><b>МедВектор, ваш менеджер</b><span class="cx__status">в&nbsp;сети</span></p></div>
+          <div class="cx__view">
+            <div class="cx__feed"><p class="cx__day">пятница</p><p class="cx__m"><span class="cx__t">Добрый день! Отчёт за неделю с 12 по 18 мая: расход 52 400 ₽, 21 заявка, 9 записей. Цена заявки 2 495 ₽.</span><time>10:02</time></p><p class="cx__m cx__m--file"><b class="cx__t">Отчёт, неделя 3</b><span>таблица и&nbsp;скриншоты кабинета</span><time>10:02</time></p><p class="cx__m"><span class="cx__t">Отключили 14 запросов без записей, добавили объявления про рассрочку.</span><time>10:03</time></p><p class="cx__m cx__m--me"><span class="cx__t">Спасибо. А&nbsp;что с All-on-4?</span><time>10:15</time></p><p class="cx__m"><span class="cx__t">Заявок 4, запись пока одна. Предлагаю ещё неделю теста, обсудим сегодня на созвоне в 16:00.</span><time>10:16</time></p><p class="cx__m cx__m--me"><span class="cx__t">Давайте, в 16:00 удобно.</span><time>10:18</time></p><p class="cx__m"><span class="cx__t">Договорились. Ссылку на созвон пришлю за 10&nbsp;минут.</span><time>10:18</time></p></div>
+            <div class="cx__typing" aria-hidden="true"><i></i><i></i><i></i></div>
+          </div>
+          <div class="cx__bar" aria-hidden="true"><span class="cx__field">Сообщение</span><i class="cx__send"></i></div>
+          <i class="cx__home" aria-hidden="true"></i>
+          </div>
+        </div>
+            <p class="c5__chip c5__chip--1" data-at="0" style="--k:0"><b>21</b><span>заявка за&nbsp;неделю</span></p>
+            <p class="c5__chip c5__chip--2" data-at="0" style="--k:1"><b>9</b><span>записей</span></p>
+            <p class="c5__chip c5__chip--3" data-at="0" style="--k:2"><b>2 495 ₽</b><span>цена заявки</span></p>
+          </div>
+        </div>
+        <p class="stub">Заглушка: пример переписки, цифры условные</p>
       </div>
       <i data-vp class="vp vp--rb"></i>
     </div>
