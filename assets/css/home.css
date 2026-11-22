@@ -911,4 +911,14 @@ button.link { border: 0; cursor: pointer; }
 @media (min-width: 360px) and (max-width: 480px) {
   .ftr__top { grid-template-columns: 1fr 1fr; }
 }
+/* под палец: логотип в шапке, ссылки-подчёркивания и строка согласия получают зону нажатия не меньше 44 px; вид не меняется */
+@media (hover: none) {
+  .hdr__logo { padding: 6px 0; }
+  .link::before { content: ''; position: absolute; inset: -4px -6px; }
+  .fm__c { padding: 8px 0; }
+  /* магнитных кнопок без мыши нет: кнопкам не нужен свой слой видеокарты */
+  .btn { will-change: auto; }
+}
+/* меню на телефоне: прокрутка внутри меню не передаётся странице под ним */
+.mnav { overscroll-behavior: contain; }
 /* ===== Телефон: конец ===== */
