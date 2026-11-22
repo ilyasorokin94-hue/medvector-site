@@ -3,8 +3,9 @@
   "private": true,
   "description": "Сайт МедВектор: страницы собираются из шаблонов в src/ в готовые HTML-файлы в корне",
   "scripts": {
-    "build": "eleventy",
-    "serve": "python3 _tools/serve.py 8099"
+    "build": "eleventy && node _tools/check-build.js",
+    "serve": "python3 _tools/serve.py 8099",
+    "check": "node _tools/check-build.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2"
