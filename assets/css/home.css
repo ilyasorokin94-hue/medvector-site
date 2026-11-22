@@ -897,4 +897,18 @@ button.link { border: 0; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   #faq .qa__item::details-content { transition: none; }
 }
+/* подвал на телефоне: две колонки ссылок вместо одной длинной, у каждой ссылки зона нажатия не меньше 44 px, снизу без пустого поля */
+@media (max-width: 720px) {
+  .ftr { padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)); }
+  .ftr__top { padding: 56px 0 40px; gap: 36px 20px; }
+  .ftr__col { gap: 0; }
+  .ftr__col h2 { margin-bottom: 4px; }
+  .ftr__col a { display: flex; align-items: center; min-height: 44px; line-height: 1.3; }
+  .ftr__bottom { gap: 0 28px; margin-top: 28px; padding-top: 12px; }
+  .ftr__bottom p { padding: 12px 0 4px; }
+  .ftr__bottom a { display: inline-flex; align-items: center; min-height: 44px; }
+}
+@media (min-width: 360px) and (max-width: 480px) {
+  .ftr__top { grid-template-columns: 1fr 1fr; }
+}
 /* ===== Телефон: конец ===== */
