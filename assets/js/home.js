@@ -580,7 +580,7 @@
 })();
 
 /* ===== Подача секций: начало ===== */
-/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон», письмо «Чтение», вопросы «Прокрутка». Разметка секций прежняя, здесь только появление и движение. */
+/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон», письмо «Чтение», вопросы «Прокрутка», заявка «Контур». Разметка секций прежняя, здесь только появление и движение. */
 (function () {
   'use strict';
   var MV = window.MV; if (!MV) return;
@@ -686,6 +686,18 @@
     wheel.addEventListener('click', onClick);
   }
 
-  [['cases', cases1], ['services', services3], ['sites', sites1], ['team', team3], ['faq', faq1]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
+  /* заявка: «Контур» */
+  function start3(sec) {
+    var h = one('.f2__big', sec), last = '';
+    h.firstElementChild.setAttribute('data-t', h.textContent.trim());
+    onScroll(function () {
+      var r = h.getBoundingClientRect(), vh = innerHeight, max = document.documentElement.scrollHeight - vh;
+      var end = Math.max(r.top + scrollY - max + vh * .12, vh * .42), f = reduce ? 1 : clamp((vh * .96 - r.top) / Math.max(1, vh * .96 - end), 0, 1), v = (f * 100).toFixed(1);
+      if (v !== last) { last = v; h.style.setProperty('--f', v); }
+      if (f >= 1) sec.classList.add('v-full'); else if (f < .6) sec.classList.remove('v-full');
+    });
+  }
+
+  [['cases', cases1], ['services', services3], ['sites', sites1], ['team', team3], ['faq', faq1], ['start', start3]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
 })();
 /* ===== Подача секций: конец ===== */

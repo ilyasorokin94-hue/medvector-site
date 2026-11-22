@@ -753,7 +753,7 @@ button.link { border: 0; cursor: pointer; }
 }
 
 /* ===== Подача секций: начало ===== */
-/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон», письмо «Чтение», вопросы «Прокрутка» */
+/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон», письмо «Чтение», вопросы «Прокрутка», заявка «Контур» */
 .vp--out.vp--xr, .vp--out.vp--rb { right: calc(max(0px, (100% - var(--wrap)) / 2) + var(--gut) / 2); }
 .vp--out.vp--xl, .vp--out.vp--lb { left: calc(max(0px, (100% - var(--wrap)) / 2) + var(--gut) / 2); }
 /* кейсы: «Счётчик» */
@@ -809,7 +809,15 @@ button.link { border: 0; cursor: pointer; }
   .js #faq .wheel { --R: min(18.6vw, 27vh); }
   .js #faq .wheel__dial { height: min(48vw, 66vh); }
 }
+/* заявка: «Контур» */
+#start .f2__big span { position: relative; color: #fff; -webkit-text-stroke: 3px #fff; }
+#start .f2__big span::before, #start .f2__big span::after { content: attr(data-t); position: absolute; left: 0; top: 0; -webkit-text-stroke: 0; }
+#start .f2__big span::before { color: var(--vec); }
+#start .f2__big span::after { color: #fff; -webkit-text-stroke: 3px #fff; clip-path: inset(-.2em calc(100% - var(--f, 0) * 1%) -.3em 0); }
+#start.v-full .f2__row { animation: s3ring 1.5s ease-out 2; }
+@keyframes s3ring { from { box-shadow: 0 0 0 0 rgba(255, 255, 255, .75); } to { box-shadow: 0 0 0 26px rgba(255, 255, 255, 0); } }
 @media (prefers-reduced-motion: reduce) {
   #team .t5__w { opacity: 1 !important; }
+  #start .f2__big { --f: 100 !important; }
 }
 /* ===== Подача секций: конец ===== */
