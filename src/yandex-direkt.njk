@@ -206,7 +206,7 @@ faq:
 <section class="sec" id="check">
   <div class="wrap">
     {{ b.shead({ title: 'Проверьте рекламу, которая уже идёт.', note: 'Шесть вопросов к подрядчику или к себе, на них уходит минут десять. Если на два вопроса ответа нет, бюджет расходуется вслепую.' }) }}
-    <ul class="spec spec--sm">
+    <ul class="spec spec--sm spec--cols">
 {% for r in check %}
       <li class="reveal"><h4>{{ r[0] | t | safe }}</h4><p>{{ r[1] | t | safe }}</p></li>
 {% endfor %}
@@ -321,7 +321,7 @@ faq:
 <section class="sec" id="work">
   <div class="wrap">
     {{ b.shead({ title: 'Что ещё входит в работу.', note: 'Всё это есть и на первом тесте, и на ведении после него.' }) }}
-    <ul class="spec spec--sm">
+    <ul class="spec spec--sm spec--cols">
 {% for r in extra %}
       <li class="reveal"><h4>{{ r[0] | t | safe }}</h4><p>{{ r[1] | t | safe }}</p></li>
 {% endfor %}

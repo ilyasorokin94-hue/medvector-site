@@ -20,7 +20,7 @@
 {% endfor %}
     </ol>
 {% elif s.type == 'spec' %}
-    <ul class="spec spec--sm">
+    <ul class="spec spec--sm spec--cols">
 {% for r in s.items %}
       <li class="reveal"><h4>{{ r[0] | t | safe }}</h4><p>{{ r[1] | t | safe }}</p></li>
 {% endfor %}
@@ -54,7 +54,7 @@
 {% endif %}
 {% elif s.type == 'cmp' %}
     <div class="cmp-wrap">
-      <table class="cmp{% if s.cols.length == 3 %} cmp--4{% endif %}">
+      <table class="cmp{% if s.cols.length == 3 %} cmp--4{% endif %}{% if s.stat %} cmp--stat{% endif %}">
         <caption class="sr">{{ s.caption or s.title }}</caption>
         <thead><tr><td></td>{% for c in s.cols %}<th scope="col">{{ c }}</th>{% endfor %}</tr></thead>
         <tbody>

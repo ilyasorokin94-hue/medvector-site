@@ -177,7 +177,7 @@ faq:
 <section class="sec sec--fog" id="team">
   <div class="wrap">
     {{ b.shead({ title: 'Аутсорсинг маркетинга: команда вместо одного маркетолога.', note: 'С клиникой работают несколько специалистов, а общается с вами один менеджер.' }) }}
-    <ul class="spec spec--sm">
+    <ul class="spec spec--sm spec--cols">
 {% for r in team %}
       <li class="reveal"><h4>{{ r[0] | t | safe }}</h4><p>{{ r[1] | t | safe }}</p></li>
 {% endfor %}
