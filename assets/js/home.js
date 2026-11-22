@@ -766,5 +766,23 @@
       if (by > 4) scrollBy({ top: by, behavior: MV.reduce ? 'auto' : 'smooth' });
     }, 30);
   });
+
+  /* услуги «Стопка» на узком экране: высота нижней панели для её остановки у края экрана (--ph)
+     и доля, на которую её закрыла верхняя (--q). Считается, только пока секция на экране */
+  var svc = document.getElementById('services'), ps = svc ? svc.querySelectorAll('.s1__p') : [];
+  if (ps.length > 1 && 'IntersectionObserver' in window) {
+    var pa = ps[0], pb = ps[1], near = false, q = '';
+    var size = function () { if (stacked.matches) pa.style.setProperty('--ph', pa.offsetHeight + 'px'); };
+    size(); addEventListener('resize', size);
+    if ('ResizeObserver' in window) new ResizeObserver(size).observe(pa);
+    new IntersectionObserver(function (es) { near = es[es.length - 1].isIntersecting; if (near && MV.wake) MV.wake(); }, { rootMargin: '200px 0px' }).observe(svc);
+    MV.frames.push(function () {
+      if (!near || !stacked.matches) return false;
+      var a = pa.getBoundingClientRect(), b = pb.getBoundingClientRect(), v = Math.max(1, Math.min(a.height, innerHeight - 80));
+      var nq = Math.min(1, Math.max(0, (a.bottom - b.top) / v)).toFixed(3);
+      if (nq !== q) { q = nq; pa.style.setProperty('--q', q); }
+      return false;
+    });
+  }
 })();
 /* ===== Телефон: конец ===== */

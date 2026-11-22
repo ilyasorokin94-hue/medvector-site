@@ -937,4 +937,14 @@ button.link { border: 0; cursor: pointer; }
 }
 /* меню на телефоне: прокрутка внутри меню не передаётся странице под ним */
 .mnav { overscroll-behavior: contain; }
+/* услуги «Стопка» на телефоне и планшете: Директ дочитывается до кнопки и останавливается нижним краем у края экрана,
+   Комплексный маркетинг наезжает на него сверху, нижняя панель уходит в глубину и темнеет, как на компьютере.
+   Высоту панели (--ph) и долю наезда (--q) пишет скрипт; без скрипта панели просто идут друг под другом */
+@media (max-width: 1100px) {
+  .js #services .s1__grid { display: block; }
+  .js #services .s1__p:first-child { position: sticky; top: calc(var(--hdr) + 12px); top: min(calc(var(--hdr) + 12px), calc(100vh - var(--ph, 100vh) - 12px)); top: min(calc(var(--hdr) + 12px), calc(100dvh - var(--ph, 100dvh) - 12px)); transform-origin: 50% 100%; transform: scale(calc(1 - var(--q, 0) * .06)); transition: opacity .9s var(--ease); will-change: transform; }
+  .js #services .s1__p:first-child::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--ink); opacity: calc(var(--q, 0) * .3); pointer-events: none; will-change: opacity; }
+  .js #services .s1__p + .s1__p { position: relative; z-index: 1; margin-top: 16px; box-shadow: 0 -30px 50px -30px rgba(0, 15, 64, .55); }
+  .js #services .s1__p + .s1__p[data-rv] { opacity: 1; }
+}
 /* ===== Телефон: конец ===== */
