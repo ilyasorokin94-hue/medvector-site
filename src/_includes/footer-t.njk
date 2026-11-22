@@ -1,8 +1,8 @@
-<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<!-- ============ ПОДВАЛ как на главной: тёмный, три колонки ссылок, знак во всю ширину ============ -->
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Реклама, сайты и&nbsp;Яндекс Карты для стоматологий. Первый тест в&nbsp;Директе без комиссии агентства.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="{{ href('direct') }}">Яндекс Директ для стоматологии</a>
@@ -24,13 +24,13 @@
         <h2>Агентство</h2>
         <a href="{{ href('cases') }}">Кейсы</a>
         <a href="{{ href('blog') }}">Блог</a>
-        <a href="{{ href('about') }}">О нас</a>
+        <a href="{{ href('about') }}">Об агентстве</a>
         <a href="{{ href('about') }}#contacts">Контакты</a>
         <a href="{{ '#start' if form != false else '/#start' }}">Оставить заявку</a>
       </nav>
     </div>
     <div class="ftr__mark">
-      <img src="/assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+      <img src="/assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy" decoding="async">
     </div>
     <div class="ftr__bottom">
       <p>© {{ year }} МедВектор</p>

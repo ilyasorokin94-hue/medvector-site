@@ -1,34 +1,69 @@
-<!-- ============ ШАПКА «Траектория»: логотип, четыре пункта, одна кнопка ============ -->
+<!-- ============ ШАПКА как на главной: логотип, «Услуги» с выпадающим списком всех услуг, кейсы, блог, агентство, контакты, одна кнопка ============ -->
+{% set svc = [
+  { k: 'direct', t: 'Яндекс Директ', s: 'Первый тест без комиссии агентства', g: 1 },
+  { k: 'leads', t: 'Заявки для стоматологии', s: 'Пациенты из рекламы без покупки лидов', g: 1 },
+  { k: 'complex', t: 'Комплексный маркетинг', s: 'Отдел маркетинга клиники на аутсорсе', g: 1 },
+  { k: 'med', t: 'Медицинский маркетинг', s: 'Клиники и медицинские центры', g: 1 },
+  { k: 'sites', t: 'Сайт для стоматологии', s: 'С нуля или редизайн по требованиям закона', g: 2 },
+  { k: 'seo', t: 'SEO для стоматологии', s: 'Рост в поиске по услугам в своём городе', g: 2 },
+  { k: 'geo', t: 'Продвижение в нейросетях', s: 'Что Алиса и ChatGPT отвечают о клинике', g: 2 },
+  { k: 'maps', t: 'Яндекс Карты', s: 'Карточка, каталог услуг и ответы на отзывы', g: 3 },
+  { k: 'gis', t: '2ГИС', s: 'Карточка клиники и реклама в справочнике', g: 3 },
+  { k: 'prodoc', t: 'ПроДокторов', s: 'Профиль клиники и врачей', g: 3 },
+  { k: 'reviews', t: 'Отзывы и репутация', s: 'Настоящие отзывы и ответы на них', g: 3 }
+] %}
+{% set groups = [[1, 'Реклама и пациенты'], [2, 'Сайт и поиск'], [3, 'Карты и репутация']] %}
+{% set startHref = '#start' if form != false else '/#start' %}
 <header class="hdr" id="top">
   <div class="hdr__in">
-    <a href="/" class="hdr__logo" aria-label="МедВектор, на главную"{% if home %} aria-current="page"{% endif %}>
-      <img src="/assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+    <a href="/" class="hdr__logo" aria-label="МедВектор, на главную">
+      <img class="lg-l" src="/assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-d" src="/assets/img/medvector-logo-w.webp" alt="" width="440" height="93">
     </a>
     <nav class="hdr__nav" aria-label="Основное меню">
-      <a href="{{ href('direct') }}"{% if section == 'direct' %} aria-current="page"{% endif %}>Яндекс Директ</a>
-      <a href="{{ href('complex') }}"{% if section == 'complex' %} aria-current="page"{% endif %}>Комплексный маркетинг</a>
+      <div class="drop drop--wide" data-drop>
+        <button type="button" class="drop__btn"{% if section in ['direct', 'leads', 'complex', 'med', 'sites', 'seo', 'geo', 'maps', 'gis', 'prodoc', 'reviews'] %} data-here{% endif %} aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
+        <div class="drop__panel" id="drop-services">
+          <div class="drop__list drop__cols">
+{% for g in groups %}
+            <div class="drop__col">
+              <p class="drop__h">{{ g[1] }}</p>
+              <ul>
+{% for i in svc %}{% if i.g == g[0] %}
+                <li><a href="{{ href(i.k) }}"{% if section == i.k %} aria-current="page"{% endif %}><b>{{ i.t | t | safe }}</b><small>{{ i.s | t | safe }}</small></a></li>
+{% endif %}{% endfor %}
+              </ul>
+            </div>
+{% endfor %}
+          </div>
+        </div>
+      </div>
       <a href="{{ href('cases') }}"{% if section == 'cases' %} aria-current="page"{% endif %}>Кейсы</a>
       <a href="{{ href('blog') }}"{% if section == 'blog' %} aria-current="page"{% endif %}>Блог</a>
-      <a href="{{ href('about') }}"{% if section == 'about' %} aria-current="page"{% endif %}>О нас</a>
+      <a href="{{ href('about') }}"{% if section == 'about' %} aria-current="page"{% endif %}>Об агентстве</a>
+      <a href="{{ href('about') }}#contacts">Контакты</a>
     </nav>
-    <a href="{{ '#start' if form != false else '/#start' }}" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
+    <a href="{{ startHref }}" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- мобильное меню: тёмный экран, пункты крупно -->
+<!-- мобильное меню: тёмный экран, услуги списком, разделы крупно -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
-    <a href="{{ href('direct') }}">Яндекс Директ</a>
-    <a href="{{ href('complex') }}">Комплексный маркетинг</a>
-    <a href="{{ href('sites') }}">Сайт для стоматологии</a>
-    <a href="{{ href('maps') }}">Яндекс Карты</a>
+    <p class="mnav__h">Услуги</p>
+    <ul class="mnav__sub mnav__sub--all">
+{% for i in svc %}
+      <li><a href="{{ href(i.k) }}"{% if section == i.k %} aria-current="page"{% endif %}>{{ i.t | t | safe }}</a></li>
+{% endfor %}
+    </ul>
     <a href="{{ href('cases') }}">Кейсы</a>
     <a href="{{ href('blog') }}">Блог</a>
-    <a href="{{ href('about') }}">О нас</a>
+    <a href="{{ href('about') }}">Об агентстве</a>
+    <a href="{{ href('about') }}#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
-    <a href="{{ '#start' if form != false else '/#start' }}" class="btn btn--light">Разобрать клинику</a>
-    <p>Первый тест в&nbsp;Директе без комиссии агентства. Сайт, Яндекс Карты и&nbsp;SEO одной командой.</p>
+    <a href="{{ startHref }}" class="btn btn--light">Разобрать клинику</a>
+    <p>Санкт-Петербург. Работаем с&nbsp;клиниками по&nbsp;всей России.</p>
   </div>
 </div>

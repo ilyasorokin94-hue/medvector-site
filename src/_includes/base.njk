@@ -31,11 +31,13 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/trajectory.css">
-<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/geologica-latin-text.woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/pages.css">
+{% block preload %}{% endblock %}
+<!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
+<script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
 {% block jsonld %}
 <script type="application/ld+json">
@@ -43,7 +45,7 @@
 </script>
 {% endblock %}
 </head>
-<body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+<body class="pg{% if pick %} is-pick{% endif %}{% if bodyClass %} {{ bodyClass }}{% endif %}">
 <a class="skip" href="#main">К содержимому</a>
 {% include "header-t.njk" %}
 
@@ -54,10 +56,10 @@
 {% include "footer-t.njk" %}
 {% if form != false %}
 <!-- нижняя кнопка на телефоне -->
-<a href="#start" class="mcta"><span>{{ mctaText or 'Разобрать клинику' }}</span></a>
+<a href="#start" class="mcta" data-magnetic><span>{{ mctaText or 'Разобрать клинику' }}</span></a>
 {% endif %}
 
 <script src="/assets/js/vendor/lenis.min.js" defer></script>
-<script src="/assets/js/trajectory.js" defer></script>
+<script src="/assets/js/pages.js" defer></script>
 </body>
 </html>
