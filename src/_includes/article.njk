@@ -1,0 +1,28 @@
+{# Статья блога: текст в теле файла страницы, вопросы и ссылка на услугу в шапке. #}
+{% extends "base.njk" %}
+
+{% block main %}
+{% import "t.njk" as b %}
+<section>
+  <div class="wrap">
+    <article class="prose prose--article">
+      {{ b.crumbs(crumbs) }}
+      <h1>{{ h1 | t | safe }}</h1>
+      <p class="prose__lead">{{ lead | t | safe }}</p>
+      {{ content | safe }}
+{% if faq %}
+      <h2>Короткие ответы</h2>
+{% for f in faq %}
+      <h3>{{ f.q | t | safe }}</h3>
+      <p>{{ f.a | t | safe }}</p>
+{% endfor %}
+{% endif %}
+{% if next %}
+      <p class="prose__next">{{ next.text | t | safe }} <a href="{{ next.url }}">{{ next.link | t | safe }}</a>.</p>
+{% endif %}
+    </article>
+  </div>
+</section>
+
+{{ b.start(start or { pick: 'unsure' }) }}
+{% endblock %}

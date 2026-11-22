@@ -926,3 +926,16 @@ html:active-view-transition { background: var(--ink); }
   .circle__in { color: #000; }
   .has-wheel .qa { display: block; }
 }
+
+/* ---------- статьи блога и список статей ---------- */
+.prose--article { max-width: 780px; }
+.prose--article .crumbs { margin-bottom: 28px; }
+.prose h3 { margin: 32px 0 10px; font: 500 clamp(19px, 1.6vw, 22px)/1.25 var(--sans); letter-spacing: -.015em; }
+.prose ol { padding-left: 24px; list-style: decimal; }
+.prose ol + p, .prose p + ol, .prose h3 + ul, .prose h3 + ol { margin-top: 14px; }
+.prose p.prose__lead { margin-bottom: 8px; font-size: clamp(19px, 1.6vw, 22px); line-height: 1.5; color: var(--ink); }
+.prose p.prose__next { margin-top: 48px; padding: 20px 24px; border-left: 2px solid var(--vec); background: var(--fog); color: var(--ink); }
+.prose .tbl { margin: 20px 0; overflow-x: auto; }
+.prose table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.45; }
+.prose th, .prose td { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--line, rgba(0, 0, 0, .12)); text-align: left; vertical-align: top; color: var(--ink-2); }
+.prose thead th, .prose tbody th { font-weight: 500; color: var(--ink); }
