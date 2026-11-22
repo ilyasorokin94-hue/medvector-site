@@ -21,3 +21,122 @@
   </div>
 </section>
 {% endmacro %}
+
+
+
+{# «Карточки»: каждая колонка становится карточкой, строки карточек выровнены по высоте, ключевая карточка тёмная; на телефоне карточки листаются вбок #}
+{% macro cards(s) %}
+{% set n = s.rows.length %}
+<section{{ c.attrs(s, 'lk-cmp-cards') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="cc cc--{{ s.cols.length }}" role="group" aria-label="{{ (s.caption or s.title) | plain }}">
+{% for col in s.cols %}
+{% set ci = loop.index %}
+      <article class="cc__card{% if loop.last %} cc__card--key{% endif %}" style="grid-row: span {{ n + 1 }}; --d: {{ loop.index0 }}" data-rv>
+        <h3 class="cc__h">{{ col | t | safe }}</h3>
+{% for r in s.rows %}
+        <div class="cc__row"><p class="cc__k">{{ r[0] | t | safe }}</p><p class="cc__v{% if s.stat and ci == 1 %} cc__v--num{% endif %}">{{ r[ci] | t | safe }}</p></div>
+{% endfor %}
+      </article>
+{% endfor %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Переключатель»: слева заголовок и выбор колонки, справа строки; видна одна колонка, переключение работает без скриптов #}
+{% macro switch(s) %}
+<section{{ c.attrs(s, 'lk-cmp-switch') }}>
+  <div class="wrap">
+    <div class="cs cs--{{ s.cols.length }}">
+      <div class="cs__side">
+        <div class="cs__head">
+{% if s.label %}
+          <p class="label" data-rv="fade">{{ s.label }}</p>
+{% endif %}
+          <h2 class="h2 cs__h" data-rv>{{ s.title | nodot | t | safe }}</h2>
+{% if s.note %}
+          <p class="cs__note" data-rv style="--d:1">{{ s.note | t | safe }}</p>
+{% endif %}
+        </div>
+        <form class="cs__form" data-rv style="--d:2">
+          <fieldset class="cs__seg">
+            <legend class="sr">{{ (s.caption or s.title) | plain }}</legend>
+{% for col in s.cols %}
+            <label class="cs__b"><input type="radio" name="col" value="{{ loop.index }}"{% if loop.last %} checked{% endif %}><span>{{ col | t | safe }}</span></label>
+{% endfor %}
+          </fieldset>
+        </form>
+      </div>
+      <div class="cs__rows">
+{% for r in s.rows %}
+        <div class="cs__row" data-rv>
+          <h3 class="cs__k">{{ r[0] | t | safe }}</h3>
+          <div class="cs__vals">
+{% for col in s.cols %}
+            <p class="cs__v{% if s.stat and loop.first %} cs__v--num{% endif %}"><span class="sr">{{ col | plain }}: </span>{{ r[loop.index] | t | safe }}</p>
+{% endfor %}
+          </div>
+        </div>
+{% endfor %}
+      </div>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Против»: колонки смотрят друг на друга через ось, название строки стоит на оси; у трёх колонок название строки над тремя ответами #}
+{% macro versus(s) %}
+{% set n = s.cols.length %}
+<section{{ c.attrs(s, 'lk-cmp-versus') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="vx vx--{{ 2 if n == 2 else 'n' }}" style="--n: {{ n }}" role="group" aria-label="{{ (s.caption or s.title) | plain }}">
+      <div class="vx__top" aria-hidden="true">
+{% for col in s.cols %}
+        <p class="vx__col{% if loop.last %} vx__col--key{% endif %}">{{ col | t | safe }}</p>
+{% endfor %}
+      </div>
+{% for r in s.rows %}
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>{{ r[0] | t | safe }}</span></h3>
+{% for col in s.cols %}
+        <p class="vx__v{% if loop.last %} vx__v--key{% endif %}{% if s.stat and loop.first %} vx__v--num{% endif %}"><span class="vx__c">{{ col | t | safe }}</span>{{ r[loop.index] | t | safe }}</p>
+{% endfor %}
+      </div>
+{% endfor %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Главное»: тёмная полоса; в каждой строке крупно ответ ключевой колонки, рядом мелко остальные колонки #}
+{% macro focus(s) %}
+{% set key = 1 if s.stat else s.cols.length %}
+<section class="sec sec--dark dark lk-cmp-focus"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="{{ s.type }}">
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="cf{% if s.stat %} cf--stat{% endif %}" role="group" aria-label="{{ (s.caption or s.title) | plain }}">
+      <p class="cf__top" aria-hidden="true"><span>{{ s.cols[key - 1] | t | safe }}</span></p>
+{% for r in s.rows %}
+      <div class="cf__row" data-rv>
+        <h3 class="cf__k">{{ r[0] | t | safe }}</h3>
+        <p class="cf__v"><span class="sr">{{ s.cols[key - 1] | plain }}: </span>{{ r[key] | t | safe }}</p>
+        <div class="cf__o">
+{% for col in s.cols %}
+{% if loop.index != key %}
+          <p><span class="cf__c">{{ col | t | safe }}</span>{{ r[loop.index] | t | safe }}</p>
+{% endif %}
+{% endfor %}
+        </div>
+      </div>
+{% endfor %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

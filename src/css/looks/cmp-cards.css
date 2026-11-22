@@ -1,0 +1,20 @@
+/* сравнение «Карточки»: колонка становится карточкой, строки выровнены общей сеткой; на телефоне карточки листаются вбок */
+.cc { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(12px, 1.6vw, 24px); }
+.cc--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cc__card { display: grid; grid-template-rows: subgrid; align-content: start; padding: clamp(24px, 2.6vw, 40px); border-radius: var(--r-lg); background: var(--fog); }
+.sec--fog .cc__card { background: var(--paper); }
+.cc__h { padding-bottom: 20px; font: var(--h-w) calc(clamp(22px, 2vw, 30px) * var(--h-k))/1.1 var(--disp); letter-spacing: var(--h3-ls); }
+.cc__row { padding: 18px 0; border-top: 1px solid var(--line); }
+.cc__k { margin-bottom: 6px; font-size: calc(14px * var(--t-k)); line-height: 1.35; color: var(--ink-3); }
+.cc__v { font-size: calc(17px * var(--t-k)); line-height: 1.45; color: var(--ink-2); }
+.cc__v--num { font: var(--num-w) calc(clamp(22px, 2vw, 28px) * var(--h-k))/1.1 var(--disp); letter-spacing: -.03em; color: var(--ink); }
+.cc .cc__card--key { background: var(--ink); color: #fff; }
+.cc__card--key .cc__row { border-top-color: var(--line-dark); }
+.cc__card--key .cc__k { color: var(--on-dark-2); }
+.cc__card--key .cc__v { color: #fff; }
+@media (max-width: 760px) {
+  .cc, .cc--3 { display: flex; gap: 12px; margin: 0 calc(var(--gut) * -1); padding: 0 var(--gut) 6px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--gut); overscroll-behavior-x: contain; scrollbar-width: none; }
+  .cc::-webkit-scrollbar { display: none; }
+  .cc__card { display: block; flex: 0 0 86%; scroll-snap-align: start; }
+  .cc__v { font-size: calc(16px * var(--t-k)); }
+}

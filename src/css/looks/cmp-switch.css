@@ -1,0 +1,41 @@
+/* сравнение «Переключатель»: слева заголовок и выбор колонки, справа строки; видна одна колонка, остальные ждут в той же ячейке */
+.cs { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px clamp(32px, 6vw, 112px); align-items: start; }
+.cs__side { position: sticky; top: calc(var(--hdr) + 32px); }
+.cs__h { font-size: calc(clamp(32px, 3.6vw, 58px) * var(--h-k)); }
+.cs__note { margin-top: 20px; max-width: 520px; font-size: calc(17px * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+.cs__form { margin-top: clamp(28px, 3vw, 44px); }
+.cs__seg { display: flex; flex-wrap: wrap; gap: 4px; min-width: 0; margin: 0; padding: 5px; border: 0; border-radius: 28px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+.sec--fog .cs__seg { background: var(--paper); box-shadow: none; }
+.cs__b { position: relative; display: inline-flex; align-items: center; min-height: 46px; padding: 0 20px; border-radius: 99px; cursor: pointer; font-size: calc(15px * var(--t-k)); font-weight: 500; line-height: 1.2; color: var(--ink-2); transition: background-color .35s var(--ease), color .35s var(--ease); }
+.cs__b:hover { color: var(--ink); }
+.cs__b input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.cs__b:has(input:checked) { background: var(--ink); color: #fff; }
+.cs__b:has(input:focus-visible) { outline: 2px solid var(--vec); outline-offset: 2px; }
+.cs__rows { border-bottom: 1px solid var(--line); }
+.cs__row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 8px 32px; padding: 26px 0; border-top: 1px solid var(--line); }
+.cs__k { font-size: calc(17px * var(--t-k)); font-weight: 500; line-height: 1.35; letter-spacing: -.01em; }
+.cs__vals { display: grid; }
+.cs__v { grid-area: 1 / 1; font-size: calc(18px * var(--t-k)); line-height: 1.45; color: var(--ink); opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity .45s var(--ease), transform .55s var(--ease), visibility .45s; }
+.cs__v--num { font: var(--num-w) calc(clamp(24px, 2.2vw, 32px) * var(--h-k))/1.1 var(--disp); letter-spacing: -.03em; }
+/* по умолчанию видна последняя колонка; выбор колонки переставляет видимую */
+.cs__v:last-child { opacity: 1; visibility: visible; transform: none; }
+.cs:has(.cs__b:nth-child(2) input:checked) .cs__v,
+.cs:has(.cs__b:nth-child(3) input:checked) .cs__v,
+.cs:has(.cs__b:nth-child(4) input:checked) .cs__v { opacity: 0; visibility: hidden; transform: translateY(6px); }
+.cs:has(.cs__b:nth-child(2) input:checked) .cs__v:nth-child(1),
+.cs:has(.cs__b:nth-child(3) input:checked) .cs__v:nth-child(2),
+.cs:has(.cs__b:nth-child(4) input:checked) .cs__v:nth-child(3) { opacity: 1; visibility: visible; transform: none; }
+@media (prefers-reduced-motion: reduce) { .cs__v { transition: none; transform: none !important; } }
+@media (max-width: 900px) {
+  .cs { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .cs__side { display: contents; }
+  .cs__head { margin-bottom: 28px; }
+  .cs__form { position: sticky; top: 12px; z-index: 3; margin: 0 0 12px; }
+  .hdr:not(.is-hidden) ~ main .cs__form { top: calc(var(--hdr) + 8px); }
+  .cs__seg, .sec--fog .cs__seg { box-shadow: 0 12px 30px -18px rgba(0, 15, 64, .45), inset 0 0 0 1px var(--line); }
+  .cs__seg { flex-wrap: nowrap; }
+  .cs__b { flex: 1 1 0; justify-content: center; min-width: 0; padding: 6px 10px; font-size: calc(14px * var(--t-k)); text-align: center; }
+  .cs__row { grid-template-columns: minmax(0, 1fr); padding: 20px 0; }
+  .cs__k { font-size: calc(15px * var(--t-k)); color: var(--ink-3); font-weight: 400; }
+  .cs__v { font-size: calc(17px * var(--t-k)); }
+}
