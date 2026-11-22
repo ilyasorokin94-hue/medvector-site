@@ -87,12 +87,25 @@ const related = (all, url, topic, n = 3) => {
 // ---------- варианты секций ----------
 // У каждой секции страницы три варианта подачи («вида»). Какие три, задаёт src/_data/looks.json, какой стоит на сайте, src/_data/picks.json.
 // Обычная сборка ставит выбранный вариант. Сборка выбора (MV_PICK=1, см. _tools/pick.sh) ставит все три с переключателем.
-const PICK = !!process.env.MV_PICK;
+// MV_PICK=all показывает все три варианта подряд, без переключателя: так удобно смотреть их скриншотами.
+const PICK = process.env.MV_PICK || '';
 const readJSON = f => JSON.parse(fs.readFileSync(path.join(SRC, '_data', f), 'utf8'));
+// looks.json плюс части из src/_looks/*.json: у каждой группы видов свой файл, их можно вести параллельно
+const readLooks = () => {
+  const L = readJSON('looks.json');
+  const dir = path.join(SRC, '_looks');
+  if (fs.existsSync(dir)) for (const f of fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort()) {
+    const part = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+    Object.assign(L.types, part.types || {});
+    Object.assign(L.names, part.names || {});
+    for (const [url, secs] of Object.entries(part.pages || {})) L.pages[url] = Object.assign(L.pages[url] || {}, secs);
+  }
+  return L;
+};
 const usedLooks = new Set();
 const trio = (url, s) => {
   if (s.looks) return s.looks;
-  const L = readJSON('looks.json');
+  const L = readLooks();
   const byPage = (L.pages[url] || {})[s.id];
   return byPage || L.types[s.type] || ['base'];
 };
@@ -102,7 +115,7 @@ const chosen = (url, s) => {
   const t = trio(url, s);
   return t[Math.min(Math.max(n, 1), t.length) - 1];
 };
-const lookName = (type, look) => (readJSON('looks.json').names[type + '-' + look]) || look;
+const lookName = (type, look) => (readLooks().names[type + '-' + look]) || look;
 
 module.exports = function (cfg) {
   cfg.setNunjucksEnvironmentOptions({ trimBlocks: true, lstripBlocks: true });
@@ -130,7 +143,9 @@ module.exports = function (cfg) {
 
   // Стили внутренних страниц: основа и блоки из src/css, плюс только те варианты секций, что стоят на страницах.
   // В сборке выбора в файл идут все варианты и панель переключателя.
-  cfg.on('eleventy.after', ({ dir }) => {
+  cfg.on('eleventy.after', ({ dir, directories }) => {
+    // папка вывода из командной строки (--output) приходит в directories, dir хранит значение из конфига
+    const outDir = (directories && directories.output) || dir.output;
     const cssDir = path.join(SRC, 'css');
     const parts = fs.readdirSync(cssDir).filter(f => f.endsWith('.css') && (PICK || !f.startsWith('90-'))).sort();
     let out = parts.map(f => fs.readFileSync(path.join(cssDir, f), 'utf8')).join('\n');
@@ -138,7 +153,7 @@ module.exports = function (cfg) {
     fs.readdirSync(looksDir).filter(f => f.endsWith('.css')).sort().forEach(f => {
       if (PICK || usedLooks.has(f.slice(0, -4))) out += '\n' + fs.readFileSync(path.join(looksDir, f), 'utf8');
     });
-    const target = path.join(dir.output, 'assets', 'css', 'pages.css');
+    const target = path.join(outDir, 'assets', 'css', 'pages.css');
     fs.mkdirSync(path.dirname(target), { recursive: true });
     fs.writeFileSync(target, out);
     // скрипт так же: основа, поведение использованных вариантов, запуск
@@ -148,7 +163,7 @@ module.exports = function (cfg) {
       if (PICK || usedLooks.has(f.slice(0, -3))) js += '\n' + fs.readFileSync(path.join(jsDir, 'looks', f), 'utf8');
     });
     js += '\n' + fs.readFileSync(path.join(jsDir, '99-run.js'), 'utf8');
-    const jsTarget = path.join(dir.output, 'assets', 'js', 'pages.js');
+    const jsTarget = path.join(outDir, 'assets', 'js', 'pages.js');
     fs.mkdirSync(path.dirname(jsTarget), { recursive: true });
     fs.writeFileSync(jsTarget, js);
   });
