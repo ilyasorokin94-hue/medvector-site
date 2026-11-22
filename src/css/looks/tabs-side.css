@@ -1,0 +1,18 @@
+/* вкладки «Боковое меню»: направления списком слева, выбранное справа */
+.tbs { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 32px clamp(32px, 5vw, 96px); align-items: start; }
+.tbs__list { position: sticky; top: calc(var(--hdr) + 28px); display: grid; border-top: 1px solid var(--line); }
+.tbs__btn { position: relative; display: flex; align-items: center; min-height: 72px; padding: 14px 16px 14px 24px; border: 0; border-bottom: 1px solid var(--line); background: none; cursor: pointer; text-align: left; font: var(--h-w) calc(clamp(22px, 2vw, 30px) * var(--h-k))/1.1 var(--disp); letter-spacing: -.03em; color: var(--ink-3); transition: color .3s; }
+.tbs__btn::before { content: ''; position: absolute; left: 0; top: 18px; bottom: 18px; width: 3px; border-radius: 3px; background: var(--vec); transform: scaleY(0); transition: transform .5s var(--ease); }
+.tbs__btn:hover { color: var(--ink); }
+.tbs__btn[aria-selected="true"] { color: var(--ink); }
+.tbs__btn[aria-selected="true"]::before { transform: none; }
+.tbs__lead { margin-bottom: clamp(28px, 3vw, 44px); font-size: calc(clamp(18px, 1.45vw, 21px) * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+.tbs__panel .tb__gh { margin-bottom: 8px; }
+.no-js .tbs { grid-template-columns: minmax(0, 1fr); }
+.no-js .tbs__list { display: none; }
+@media (max-width: 1020px) {
+  .tbs { grid-template-columns: minmax(0, 1fr); }
+  .tbs__list { position: relative; top: 0; display: flex; flex-wrap: wrap; column-gap: 24px; border-top: 0; border-bottom: 1px solid var(--line); }
+  .tbs__btn { min-height: 48px; padding: 10px 0 12px; border-bottom: 0; font-size: calc(19px * var(--h-k)); }
+  .tbs__btn::before { left: 0; right: 0; top: auto; bottom: -1px; width: auto; height: 3px; transform: scaleX(0); }
+}

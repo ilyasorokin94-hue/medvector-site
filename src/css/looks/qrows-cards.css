@@ -1,0 +1,11 @@
+/* группы запросов «Карточки»: по три в ряд, запросы со значком поиска, ответ под линией */
+.qrc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.qrc__i { display: grid; grid-template-rows: auto auto 1fr; align-content: start; gap: 12px; padding: 24px 24px 26px; border-radius: var(--r); background: var(--paper); border: 1px solid var(--line); }
+.sec:not(.sec--fog) .qrc__i { background: var(--fog); border-color: transparent; }
+.qrc__h { font-size: calc(19px * var(--t-k)); font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
+.qrc__q { display: flex; align-items: baseline; gap: 10px; font-size: calc(15.5px * var(--t-k)); line-height: 1.45; color: var(--vec-ink); }
+.qrc__q .art__glass { top: 2px; width: 11px; height: 11px; border-width: 1.5px; }
+.qrc__q .art__glass::after { right: -5px; bottom: -3px; width: 5px; height: 1.5px; }
+.qrc__a { align-self: end; padding-top: 14px; border-top: 1px solid var(--line); font-size: calc(15.5px * var(--t-k)); color: var(--ink-2); }
+@media (max-width: 1020px) { .qrc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .qrc { grid-template-columns: minmax(0, 1fr); } }

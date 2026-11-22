@@ -1,0 +1,16 @@
+/* вкладки «Стопка»: направления подряд, сверху ссылки на каждое */
+.tbk__nav { position: sticky; top: calc(var(--hdr) + 12px); z-index: 5; display: flex; flex-wrap: wrap; gap: 8px; width: max-content; max-width: 100%; margin-bottom: clamp(32px, 4vw, 56px); padding: 6px; border-radius: 99px; background: var(--paper); box-shadow: 0 0 0 1px var(--line), 0 20px 40px -30px rgba(0, 15, 64, .5); }
+.tbk__nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 99px; font-weight: 500; text-decoration: none; color: var(--ink-2); transition: background-color .3s, color .3s; }
+.tbk__nav a:hover { background: var(--ink); color: #fff; }
+.tbk__i { padding-top: clamp(40px, 4vw, 64px); border-top: 2px solid var(--ink); scroll-margin-top: calc(var(--hdr) + 84px); }
+.tbk__i + .tbk__i { margin-top: clamp(56px, 6vw, 96px); }
+.tbk__top { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px clamp(32px, 5vw, 96px); margin-bottom: clamp(28px, 3vw, 44px); }
+.tbk__h { font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(30px, 3.4vw, 52px) * var(--h-k)); line-height: 1.02; letter-spacing: var(--h-ls); }
+.tbk__lead { font-size: calc(clamp(18px, 1.45vw, 21px) * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+.tbk__i .tb__cmp { margin-bottom: clamp(28px, 3vw, 44px); }
+.tbk__i .tb__gh { margin-bottom: 16px; }
+@media (max-width: 860px) {
+  .tbk__top { grid-template-columns: minmax(0, 1fr); }
+  .tbk__nav { position: relative; top: 0; border-radius: 24px; }
+  .tbk__nav a { padding: 0 14px; }
+}
