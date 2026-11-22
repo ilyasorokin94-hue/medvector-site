@@ -3,6 +3,7 @@
 {% extends "base.njk" %}
 
 {% block preload %}
+{% set cover = cover or (pageart[page.url] or {}).cover %}
 {% if cover %}
 <link rel="preload" as="image" href="{{ cover.src }}-1000.webp" imagesrcset="{{ cover.src }}-640.webp 640w, {{ cover.src }}-1000.webp 1000w, {{ cover.src }}-1600.webp 1600w" imagesizes="(max-width: 1020px) 100vw, 1180px" fetchpriority="high">
 {% endif %}
@@ -11,6 +12,7 @@
 {% block main %}
 {% import "sec.njk" as S %}
 {% import "looks/_c.njk" as c %}
+{% set cover = cover or (pageart[page.url] or {}).cover %}
 {% set toc = content | h2list %}
 <article class="art-p">
   <header class="art-p__head" data-sec="hero">
