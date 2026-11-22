@@ -7,7 +7,7 @@
   "pages": {
     "/2gis/": { "paid": ["versus", "cards", "table"], "when": ["zigzag", "side", "list"] },
     "/geo-prodvizhenie/": { "seo": ["versus", "focus", "switch"], "med": ["panels", "list", "fold"], "promise": ["accent", "split", "cols"] },
-    "/lidy-dlya-stomatologii/": { "compare": ["focus", "versus", "cards"], "promise": ["split", "sheet", "mosaic"] },
+    "/lidy-dlya-stomatologii/": { "compare": ["versus", "focus", "cards"], "promise": ["split", "sheet", "mosaic"] },
     "/medicinskij-marketing/": { "law": ["focus", "table", "switch"], "promise": ["sheet", "accent", "cols"] },
     "/otzyvy-i-reputaciya/": { "white": ["split", "accent", "mosaic"], "law": ["table", "focus", "cards"], "months": ["switch", "table", "versus"], "serm": ["versus", "cards", "switch"], "limits": ["side", "panels", "zigzag"] },
     "/prodoktorov/": { "paid": ["cards", "versus", "switch"], "tariffs": ["list", "fold", "panels"], "reviews": ["table", "focus", "versus"] },
@@ -15,7 +15,7 @@
     "/seo-dlya-stomatologii/": { "demand": ["focus", "table", "versus"], "terms": ["mosaic", "cols", "sheet"] },
     "/yandex-karty/": { "paid": ["switch", "versus", "cards"], "subscription": ["fold", "zigzag", "side"], "reviews": ["cols", "mosaic", "split"] },
     "/yandex-direkt/": { "promise": ["sheet", "split", "cols"] },
-    "/kompleksnyj-marketing/": { "compare": ["focus", "cards", "versus"], "reviews": ["mosaic", "split", "cols"], "fit": ["accent", "cols", "sheet"] },
+    "/kompleksnyj-marketing/": { "compare": ["cards", "focus", "versus"], "reviews": ["mosaic", "split", "cols"], "fit": ["accent", "cols", "sheet"] },
     "/kontakty/": { "principles": ["cols", "accent", "sheet"] }
   },
   "names": {

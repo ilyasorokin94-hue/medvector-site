@@ -10,7 +10,7 @@
     "/2gis/": { "intro": ["scene", "photo", "type"], "faq": ["band", "index", "acc"], "start": ["choice", "card", "form"] },
     "/prodoktorov/": { "intro": ["scene", "poster", "type"], "faq": ["acc", "index", "band"], "start": ["card", "choice", "form"] },
     "/otzyvy-i-reputaciya/": { "intro": ["scene", "photo", "poster"], "faq": ["index", "band", "acc"], "start": ["form", "card", "choice"] },
-    "/sajt-dlya-stomatologii/": { "intro": ["scene", "panel", "photo"], "faq": ["band", "acc", "index"], "start": ["card", "form", "choice"] },
+    "/sajt-dlya-stomatologii/": { "intro": ["scene", "panel", "photo"], "faq": ["band", "acc", "index"], "start": ["form", "card", "choice"] },
     "/seo-dlya-stomatologii/": { "intro": ["scene", "poster", "photo"], "faq": ["acc", "band", "index"], "start": ["choice", "form", "card"] },
     "/geo-prodvizhenie/": { "intro": ["scene", "photo", "poster"], "faq": ["index", "acc", "band"], "start": ["form", "choice", "card"] },
     "/lidy-dlya-stomatologii/": { "intro": ["scene", "panel", "type"], "faq": ["band", "index", "acc"], "start": ["choice", "card", "form"] },
