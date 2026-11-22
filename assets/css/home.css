@@ -753,7 +753,9 @@ button.link { border: 0; cursor: pointer; }
 }
 
 /* ===== Подача секций: начало ===== */
-/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон», письмо «Чтение» */
+/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон», письмо «Чтение», вопросы «Прокрутка» */
+.vp--out.vp--xr, .vp--out.vp--rb { right: calc(max(0px, (100% - var(--wrap)) / 2) + var(--gut) / 2); }
+.vp--out.vp--xl, .vp--out.vp--lb { left: calc(max(0px, (100% - var(--wrap)) / 2) + var(--gut) / 2); }
 /* кейсы: «Счётчик» */
 #cases .c3__list { position: relative; }
 #cases .c3__mark { display: block; position: absolute; left: 0; right: 0; top: 0; height: var(--mh, 0px); transform: translateY(var(--my, 0px)); border-left: 3px solid var(--vec); background: linear-gradient(90deg, var(--vec-soft), rgba(228, 243, 252, 0) 82%); transition: transform .65s var(--ease), height .65s var(--ease); pointer-events: none; }
@@ -798,6 +800,15 @@ button.link { border: 0; cursor: pointer; }
 #team .t5__w.on { opacity: 1; transition: opacity .4s; }
 .js #team .t5__f { opacity: .25; }
 .js #team .t5__sheet.is-signed .t5__f { opacity: 1; transition: opacity .7s; }
+/* вопросы: «Прокрутка» */
+@media (min-width: 1101px) {
+  .js #faq .sec__body { height: calc(100vh + 8 * 42vh); }
+  .js #faq .wrap { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: calc(var(--hdr) + 1vh); }
+  .js #faq .sh { margin-bottom: 1vh; }
+  .js #faq .h2 { font-size: calc(min(5vw, 8vh) * var(--h-k)); }
+  .js #faq .wheel { --R: min(18.6vw, 27vh); }
+  .js #faq .wheel__dial { height: min(48vw, 66vh); }
+}
 @media (prefers-reduced-motion: reduce) {
   #team .t5__w { opacity: 1 !important; }
 }

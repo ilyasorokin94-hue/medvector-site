@@ -580,7 +580,7 @@
 })();
 
 /* ===== Подача секций: начало ===== */
-/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон», письмо «Чтение». Разметка секций прежняя, здесь только появление и движение. */
+/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон», письмо «Чтение», вопросы «Прокрутка». Разметка секций прежняя, здесь только появление и движение. */
 (function () {
   'use strict';
   var MV = window.MV; if (!MV) return;
@@ -605,6 +605,23 @@
       io.observe(node);
     });
   };
+  var jumpTo = function (y) { if (MV.lenis) MV.lenis.scrollTo(y, { immediate: true, force: true }); else scrollTo(0, y); };
+  // секция стоит на месте, пока прокрутка проходит её шаги; метки линии выносим из приклеенного блока
+  var pin = function (sec, steps, cb) {
+    var body = one('.sec__body', sec), wrap = one('.wrap', sec), vps = qa('[data-vp]', wrap).filter(function (v) { return v.parentNode === wrap; }), cur = -1;
+    if (vps[0]) { vps[0].classList.add('vp--out'); body.insertBefore(vps[0], wrap); }
+    if (vps[1]) { vps[1].classList.add('vp--out'); body.appendChild(vps[1]); }
+    onScroll(function () {
+      if (!wide()) return;
+      var r = body.getBoundingClientRect(), p = clamp(-r.top / Math.max(1, r.height - innerHeight), 0, 1);
+      sec.style.setProperty('--pp', p.toFixed(3));
+      var i = Math.min(steps - 1, Math.floor(p * steps));
+      if (i !== cur) { cur = i; cb(i); }
+    });
+    return {
+      go: function (i) { var r = body.getBoundingClientRect(); jumpTo(scrollY + r.top + (i + .5) / steps * (r.height - innerHeight)); }
+    };
+  };
   // число набегает с нуля, вид записи сохраняется: «2 400 ₽», «в 2,7 раза»
   var roll = function (node, dur) {
     var src = node.dataset.s3 || (node.dataset.s3 = node.textContent), m = src.match(/\d[\d\u00a0 ]*(?:,\d+)?/);
@@ -622,6 +639,7 @@
     ps.forEach(function (p) { p.innerHTML = p.textContent.trim().split(/[ \n\t]+/).map(function (w) { return '<span class="t5__w">' + w + '</span>'; }).join(' '); });
     return qa('.t5__w', sec);
   };
+  var selected = function (tabs) { for (var i = 0; i < tabs.length; i++) if (tabs[i].getAttribute('aria-selected') === 'true') return i; return 0; };
 
   /* кейсы: «Счётчик» */
   function cases1(sec) {
@@ -660,6 +678,14 @@
     });
   }
 
-  [['cases', cases1], ['services', services3], ['sites', sites1], ['team', team3]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
+  /* вопросы: «Прокрутка» */
+  function faq1(sec) {
+    var wheel = one('.wheel', sec), tabs = qa('.wheel__q', sec), auto = false;
+    var p = pin(sec, tabs.length, function (i) { if (selected(tabs) !== i) { auto = true; tabs[i].click(); auto = false; } });
+    var onClick = function (e) { if (auto || !wide() || !e.target.closest('.wheel__q, .wheel__btn')) return; setTimeout(function () { p.go(selected(tabs)); }, 0); };
+    wheel.addEventListener('click', onClick);
+  }
+
+  [['cases', cases1], ['services', services3], ['sites', sites1], ['team', team3], ['faq', faq1]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
 })();
 /* ===== Подача секций: конец ===== */
