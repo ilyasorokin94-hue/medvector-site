@@ -1,0 +1,21 @@
+{# Вопросы и ответы. Данные: s.items [{q, a}]. Разметка FAQPage собирается из тех же вопросов в шапке страницы. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Раскрытие»: стандартный раскрывающийся список, первый вопрос открыт #}
+{% macro acc(s) %}
+<section{{ c.attrs(s, 'lk-faq-acc') }}>
+  <div class="wrap">
+    <div class="fq">
+      <div class="fq__head">{{ c.head(s) }}</div>
+      <div class="qa" data-rv>
+{% for f in s.items %}
+        <details class="qa__item"{% if loop.first %} open{% endif %}>
+          <summary><span class="qa__q">{{ f.q | t | safe }}</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>{{ f.a | t | safe }}</p></div>
+        </details>
+{% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endmacro %}

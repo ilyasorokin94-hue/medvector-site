@@ -1,0 +1,24 @@
+/* шаги «Линия»: шаги в ряд, отрезки линии заполняются по очереди, когда блок появился */
+.sl { display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); gap: 32px 20px; }
+.sl--3 { --cols: 3; }
+.sl--5 { --cols: 5; }
+.sl--6 { --cols: 3; }
+.sl__i { display: grid; align-content: start; gap: 12px; }
+.sl__top { display: flex; align-items: baseline; gap: 12px; min-height: 1.6em; }
+.sl__n { font: var(--num-w) calc(clamp(30px, 2.6vw, 40px) * var(--h-k))/1 var(--disp); letter-spacing: -.04em; color: var(--vec); }
+.sl__when { font-size: calc(14px * var(--t-k)); line-height: 1.3; color: var(--ink-3); }
+.sl__bar { position: relative; height: 3px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.sl__bar i { position: absolute; inset: 0; background: var(--ink); transform: scaleX(0); transform-origin: left; }
+.sl__i:first-child .sl__bar i { background: var(--vec); }
+.js .sl.is-in .sl__bar i, .no-js .sl__bar i { transform: none; transition: transform 1s var(--ease) calc(.2s + var(--i) * .25s); }
+.no-js .sl__bar i { transform: none; }
+.sl__h { margin-top: 6px; font-size: calc(clamp(19px, 1.5vw, 22px) * var(--t-k)); font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
+.sl p { color: var(--ink-2); font-size: calc(16px * var(--t-k)); }
+.sec--dark .sl__bar { background: var(--line-dark); }
+.sec--dark .sl__bar i { background: #fff; }
+@media (max-width: 1020px) {
+  .sl, .sl--5 { --cols: 2; }
+}
+@media (max-width: 600px) {
+  .sl, .sl--3, .sl--5, .sl--6 { --cols: 1; }
+}

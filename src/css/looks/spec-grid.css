@@ -1,0 +1,8 @@
+/* пункты «Сетка»: две колонки под тонкими линиями */
+.sg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(24px, 4vw, 72px); }
+.sg li { display: grid; align-content: start; gap: 8px; padding: 24px 0 26px; border-top: 1px solid var(--line); }
+.sg__h { font-size: calc(clamp(19px, 1.5vw, 22px) * var(--t-k)); font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
+.sg p { color: var(--ink-2); }
+@media (max-width: 760px) {
+  .sg { grid-template-columns: minmax(0, 1fr); }
+}

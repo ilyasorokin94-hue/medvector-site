@@ -1,0 +1,11 @@
+/* крупные пункты «Список»: номер, заголовок слева, текст справа */
+.dl { border-top: 1px solid var(--line); counter-reset: d; }
+.dl__i { display: grid; grid-template-columns: 56px minmax(0, 5fr) minmax(0, 6fr); column-gap: 24px; align-items: baseline; padding: clamp(22px, 2.4vw, 34px) 0; border-bottom: 1px solid var(--line); }
+.dl__n { font: var(--num-w) calc(18px * var(--t-k))/1 var(--disp); color: var(--vec-ink); }
+.dl__i p { color: var(--ink-2); }
+.dl--narrow .dl__i { grid-template-columns: 40px minmax(0, 1fr); }
+.dl--narrow .dl__i p { grid-column: 2; margin-top: 8px; }
+@media (max-width: 860px) {
+  .dl__i { grid-template-columns: 36px minmax(0, 1fr); }
+  .dl__i p { grid-column: 2; margin-top: 8px; }
+}

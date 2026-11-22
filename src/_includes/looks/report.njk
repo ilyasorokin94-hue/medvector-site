@@ -1,0 +1,26 @@
+{# Недельный отчёт: образец и словарь. Данные: s.gloss [[слово, значение]], s.glossTitle; без словаря отчёт во всю ширину. #}
+{% import "looks/_c.njk" as c %}
+{% import "t.njk" as a %}
+
+{# «Отчёт»: образец отчёта слева, справа что значат слова в нём #}
+{% macro side(s) %}
+<section{{ c.attrs(s, 'lk-report-side') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="rp{% if not s.gloss %} rp--solo{% endif %}">
+      <div data-rv="scale">{{ a.a_report() }}</div>
+{% if s.gloss %}
+      <div class="rp__side" data-rv style="--d:1">
+        <h3 class="yn__h">{{ s.glossTitle or 'Слова в отчёте значат одно и то же каждую неделю' }}</h3>
+        <dl class="rp__gloss">
+{% for g in s.gloss %}
+          <div><dt>{{ g[0] }}</dt><dd>{{ g[1] | t | safe }}</dd></div>
+{% endfor %}
+        </dl>
+      </div>
+{% endif %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

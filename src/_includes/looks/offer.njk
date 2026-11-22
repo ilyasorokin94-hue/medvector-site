@@ -1,0 +1,87 @@
+{# Первый тест в Директе: куда идут деньги, что входит, как проходит, что после. Данные: s.o (src/_data/offer.json). #}
+{% import "looks/_c.njk" as c %}
+
+{% macro money() %}
+<div class="mo">
+  <div class="mo__row" data-rv>
+    <p class="mo__who">Яндексу<small>первый рекламный депозит, напрямую в&nbsp;кабинет клиники. Рекомендуем 150&nbsp;000&nbsp;₽, минимум 100&nbsp;000&nbsp;₽</small></p>
+    <p class="mo__sum"><span data-count="150000">150&nbsp;000</span>&nbsp;₽</p>
+    <span class="mo__bar" aria-hidden="true"><i></i></span>
+  </div>
+  <div class="mo__row mo__row--zero" data-rv style="--d:1">
+    <p class="mo__who">МедВектору<small>комиссия за&nbsp;работу на&nbsp;первом тесте</small></p>
+    <p class="mo__sum">0&nbsp;₽</p>
+    <span class="mo__bar" aria-hidden="true"></span>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro receipt(o) %}
+<div class="rc" data-rv>
+  <p class="rc__top"><span>Счёт за первый тест</span><span>МедВектор</span></p>
+  <ul>
+{% for r in o.receipt %}
+    <li><h4>{{ r[0] | t | safe }}</h4><p>{{ r[1] | t | safe }}</p><b>0&nbsp;₽</b></li>
+{% endfor %}
+  </ul>
+  <p class="rc__total"><span>Комиссия агентства</span><b>0&nbsp;₽</b></p>
+</div>
+{% endmacro %}
+
+{% macro scale(o) %}
+<div class="sc">
+  <h3 class="sc__title">{{ o.scaleTitle | t | safe }}</h3>
+  <ol class="sc__list" data-rv="fade">
+{% for x in o.scale %}
+    <li class="sc__seg" style="--g: {{ x[3] }}; --i: {{ loop.index0 }}">
+      <span class="sc__when"><b>{{ loop.index }}</b>{{ x[1] | t | safe }}</span>
+      <span class="sc__bar" aria-hidden="true"><i></i></span>
+      <h4>{{ x[0] | t | safe }}</h4>
+      <p>{{ x[2] | t | safe }}</p>
+    </li>
+{% endfor %}
+  </ol>
+  <p class="sc__note">{{ o.scaleNote | t | safe }}</p>
+</div>
+{% endmacro %}
+
+{% macro after(o) %}
+<div class="af">
+  <h3 class="sc__title">{{ o.afterTitle | t | safe }}</h3>
+  <div class="af__grid">
+    <div class="af__case af__case--yes" data-rv><h4>{{ o.after[0][0] | t | safe }}</h4><p>{{ o.after[0][1] | t | safe }}</p></div>
+    <div class="af__case" data-rv style="--d:1">
+      <h4>{{ o.after[1][0] | t | safe }}</h4><p>{{ o.after[1][1] | t | safe }}</p>
+      <table class="af__own">
+        <caption>{{ o.ownTitle | t | safe }}</caption>
+        <tbody>
+{% for r in o.own %}
+          <tr{% if not r[2] %} class="is-no"{% endif %}><th scope="row">{{ r[0] | t | safe }}</th><td>{{ r[1] | t | safe }}</td></tr>
+{% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="af__why">{{ o.why | t | safe }}</p>
+  <p class="af__act"><a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить первый тест</a></p>
+</div>
+{% endmacro %}
+
+{# «Счёт»: тёмный блок, две полосы денег, счёт на 0 ₽, шкала теста, что после #}
+{% macro bill(s) %}
+<section class="sec sec--dark dark lk-offer"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="offer">
+  <div class="wrap">
+    {{ c.head(s) }}
+    {{ money() }}
+    <div class="rc-wrap">
+      <div class="rc-wrap__head">
+        <h3 class="sc__title">{{ s.o.receiptTitle | t | safe }}</h3>
+        <p class="lead">{{ s.o.receiptLead | t | safe }}</p>
+      </div>
+      {{ receipt(s.o) }}
+    </div>
+    {{ scale(s.o) }}
+    {{ after(s.o) }}
+  </div>
+</section>
+{% endmacro %}

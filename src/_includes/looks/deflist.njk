@@ -1,0 +1,17 @@
+{# Крупные пункты: заголовок и абзац. Данные: s.items [[заголовок, текст]]. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Список»: номер, крупный заголовок слева, текст справа #}
+{% macro list(s) %}
+<section{{ c.attrs(s, 'lk-deflist-list') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ol class="dl">
+{% for r in s.items %}
+      <li class="dl__i" data-rv><span class="dl__n">{{ loop.index }}</span><h3 class="h3">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+    </ol>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

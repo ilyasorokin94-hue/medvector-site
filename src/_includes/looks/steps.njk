@@ -1,0 +1,22 @@
+{# Шаги по порядку. Данные: s.items [[срок, заголовок, текст]] или [[заголовок, текст]]. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Линия»: шаги в ряд, над каждым номер и отрезок линии, который заполняется по очереди #}
+{% macro line(s) %}
+<section{{ c.attrs(s, 'lk-steps-line') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ol class="sl sl--{{ s.items.length }}" data-rv="fade">
+{% for r in s.items %}
+      <li class="sl__i" style="--i:{{ loop.index0 }}">
+        <span class="sl__top"><b class="sl__n">{{ loop.index }}</b>{% if r[2] %}<span class="sl__when">{{ r[0] | t | safe }}</span>{% endif %}</span>
+        <span class="sl__bar" aria-hidden="true"><i></i></span>
+        <h3 class="sl__h">{{ (r[1] if r[2] else r[0]) | t | safe }}</h3>
+        <p>{{ (r[2] if r[2] else r[1]) | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ol>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

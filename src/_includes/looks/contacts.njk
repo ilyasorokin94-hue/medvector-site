@@ -1,0 +1,30 @@
+{# Контакты. Данные: s.c (site.contacts). Пока контактов нет, стоит ссылка на заявку. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Список»: способы связи крупно #}
+{% macro list(s) %}
+{% set k = s.c %}
+<section{{ c.attrs(s, 'lk-contacts') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+{% if k.phone or k.telegram or k.max or k.email %}
+    <dl class="cn">
+{% if k.phone %}<div data-rv><dt>Телефон</dt><dd><a href="tel:{{ k.phoneHref }}">{{ k.phone }}</a></dd></div>{% endif %}
+{% if k.telegram %}<div data-rv><dt>Telegram</dt><dd><a href="{{ k.telegram }}">Написать в Telegram</a></dd></div>{% endif %}
+{% if k.max %}<div data-rv><dt>MAX</dt><dd><a href="{{ k.max }}">Написать в MAX</a></dd></div>{% endif %}
+{% if k.email %}<div data-rv><dt>Почта</dt><dd><a href="mailto:{{ k.email }}">{{ k.email }}</a></dd></div>{% endif %}
+    </dl>
+{% else %}
+    <div class="cn cn--wait" data-rv>
+      <p class="cn__big">Самый быстрый способ связаться сейчас: <a href="#start">заявка ниже</a>.</p>
+      <p class="stub">Заглушка: телефон, Telegram и почта появятся перед запуском сайта</p>
+    </div>
+{% endif %}
+    <dl class="cn cn--meta" data-rv>
+      <div><dt>Офис</dt><dd>Санкт-Петербург</dd></div>
+      <div><dt>Клиники</dt><dd>по всей России, работаем удалённо</dd></div>
+      <div><dt>Ответ на заявку</dt><dd>в рабочее время по Москве</dd></div>
+    </dl>
+  </div>
+</section>
+{% endmacro %}

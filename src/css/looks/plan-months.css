@@ -1,0 +1,19 @@
+/* стартовый пакет «Месяцы»: тёмный блок, состав первого месяца и платежи полосами */
+.lk-plan .sh__note { color: var(--on-dark-2); }
+.pl { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px clamp(32px, 6vw, 120px); align-items: start; }
+.pl__rows li { display: grid; gap: 4px; padding: 18px 0; border-top: 1px solid var(--line-dark); }
+.pl__rows h4 { font-size: calc(19px * var(--t-k)); font-weight: 500; }
+.pl__rows p { color: var(--on-dark-2); font-size: calc(16px * var(--t-k)); }
+.pl__plan { display: grid; gap: 26px; margin-bottom: 32px; }
+.pl__plan li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 10px 24px; }
+.pl__m { font-size: 15px; color: var(--on-dark-2); }
+.pl__sum { font: var(--num-w) calc(clamp(34px, 3.6vw, 56px) * var(--h-k))/1 var(--disp); letter-spacing: var(--h-ls); white-space: nowrap; }
+.pl__bar { grid-column: 1 / -1; height: 6px; border-radius: 6px; background: var(--line-dark); overflow: hidden; }
+.pl__bar i { display: block; width: var(--w); height: 100%; border-radius: 6px; background: var(--vec-dark); transform: scaleX(0); transform-origin: left; transition: transform 1.4s var(--ease) .3s; }
+.pl__plan li:first-child .pl__bar i { background: #fff; }
+.pl__money.is-in .pl__bar i, .no-js .pl__bar i { transform: none; }
+.pl__plan p { grid-column: 1 / -1; color: var(--on-dark-2); font-size: calc(15.5px * var(--t-k)); }
+.lk-plan .af__why { margin-top: clamp(40px, 4vw, 64px); padding-top: 24px; border-top: 1px solid var(--line-dark); }
+@media (max-width: 1020px) {
+  .pl { grid-template-columns: minmax(0, 1fr); }
+}

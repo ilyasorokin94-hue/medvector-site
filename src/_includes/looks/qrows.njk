@@ -1,0 +1,21 @@
+{# Группы запросов: о чём спрашивают, примеры запросов, что делаем. Данные: s.items [[группа, запросы, ответ]]. #}
+{% import "looks/_c.njk" as c %}
+
+{% macro body(items) %}
+<ul class="qr">
+{% for g in items %}
+  <li class="qr__i" data-rv><h3 class="qr__h">{{ g[0] | t | safe }}</h3><p class="qr__q">{{ g[1] | t | safe }}</p><p class="qr__a">{{ g[2] | t | safe }}</p></li>
+{% endfor %}
+</ul>
+{% endmacro %}
+
+{# «Строки»: три колонки под линиями, запросы голубым #}
+{% macro rows(s) %}
+<section{{ c.attrs(s, 'lk-qrows-rows') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    {{ body(s.items) }}
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

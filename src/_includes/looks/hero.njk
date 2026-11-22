@@ -1,0 +1,39 @@
+{# Первый экран внутренней страницы. Данные: s.h (title, lead, cta, pick, cta2, cta2url, pick2, dir2, facts), s.crumbs. #}
+{% import "looks/_c.njk" as c %}
+
+{% macro acts(h, light=false) %}
+{% if h.cta %}
+<div class="ph__acts">
+  <a href="#start" class="btn{% if light %} btn--light{% endif %}" data-magnetic{% if h.pick %} data-pick="{{ h.pick }}"{% endif %}>{{ h.cta }}</a>
+{% if h.cta2 %}
+  <a href="{{ h.cta2url }}" class="link{% if light %} link--light{% endif %}"{% if h.pick2 %} data-pick="{{ h.pick2 }}"{% endif %}{% if h.dir2 %} data-dir="{{ h.dir2 }}"{% endif %}>{{ h.cta2 }}</a>
+{% endif %}
+</div>
+{% endif %}
+{% endmacro %}
+
+{% macro facts(h) %}
+{% if h.facts %}
+<ul class="terms ph__facts">
+{% for f in h.facts %}
+  <li data-rv style="--d:{{ loop.index + 2 }}"><b class="num">{{ f[0] | t | safe }}</b><span>{{ f[1] | t | safe }}</span></li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endmacro %}
+
+{# «Шрифт»: белый экран, крупный заголовок, пояснение и кнопки справа, три факта под линией #}
+{% macro type(s) %}
+{% set h = s.h %}
+<section class="ph ph--type" id="intro" data-sec="hero">
+  <div class="wrap">
+    {{ c.crumbs(s.crumbs) }}
+    <h1 class="ph__h" data-rv>{{ h.title | t | safe }}</h1>
+    <div class="ph__foot">
+      <p class="ph__lead" data-rv style="--d:1">{{ h.lead | t | safe }}</p>
+      <div data-rv style="--d:2">{{ acts(h) }}</div>
+    </div>
+    {{ facts(h) }}
+  </div>
+</section>
+{% endmacro %}

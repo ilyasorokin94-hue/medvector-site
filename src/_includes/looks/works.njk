@@ -1,0 +1,25 @@
+{# Что остаётся у клиники: плитки с образцами. Данные: s.items [{title, text, art: landing|site|maps|flow}]. #}
+{% import "looks/_c.njk" as c %}
+{% import "t.njk" as a %}
+{% import "looks/build.njk" as bld %}
+
+{# «Плитки»: образцы на светлых плашках по две в ряд #}
+{% macro tiles(s) %}
+<section{{ c.attrs(s, 'lk-works-tiles') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="wk">
+{% for w in s.items %}
+      <article class="wk__i" data-rv style="--d:{{ loop.index0 % 2 }}">
+        <div class="wk__pic{% if w.art == 'maps' %} wk__pic--two{% endif %}">
+{% if w.art == 'landing' %}{{ a.a_browser('landing') }}{% elif w.art == 'site' %}{{ a.a_browser('site') }}{% elif w.art == 'maps' %}{{ a.a_map(true) }}{{ a.a_map() }}{% else %}{{ bld.art('flow') }}{% endif %}
+        </div>
+        <h3 class="h3">{{ w.title | t | safe }}</h3>
+        <p>{{ w.text | t | safe }}</p>
+      </article>
+{% endfor %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

@@ -1,0 +1,25 @@
+{# Карточка на Картах до и после. Данные: s.items [[пункт, пояснение]], s.tag. #}
+{% import "looks/_c.njk" as c %}
+{% import "t.njk" as a %}
+
+{# «До и после»: две карточки рядом, справа что меняем #}
+{% macro pair(s) %}
+{{ useLook('spec', 'grid') }}
+<section{{ c.attrs(s, 'lk-mapbox-pair') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="mb">
+      <div class="mb__pic" data-rv="scale">
+        <figure><figcaption>До</figcaption>{{ a.a_map(true) }}</figure>
+        <figure><figcaption>После</figcaption>{{ a.a_map() }}</figure>
+      </div>
+      <ul class="sg sg--one">
+{% for r in s.items %}
+        <li data-rv><h3 class="sg__h">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+      </ul>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

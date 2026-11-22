@@ -1,0 +1,30 @@
+{# Секция страницы с вариантами подачи.
+   Вид секции (s.type) выбирает файл looks/<вид>.njk, вариант подачи выбирает макрос в нём.
+   Обычная сборка ставит выбранный вариант (src/_data/picks.json), сборка выбора ставит все три с переключателем. #}
+
+{% macro one(s, look) %}
+{% import "looks/" + s.type + ".njk" as L %}
+{{ useLook(s.type, look) }}{{ L[look](s) }}
+{% endmacro %}
+
+{% macro section(s, url) %}
+{% set three = trio(url, s) %}
+{% if PICK and three.length > 1 %}
+<div class="vset" id="{{ s.id }}" data-vset data-type="{{ s.type }}">
+{% for lk in three %}
+  <div class="vset__v" data-v="{{ loop.index }}" data-name="{{ lookName(s.type, lk) }}"{% if not loop.first %} hidden{% endif %}>
+{{ one(extend(s, { id: false, vsuf: loop.index }), lk) }}
+  </div>
+{% endfor %}
+</div>
+{% else %}
+{{ one(s, chosen(url, s)) }}
+{% endif %}
+{% endmacro %}
+
+{# список секций: тон фона чередуется, тёмные и цветные варианты задают фон сами #}
+{% macro list(items, url, start=0) %}
+{% for s in items %}
+{{ section(extend(s, { id: s.id or ('s' + (loop.index + start)), tone: 'fog' if (loop.index0 + start) % 2 == 0 else '' }), url) }}
+{% endfor %}
+{% endmacro %}

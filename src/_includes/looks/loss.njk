@@ -1,0 +1,20 @@
+{# Проблема и что с ней делаем. Данные: s.items [{title, ex, fix}], s.fixLabel. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Строки»: слева что происходит, справа что делаем, строки разделены линиями #}
+{% macro rows(s) %}
+<section{{ c.attrs(s, 'lk-loss-rows') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ol class="lr">
+{% for r in s.items %}
+      <li class="lr__i" data-rv>
+        <div class="lr__what"><h3 class="h3">{{ r.title | t | safe }}</h3><p>{{ r.ex | t | safe }}</p></div>
+        <p class="lr__fix"><small>{{ s.fixLabel or 'Что делаем' }}</small>{{ r.fix | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ol>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

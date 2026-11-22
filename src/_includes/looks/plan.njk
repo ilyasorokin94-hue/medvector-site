@@ -1,0 +1,35 @@
+{# Стартовый пакет комплекса: что входит в первый месяц и платежи по месяцам. Данные: s.rows [[что, пояснение]], s.plan [[месяц, сумма, текст, ширина]], s.cta, s.after. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Месяцы»: тёмный блок, слева состав первого месяца, справа платежи полосами #}
+{% macro months(s) %}
+<section class="sec sec--dark dark lk-plan"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="plan">
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="pl">
+      <div class="pl__list" data-rv>
+        <h3 class="yn__h">{{ s.rowsTitle or 'В первый месяц' }}</h3>
+        <ul class="pl__rows">
+{% for r in s.rows %}
+          <li><h4>{{ r[0] | t | safe }}</h4><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+        </ul>
+      </div>
+      <div class="pl__money" data-rv style="--d:1">
+        <h3 class="yn__h">{{ s.planTitle or 'Сколько это стоит' }}</h3>
+        <ol class="pl__plan">
+{% for p in s.plan %}
+          <li style="--w: {{ p[3] }}"><span class="pl__m">{{ p[0] }}</span><b class="pl__sum">{{ p[1] | t | safe }}</b><span class="pl__bar" aria-hidden="true"><i></i></span><p>{{ p[2] | t | safe }}</p></li>
+{% endfor %}
+        </ol>
+{% if s.cta %}
+        <a href="#start" class="btn btn--light" data-magnetic data-pick="{{ s.pick or 'site' }}">{{ s.cta }}</a>
+{% endif %}
+      </div>
+    </div>
+{% if s.after %}
+    <p class="af__why">{{ s.after | safe }}</p>
+{% endif %}
+  </div>
+</section>
+{% endmacro %}

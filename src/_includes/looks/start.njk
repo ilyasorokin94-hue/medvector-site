@@ -1,0 +1,62 @@
+{# Заявка. Данные: s.d (title, lead, items, pick, button). Одна форма на странице, id="start". #}
+{% import "looks/_c.njk" as c %}
+
+{% macro fields(d) %}
+<fieldset class="fm__choice">
+  <legend>Что хотите запустить</legend>
+  <div class="fm__opts">
+    <label class="fm__opt"><input type="radio" name="service" value="direct"{% if not d.pick or d.pick == 'direct' %} checked{% endif %}><span>Тест Директа</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="site"{% if d.pick == 'site' %} checked{% endif %}><span>Сайт и&nbsp;Карты</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="unsure"{% if d.pick == 'unsure' %} checked{% endif %}><span>Пока не&nbsp;знаю</span></label>
+  </div>
+</fieldset>
+<label class="fld fm__dir"><span>Услуга для рекламы</span>
+  <select name="direction">
+    <option value="implant">Имплантация</option>
+    <option value="all-on-4">All-on-4, полное восстановление</option>
+    <option value="ortho">Брекеты и элайнеры</option>
+    <option value="running">Реклама уже идёт, нужен разбор</option>
+    <option value="other">Другая услуга</option>
+  </select>
+</label>
+<div class="fm__row">
+  <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
+  <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
+</div>
+<div class="fm__row">
+  <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
+  <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
+</div>
+<label class="fm__c"><input type="checkbox" name="consent" required> <span>Даю <a href="{{ href('consent') }}">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="{{ href('policy') }}">политики</a></span></label>
+<div class="fm__send">
+  <button class="btn" type="submit" data-magnetic>{{ d.button or 'Отправить заявку' }}</button>
+  <p class="fm__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
+</div>
+<p class="fm__ok" role="status" tabindex="-1" hidden>Спасибо! Сайт пока в&nbsp;разработке, поэтому заявка никуда не&nbsp;ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
+<p class="stub">Заглушка: форма пока не отправляет заявки</p>
+{% endmacro %}
+
+{% macro text(d) %}
+<p class="st__lead">{{ (d.lead or 'Посмотрим сайт, карточку на Картах и рекламу, если она уже идёт. Скажем, с чего начать: с первого теста в Директе или с сайта и Карт.') | t | safe }}</p>
+<ul class="ticks st__items">
+{% for i in (d.items or ['Первый тест в Директе: комиссия агентства 0 ₽, бюджет вы вносите Яндексу', 'Сайт и Яндекс Карты: старт 80 000 ₽, сайт входит в эту сумму', 'Если видим риски для запуска, скажем о них на разборе']) %}
+  <li>{{ i | t | safe }}</li>
+{% endfor %}
+</ul>
+<p class="st__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
+{% endmacro %}
+
+{# «Форма»: синий блок, слева заголовок и что будет после заявки, справа белая форма #}
+{% macro form(s) %}
+{% set d = s.d %}
+<section class="sec sec--azure st st--form"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="start">
+  <div class="wrap">
+    <p class="label" data-rv="fade">Заявка</p>
+    <h2 class="h2 st__h" data-rv>{{ (d.title or 'Оставьте заявку. За 2 рабочих дня разберём клинику и посчитаем запуск.') | nodot | t | safe }}</h2>
+    <div class="st__grid">
+      <div class="st__text" data-rv>{{ text(d) }}</div>
+      <form class="fm st__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1">{{ fields(d) }}</form>
+    </div>
+  </div>
+</section>
+{% endmacro %}

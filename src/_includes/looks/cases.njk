@@ -1,0 +1,21 @@
+{# Кейсы по городам. Данные: s.items [[город и услуга, что сделали, результат]], s.tag. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Строки»: город и что сделали слева, результат справа на плашке #}
+{% macro rows(s) %}
+{{ useLook('loss', 'rows') }}
+<section{{ c.attrs(s, 'lk-loss-rows') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ol class="lr">
+{% for r in s.items %}
+      <li class="lr__i" data-rv>
+        <div class="lr__what"><h3 class="h3">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></div>
+        <p class="lr__fix"><small>Результат</small>{{ r[2] | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ol>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

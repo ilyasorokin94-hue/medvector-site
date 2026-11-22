@@ -1,0 +1,32 @@
+{# Два списка: чего не делаем и как делаем. Данные: s.no, s.yes, s.noTitle, s.yesTitle; s.yesFirst ставит «да» первым. #}
+{% import "looks/_c.njk" as c %}
+
+{% macro col(title, items, no) %}
+<div class="yn__col{% if no %} yn__col--no{% endif %}">
+  <h3 class="yn__h">{{ title | t | safe }}</h3>
+  <ul class="ticks yn__list">
+{% for i in items %}
+    <li>{{ i | t | safe }}</li>
+{% endfor %}
+  </ul>
+</div>
+{% endmacro %}
+
+{# «Колонки»: два списка рядом, у пунктов «нет» перечёркнутый знак, у «да» голубая галочка #}
+{% macro cols(s) %}
+<section{{ c.attrs(s, 'lk-yesno-cols') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="yn" data-rv>
+{% if s.yesFirst %}
+      {{ col(s.yesTitle or 'Как делаем', s.yes) }}
+      {{ col(s.noTitle or 'Чего не делаем', s.no, true) }}
+{% else %}
+      {{ col(s.noTitle or 'Чего не делаем', s.no, true) }}
+      {{ col(s.yesTitle or 'Как делаем', s.yes) }}
+{% endif %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

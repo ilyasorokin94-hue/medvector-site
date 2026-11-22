@@ -1,0 +1,26 @@
+{# Основатель и команда. Данные: s.title, s.paras [абзацы], s.team [кто в команде], s.photo. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Письмо»: фото и текст основателя, справа состав команды #}
+{% macro letter(s) %}
+<section{{ c.attrs(s, 'lk-founder-letter') }}>
+  <div class="wrap fd">
+    <div class="fd__main">
+      <figure class="fd__ph" data-rv="scale"><img src="/assets/img/founder.webp" width="256" height="256" alt="Илья Сорокин, основатель МедВектора" loading="lazy" decoding="async"><figcaption>Илья Сорокин<small>основатель, Санкт-Петербург</small></figcaption></figure>
+      <h2 class="h2" data-rv>{{ s.title | nodot | t | safe }}</h2>
+{% for p in s.paras %}
+      <p class="fd__p" data-rv>{{ p | safe }}</p>
+{% endfor %}
+      <p class="stub">Заглушка: фото тестовое</p>
+    </div>
+    <div class="fd__side" data-rv style="--d:1">
+      <h3 class="yn__h">{{ s.teamTitle or 'В команде' }}</h3>
+      <ul class="ticks">
+{% for t in s.team %}
+        <li>{{ t | t | safe }}</li>
+{% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+{% endmacro %}

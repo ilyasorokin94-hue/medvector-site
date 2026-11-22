@@ -1,0 +1,17 @@
+{# Ссылки на страницы и статьи с описанием. Данные: s.items [[заголовок, описание, адрес]]. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Строки»: заголовок-ссылка и описание, вся строка нажимается #}
+{% macro rows(s) %}
+<section{{ c.attrs(s, 'lk-links-rows') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ul class="lnr">
+{% for r in s.items %}
+      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="{{ r[2] }}">{{ r[0] | t | safe }}</a></h3><p>{{ r[1] | t | safe }}</p><span class="lnr__go" aria-hidden="true"></span></li>
+{% endfor %}
+    </ul>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

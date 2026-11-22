@@ -1,0 +1,36 @@
+{# Условия: список того, что входит, и условия с кнопкой. Данные: s.listTitle, s.list, s.termsTitle, s.terms [[что, значение]], s.bigFirst, s.cta, s.pick, s.listNote. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Две колонки»: слева список, справа условия на светлой плашке #}
+{% macro cols(s) %}
+<section{{ c.attrs(s, 'lk-pack-cols') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="pk">
+      <div class="pk__list" data-rv>
+        <h3 class="yn__h">{{ s.listTitle | t | safe }}</h3>
+        <ul class="ticks">
+{% for n in s.list %}
+          <li>{{ n | t | safe }}</li>
+{% endfor %}
+        </ul>
+{% if s.listNote %}
+        <p class="pk__note">{{ s.listNote | safe }}</p>
+{% endif %}
+      </div>
+      <div class="pk__card" data-rv style="--d:1">
+        <h3 class="yn__h">{{ s.termsTitle | t | safe }}</h3>
+        <dl class="pk__terms{% if s.bigFirst %} pk__terms--big{% endif %}">
+{% for r in s.terms %}
+          <div><dt>{{ r[0] | t | safe }}</dt><dd>{{ r[1] | t | safe }}</dd></div>
+{% endfor %}
+        </dl>
+{% if s.cta %}
+        <a href="#start" class="btn" data-magnetic{% if s.pick %} data-pick="{{ s.pick }}"{% endif %}>{{ s.cta }}</a>
+{% endif %}
+      </div>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

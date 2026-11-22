@@ -1,0 +1,12 @@
+/* потери «Строки»: слева что происходит, справа что делаем */
+.lr { border-top: 1px solid var(--line); }
+.lr__i { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; padding: clamp(24px, 2.6vw, 36px) 0; border-bottom: 1px solid var(--line); }
+.lr__what { grid-column: 1 / 8; display: grid; gap: 10px; }
+.lr__what p { color: var(--ink-2); max-width: 620px; }
+.lr__fix { grid-column: 8 / 13; align-self: start; display: grid; gap: 6px; padding: 18px 20px; border-radius: var(--r); background: var(--vec-soft); font-weight: 500; line-height: 1.45; }
+.sec--fog .lr__fix { background: var(--paper); }
+.lr__fix small { font-size: 13px; font-weight: 400; color: var(--vec-ink); }
+@media (max-width: 860px) {
+  .lr__i { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 16px; }
+  .lr__what, .lr__fix { grid-column: 1 / -1; }
+}

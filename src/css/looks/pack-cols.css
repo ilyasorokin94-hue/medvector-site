@@ -1,0 +1,18 @@
+/* условия «Две колонки»: слева список, справа условия на плашке с кнопкой */
+.pk { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 40px clamp(24px, 5vw, 96px); align-items: start; }
+.pk__note { margin-top: 22px; font-size: calc(16px * var(--t-k)); color: var(--ink-2); }
+.pk__note a { color: var(--ink); text-decoration-color: var(--vec); text-underline-offset: 3px; }
+.pk__card { display: grid; gap: 8px; padding: clamp(24px, 3vw, 44px); border-radius: var(--r-lg); background: var(--ink); color: #fff; }
+.pk__card .yn__h { color: var(--on-dark-2); }
+.pk__terms { display: grid; margin-bottom: 26px; }
+.pk__terms div { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 16px; padding: 14px 0; border-top: 1px solid var(--line-dark); }
+.pk__terms dt { font-size: calc(15px * var(--t-k)); color: var(--on-dark-2); }
+.pk__terms dd { font-size: calc(16px * var(--t-k)); }
+.pk__terms--big div:first-child { grid-template-columns: minmax(0, 1fr); padding-bottom: 22px; }
+.pk__terms--big div:first-child dd { font: var(--num-w) calc(clamp(44px, 5vw, 76px) * var(--h-k))/1 var(--disp); letter-spacing: var(--h-ls); }
+.pk__card .btn { justify-self: start; background: #fff; color: var(--ink); }
+.pk__card .btn:hover { background: var(--vec-dark); }
+@media (max-width: 860px) {
+  .pk { grid-template-columns: minmax(0, 1fr); }
+  .pk__terms div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+}

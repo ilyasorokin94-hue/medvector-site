@@ -1,0 +1,23 @@
+{# Сравнение в таблице. Данные: s.cols [названия колонок], s.rows [[строка, значение1, значение2, ...]], s.caption, s.stat (первая колонка с цифрой). #}
+{% import "looks/_c.njk" as c %}
+
+{# «Таблица»: строки под линиями, последняя колонка выделена; на телефоне каждая строка становится карточкой #}
+{% macro table(s) %}
+<section{{ c.attrs(s, 'lk-cmp-table') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="ct-wrap" data-rv>
+      <table class="ct ct--{{ s.cols.length }}{% if s.stat %} ct--stat{% endif %}">
+        <caption class="sr">{{ s.caption or s.title }}</caption>
+        <thead><tr><td></td>{% for col in s.cols %}<th scope="col">{{ col | t | safe }}</th>{% endfor %}</tr></thead>
+        <tbody>
+{% for r in s.rows %}
+          <tr><th scope="row">{{ r[0] | t | safe }}</th>{% for col in s.cols %}<td data-label="{{ col | plain }}">{{ r[loop.index] | t | safe }}</td>{% endfor %}</tr>
+{% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

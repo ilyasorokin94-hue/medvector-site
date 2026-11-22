@@ -1,0 +1,41 @@
+{# Вкладки по услугам. Данные: s.tabs [{id, label, text, cmp: {cols, rows, caption}, groups, groupsTitle}]. #}
+{% import "looks/_c.njk" as c %}
+{% import "looks/qrows.njk" as q %}
+
+{# «Вкладки»: переключатель-капсула, под ним текст, сравнение и группы запросов #}
+{% macro pills(s) %}
+{{ useLook('qrows', 'rows') }}
+<section{{ c.attrs(s, 'lk-tabs-pills') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="tb" data-tabs>
+      <div class="tb__list" role="tablist" aria-label="Услуга">
+{% for tb in s.tabs %}
+        <button class="tb__btn" type="button" role="tab" id="tab-{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}" aria-controls="{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}" aria-selected="{{ 'true' if loop.first else 'false' }}">{{ tb.label | t | safe }}</button>
+{% endfor %}
+      </div>
+{% for tb in s.tabs %}
+      <div class="tb__panel" id="{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}" role="tabpanel" aria-labelledby="tab-{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}" tabindex="0"{% if not loop.first %} hidden{% endif %}>
+        <p class="tb__lead">{{ tb.text | t | safe }}</p>
+{% if tb.cmp %}
+        <div class="ct-wrap tb__cmp">
+          <table class="ct ct--{{ tb.cmp.cols.length }}">
+            <caption class="sr">{{ tb.cmp.caption }}</caption>
+            <thead><tr><td></td>{% for col in tb.cmp.cols %}<th scope="col">{{ col }}</th>{% endfor %}</tr></thead>
+            <tbody>
+{% for r in tb.cmp.rows %}
+              <tr><th scope="row">{{ r[0] | t | safe }}</th>{% for col in tb.cmp.cols %}<td data-label="{{ col }}">{{ r[loop.index] | t | safe }}</td>{% endfor %}</tr>
+{% endfor %}
+            </tbody>
+          </table>
+        </div>
+{% endif %}
+        <h3 class="yn__h tb__gh">{{ tb.groupsTitle or 'Что ищет пациент и что мы с этим делаем' }}</h3>
+        {{ q.body(tb.groups) }}
+      </div>
+{% endfor %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
