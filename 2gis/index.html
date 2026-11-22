@@ -27,7 +27,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/pages.css">
+<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -224,9 +225,12 @@
 </div>
 
 <main id="main">
-<section class="ph ph--type" id="intro" data-sec="hero">
+
+<section class="ph phs" id="intro" data-sec="hero">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки">
+    <div class="phs__grid">
+      <div class="phs__text">
+        <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
     <li><a href="../medicinskij-marketing/">Медицинский маркетинг</a></li>
@@ -234,12 +238,27 @@
   </ol>
 </nav>
 
-    <h1 class="ph__h" data-rv>Продвижение клиники в&nbsp;2ГИС</h1>
-    <div class="ph__foot">
-      <p class="ph__lead" data-rv style="--d:1">В&nbsp;части городов клинику ищут в&nbsp;2ГИС чаще, чем на&nbsp;Яндекс Картах. Мы&nbsp;оформляем карточку, добавляем услуги и&nbsp;цены, ведём отзывы и&nbsp;помогаем решить, нужно&nbsp;ли клинике платное продвижение в&nbsp;2ГИС или хватит бесплатной части.</p>
-      <div data-rv style="--d:2"><div class="ph__acts">
+        <h1 class="ph__h phs__h" data-rv>Продвижение клиники в&nbsp;2ГИС</h1>
+        <p class="ph__lead phs__lead" data-rv style="--d:1">В&nbsp;части городов клинику ищут в&nbsp;2ГИС чаще, чем на&nbsp;Яндекс Картах. Мы&nbsp;оформляем карточку, добавляем услуги и&nbsp;цены, ведём отзывы и&nbsp;помогаем решить, нужно&nbsp;ли клинике платное продвижение в&nbsp;2ГИС или хватит бесплатной части.</p>
+        <div data-rv style="--d:2"><div class="ph__acts">
   <a href="#start" class="btn" data-magnetic data-pick="unsure">Разобрать карточку в 2ГИС</a>
   <a href="#card" class="link">Что входит</a>
+</div>
+</div>
+      </div>
+      <div class="phs__stage"><div class="ha ha--2gis" aria-hidden="true">
+  <span class="ha__map"><i class="ha__pin"></i><i class="ha__pin"></i><i class="ha__pin"></i><i class="ha__pin ha__pin--me"></i></span>
+  <div class="ha__c ha__c--a ha__list" data-rv style="--d:2">
+    <span class="ha__k">Стоматологии рядом</span>
+    <span class="ha__li ha__li--me"><i></i><span><b>Стоматология «Демо»</b><small>Открыто, цены и&nbsp;фото в&nbsp;карточке</small></span></span>
+    <span class="ha__li"><i></i><span><i class="ha__l" style="--w:72%"></i><i class="ha__l" style="--w:48%"></i></span></span>
+    <span class="ha__li"><i></i><span><i class="ha__l" style="--w:64%"></i><i class="ha__l" style="--w:40%"></i></span></span>
+  </div>
+  <div class="ha__c ha__c--b" data-rv style="--d:3">
+    <span class="ha__k">Как найти вход</span>
+    <span class="ha__ph"></span>
+    <i class="ha__l" style="--w:88%"></i><i class="ha__l" style="--w:58%"></i>
+  </div>
 </div>
 </div>
     </div>
@@ -249,7 +268,7 @@
 
 
 
-<section class="sec lk-deflist-list sec--fog" id="when" data-sec="deflist">
+<section class="sec lk-deflist-zigzag sec--fog" id="when" data-sec="deflist">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -258,66 +277,71 @@
   <p class="sh__note" data-rv style="--d:1">2ГИС нужен не&nbsp;всем одинаково. Перед работой смотрим, какими картами пользуются в&nbsp;вашем городе и&nbsp;что видит пациент по&nbsp;запросу «стоматология рядом».</p>
 </div>
 
-    <ol class="dl">
-      <li class="dl__i" data-rv><span class="dl__n">1</span><h3 class="h3">Город, где 2ГИС привычнее</h3><p>В&nbsp;Новосибирске, где сервис появился, и&nbsp;во&nbsp;многих городах Сибири и&nbsp;Урала 2ГИС открывают по&nbsp;привычке. Там карточка в&nbsp;2ГИС работает как вторая вывеска.</p></li>
-      <li class="dl__i" data-rv><span class="dl__n">2</span><h3 class="h3">Клиника в&nbsp;торговом или бизнес-центре</h3><p>2ГИС показывает входы в&nbsp;здание и&nbsp;этажи. Пациенту проще дойти, а&nbsp;клинике проще объяснить дорогу.</p></li>
-      <li class="dl__i" data-rv><span class="dl__n">3</span><h3 class="h3">Несколько филиалов</h3><p>У&nbsp;каждого филиала своя карточка, свои отзывы и&nbsp;свой рейтинг. Без присмотра филиалы быстро расходятся в&nbsp;ценах и&nbsp;часах работы.</p></li>
-      <li class="dl__i" data-rv><span class="dl__n">4</span><h3 class="h3">Клиника зависит от&nbsp;одного источника</h3><p>Если все пациенты приходят с&nbsp;одних карт, любое изменение правил бьёт по&nbsp;записи. Вторая площадка снижает этот риск.</p></li>
-    </ol>
+    <ul class="dz">
+      <li class="dz__i" data-rv>
+        <h3 class="dz__h">Город, где 2ГИС привычнее</h3>
+        <p class="dz__p">В&nbsp;Новосибирске, где сервис появился, и&nbsp;во&nbsp;многих городах Сибири и&nbsp;Урала 2ГИС открывают по&nbsp;привычке. Там карточка в&nbsp;2ГИС работает как вторая вывеска.</p>
+      </li>
+      <li class="dz__i" data-rv>
+        <h3 class="dz__h">Клиника в&nbsp;торговом или бизнес-центре</h3>
+        <p class="dz__p">2ГИС показывает входы в&nbsp;здание и&nbsp;этажи. Пациенту проще дойти, а&nbsp;клинике проще объяснить дорогу.</p>
+      </li>
+      <li class="dz__i" data-rv>
+        <h3 class="dz__h">Несколько филиалов</h3>
+        <p class="dz__p">У&nbsp;каждого филиала своя карточка, свои отзывы и&nbsp;свой рейтинг. Без присмотра филиалы быстро расходятся в&nbsp;ценах и&nbsp;часах работы.</p>
+      </li>
+      <li class="dz__i" data-rv>
+        <h3 class="dz__h">Клиника зависит от&nbsp;одного источника</h3>
+        <p class="dz__p">Если все пациенты приходят с&nbsp;одних карт, любое изменение правил бьёт по&nbsp;записи. Вторая площадка снижает этот риск.</p>
+      </li>
+    </ul>
     
   </div>
 </section>
 
 
 
-<section class="sec lk-steps-line" id="card" data-sec="steps">
-  <div class="wrap">
-    <div class="sh">
-  <div>
-    <h2 class="h2" data-rv>Что делаем с&nbsp;карточкой клиники в&nbsp;2ГИС</h2>
-  </div>
-  <p class="sh__note" data-rv style="--d:1">Продвижение компании в&nbsp;2ГИС начинается с&nbsp;бесплатной части. Пока она не&nbsp;заполнена, платное размещение показывает людям полупустую карточку.</p>
+<section class="sec lk-steps-rail" id="card" data-sec="steps" data-look="steps-rail">
+  <div class="wrap stpr">
+    <div class="stpr__head">
+  <h2 class="h2" data-rv>Что делаем с&nbsp;карточкой клиники в&nbsp;2ГИС</h2>
+  <p class="stpr__head-note" data-rv style="--d:1">Продвижение компании в&nbsp;2ГИС начинается с&nbsp;бесплатной части. Пока она не&nbsp;заполнена, платное размещение показывает людям полупустую карточку.</p>
 </div>
 
-    <ol class="sl sl--5" data-rv="fade">
-      <li class="sl__i" style="--i:0">
-        <span class="sl__top"><b class="sl__n">1</b><span class="sl__when">Доступ</span></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Личный кабинет</h3>
-        <p>Получаем доступ к&nbsp;карточке через кабинет 2ГИС для бизнеса. Если клиники в&nbsp;справочнике нет, подаём заявку на&nbsp;добавление.</p>
+    <ol class="stpr__list" data-prog data-prog-hook="stpr">
+      <li class="stpr__i" data-rv style="--d:0">
+        <p class="stpr__when">Доступ</p>
+        <h3 class="stpr__h">Личный кабинет</h3>
+        <p class="stpr__p">Получаем доступ к&nbsp;карточке через кабинет 2ГИС для бизнеса. Если клиники в&nbsp;справочнике нет, подаём заявку на&nbsp;добавление.</p>
       </li>
-      <li class="sl__i" style="--i:1">
-        <span class="sl__top"><b class="sl__n">2</b><span class="sl__when">Сведения</span></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Адрес, вход, часы, рубрики</h3>
-        <p>Проверяем точку на&nbsp;карте, вход, телефоны, часы работы и&nbsp;рубрики, по&nbsp;которым клинику находят.</p>
+      <li class="stpr__i" data-rv style="--d:1">
+        <p class="stpr__when">Сведения</p>
+        <h3 class="stpr__h">Адрес, вход, часы, рубрики</h3>
+        <p class="stpr__p">Проверяем точку на&nbsp;карте, вход, телефоны, часы работы и&nbsp;рубрики, по&nbsp;которым клинику находят.</p>
       </li>
-      <li class="sl__i" style="--i:2">
-        <span class="sl__top"><b class="sl__n">3</b><span class="sl__when">Услуги</span></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Цены и&nbsp;фото</h3>
-        <p>Добавляем услуги с&nbsp;ценами, фотографии клиники, кабинетов и&nbsp;врачей, ссылку на&nbsp;запись.</p>
+      <li class="stpr__i" data-rv style="--d:0">
+        <p class="stpr__when">Услуги</p>
+        <h3 class="stpr__h">Цены и&nbsp;фото</h3>
+        <p class="stpr__p">Добавляем услуги с&nbsp;ценами, фотографии клиники, кабинетов и&nbsp;врачей, ссылку на&nbsp;запись.</p>
       </li>
-      <li class="sl__i" style="--i:3">
-        <span class="sl__top"><b class="sl__n">4</b><span class="sl__when">Отзывы</span></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Ответы и&nbsp;жалобы</h3>
-        <p>Отвечаем на&nbsp;отзывы от&nbsp;имени клиники. На&nbsp;отзывы с&nbsp;нарушением правил подаём жалобу модераторам.</p>
+      <li class="stpr__i" data-rv style="--d:1">
+        <p class="stpr__when">Отзывы</p>
+        <h3 class="stpr__h">Ответы и&nbsp;жалобы</h3>
+        <p class="stpr__p">Отвечаем на&nbsp;отзывы от&nbsp;имени клиники. На&nbsp;отзывы с&nbsp;нарушением правил подаём жалобу модераторам.</p>
       </li>
-      <li class="sl__i" style="--i:4">
-        <span class="sl__top"><b class="sl__n">5</b><span class="sl__when">Учёт</span></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Звонки и&nbsp;маршруты</h3>
-        <p>Раз в&nbsp;месяц смотрим, сколько человек открыли карточку, позвонили и&nbsp;построили маршрут.</p>
+      <li class="stpr__i" data-rv style="--d:0">
+        <p class="stpr__when">Учёт</p>
+        <h3 class="stpr__h">Звонки и&nbsp;маршруты</h3>
+        <p class="stpr__p">Раз в&nbsp;месяц смотрим, сколько человек открыли карточку, позвонили и&nbsp;построили маршрут.</p>
       </li>
     </ol>
-    
   </div>
+  <div class="wrap"></div>
 </section>
 
 
 
-<section class="sec lk-cmp-table sec--fog" id="paid" data-sec="cmp">
+<section class="sec lk-cmp-versus sec--fog" id="paid" data-sec="cmp">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -326,18 +350,36 @@
   <p class="sh__note" data-rv style="--d:1">Бесплатная часть описана по&nbsp;справке 2ГИС на&nbsp;22.11.2026. Состав рекламных пакетов и&nbsp;цены 2ГИС считает под город и&nbsp;рубрику, поэтому сверяем их&nbsp;с&nbsp;менеджером сервиса.</p>
 </div>
 
-    <div class="ct-wrap" data-rv>
-      <table class="ct ct--2">
-        <caption class="sr">Что доступно клинике в 2ГИС бесплатно и что добавляет платное размещение</caption>
-        <thead><tr><td></td><th scope="col">Бесплатно</th><th scope="col">Платное размещение</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Карточка в&nbsp;справочнике</th><td data-label="Бесплатно">Название, адрес, телефон, часы работы. Добавить клинику можно бесплатно, проверка занимает несколько рабочих дней</td><td data-label="Платное размещение">Логотип, кнопка действия, рекламный текст, дополнительные рубрики</td></tr>
-          <tr><th scope="row">Место в&nbsp;списке</th><td data-label="Бесплатно">По&nbsp;правилам сервиса, без приоритета</td><td data-label="Платное размещение">Приоритет в&nbsp;поиске и&nbsp;в&nbsp;рубрике</td></tr>
-          <tr><th scope="row">Отзывы</th><td data-label="Бесплатно">Ответы на&nbsp;отзывы и&nbsp;жалобы на&nbsp;нарушения из&nbsp;личного кабинета</td><td data-label="Платное размещение">Дополнительные сервисы для работы с&nbsp;отзывами</td></tr>
-          <tr><th scope="row">Фото, услуги и&nbsp;цены</th><td data-label="Бесплатно">Разделы личного кабинета: фото и&nbsp;видео, товары и&nbsp;услуги</td><td data-label="Платное размещение">Расширенное оформление карточки</td></tr>
-          <tr><th scope="row">Статистика</th><td data-label="Бесплатно">Основные цифры по&nbsp;карточке</td><td data-label="Платное размещение">Расширенная аналитика</td></tr>
-        </tbody>
-      </table>
+    <div class="vx vx--2" style="--n: 2" role="group" aria-label="Что доступно клинике в 2ГИС бесплатно и что добавляет платное размещение">
+      <div class="vx__top" aria-hidden="true">
+        <p class="vx__col">Бесплатно</p>
+        <p class="vx__col vx__col--key">Платное размещение</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Карточка в&nbsp;справочнике</span></h3>
+        <p class="vx__v"><span class="vx__c">Бесплатно</span>Название, адрес, телефон, часы работы. Добавить клинику можно бесплатно, проверка занимает несколько рабочих дней</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">Платное размещение</span>Логотип, кнопка действия, рекламный текст, дополнительные рубрики</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Место в&nbsp;списке</span></h3>
+        <p class="vx__v"><span class="vx__c">Бесплатно</span>По&nbsp;правилам сервиса, без приоритета</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">Платное размещение</span>Приоритет в&nbsp;поиске и&nbsp;в&nbsp;рубрике</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Отзывы</span></h3>
+        <p class="vx__v"><span class="vx__c">Бесплатно</span>Ответы на&nbsp;отзывы и&nbsp;жалобы на&nbsp;нарушения из&nbsp;личного кабинета</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">Платное размещение</span>Дополнительные сервисы для работы с&nbsp;отзывами</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Фото, услуги и&nbsp;цены</span></h3>
+        <p class="vx__v"><span class="vx__c">Бесплатно</span>Разделы личного кабинета: фото и&nbsp;видео, товары и&nbsp;услуги</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">Платное размещение</span>Расширенное оформление карточки</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Статистика</span></h3>
+        <p class="vx__v"><span class="vx__c">Бесплатно</span>Основные цифры по&nbsp;карточке</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">Платное размещение</span>Расширенная аналитика</p>
+      </div>
     </div>
     <p class="own" data-rv>Как это устроено на&nbsp;главной карте страны, читайте на&nbsp;странице <a href="../yandex-karty/">продвижения на&nbsp;Яндекс Картах</a>.</p>
 
@@ -346,7 +388,7 @@
 
 
 
-<section class="sec lk-loss-rows" id="mistakes" data-sec="loss">
+<section class="sec lk-loss-strip" id="mistakes" data-sec="loss">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -355,22 +397,26 @@
   <p class="sh__note" data-rv style="--d:1">Эти четыре вещи мы&nbsp;находим почти в&nbsp;каждой карточке, которую открываем впервые.</p>
 </div>
 
-    <ol class="lr">
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Неверная точка или вход</h3><p>Метка стоит на&nbsp;другом корпусе, вход указан со&nbsp;двора. Пациент опаздывает на&nbsp;приём и&nbsp;пишет об&nbsp;этом в&nbsp;отзыве.</p></div>
-        <p class="lr__fix"><small>Что делаем</small>Сверяем точку, вход и&nbsp;этаж и&nbsp;отправляем правку в&nbsp;сервис.</p>
+    <ol class="lost" tabindex="0" aria-label="На чём клиники теряют пациентов в 2ГИС" data-rv="fade">
+      <li class="lost__i">
+        <h3 class="h3">Неверная точка или вход</h3>
+        <p class="lost__ex">Метка стоит на&nbsp;другом корпусе, вход указан со&nbsp;двора. Пациент опаздывает на&nbsp;приём и&nbsp;пишет об&nbsp;этом в&nbsp;отзыве.</p>
+        <p class="lost__fix"><small>Что делаем</small>Сверяем точку, вход и&nbsp;этаж и&nbsp;отправляем правку в&nbsp;сервис.</p>
       </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Рубрика выбрана одна</h3><p>Клиника стоит только в&nbsp;рубрике «Стоматологические центры», а&nbsp;детскую стоматологию и&nbsp;имплантацию ищут отдельно.</p></div>
-        <p class="lr__fix"><small>Что делаем</small>Подбираем рубрики под услуги, которые клиника хочет загрузить.</p>
+      <li class="lost__i">
+        <h3 class="h3">Рубрика выбрана одна</h3>
+        <p class="lost__ex">Клиника стоит только в&nbsp;рубрике «Стоматологические центры», а&nbsp;детскую стоматологию и&nbsp;имплантацию ищут отдельно.</p>
+        <p class="lost__fix"><small>Что делаем</small>Подбираем рубрики под услуги, которые клиника хочет загрузить.</p>
       </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Цен нет</h3><p>В&nbsp;карточке соседа цена консультации и&nbsp;имплантации указана, у&nbsp;клиники пусто. Человек звонит соседу.</p></div>
-        <p class="lr__fix"><small>Что делаем</small>Добавляем услуги с&nbsp;ценами из&nbsp;действующего прайса.</p>
+      <li class="lost__i">
+        <h3 class="h3">Цен нет</h3>
+        <p class="lost__ex">В&nbsp;карточке соседа цена консультации и&nbsp;имплантации указана, у&nbsp;клиники пусто. Человек звонит соседу.</p>
+        <p class="lost__fix"><small>Что делаем</small>Добавляем услуги с&nbsp;ценами из&nbsp;действующего прайса.</p>
       </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Отзывы без ответа</h3><p>На&nbsp;жалобу полугодовой давности никто не&nbsp;ответил. Её&nbsp;читает каждый, кто открывает отзывы.</p></div>
-        <p class="lr__fix"><small>Что делаем</small>Отвечаем на&nbsp;все отзывы и&nbsp;следим за&nbsp;новыми.</p>
+      <li class="lost__i">
+        <h3 class="h3">Отзывы без ответа</h3>
+        <p class="lost__ex">На&nbsp;жалобу полугодовой давности никто не&nbsp;ответил. Её&nbsp;читает каждый, кто открывает отзывы.</p>
+        <p class="lost__fix"><small>Что делаем</small>Отвечаем на&nbsp;все отзывы и&nbsp;следим за&nbsp;новыми.</p>
       </li>
     </ol>
     
@@ -379,7 +425,7 @@
 
 
 
-<section class="sec lk-pack-cols sec--fog" id="price" data-sec="pack">
+<section class="sec lk-pack-ticket sec--fog" id="price" data-sec="pack">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -388,20 +434,22 @@
   <p class="sh__note" data-rv style="--d:1">Цена складывается из&nbsp;двух частей: ведение карточки агентством и&nbsp;платное размещение, которое клиника оплачивает самому 2ГИС.</p>
 </div>
 
-    <div class="pk">
-      <div class="pk__list" data-rv>
+    <div class="pktk" data-rv="scale">
+      <div class="pktk__a">
         <h3 class="yn__h">Что входит в&nbsp;ведение</h3>
-        <ul class="ticks">
+        <ul class="pktk__ul">
           <li>Доступ к&nbsp;личному кабинету и&nbsp;проверка сведений</li>
           <li>Рубрики, услуги с&nbsp;ценами, фотографии</li>
           <li>Ответы на&nbsp;отзывы и&nbsp;жалобы на&nbsp;нарушения</li>
           <li>Сверка филиалов между собой и&nbsp;с&nbsp;сайтом</li>
           <li>Отчёт: просмотры, звонки, маршруты</li>
         </ul>
+        
       </div>
-      <div class="pk__card" data-rv style="--d:1">
+      <div class="pktk__cut" aria-hidden="true"></div>
+      <div class="pktk__b">
         <h3 class="yn__h">Условия</h3>
-        <dl class="pk__terms">
+        <dl class="pktk__terms">
           <div><dt>Ведение карточки</dt><dd>считаем по&nbsp;заявке, зависит от&nbsp;числа филиалов</dd></div>
           <div><dt>В&nbsp;комплексе</dt><dd>2ГИС входит в&nbsp;комплексный маркетинг</dd></div>
           <div><dt>Платное размещение</dt><dd>цену называет 2ГИС, она зависит от&nbsp;города и&nbsp;рубрики</dd></div>
@@ -418,54 +466,54 @@
 
 
 
-<section class="sec lk-faq-acc" id="faq" data-sec="faq">
+<section class="sec sec--dark dark fqb" id="faq" data-sec="faq">
   <div class="wrap">
-    <div class="fq">
-      <div class="fq__head"><div class="sh">
+    <div class="sh">
   <div>
     <h2 class="h2" data-rv>Вопросы о&nbsp;продвижении в&nbsp;2ГИС</h2>
   </div>
   <p class="sh__note" data-rv style="--d:1">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
 </div>
-</div>
-      <div class="qa" data-rv>
-        <details class="qa__item" open>
-          <summary><span class="qa__q">Сколько стоит продвижение в&nbsp;2ГИС?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Продвижение в&nbsp;2ГИС: цена состоит из&nbsp;двух частей. Ведение карточки агентством считаем по&nbsp;заявке, оно зависит от&nbsp;числа филиалов. Платное размещение клиника оплачивает самому 2ГИС, и&nbsp;его стоимость сервис считает под город, рубрику и&nbsp;набор рекламных возможностей.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Можно&nbsp;ли продвигаться в&nbsp;2ГИС бесплатно?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Да. Бесплатное продвижение в&nbsp;2ГИС это заполненная карточка: точные сведения, рубрики, услуги с&nbsp;ценами, фотографии и&nbsp;ответы на&nbsp;отзывы. Во&nbsp;многих случаях этого достаточно, чтобы клинику находили и&nbsp;выбирали.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Как добавить клинику в&nbsp;2ГИС?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Справочные данные размещаются бесплатно. Представитель клиники заполняет заявку на&nbsp;сайте 2ГИС, специалисты сервиса проверяют сведения в&nbsp;течение нескольких рабочих дней и&nbsp;добавляют клинику в&nbsp;справочник. После этого открывается доступ к&nbsp;личному кабинету.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Когда нужно платное продвижение в&nbsp;2ГИС?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Когда бесплатная часть уже в&nbsp;порядке, а&nbsp;клиника стоит в&nbsp;рубрике ниже соседей и&nbsp;в&nbsp;городе пользуются 2ГИС. Платное размещение даёт приоритет в&nbsp;поиске и&nbsp;рубрике. Сначала смотрим статистику карточки и&nbsp;только потом советуем его подключать.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Можно&nbsp;ли заказать продвижение в&nbsp;2ГИС отдельно от&nbsp;других услуг?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Да, услуги по&nbsp;продвижению в&nbsp;2ГИС можно заказать отдельно. Чаще клиники берут 2ГИС вместе с&nbsp;Яндекс Картами: сведения, цены и&nbsp;ответы на&nbsp;отзывы должны совпадать на&nbsp;обеих площадках.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Как удалить отзыв в&nbsp;2ГИС?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Удалить отзыв сама клиника не&nbsp;может. Если в&nbsp;отзыве есть оскорбления, ложные сведения или другие нарушения правил, на&nbsp;него подаётся жалоба, и&nbsp;решение принимают модераторы 2ГИС. На&nbsp;остальные отзывы клиника отвечает из&nbsp;личного кабинета.</p></div>
-        </details>
-      </div>
+
+    <div class="fqb__cols">
+      <article class="fqb__i" data-rv style="--d:0">
+        <h3 class="fqb__q">Сколько стоит продвижение в&nbsp;2ГИС?</h3>
+        <p class="fqb__a">Продвижение в&nbsp;2ГИС: цена состоит из&nbsp;двух частей. Ведение карточки агентством считаем по&nbsp;заявке, оно зависит от&nbsp;числа филиалов. Платное размещение клиника оплачивает самому 2ГИС, и&nbsp;его стоимость сервис считает под город, рубрику и&nbsp;набор рекламных возможностей.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:1">
+        <h3 class="fqb__q">Можно&nbsp;ли продвигаться в&nbsp;2ГИС бесплатно?</h3>
+        <p class="fqb__a">Да. Бесплатное продвижение в&nbsp;2ГИС это заполненная карточка: точные сведения, рубрики, услуги с&nbsp;ценами, фотографии и&nbsp;ответы на&nbsp;отзывы. Во&nbsp;многих случаях этого достаточно, чтобы клинику находили и&nbsp;выбирали.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:0">
+        <h3 class="fqb__q">Как добавить клинику в&nbsp;2ГИС?</h3>
+        <p class="fqb__a">Справочные данные размещаются бесплатно. Представитель клиники заполняет заявку на&nbsp;сайте 2ГИС, специалисты сервиса проверяют сведения в&nbsp;течение нескольких рабочих дней и&nbsp;добавляют клинику в&nbsp;справочник. После этого открывается доступ к&nbsp;личному кабинету.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:1">
+        <h3 class="fqb__q">Когда нужно платное продвижение в&nbsp;2ГИС?</h3>
+        <p class="fqb__a">Когда бесплатная часть уже в&nbsp;порядке, а&nbsp;клиника стоит в&nbsp;рубрике ниже соседей и&nbsp;в&nbsp;городе пользуются 2ГИС. Платное размещение даёт приоритет в&nbsp;поиске и&nbsp;рубрике. Сначала смотрим статистику карточки и&nbsp;только потом советуем его подключать.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:0">
+        <h3 class="fqb__q">Можно&nbsp;ли заказать продвижение в&nbsp;2ГИС отдельно от&nbsp;других услуг?</h3>
+        <p class="fqb__a">Да, услуги по&nbsp;продвижению в&nbsp;2ГИС можно заказать отдельно. Чаще клиники берут 2ГИС вместе с&nbsp;Яндекс Картами: сведения, цены и&nbsp;ответы на&nbsp;отзывы должны совпадать на&nbsp;обеих площадках.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:1">
+        <h3 class="fqb__q">Как удалить отзыв в&nbsp;2ГИС?</h3>
+        <p class="fqb__a">Удалить отзыв сама клиника не&nbsp;может. Если в&nbsp;отзыве есть оскорбления, ложные сведения или другие нарушения правил, на&nbsp;него подаётся жалоба, и&nbsp;решение принимают модераторы 2ГИС. На&nbsp;остальные отзывы клиника отвечает из&nbsp;личного кабинета.</p>
+      </article>
     </div>
   </div>
 </section>
 
 
 
-<section class="sec sec--azure st st--form" id="start" data-sec="start">
+<section class="sec st sth" id="start" data-sec="start">
   <div class="wrap">
-    <p class="label" data-rv="fade">Заявка</p>
-    <h2 class="h2 st__h" data-rv>Разберём карточку клиники в&nbsp;2ГИС</h2>
-    <div class="st__grid">
-      <div class="st__text" data-rv><p class="st__lead">Оставьте заявку и&nbsp;название клиники. За&nbsp;2&nbsp;рабочих дня посмотрим карточку и&nbsp;отзывы в&nbsp;2ГИС и&nbsp;скажем, что исправить бесплатно и&nbsp;нужно&nbsp;ли платное размещение.</p>
+   <div class="sth__box">
+    <div class="sth__head">
+      <p class="label" data-rv="fade">Заявка</p>
+      <h2 class="h2 sth__h" data-rv>Разберём карточку клиники в&nbsp;2ГИС</h2>
+    </div>
+    <div class="sth__text" data-rv style="--d:1"><p class="st__lead">Оставьте заявку и&nbsp;название клиники. За&nbsp;2&nbsp;рабочих дня посмотрим карточку и&nbsp;отзывы в&nbsp;2ГИС и&nbsp;скажем, что исправить бесплатно и&nbsp;нужно&nbsp;ли платное размещение.</p>
 <ul class="ticks st__items">
   <li>Личный кабинет оформлен на&nbsp;клинику</li>
   <li>Сначала бесплатная часть карточки</li>
@@ -473,7 +521,7 @@
 </ul>
 <p class="st__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
 </div>
-      <form class="fm st__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1"><fieldset class="fm__choice">
+    <form class="fm sth__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:2"><fieldset class="fm__choice">
   <legend>Что хотите запустить</legend>
   <div class="fm__opts">
     <label class="fm__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
@@ -506,7 +554,7 @@
 <p class="fm__ok" role="status" tabindex="-1" hidden>Спасибо! Сайт пока в&nbsp;разработке, поэтому заявка никуда не&nbsp;ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
 <p class="stub">Заглушка: форма пока не отправляет заявки</p>
 </form>
-    </div>
+   </div>
   </div>
 </section>
 
@@ -518,7 +566,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -561,6 +609,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Разобрать карточку</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/pages.js" defer></script>
+<script src="../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

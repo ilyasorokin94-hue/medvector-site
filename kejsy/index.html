@@ -27,7 +27,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/pages.css">
+<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -151,7 +152,8 @@
 </div>
 
 <main id="main">
-<section class="ph ph--type" id="intro" data-sec="hero">
+
+<section class="ph php" id="intro" data-sec="hero">
   <div class="wrap">
     <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
@@ -160,14 +162,20 @@
   </ol>
 </nav>
 
-    <h1 class="ph__h" data-rv>Кейсы продвижения стоматологий</h1>
-    <div class="ph__foot">
-      <p class="ph__lead" data-rv style="--d:1">Кейсы медицинского маркетинга: реклама в&nbsp;Яндекс Директе, сайты и&nbsp;Яндекс Карты для стоматологий в&nbsp;разных городах России. В&nbsp;каждом кейсе показываем стоимость заявки и&nbsp;число записей, а&nbsp;не&nbsp;охваты и&nbsp;клики.</p>
-      <div data-rv style="--d:2"><div class="ph__acts">
+    <div class="php__head">
+      <h1 class="ph__h php__h" data-rv>Кейсы продвижения стоматологий</h1>
+      <p class="ph__lead php__lead" data-rv style="--d:1">Кейсы медицинского маркетинга: реклама в&nbsp;Яндекс Директе, сайты и&nbsp;Яндекс Карты для стоматологий в&nbsp;разных городах России. В&nbsp;каждом кейсе показываем стоимость заявки и&nbsp;число записей, а&nbsp;не&nbsp;охваты и&nbsp;клики.</p>
+      <div class="php__acts" data-rv style="--d:2"><div class="ph__acts">
   <a href="#start" class="btn" data-magnetic data-pick="unsure">Оставить заявку</a>
 </div>
 </div>
     </div>
+    <div class="php__band"><div class="ha ha--kejsy" aria-hidden="true">
+  <div class="ha__c ha__c--a ha__case" data-rv style="--d:2"><span class="ha__k">Яндекс Директ</span><b class="ha__t">Имплантация, Тюмень</b><i class="ha__l" style="--w:86%"></i><i class="ha__l" style="--w:60%"></i></div>
+  <div class="ha__c ha__c--b ha__case" data-rv style="--d:3"><span class="ha__k">Яндекс Карты</span><b class="ha__t">Карточка клиники, Самара</b><i class="ha__l" style="--w:80%"></i><i class="ha__l" style="--w:52%"></i></div>
+  <div class="ha__c ha__c--c ha__case" data-rv style="--d:4"><span class="ha__k">Яндекс Директ</span><b class="ha__t">Ортодонтия, Казань</b><i class="ha__l" style="--w:84%"></i><i class="ha__l" style="--w:46%"></i></div>
+</div>
+</div>
     
   </div>
 </section>
@@ -290,17 +298,16 @@
 
 
 
-<section class="sec lk-report-side sec--fog" id="report" data-sec="report">
+<section class="sec sec--dark dark lk-report-focus" id="report" data-sec="report">
   <div class="wrap">
-    <div class="sh">
+    <div class="sh rpf__head">
   <div>
     <h2 class="h2" data-rv>Так выглядит недельный отчёт</h2>
   </div>
   <p class="sh__note" data-rv style="--d:1">Его получает владелец клиники каждую неделю. Цифры в&nbsp;образце условные, клиника вымышленная.</p>
 </div>
 
-    <div class="rp rp--solo">
-      <div data-rv="scale"><div class="rep">
+    <div class="rpf__stage" data-rv="scale"><div class="rep">
   <div class="rep__head"><b>Отчёт за неделю, имплантация</b><span class="tag">образец, клиника вымышленная</span></div>
   <dl class="rep__kpis">
     <div><dt>заявок</dt><dd>9</dd></div>
@@ -325,14 +332,13 @@
   </ul>
 </div>
 </div>
-    </div>
     
   </div>
 </section>
 
 
 
-<section class="sec lk-steps-line" id="template" data-sec="steps">
+<section class="sec lk-steps-sheet" id="template" data-sec="steps">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -341,68 +347,86 @@
   <p class="sh__note" data-rv style="--d:1">Цифра в&nbsp;заголовке совпадает с&nbsp;текстом, у&nbsp;каждой цифры есть период и&nbsp;источник.</p>
 </div>
 
-    <ol class="sl sl--8" data-rv="fade">
-      <li class="sl__i" style="--i:0">
-        <span class="sl__top"><b class="sl__n">1</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Город и&nbsp;услуга</h3>
-        <p>Где работает клиника и&nbsp;что рекламировали.</p>
-      </li>
-      <li class="sl__i" style="--i:1">
-        <span class="sl__top"><b class="sl__n">2</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">С&nbsp;чего начинали</h3>
-        <p>Что было до&nbsp;нас и&nbsp;какую задачу ставила клиника.</p>
-      </li>
-      <li class="sl__i" style="--i:2">
-        <span class="sl__top"><b class="sl__n">3</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Как считали</h3>
-        <p>Что называем заявкой и&nbsp;записью, откуда взяты цифры.</p>
-      </li>
-      <li class="sl__i" style="--i:3">
-        <span class="sl__top"><b class="sl__n">4</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Что сделали</h3>
-        <p>Страница, кампании, запросы, Карты.</p>
-      </li>
-      <li class="sl__i" style="--i:4">
-        <span class="sl__top"><b class="sl__n">5</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Цифры по&nbsp;месяцам</h3>
-        <p>Расход, заявки, записи и&nbsp;цена каждой.</p>
-      </li>
-      <li class="sl__i" style="--i:5">
-        <span class="sl__top"><b class="sl__n">6</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Что не&nbsp;получилось</h3>
-        <p>И&nbsp;как это исправили.</p>
-      </li>
-      <li class="sl__i" style="--i:6">
-        <span class="sl__top"><b class="sl__n">7</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Вклад клиники</h3>
-        <p>Администратор, врач, скорость ответа на&nbsp;заявку.</p>
-      </li>
-      <li class="sl__i" style="--i:7">
-        <span class="sl__top"><b class="sl__n">8</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Что дальше</h3>
-        <p>Следующий шаг и&nbsp;ожидания от&nbsp;него.</p>
-      </li>
-    </ol>
+    <div class="stps" data-rv>
+      <ol class="stps__list stps__list--even">
+        <li class="stps__i" style="--i:0">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Город и&nbsp;услуга</h3>
+            <p class="stps__p">Где работает клиника и&nbsp;что рекламировали.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:1">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">С&nbsp;чего начинали</h3>
+            <p class="stps__p">Что было до&nbsp;нас и&nbsp;какую задачу ставила клиника.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:2">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Как считали</h3>
+            <p class="stps__p">Что называем заявкой и&nbsp;записью, откуда взяты цифры.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:3">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Что сделали</h3>
+            <p class="stps__p">Страница, кампании, запросы, Карты.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:4">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Цифры по&nbsp;месяцам</h3>
+            <p class="stps__p">Расход, заявки, записи и&nbsp;цена каждой.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:5">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Что не&nbsp;получилось</h3>
+            <p class="stps__p">И&nbsp;как это исправили.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:6">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Вклад клиники</h3>
+            <p class="stps__p">Администратор, врач, скорость ответа на&nbsp;заявку.</p>
+          </div>
+        </li>
+        <li class="stps__i" style="--i:7">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            
+            <h3 class="stps__h">Что дальше</h3>
+            <p class="stps__p">Следующий шаг и&nbsp;ожидания от&nbsp;него.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
     
   </div>
 </section>
 
 
 
-<section class="sec sec--azure st st--form" id="start" data-sec="start">
-  <div class="wrap">
-    <p class="label" data-rv="fade">Заявка</p>
-    <h2 class="h2 st__h" data-rv>Хотите, чтобы первый кейс был про вашу клинику?</h2>
-    <div class="st__grid">
-      <div class="st__text" data-rv><p class="st__lead">Посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;первого теста в&nbsp;Директе или с&nbsp;сайта и&nbsp;Карт.</p>
+<section class="sec sec--dark dark st stc" id="start" data-sec="start">
+  <div class="wrap stc__grid">
+    <div class="stc__text">
+      <p class="label" data-rv="fade">Заявка</p>
+      <h2 class="h2 stc__h" data-rv>Хотите, чтобы первый кейс был про вашу клинику?</h2>
+      <div data-rv style="--d:1"><p class="st__lead">Посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;первого теста в&nbsp;Директе или с&nbsp;сайта и&nbsp;Карт.</p>
 <ul class="ticks st__items">
   <li>Первый тест в&nbsp;Директе: комиссия агентства 0&nbsp;₽, бюджет вы&nbsp;вносите Яндексу</li>
   <li>Сайт и&nbsp;Яндекс Карты: старт 80&nbsp;000&nbsp;₽, сайт входит в&nbsp;эту сумму</li>
@@ -410,7 +434,8 @@
 </ul>
 <p class="st__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
 </div>
-      <form class="fm st__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1"><fieldset class="fm__choice">
+    </div>
+    <form class="fm stc__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1"><fieldset class="fm__choice">
   <legend>Что хотите запустить</legend>
   <div class="fm__opts">
     <label class="fm__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
@@ -443,7 +468,6 @@
 <p class="fm__ok" role="status" tabindex="-1" hidden>Спасибо! Сайт пока в&nbsp;разработке, поэтому заявка никуда не&nbsp;ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
 <p class="stub">Заглушка: форма пока не отправляет заявки</p>
 </form>
-    </div>
   </div>
 </section>
 
@@ -455,7 +479,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -498,6 +522,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Разобрать клинику</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/pages.js" defer></script>
+<script src="../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

@@ -29,7 +29,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/pages.css">
+<link rel="stylesheet" href="../../assets/css/pages.css?v=d7f99695">
+<link rel="preload" as="image" href="../../assets/img/pages/blog-ekonomika-1000.webp" imagesrcset="../../assets/img/pages/blog-ekonomika-640.webp 640w, ../../assets/img/pages/blog-ekonomika-1000.webp 1000w, ../../assets/img/pages/blog-ekonomika-1600.webp 1600w" imagesizes="(max-width: 1020px) 100vw, 1180px" fetchpriority="high">
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -241,6 +242,9 @@
         <p class="art-p__lead" data-rv style="--d:1">На&nbsp;вопрос «сколько зарабатывают стоматологии» нет одной цифры: кабинет на&nbsp;одно кресло в&nbsp;небольшом городе и&nbsp;клиника имплантации в&nbsp;Москве живут в&nbsp;разной экономике. Зато формула у&nbsp;всех одна. Разбираем, из&nbsp;чего складываются выручка и&nbsp;прибыль стоматологии и&nbsp;какие рычаги есть у&nbsp;владельца, кроме рекламы.</p>
         <p class="art-p__meta" data-rv style="--d:2">Обновлено: ноябрь 2026<br>Читать 4&nbsp;мин</p>
       </div>
+      <figure class="art-p__cover" data-rv="scale">
+        <img src="../../assets/img/pages/blog-ekonomika-1000.webp" srcset="../../assets/img/pages/blog-ekonomika-640.webp 640w, ../../assets/img/pages/blog-ekonomika-1000.webp 1000w, ../../assets/img/pages/blog-ekonomika-1600.webp 1600w" sizes="(max-width: 1020px) 100vw, 1180px" width="1600" height="1067" alt="Медсестра протирает кресло в кабинете в конце рабочего дня" fetchpriority="high" decoding="async">
+      </figure>
     </div>
   </header>
   <div class="wrap art-p__grid">
@@ -273,10 +277,10 @@
     <tr><th scope="col">Величина</th><th scope="col">От&nbsp;чего зависит</th><th scope="col">Как влиять</th></tr>
   </thead>
   <tbody>
-    <tr><th scope="row">Число кресел</th><td>Площадь, оборудование, лицензия</td><td>Меняется редко и&nbsp;дорого</td></tr>
-    <tr><th scope="row">Рабочие часы</th><td>График клиники и&nbsp;врачей</td><td>Вечерние часы и&nbsp;выходные, вторая смена</td></tr>
-    <tr><th scope="row">Загрузка</th><td>Сколько часов из&nbsp;рабочих занято приёмом</td><td>Запись, напоминания, реклама на&nbsp;свободных врачей</td></tr>
-    <tr><th scope="row">Выручка за&nbsp;час приёма</th><td>Набор услуг и&nbsp;цены</td><td>Доля имплантации, ортопедии, ортодонтии, прайс</td></tr>
+    <tr><th scope="row" data-label="Величина">Число кресел</th><td data-label="От чего зависит">Площадь, оборудование, лицензия</td><td data-label="Как влиять">Меняется редко и&nbsp;дорого</td></tr>
+    <tr><th scope="row" data-label="Величина">Рабочие часы</th><td data-label="От чего зависит">График клиники и&nbsp;врачей</td><td data-label="Как влиять">Вечерние часы и&nbsp;выходные, вторая смена</td></tr>
+    <tr><th scope="row" data-label="Величина">Загрузка</th><td data-label="От чего зависит">Сколько часов из&nbsp;рабочих занято приёмом</td><td data-label="Как влиять">Запись, напоминания, реклама на&nbsp;свободных врачей</td></tr>
+    <tr><th scope="row" data-label="Величина">Выручка за&nbsp;час приёма</th><td data-label="От чего зависит">Набор услуг и&nbsp;цены</td><td data-label="Как влиять">Доля имплантации, ортопедии, ортодонтии, прайс</td></tr>
   </tbody>
 </table>
 </section>
@@ -329,9 +333,9 @@
       <nav class="prose__rel" aria-label="Читайте также">
         <h2>Читайте также</h2>
         <ul>
-          <li><a href="../../blog/crm-dlya-stomatologii/">CRM для стоматологии: зачем клинике система и&nbsp;как её&nbsp;выбрать</a></li>
-          <li><a href="../../blog/prodazhi-v-stomatologii/">Продажи в&nbsp;стоматологии: как пациент соглашается на&nbsp;лечение</a></li>
-          <li><a href="../../blog/skripty-administratora-stomatologii/">Скрипты для администратора стоматологии: что говорить и&nbsp;чему учить</a></li>
+          <li><a href="../../blog/crm-dlya-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-crm-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">CRM для стоматологии: зачем клинике система и&nbsp;как её&nbsp;выбрать</span></a></li>
+          <li><a href="../../blog/prodazhi-v-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-prodazhi-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Продажи в&nbsp;стоматологии: как пациент соглашается на&nbsp;лечение</span></a></li>
+          <li><a href="../../blog/skripty-administratora-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-skripty-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Скрипты для администратора стоматологии: что говорить и&nbsp;чему учить</span></a></li>
         </ul>
       </nav>
     </div>
@@ -431,7 +435,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -474,6 +478,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Разобрать клинику</span></a>
 
 <script src="../../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../../assets/js/pages.js" defer></script>
+<script src="../../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

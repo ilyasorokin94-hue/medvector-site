@@ -27,7 +27,9 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/pages.css">
+<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+
+<link rel="preload" as="image" href="../assets/img/pages/kontakty-hero-1000.webp" imagesrcset="../assets/img/pages/kontakty-hero-640.webp 640w, ../assets/img/pages/kontakty-hero-1000.webp 1000w, ../assets/img/pages/kontakty-hero-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -151,8 +153,11 @@
 </div>
 
 <main id="main">
-<section class="ph ph--type" id="intro" data-sec="hero">
-  <div class="wrap">
+<section class="ph phf sec--dark dark phf--img" id="intro" data-sec="hero" data-over>
+  <div class="phf__bg">
+    <img class="phf__img" src="../assets/img/pages/kontakty-hero-1000.webp" srcset="../assets/img/pages/kontakty-hero-640.webp 640w, ../assets/img/pages/kontakty-hero-1000.webp 1000w, ../assets/img/pages/kontakty-hero-1600.webp 1600w" sizes="100vw" width="1600" height="1067" alt="Вид из окна офиса на набережную Санкт-Петербурга" fetchpriority="high" decoding="async">
+  </div>
+  <div class="wrap phf__grid">
     <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
@@ -160,12 +165,12 @@
   </ol>
 </nav>
 
-    <h1 class="ph__h" data-rv>Маркетинговое агентство для стоматологий</h1>
-    <div class="ph__foot">
+    <h1 class="ph__h phf__h" data-rv>Маркетинговое агентство для стоматологий</h1>
+    <div class="phf__say">
       <p class="ph__lead" data-rv style="--d:1">Ведём рекламу в&nbsp;Яндекс Директе, делаем сайты и&nbsp;оформляем Яндекс Карты для клиник по&nbsp;всей России. Офис в&nbsp;Санкт-Петербурге. Работаем со&nbsp;стоматологиями и&nbsp;медицинскими центрами.</p>
       <div data-rv style="--d:2"><div class="ph__acts">
-  <a href="#start" class="btn" data-magnetic data-pick="unsure">Оставить заявку</a>
-  <a href="#contacts" class="link">Контакты</a>
+  <a href="#start" class="btn btn--light" data-magnetic data-pick="unsure">Оставить заявку</a>
+  <a href="#contacts" class="link link--light">Контакты</a>
 </div>
 </div>
     </div>
@@ -205,7 +210,7 @@
 
 
 
-<section class="sec lk-links-rows" id="services" data-sec="links">
+<section class="sec lk-links-big" id="services" data-sec="links">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -214,15 +219,15 @@
   <p class="sh__note" data-rv style="--d:1">Каждую услугу можно заказать отдельно.</p>
 </div>
 
-    <ul class="lnr">
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../yandex-direkt/">Яндекс Директ для стоматологии</a></h3><p>Реклама имплантации, <span class="nw">All-on-4</span>, брекетов и&nbsp;элайнеров. Первый тест без комиссии агентства.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../kompleksnyj-marketing/">Комплексный маркетинг</a></h3><p>Сайт, Яндекс Карты, 2ГИС, ПроДокторов, отзывы и&nbsp;SEO одной командой.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a></h3><p>Сайт клиники с&nbsp;нуля или редизайн, оформленный по&nbsp;требованиям к&nbsp;медицинским сайтам.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../seo-dlya-stomatologii/">SEO для стоматологии</a></h3><p>Рост в&nbsp;Яндексе и&nbsp;Google по&nbsp;ключевым услугам в&nbsp;своём городе.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../yandex-karty/">Яндекс Карты</a></h3><p>Упаковка карточки, отзывы в&nbsp;белую и&nbsp;ежемесячное ведение.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../2gis/">2ГИС и&nbsp;ПроДокторов</a></h3><p>Карточки клиники и&nbsp;врачей с&nbsp;теми&nbsp;же ценами и&nbsp;адресом, что на&nbsp;сайте.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../otzyvy-i-reputaciya/">Отзывы и&nbsp;репутация</a></h3><p>Как клиника просит об&nbsp;отзыве и&nbsp;отвечает на&nbsp;него.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../geo-prodvizhenie/">Продвижение в&nbsp;нейросетях</a></h3><p>Что Алиса и&nbsp;ChatGPT отвечают пациенту о&nbsp;клинике.</p><span class="lnr__go" aria-hidden="true"></span></li>
+    <ul class="likb">
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../yandex-direkt/"><span>Яндекс Директ для стоматологии</span></a></h3><p>Реклама имплантации, <span class="nw">All-on-4</span>, брекетов и&nbsp;элайнеров. Первый тест без комиссии агентства.</p></li>
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../kompleksnyj-marketing/"><span>Комплексный маркетинг</span></a></h3><p>Сайт, Яндекс Карты, 2ГИС, ПроДокторов, отзывы и&nbsp;SEO одной командой.</p></li>
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../sajt-dlya-stomatologii/"><span>Сайт для стоматологии</span></a></h3><p>Сайт клиники с&nbsp;нуля или редизайн, оформленный по&nbsp;требованиям к&nbsp;медицинским сайтам.</p></li>
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../seo-dlya-stomatologii/"><span>SEO для стоматологии</span></a></h3><p>Рост в&nbsp;Яндексе и&nbsp;Google по&nbsp;ключевым услугам в&nbsp;своём городе.</p></li>
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../yandex-karty/"><span>Яндекс Карты</span></a></h3><p>Упаковка карточки, отзывы в&nbsp;белую и&nbsp;ежемесячное ведение.</p></li>
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../2gis/"><span>2ГИС и&nbsp;ПроДокторов</span></a></h3><p>Карточки клиники и&nbsp;врачей с&nbsp;теми&nbsp;же ценами и&nbsp;адресом, что на&nbsp;сайте.</p></li>
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../otzyvy-i-reputaciya/"><span>Отзывы и&nbsp;репутация</span></a></h3><p>Как клиника просит об&nbsp;отзыве и&nbsp;отвечает на&nbsp;него.</p></li>
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../geo-prodvizhenie/"><span>Продвижение в&nbsp;нейросетях</span></a></h3><p>Что Алиса и&nbsp;ChatGPT отвечают пациенту о&nbsp;клинике.</p></li>
     </ul>
     
   </div>
@@ -350,7 +355,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -393,6 +398,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Разобрать клинику</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/pages.js" defer></script>
+<script src="../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

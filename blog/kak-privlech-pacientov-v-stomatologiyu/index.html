@@ -29,7 +29,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/pages.css">
+<link rel="stylesheet" href="../../assets/css/pages.css?v=d7f99695">
+<link rel="preload" as="image" href="../../assets/img/pages/blog-privlech-1000.webp" imagesrcset="../../assets/img/pages/blog-privlech-640.webp 640w, ../../assets/img/pages/blog-privlech-1000.webp 1000w, ../../assets/img/pages/blog-privlech-1600.webp 1600w" imagesizes="(max-width: 1020px) 100vw, 1180px" fetchpriority="high">
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -257,6 +258,9 @@
         <p class="art-p__lead" data-rv style="--d:1">Пациенты приходят в&nbsp;клинику из&nbsp;нескольких мест: с&nbsp;карт, из&nbsp;поиска, по&nbsp;рекламе, по&nbsp;рекомендации и&nbsp;с&nbsp;площадок с&nbsp;отзывами. Привлечение клиентов в&nbsp;стоматологию это порядок в&nbsp;каждом из&nbsp;этих мест, а&nbsp;не&nbsp;одна волшебная реклама. Ниже пять шагов, которые помогают увеличить поток пациентов, в&nbsp;том порядке, в&nbsp;каком мы&nbsp;советуем их&nbsp;делать.</p>
         <p class="art-p__meta" data-rv style="--d:2">Обновлено: ноябрь 2026<br>Читать 5&nbsp;мин</p>
       </div>
+      <figure class="art-p__cover" data-rv="scale">
+        <img src="../../assets/img/pages/blog-privlech-1000.webp" srcset="../../assets/img/pages/blog-privlech-640.webp 640w, ../../assets/img/pages/blog-privlech-1000.webp 1000w, ../../assets/img/pages/blog-privlech-1600.webp 1600w" sizes="(max-width: 1020px) 100vw, 1180px" width="1600" height="917" alt="Пациенты ждут приёма в холле стоматологии" fetchpriority="high" decoding="async">
+      </figure>
     </div>
   </header>
   <div class="wrap art-p__grid">
@@ -363,9 +367,9 @@
       <nav class="prose__rel" aria-label="Читайте также">
         <h2>Читайте также</h2>
         <ul>
-          <li><a href="../../blog/akcii-dlya-stomatologii/">Акции для стоматологии: какие приводят пациентов, а&nbsp;какие только снижают цену</a></li>
-          <li><a href="../../blog/reklama-stomatologii/">Реклама стоматологии: каналы, примеры, тексты</a></li>
-          <li><a href="../../blog/socseti-stomatologii/">Соцсети стоматологии: о&nbsp;чём писать и&nbsp;чего ждать</a></li>
+          <li><a href="../../blog/akcii-dlya-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-akcii-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Акции для стоматологии: какие приводят пациентов, а&nbsp;какие только снижают цену</span></a></li>
+          <li><a href="../../blog/reklama-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-reklama-640.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Реклама стоматологии: каналы, примеры, тексты</span></a></li>
+          <li><a href="../../blog/socseti-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-socseti-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Соцсети стоматологии: о&nbsp;чём писать и&nbsp;чего ждать</span></a></li>
         </ul>
       </nav>
     </div>
@@ -473,7 +477,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -516,6 +520,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Разобрать клинику</span></a>
 
 <script src="../../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../../assets/js/pages.js" defer></script>
+<script src="../../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

@@ -27,7 +27,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/pages.css">
+<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -232,9 +233,12 @@
 </div>
 
 <main id="main">
-<section class="ph ph--type" id="intro" data-sec="hero">
+
+<section class="ph phs" id="intro" data-sec="hero">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки">
+    <div class="phs__grid">
+      <div class="phs__text">
+        <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
     <li><a href="../medicinskij-marketing/">Медицинский маркетинг</a></li>
@@ -242,12 +246,28 @@
   </ol>
 </nav>
 
-    <h1 class="ph__h" data-rv>Продвижение клиники на&nbsp;ПроДокторов и&nbsp;медицинских площадках</h1>
-    <div class="ph__foot">
-      <p class="ph__lead" data-rv style="--d:1">На&nbsp;ПроДокторов пациент выбирает врача: читает отзывы, смотрит стаж, цену приёма и&nbsp;свободное время. Мы&nbsp;оформляем профиль клиники и&nbsp;врачей, ведём отзывы, помогаем выбрать платные возможности площадки и&nbsp;считаем, сколько записей они дают. Так&nbsp;же работаем с&nbsp;НаПоправку и&nbsp;СберЗдоровье.</p>
-      <div data-rv style="--d:2"><div class="ph__acts">
+        <h1 class="ph__h phs__h" data-rv>Продвижение клиники на&nbsp;ПроДокторов и&nbsp;медицинских площадках</h1>
+        <p class="ph__lead phs__lead" data-rv style="--d:1">На&nbsp;ПроДокторов пациент выбирает врача: читает отзывы, смотрит стаж, цену приёма и&nbsp;свободное время. Мы&nbsp;оформляем профиль клиники и&nbsp;врачей, ведём отзывы, помогаем выбрать платные возможности площадки и&nbsp;считаем, сколько записей они дают. Так&nbsp;же работаем с&nbsp;НаПоправку и&nbsp;СберЗдоровье.</p>
+        <div data-rv style="--d:2"><div class="ph__acts">
   <a href="#start" class="btn" data-magnetic data-pick="unsure">Разобрать профиль клиники</a>
   <a href="#profile" class="link">Что входит</a>
+</div>
+</div>
+      </div>
+      <div class="phs__stage"><div class="ha ha--prodoktorov" aria-hidden="true">
+  <div class="ha__c ha__c--a ha__doc" data-rv style="--d:2">
+    <span class="ha__ava"></span>
+    <span><b class="ha__t">Врач клиники «Демо»</b><span class="ha__p">Стоматолог-хирург, имплантолог</span><i class="ha__stars"></i></span>
+    <span class="ha__price"><span>Стаж</span><i class="ha__l" style="--w:40%"></i></span>
+    <span class="ha__price"><span>Цена приёма</span><i class="ha__l" style="--w:46%"></i></span>
+    <span class="ha__btn">Записаться</span>
+  </div>
+  <div class="ha__c ha__c--b" data-rv style="--d:3">
+    <span class="ha__k ha__row">Отзыв пациента<i class="ha__stars"></i></span><i class="ha__l" style="--w:94%"></i><i class="ha__l" style="--w:86%"></i><i class="ha__l" style="--w:52%"></i>
+  </div>
+  <div class="ha__c ha__c--c ha__c--reply" data-rv style="--d:4">
+    <span class="ha__k">Ответ клиники</span><i class="ha__l" style="--w:90%"></i><i class="ha__l" style="--w:60%"></i>
+  </div>
 </div>
 </div>
     </div>
@@ -257,40 +277,43 @@
 
 
 
-<section class="sec lk-loss-rows sec--fog" id="why" data-sec="loss">
-  <div class="wrap">
-    <div class="sh">
-  <div>
-    <h2 class="h2" data-rv>Зачем клинике профиль на&nbsp;ПроДокторов</h2>
-  </div>
-  <p class="sh__note" data-rv style="--d:1">Страница клиники и&nbsp;врачей есть на&nbsp;площадке, даже если клиника её&nbsp;не&nbsp;заводила. Вопрос только в&nbsp;том, кто ею&nbsp;управляет и&nbsp;что на&nbsp;ней видит пациент.</p>
-</div>
-
-    <ol class="lr">
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Страница есть, а&nbsp;хозяина у&nbsp;неё нет</h3><p>Клиника не&nbsp;регистрировалась на&nbsp;ПроДокторов, но&nbsp;её&nbsp;страница открывается в&nbsp;поиске: старый адрес, чужое фото, цены двухлетней давности.</p></div>
-        <p class="lr__fix"><small>Что делаем</small>Регистрируем клинику, получаем доступ к&nbsp;личному кабинету и&nbsp;исправляем сведения.</p>
+<section class="sec sec--dark dark lk-loss-dark" id="why" data-sec="loss">
+  <div class="wrap lodr">
+    <div class="lodr__head">
+      <div class="lodr__stick">
+        <h2 class="h2" data-rv>Зачем клинике профиль на&nbsp;ПроДокторов</h2>
+        <p class="lodr__note" data-rv style="--d:1">Страница клиники и&nbsp;врачей есть на&nbsp;площадке, даже если клиника её&nbsp;не&nbsp;заводила. Вопрос только в&nbsp;том, кто ею&nbsp;управляет и&nbsp;что на&nbsp;ней видит пациент.</p>
+      </div>
+    </div>
+    <ol class="lodr__list">
+      <li class="lodr__i" data-rv>
+        <h3 class="lodr__t">Страница есть, а&nbsp;хозяина у&nbsp;неё нет</h3>
+        <p class="lodr__ex">Клиника не&nbsp;регистрировалась на&nbsp;ПроДокторов, но&nbsp;её&nbsp;страница открывается в&nbsp;поиске: старый адрес, чужое фото, цены двухлетней давности.</p>
+        <p class="lodr__fix"><small>Что делаем</small>Регистрируем клинику, получаем доступ к&nbsp;личному кабинету и&nbsp;исправляем сведения.</p>
       </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Врач уволился, а&nbsp;в&nbsp;профиле он&nbsp;есть</h3><p>Пациент записывается к&nbsp;врачу, которого в&nbsp;клинике давно нет. Или не&nbsp;находит нового имплантолога, потому что его не&nbsp;добавили.</p></div>
-        <p class="lr__fix"><small>Что делаем</small>Сверяем список врачей с&nbsp;расписанием клиники и&nbsp;держим его в&nbsp;порядке.</p>
+      <li class="lodr__i" data-rv>
+        <h3 class="lodr__t">Врач уволился, а&nbsp;в&nbsp;профиле он&nbsp;есть</h3>
+        <p class="lodr__ex">Пациент записывается к&nbsp;врачу, которого в&nbsp;клинике давно нет. Или не&nbsp;находит нового имплантолога, потому что его не&nbsp;добавили.</p>
+        <p class="lodr__fix"><small>Что делаем</small>Сверяем список врачей с&nbsp;расписанием клиники и&nbsp;держим его в&nbsp;порядке.</p>
       </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Отзывы без ответа</h3><p>На&nbsp;отзыв с&nbsp;жалобой никто не&nbsp;ответил. Следующий пациент читает его и&nbsp;видит, что клинике всё равно.</p></div>
-        <p class="lr__fix"><small>Что делаем</small>Отвечаем на&nbsp;отзывы от&nbsp;имени клиники, не&nbsp;раскрывая сведений о&nbsp;лечении.</p>
+      <li class="lodr__i" data-rv>
+        <h3 class="lodr__t">Отзывы без ответа</h3>
+        <p class="lodr__ex">На&nbsp;отзыв с&nbsp;жалобой никто не&nbsp;ответил. Следующий пациент читает его и&nbsp;видит, что клинике всё равно.</p>
+        <p class="lodr__fix"><small>Что делаем</small>Отвечаем на&nbsp;отзывы от&nbsp;имени клиники, не&nbsp;раскрывая сведений о&nbsp;лечении.</p>
       </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">На&nbsp;странице клиники реклама соседей</h3><p>Человек открыл профиль клиники, а&nbsp;рядом ему показывают другие клиники и&nbsp;врачей города.</p></div>
-        <p class="lr__fix"><small>Что делаем</small>Объясняем, какие платные возможности площадки это отключают, и&nbsp;считаем, окупится&nbsp;ли это.</p>
+      <li class="lodr__i" data-rv>
+        <h3 class="lodr__t">На&nbsp;странице клиники реклама соседей</h3>
+        <p class="lodr__ex">Человек открыл профиль клиники, а&nbsp;рядом ему показывают другие клиники и&nbsp;врачей города.</p>
+        <p class="lodr__fix"><small>Что делаем</small>Объясняем, какие платные возможности площадки это отключают, и&nbsp;считаем, окупится&nbsp;ли это.</p>
       </li>
     </ol>
-    
+    <div class="lodr__own"></div>
   </div>
 </section>
 
 
 
-<section class="sec lk-steps-line" id="profile" data-sec="steps">
+<section class="sec lk-steps-deck" id="profile" data-sec="steps">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -299,36 +322,46 @@
   <p class="sh__note" data-rv style="--d:1">Продвижение клиники на&nbsp;ПроДокторов начинается не&nbsp;с&nbsp;оплаты размещения, а&nbsp;с&nbsp;порядка в&nbsp;бесплатной части профиля.</p>
 </div>
 
-    <ol class="sl sl--5" data-rv="fade">
-      <li class="sl__i" style="--i:0">
-        <span class="sl__top"><b class="sl__n">1</b><span class="sl__when">Доступ</span></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Регистрация клиники и&nbsp;личный кабинет</h3>
-        <p>Находим страницу клиники, проходим регистрацию и&nbsp;подтверждение. Доступ к&nbsp;личному кабинету остаётся у&nbsp;клиники.</p>
+    <ol class="stpd" style="--n:5">
+      <li class="stpd__i" style="--i:0">
+        <div class="stpd__card" data-rv="scale">
+<p class="stpd__big">Доступ</p>          <div class="stpd__body">
+            <h3 class="stpd__h">Регистрация клиники и&nbsp;личный кабинет</h3>
+            <p class="stpd__p">Находим страницу клиники, проходим регистрацию и&nbsp;подтверждение. Доступ к&nbsp;личному кабинету остаётся у&nbsp;клиники.</p>
+          </div>
+        </div>
       </li>
-      <li class="sl__i" style="--i:1">
-        <span class="sl__top"><b class="sl__n">2</b><span class="sl__when">Клиника</span></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Сведения, фото, видеовизитка</h3>
-        <p>Адреса, телефоны, часы работы, лицензия, фотографии клиники. Видеовизитку клиники добавляем, если у&nbsp;клиники есть ролик.</p>
+      <li class="stpd__i" style="--i:1">
+        <div class="stpd__card" data-rv="scale">
+<p class="stpd__big">Клиника</p>          <div class="stpd__body">
+            <h3 class="stpd__h">Сведения, фото, видеовизитка</h3>
+            <p class="stpd__p">Адреса, телефоны, часы работы, лицензия, фотографии клиники. Видеовизитку клиники добавляем, если у&nbsp;клиники есть ролик.</p>
+          </div>
+        </div>
       </li>
-      <li class="sl__i" style="--i:2">
-        <span class="sl__top"><b class="sl__n">3</b><span class="sl__when">Врачи</span></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Профили и&nbsp;документы</h3>
-        <p>Стаж, образование, специальности, фото. По&nbsp;каждому врачу сверяем, что он&nbsp;действительно принимает.</p>
+      <li class="stpd__i" style="--i:2">
+        <div class="stpd__card" data-rv="scale">
+<p class="stpd__big">Врачи</p>          <div class="stpd__body">
+            <h3 class="stpd__h">Профили и&nbsp;документы</h3>
+            <p class="stpd__p">Стаж, образование, специальности, фото. По&nbsp;каждому врачу сверяем, что он&nbsp;действительно принимает.</p>
+          </div>
+        </div>
       </li>
-      <li class="sl__i" style="--i:3">
-        <span class="sl__top"><b class="sl__n">4</b><span class="sl__when">Услуги</span></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Цены и&nbsp;запись</h3>
-        <p>Услуги с&nbsp;ценами приёма, расписание и&nbsp;онлайн-запись там, где клиника готова её&nbsp;принимать.</p>
+      <li class="stpd__i" style="--i:3">
+        <div class="stpd__card" data-rv="scale">
+<p class="stpd__big">Услуги</p>          <div class="stpd__body">
+            <h3 class="stpd__h">Цены и&nbsp;запись</h3>
+            <p class="stpd__p">Услуги с&nbsp;ценами приёма, расписание и&nbsp;онлайн-запись там, где клиника готова её&nbsp;принимать.</p>
+          </div>
+        </div>
       </li>
-      <li class="sl__i" style="--i:4">
-        <span class="sl__top"><b class="sl__n">5</b><span class="sl__when">Отзывы</span></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Ответы и&nbsp;спорные случаи</h3>
-        <p>Отвечаем на&nbsp;отзывы, а&nbsp;недостоверные отправляем на&nbsp;повторную проверку площадки.</p>
+      <li class="stpd__i stpd__i--end" style="--i:4">
+        <div class="stpd__card" data-rv="scale">
+<p class="stpd__big">Отзывы</p>          <div class="stpd__body">
+            <h3 class="stpd__h">Ответы и&nbsp;спорные случаи</h3>
+            <p class="stpd__p">Отвечаем на&nbsp;отзывы, а&nbsp;недостоверные отправляем на&nbsp;повторную проверку площадки.</p>
+          </div>
+        </div>
       </li>
     </ol>
     
@@ -337,7 +370,7 @@
 
 
 
-<section class="sec lk-cmp-table sec--fog" id="paid" data-sec="cmp">
+<section class="sec lk-cmp-cards sec--fog" id="paid" data-sec="cmp">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -346,19 +379,25 @@
   <p class="sh__note" data-rv style="--d:1">Сведения взяты со&nbsp;страницы ПроДокторов для клиник и&nbsp;из&nbsp;справки площадки на&nbsp;22.11.2026. Перед подключением сверяем условия с&nbsp;менеджером площадки: они меняются.</p>
 </div>
 
-    <div class="ct-wrap" data-rv>
-      <table class="ct ct--2">
-        <caption class="sr">Что даёт бесплатный профиль клиники на ПроДокторов и что добавляют платные возможности</caption>
-        <thead><tr><td></td><th scope="col">Бесплатный профиль</th><th scope="col">Платные возможности</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Доступ</th><td data-label="Бесплатный профиль">Личный кабинет клиники, правка сведений, ответы на&nbsp;отзывы</td><td data-label="Платные возможности">Несколько пользователей с&nbsp;разными ролями, доверительное управление профилями врачей</td></tr>
-          <tr><th scope="row">Место в&nbsp;списке</th><td data-label="Бесплатный профиль">По&nbsp;рейтингу и&nbsp;правилам площадки</td><td data-label="Платные возможности">Спецразмещение: клиника и&nbsp;врачи на&nbsp;первых местах списка независимо от&nbsp;рейтинга</td></tr>
-          <tr><th scope="row">Чужая реклама на&nbsp;странице</th><td data-label="Бесплатный профиль">Рядом показываются другие клиники и&nbsp;врачи города</td><td data-label="Платные возможности">Блок с&nbsp;другими клиниками и&nbsp;реклама конкурентов отключаются</td></tr>
-          <tr><th scope="row">Акции</th><td data-label="Бесплатный профиль">Нет</td><td data-label="Платные возможности">Публикация акций клиники</td></tr>
-          <tr><th scope="row">Звонки и&nbsp;аналитика</th><td data-label="Бесплатный профиль">Основные сведения о&nbsp;странице</td><td data-label="Платные возможности">Статистика и&nbsp;расшифровка звонков, аналитика по&nbsp;профилям и&nbsp;рейтингу</td></tr>
-          <tr><th scope="row">Реклама</th><td data-label="Бесплатный профиль">Нет</td><td data-label="Платные возможности">Баннеры на&nbsp;страницах других клиник с&nbsp;настройкой по&nbsp;теме и&nbsp;району</td></tr>
-        </tbody>
-      </table>
+    <div class="cc cc--2" role="group" aria-label="Что даёт бесплатный профиль клиники на ПроДокторов и что добавляют платные возможности">
+      <article class="cc__card" style="grid-row: span 7; --d: 0" data-rv>
+        <h3 class="cc__h">Бесплатный профиль</h3>
+        <div class="cc__row"><p class="cc__k">Доступ</p><p class="cc__v">Личный кабинет клиники, правка сведений, ответы на&nbsp;отзывы</p></div>
+        <div class="cc__row"><p class="cc__k">Место в&nbsp;списке</p><p class="cc__v">По&nbsp;рейтингу и&nbsp;правилам площадки</p></div>
+        <div class="cc__row"><p class="cc__k">Чужая реклама на&nbsp;странице</p><p class="cc__v">Рядом показываются другие клиники и&nbsp;врачи города</p></div>
+        <div class="cc__row"><p class="cc__k">Акции</p><p class="cc__v">Нет</p></div>
+        <div class="cc__row"><p class="cc__k">Звонки и&nbsp;аналитика</p><p class="cc__v">Основные сведения о&nbsp;странице</p></div>
+        <div class="cc__row"><p class="cc__k">Реклама</p><p class="cc__v">Нет</p></div>
+      </article>
+      <article class="cc__card cc__card--key" style="grid-row: span 7; --d: 1" data-rv>
+        <h3 class="cc__h">Платные возможности</h3>
+        <div class="cc__row"><p class="cc__k">Доступ</p><p class="cc__v">Несколько пользователей с&nbsp;разными ролями, доверительное управление профилями врачей</p></div>
+        <div class="cc__row"><p class="cc__k">Место в&nbsp;списке</p><p class="cc__v">Спецразмещение: клиника и&nbsp;врачи на&nbsp;первых местах списка независимо от&nbsp;рейтинга</p></div>
+        <div class="cc__row"><p class="cc__k">Чужая реклама на&nbsp;странице</p><p class="cc__v">Блок с&nbsp;другими клиниками и&nbsp;реклама конкурентов отключаются</p></div>
+        <div class="cc__row"><p class="cc__k">Акции</p><p class="cc__v">Публикация акций клиники</p></div>
+        <div class="cc__row"><p class="cc__k">Звонки и&nbsp;аналитика</p><p class="cc__v">Статистика и&nbsp;расшифровка звонков, аналитика по&nbsp;профилям и&nbsp;рейтингу</p></div>
+        <div class="cc__row"><p class="cc__k">Реклама</p><p class="cc__v">Баннеры на&nbsp;страницах других клиник с&nbsp;настройкой по&nbsp;теме и&nbsp;району</p></div>
+      </article>
     </div>
     <p class="own" data-rv>Как устроено платное продвижение на&nbsp;картах, читайте на&nbsp;странице <a href="../yandex-karty/">продвижения на&nbsp;Яндекс Картах</a>.</p>
 
@@ -417,30 +456,29 @@
 
 
 
-<section class="sec lk-spec-grid" id="who" data-sec="spec">
-  <div class="wrap">
-    <div class="sh">
-  <div>
-    <h2 class="h2" data-rv>Каким клиникам площадка даёт записи</h2>
-  </div>
-  <p class="sh__note" data-rv style="--d:1">ПроДокторов не&nbsp;заменяет сайт и&nbsp;рекламу. Он&nbsp;хорошо работает там, где пациент выбирает врача, и&nbsp;слабее там, где выбирают метод и&nbsp;цену.</p>
-</div>
-
-    <ul class="sg">
-      <li data-rv style="--d:0"><h3 class="sg__h">Лечебные специальности</h3><p>Терапевт, хирург, детский стоматолог, невролог, гинеколог. Сюда приходят с&nbsp;вопросом «к&nbsp;кому записаться».</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Первичный приём и&nbsp;консультация</h3><p>Через площадку записываются на&nbsp;консультацию. Дорогое лечение обсуждают уже в&nbsp;клинике.</p></li>
-      <li data-rv style="--d:0"><h3 class="sg__h">Имплантация и&nbsp;ортодонтия</h3><p>Пациент сравнивает методы и&nbsp;цены на&nbsp;сайтах клиник. Профиль врача здесь подтверждает выбор, а&nbsp;не&nbsp;создаёт его.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Клиники с&nbsp;несколькими врачами</h3><p>Чем больше заполненных профилей врачей с&nbsp;отзывами, тем чаще клиника появляется в&nbsp;списках по&nbsp;специальностям.</p></li>
-      <li data-rv style="--d:0"><h3 class="sg__h">Сети клиник</h3><p>Филиалы ведутся из&nbsp;одного личного кабинета. Сверяем адреса, цены и&nbsp;врачей по&nbsp;каждому филиалу.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Новые клиники</h3><p>Отзывов ещё нет, поэтому начинаем с&nbsp;профилей врачей: у&nbsp;них часто есть отзывы с&nbsp;прежнего места работы.</p></li>
+<section class="sec lk-spec-sticky" id="who" data-sec="spec">
+  <div class="wrap spst">
+    <div class="spst__head">
+      <div class="spst__stick">
+        <h2 class="h2" data-rv>Каким клиникам площадка даёт записи</h2>
+        <p class="spst__note" data-rv style="--d:1">ПроДокторов не&nbsp;заменяет сайт и&nbsp;рекламу. Он&nbsp;хорошо работает там, где пациент выбирает врача, и&nbsp;слабее там, где выбирают метод и&nbsp;цену.</p>
+        <div class="spst__own"></div>
+      </div>
+    </div>
+    <ul class="spst__list">
+      <li class="spst__i" data-rv><h3 class="spst__h">Лечебные специальности</h3><p>Терапевт, хирург, детский стоматолог, невролог, гинеколог. Сюда приходят с&nbsp;вопросом «к&nbsp;кому записаться».</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Первичный приём и&nbsp;консультация</h3><p>Через площадку записываются на&nbsp;консультацию. Дорогое лечение обсуждают уже в&nbsp;клинике.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Имплантация и&nbsp;ортодонтия</h3><p>Пациент сравнивает методы и&nbsp;цены на&nbsp;сайтах клиник. Профиль врача здесь подтверждает выбор, а&nbsp;не&nbsp;создаёт его.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Клиники с&nbsp;несколькими врачами</h3><p>Чем больше заполненных профилей врачей с&nbsp;отзывами, тем чаще клиника появляется в&nbsp;списках по&nbsp;специальностям.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Сети клиник</h3><p>Филиалы ведутся из&nbsp;одного личного кабинета. Сверяем адреса, цены и&nbsp;врачей по&nbsp;каждому филиалу.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Новые клиники</h3><p>Отзывов ещё нет, поэтому начинаем с&nbsp;профилей врачей: у&nbsp;них часто есть отзывы с&nbsp;прежнего места работы.</p></li>
     </ul>
-    
   </div>
 </section>
 
 
 
-<section class="sec lk-spec-grid sec--fog" id="other" data-sec="spec">
+<section class="sec lk-spec-bento sec--fog" id="other" data-sec="spec">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -449,13 +487,13 @@
   <p class="sh__note" data-rv style="--d:1">Продвижение на&nbsp;агрегаторах устроено похоже: профиль клиники, врачи, цены, отзывы и&nbsp;запись. У&nbsp;каждой площадки свои условия, поэтому сверяем их&nbsp;перед подключением.</p>
 </div>
 
-    <ul class="sg">
-      <li data-rv style="--d:0"><h3 class="sg__h">НаПоправку для клиник</h3><p>Регистрация и&nbsp;управление профилем клиники бесплатные. Онлайн-запись и&nbsp;продвижение подключаются на&nbsp;платных тарифах площадки.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">СберЗдоровье для клиник</h3><p>Клиника работает с&nbsp;сервисом по&nbsp;договору. Открытого тарифа нет, условия обсуждаются после заявки, поэтому заранее выясняем, что считается состоявшейся записью.</p></li>
-      <li data-rv style="--d:0"><h3 class="sg__h">Zoon и&nbsp;городские справочники</h3><p>Продвижение на&nbsp;Zoon рассматриваем, только если площадка видна в&nbsp;поиске по&nbsp;названию клиники или по&nbsp;услугам в&nbsp;вашем городе.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Вход для клиники</h3><p>У&nbsp;каждой площадки свой личный кабинет. Доступы заводим на&nbsp;почту клиники, чтобы они не&nbsp;зависели от&nbsp;подрядчика.</p></li>
-      <li data-rv style="--d:0"><h3 class="sg__h">Единые сведения</h3><p>Адрес, телефон, цены и&nbsp;список врачей должны совпадать на&nbsp;всех площадках, на&nbsp;сайте и&nbsp;на&nbsp;Картах.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Учёт записей</h3><p>По&nbsp;каждой площадке считаем записи и&nbsp;то, сколько записавшихся пришло на&nbsp;приём. Площадку, которая не&nbsp;окупается, предлагаем отключить.</p></li>
+    <ul class="spbn spbn--6">
+      <li class="spbn__i" data-rv style="--d:0"><h3 class="spbn__h">НаПоправку для клиник</h3><p>Регистрация и&nbsp;управление профилем клиники бесплатные. Онлайн-запись и&nbsp;продвижение подключаются на&nbsp;платных тарифах площадки.</p></li>
+      <li class="spbn__i" data-rv style="--d:1"><h3 class="spbn__h">СберЗдоровье для клиник</h3><p>Клиника работает с&nbsp;сервисом по&nbsp;договору. Открытого тарифа нет, условия обсуждаются после заявки, поэтому заранее выясняем, что считается состоявшейся записью.</p></li>
+      <li class="spbn__i" data-rv style="--d:2"><h3 class="spbn__h">Zoon и&nbsp;городские справочники</h3><p>Продвижение на&nbsp;Zoon рассматриваем, только если площадка видна в&nbsp;поиске по&nbsp;названию клиники или по&nbsp;услугам в&nbsp;вашем городе.</p></li>
+      <li class="spbn__i" data-rv style="--d:0"><h3 class="spbn__h">Вход для клиники</h3><p>У&nbsp;каждой площадки свой личный кабинет. Доступы заводим на&nbsp;почту клиники, чтобы они не&nbsp;зависели от&nbsp;подрядчика.</p></li>
+      <li class="spbn__i" data-rv style="--d:1"><h3 class="spbn__h">Единые сведения</h3><p>Адрес, телефон, цены и&nbsp;список врачей должны совпадать на&nbsp;всех площадках, на&nbsp;сайте и&nbsp;на&nbsp;Картах.</p></li>
+      <li class="spbn__i" data-rv style="--d:2"><h3 class="spbn__h">Учёт записей</h3><p>По&nbsp;каждой площадке считаем записи и&nbsp;то, сколько записавшихся пришло на&nbsp;приём. Площадку, которая не&nbsp;окупается, предлагаем отключить.</p></li>
     </ul>
     <p class="own" data-rv>Карточки на&nbsp;картах ведём отдельными услугами: <a href="../2gis/">продвижение в&nbsp;2ГИС</a>.</p>
 
@@ -464,7 +502,7 @@
 
 
 
-<section class="sec lk-pack-cols" id="price" data-sec="pack">
+<section class="sec lk-pack-sticky" id="price" data-sec="pack">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -473,26 +511,29 @@
   <p class="sh__note" data-rv style="--d:1">Клиника платит за&nbsp;две разные вещи: площадке за&nbsp;тариф и&nbsp;размещение, агентству за&nbsp;ведение профиля. Мы&nbsp;не&nbsp;смешиваем эти суммы.</p>
 </div>
 
-    <div class="pk">
-      <div class="pk__list" data-rv>
-        <h3 class="yn__h">Что входит в&nbsp;ведение</h3>
-        <ul class="ticks">
-          <li>Регистрация клиники и&nbsp;доступ к&nbsp;личному кабинету</li>
-          <li>Профиль клиники: сведения, фото, услуги и&nbsp;цены</li>
-          <li>Профили врачей и&nbsp;сверка с&nbsp;расписанием</li>
-          <li>Ответы на&nbsp;отзывы и&nbsp;отправка спорных на&nbsp;проверку</li>
-          <li>Отчёт: просмотры, звонки и&nbsp;записи с&nbsp;площадки</li>
+    <div class="pkpn">
+      <div class="pkpn__list">
+        <h3 class="yn__h" data-rv>Что входит в&nbsp;ведение</h3>
+        <ul class="pkpn__ul">
+          <li data-rv style="--d:0">Регистрация клиники и&nbsp;доступ к&nbsp;личному кабинету</li>
+          <li data-rv style="--d:1">Профиль клиники: сведения, фото, услуги и&nbsp;цены</li>
+          <li data-rv style="--d:2">Профили врачей и&nbsp;сверка с&nbsp;расписанием</li>
+          <li data-rv style="--d:0">Ответы на&nbsp;отзывы и&nbsp;отправка спорных на&nbsp;проверку</li>
+          <li data-rv style="--d:1">Отчёт: просмотры, звонки и&nbsp;записи с&nbsp;площадки</li>
         </ul>
+        
       </div>
-      <div class="pk__card" data-rv style="--d:1">
-        <h3 class="yn__h">Условия</h3>
-        <dl class="pk__terms">
-          <div><dt>Ведение профиля</dt><dd>считаем по&nbsp;заявке, после разбора профиля</dd></div>
-          <div><dt>В&nbsp;комплексе</dt><dd>ПроДокторов входит в&nbsp;комплексный маркетинг</dd></div>
-          <div><dt>Оплата площадке</dt><dd>напрямую от&nbsp;клиники, по&nbsp;её&nbsp;договору с&nbsp;площадкой</dd></div>
-          <div><dt>Доступы</dt><dd>личный кабинет оформлен на&nbsp;клинику</dd></div>
-        </dl>
-        <a href="#start" class="btn" data-magnetic data-pick="unsure">Разобрать профиль клиники</a>
+      <div class="pkpn__side">
+        <div class="pkpn__card dark" data-rv="scale">
+          <h3 class="yn__h">Условия</h3>
+          <dl class="pkpn__terms">
+            <div><dt>Ведение профиля</dt><dd>считаем по&nbsp;заявке, после разбора профиля</dd></div>
+            <div><dt>В&nbsp;комплексе</dt><dd>ПроДокторов входит в&nbsp;комплексный маркетинг</dd></div>
+            <div><dt>Оплата площадке</dt><dd>напрямую от&nbsp;клиники, по&nbsp;её&nbsp;договору с&nbsp;площадкой</dd></div>
+            <div><dt>Доступы</dt><dd>личный кабинет оформлен на&nbsp;клинику</dd></div>
+          </dl>
+          <a href="#start" class="btn btn--light" data-magnetic data-pick="unsure">Разобрать профиль клиники</a>
+        </div>
       </div>
     </div>
     <p class="own" data-rv>Все площадки и&nbsp;сайт одной командой ведём в&nbsp;пакете <a href="../kompleksnyj-marketing/">комплексного маркетинга</a>.</p>
@@ -549,12 +590,12 @@
 
 
 
-<section class="sec sec--azure st st--form" id="start" data-sec="start">
-  <div class="wrap">
-    <p class="label" data-rv="fade">Заявка</p>
-    <h2 class="h2 st__h" data-rv>Разберём профиль клиники на&nbsp;ПроДокторов</h2>
-    <div class="st__grid">
-      <div class="st__text" data-rv><p class="st__lead">Оставьте заявку и&nbsp;название клиники. За&nbsp;2&nbsp;рабочих дня посмотрим профиль клиники и&nbsp;врачей, отзывы и&nbsp;покажем, что исправить в&nbsp;бесплатной части и&nbsp;нужны&nbsp;ли платные возможности.</p>
+<section class="sec sec--dark dark st stc" id="start" data-sec="start">
+  <div class="wrap stc__grid">
+    <div class="stc__text">
+      <p class="label" data-rv="fade">Заявка</p>
+      <h2 class="h2 stc__h" data-rv>Разберём профиль клиники на&nbsp;ПроДокторов</h2>
+      <div data-rv style="--d:1"><p class="st__lead">Оставьте заявку и&nbsp;название клиники. За&nbsp;2&nbsp;рабочих дня посмотрим профиль клиники и&nbsp;врачей, отзывы и&nbsp;покажем, что исправить в&nbsp;бесплатной части и&nbsp;нужны&nbsp;ли платные возможности.</p>
 <ul class="ticks st__items">
   <li>Личный кабинет оформлен на&nbsp;клинику</li>
   <li>Клиника платит площадке напрямую</li>
@@ -562,7 +603,8 @@
 </ul>
 <p class="st__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
 </div>
-      <form class="fm st__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1"><fieldset class="fm__choice">
+    </div>
+    <form class="fm stc__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1"><fieldset class="fm__choice">
   <legend>Что хотите запустить</legend>
   <div class="fm__opts">
     <label class="fm__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
@@ -595,7 +637,6 @@
 <p class="fm__ok" role="status" tabindex="-1" hidden>Спасибо! Сайт пока в&nbsp;разработке, поэтому заявка никуда не&nbsp;ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
 <p class="stub">Заглушка: форма пока не отправляет заявки</p>
 </form>
-    </div>
   </div>
 </section>
 
@@ -607,7 +648,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -650,6 +691,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Разобрать профиль</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/pages.js" defer></script>
+<script src="../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

@@ -27,7 +27,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/pages.css">
+<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -151,20 +152,29 @@
 </div>
 
 <main id="main">
-<section class="ph ph--type" id="intro" data-sec="hero">
+
+<section class="ph phs" id="intro" data-sec="hero">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки">
+    <div class="phs__grid">
+      <div class="phs__text">
+        <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
     <li><span aria-current="page">Блог</span></li>
   </ol>
 </nav>
 
-    <h1 class="ph__h" data-rv>Блог о&nbsp;маркетинге стоматологий</h1>
-    <div class="ph__foot">
-      <p class="ph__lead" data-rv style="--d:1">Разбираем вопросы владельцев клиник и&nbsp;главных врачей: какая реклама работает, откуда приходят пациенты, что закон требует от&nbsp;рекламы и&nbsp;сайта и&nbsp;как не&nbsp;терять обращения после рекламы.</p>
-      <div data-rv style="--d:2"><div class="ph__acts">
+        <h1 class="ph__h phs__h" data-rv>Блог о&nbsp;маркетинге стоматологий</h1>
+        <p class="ph__lead phs__lead" data-rv style="--d:1">Разбираем вопросы владельцев клиник и&nbsp;главных врачей: какая реклама работает, откуда приходят пациенты, что закон требует от&nbsp;рекламы и&nbsp;сайта и&nbsp;как не&nbsp;терять обращения после рекламы.</p>
+        <div data-rv style="--d:2"><div class="ph__acts">
   <a href="#start" class="btn" data-magnetic data-pick="unsure">Задать свой вопрос</a>
+</div>
+</div>
+      </div>
+      <div class="phs__stage"><div class="ha ha--blog" aria-hidden="true">
+  <div class="ha__c ha__c--a ha__post" data-rv style="--d:2"><span class="ha__k">Статья</span><b class="ha__t">Реклама стоматологии: каналы, примеры, тексты</b><i class="ha__l" style="--w:90%"></i><i class="ha__l" style="--w:64%"></i></div>
+  <div class="ha__c ha__c--b ha__post" data-rv style="--d:3"><span class="ha__k">Статья</span><b class="ha__t">Яндекс Бизнес для&nbsp;клиники</b><i class="ha__l" style="--w:86%"></i><i class="ha__l" style="--w:58%"></i></div>
+  <div class="ha__c ha__c--c ha__post" data-rv style="--d:4"><span class="ha__k">Статья</span><b class="ha__t">Закон о&nbsp;рекламе медицинских услуг</b><i class="ha__l" style="--w:88%"></i><i class="ha__l" style="--w:50%"></i></div>
 </div>
 </div>
     </div>
@@ -174,7 +184,7 @@
 
 
 
-<section class="sec lk-links-rows sec--fog" id="ads" data-sec="links">
+<section class="sec lk-links-photo sec--fog" id="ads" data-sec="links">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -183,12 +193,32 @@
   <p class="sh__note" data-rv style="--d:1">Какие каналы приводят пациентов, что писать в&nbsp;объявлениях и&nbsp;чем клиника отличается от&nbsp;соседних.</p>
 </div>
 
-    <ul class="lnr">
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/reklama-stomatologii/">Реклама стоматологии: каналы, примеры, тексты</a></h3><p>Какие каналы приводят пациентов, как написать объявление и&nbsp;куда его вести. С&nbsp;примерами текстов для имплантации, <span class="nw">All-on-4</span> и&nbsp;брекетов.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/kak-privlech-pacientov-v-stomatologiyu/">Как привлечь пациентов в&nbsp;стоматологию</a></h3><p>Пять шагов: от&nbsp;порядка в&nbsp;карточке и&nbsp;на&nbsp;сайте до&nbsp;рекламы, звонков и&nbsp;отзывов. Что делать новой клинике и&nbsp;клинике со&nbsp;стажем.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/akcii-dlya-stomatologii/">Акции для стоматологии</a></h3><p>Какие акции приводят пациентов, какие только снижают цену и&nbsp;что закон требует от&nbsp;рекламы скидок.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/utp-stomatologii/">УТП стоматологии</a></h3><p>Целевая аудитория, разбор конкурентов и&nbsp;позиционирование. Примеры слабых и&nbsp;сильных формулировок.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/socseti-stomatologii/">Соцсети стоматологии</a></h3><p>О&nbsp;чём писать посты, как составить контент-план и&nbsp;какие требования у&nbsp;рекламы в&nbsp;ВК.</p><span class="lnr__go" aria-hidden="true"></span></li>
+    <ul class="likp" data-n="5">
+      <li class="likp__i" data-rv style="--d:0">
+        <div class="likp__img"><img src="../assets/img/pages/blog-reklama-640.webp" srcset="../assets/img/pages/blog-reklama-640.webp 640w, ../assets/img/pages/blog-reklama-1000.webp 1000w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 62vw" width="1600" height="901" alt="" loading="lazy" decoding="async"></div>
+        <h3 class="likp__h"><a class="likp__a" href="../blog/reklama-stomatologii/">Реклама стоматологии: каналы, примеры, тексты</a></h3>
+        <p>Какие каналы приводят пациентов, как написать объявление и&nbsp;куда его вести. С&nbsp;примерами текстов для имплантации, <span class="nw">All-on-4</span> и&nbsp;брекетов.</p>
+      </li>
+      <li class="likp__i" data-rv style="--d:1">
+        <div class="likp__img"><img src="../assets/img/pages/blog-privlech-640.webp" srcset="../assets/img/pages/blog-privlech-640.webp 640w, ../assets/img/pages/blog-privlech-1000.webp 1000w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 32vw" width="1600" height="917" alt="" loading="lazy" decoding="async"></div>
+        <h3 class="likp__h"><a class="likp__a" href="../blog/kak-privlech-pacientov-v-stomatologiyu/">Как привлечь пациентов в&nbsp;стоматологию</a></h3>
+        <p>Пять шагов: от&nbsp;порядка в&nbsp;карточке и&nbsp;на&nbsp;сайте до&nbsp;рекламы, звонков и&nbsp;отзывов. Что делать новой клинике и&nbsp;клинике со&nbsp;стажем.</p>
+      </li>
+      <li class="likp__i" data-rv style="--d:2">
+        <div class="likp__img"><img src="../assets/img/pages/blog-akcii-640.webp" srcset="../assets/img/pages/blog-akcii-640.webp 640w, ../assets/img/pages/blog-akcii-1000.webp 1000w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 32vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"></div>
+        <h3 class="likp__h"><a class="likp__a" href="../blog/akcii-dlya-stomatologii/">Акции для стоматологии</a></h3>
+        <p>Какие акции приводят пациентов, какие только снижают цену и&nbsp;что закон требует от&nbsp;рекламы скидок.</p>
+      </li>
+      <li class="likp__i" data-rv style="--d:0">
+        <div class="likp__img"><img src="../assets/img/pages/blog-utp-640.webp" srcset="../assets/img/pages/blog-utp-640.webp 640w, ../assets/img/pages/blog-utp-1000.webp 1000w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 32vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"></div>
+        <h3 class="likp__h"><a class="likp__a" href="../blog/utp-stomatologii/">УТП стоматологии</a></h3>
+        <p>Целевая аудитория, разбор конкурентов и&nbsp;позиционирование. Примеры слабых и&nbsp;сильных формулировок.</p>
+      </li>
+      <li class="likp__i" data-rv style="--d:1">
+        <div class="likp__img"><img src="../assets/img/pages/blog-socseti-640.webp" srcset="../assets/img/pages/blog-socseti-640.webp 640w, ../assets/img/pages/blog-socseti-1000.webp 1000w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 32vw" width="1600" height="1067" alt="" loading="lazy" decoding="async"></div>
+        <h3 class="likp__h"><a class="likp__a" href="../blog/socseti-stomatologii/">Соцсети стоматологии</a></h3>
+        <p>О&nbsp;чём писать посты, как составить контент-план и&nbsp;какие требования у&nbsp;рекламы в&nbsp;ВК.</p>
+      </li>
     </ul>
     
   </div>
@@ -196,7 +226,7 @@
 
 
 
-<section class="sec lk-links-rows" id="maps" data-sec="links">
+<section class="sec lk-links-big" id="maps" data-sec="links">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -205,9 +235,9 @@
   <p class="sh__note" data-rv style="--d:1">Что пациент видит, когда проверяет клинику перед записью.</p>
 </div>
 
-    <ul class="lnr">
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/yandex-biznes-dlya-kliniki/">Яндекс Бизнес для клиники</a></h3><p>Карточка организации, товары и&nbsp;услуги, как формируется рейтинг и&nbsp;что даёт рекламная подписка.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/kak-otvechat-na-otzyvy-pacientov/">Как отвечать на&nbsp;отзывы пациентов</a></h3><p>Примеры ответов на&nbsp;положительные и&nbsp;отрицательные отзывы и&nbsp;что нельзя писать из-за врачебной тайны.</p><span class="lnr__go" aria-hidden="true"></span></li>
+    <ul class="likb">
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../blog/yandex-biznes-dlya-kliniki/"><span>Яндекс Бизнес для клиники</span></a></h3><p>Карточка организации, товары и&nbsp;услуги, как формируется рейтинг и&nbsp;что даёт рекламная подписка.</p></li>
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../blog/kak-otvechat-na-otzyvy-pacientov/"><span>Как отвечать на&nbsp;отзывы пациентов</span></a></h3><p>Примеры ответов на&nbsp;положительные и&nbsp;отрицательные отзывы и&nbsp;что нельзя писать из-за врачебной тайны.</p></li>
     </ul>
     
   </div>
@@ -215,7 +245,7 @@
 
 
 
-<section class="sec lk-links-rows sec--fog" id="law" data-sec="links">
+<section class="sec sec--dark dark lk-links-dark" id="law" data-sec="links">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -224,9 +254,9 @@
   <p class="sh__note" data-rv style="--d:1">Статьи о&nbsp;законах сверены с&nbsp;редакциями, которые действуют в&nbsp;ноябре 2026&nbsp;года.</p>
 </div>
 
-    <ul class="lnr">
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/zakon-o-reklame-medicinskih-uslug/">Закон о&nbsp;рекламе медицинских услуг</a></h3><p>Лицензия, предупреждение о&nbsp;противопоказаниях, запрещённые формулировки, маркировка и&nbsp;штрафы. Проверочный список перед запуском.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/trebovaniya-k-sajtu-medorganizacii/">Требования к&nbsp;сайту медицинской организации</a></h3><p>Какие сведения должны быть на&nbsp;сайте клиники: лицензия, цены, врачи, персональные данные. Список для проверки.</p><span class="lnr__go" aria-hidden="true"></span></li>
+    <ul class="likd">
+      <li class="likd__i" data-rv style="--d:0"><h3 class="likd__h"><a class="likd__a" href="../blog/zakon-o-reklame-medicinskih-uslug/">Закон о&nbsp;рекламе медицинских услуг</a></h3><p>Лицензия, предупреждение о&nbsp;противопоказаниях, запрещённые формулировки, маркировка и&nbsp;штрафы. Проверочный список перед запуском.</p><span class="likd__go" aria-hidden="true"></span></li>
+      <li class="likd__i" data-rv style="--d:1"><h3 class="likd__h"><a class="likd__a" href="../blog/trebovaniya-k-sajtu-medorganizacii/">Требования к&nbsp;сайту медицинской организации</a></h3><p>Какие сведения должны быть на&nbsp;сайте клиники: лицензия, цены, врачи, персональные данные. Список для проверки.</p><span class="likd__go" aria-hidden="true"></span></li>
     </ul>
     
   </div>
@@ -256,7 +286,7 @@
 
 
 
-<section class="sec lk-links-rows sec--fog" id="opening" data-sec="links">
+<section class="sec lk-links-cards sec--fog" id="opening" data-sec="links">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -265,10 +295,10 @@
   <p class="sh__note" data-rv style="--d:1">Решения первых месяцев, которые потом помогают или мешают привлекать пациентов.</p>
 </div>
 
-    <ul class="lnr">
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/kak-otkryt-stomatologiyu/">Как открыть стоматологию с&nbsp;нуля</a></h3><p>Пошаговый план, лицензия, требования к&nbsp;помещению, статьи бюджета и&nbsp;маркетинг к&nbsp;открытию.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/nazvanie-dlya-stomatologii/">Название стоматологии</a></h3><p>Пять подходов к&nbsp;названию, чего избегать и&nbsp;что проверить до&nbsp;заказа вывески.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../blog/brend-i-vyveska-stomatologii/">Бренд стоматологии: логотип, стиль, вывеска</a></h3><p>Из&nbsp;чего состоит бренд клиники и&nbsp;где проходит граница между вывеской и&nbsp;рекламой.</p><span class="lnr__go" aria-hidden="true"></span></li>
+    <ul class="likc">
+      <li class="likc__i" data-rv style="--d:0"><h3 class="likc__h"><a class="likc__a" href="../blog/kak-otkryt-stomatologiyu/">Как открыть стоматологию с&nbsp;нуля</a></h3><p>Пошаговый план, лицензия, требования к&nbsp;помещению, статьи бюджета и&nbsp;маркетинг к&nbsp;открытию.</p><span class="likc__bar" aria-hidden="true"></span></li>
+      <li class="likc__i" data-rv style="--d:1"><h3 class="likc__h"><a class="likc__a" href="../blog/nazvanie-dlya-stomatologii/">Название стоматологии</a></h3><p>Пять подходов к&nbsp;названию, чего избегать и&nbsp;что проверить до&nbsp;заказа вывески.</p><span class="likc__bar" aria-hidden="true"></span></li>
+      <li class="likc__i" data-rv style="--d:2"><h3 class="likc__h"><a class="likc__a" href="../blog/brend-i-vyveska-stomatologii/">Бренд стоматологии: логотип, стиль, вывеска</a></h3><p>Из&nbsp;чего состоит бренд клиники и&nbsp;где проходит граница между вывеской и&nbsp;рекламой.</p><span class="likc__bar" aria-hidden="true"></span></li>
     </ul>
     
   </div>
@@ -277,12 +307,12 @@
 
 
 
-<section class="sec sec--azure st st--form" id="start" data-sec="start">
-  <div class="wrap">
-    <p class="label" data-rv="fade">Заявка</p>
-    <h2 class="h2 st__h" data-rv>Остался вопрос? Разберём на&nbsp;примере вашей клиники</h2>
-    <div class="st__grid">
-      <div class="st__text" data-rv><p class="st__lead">Посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;первого теста в&nbsp;Директе или с&nbsp;сайта и&nbsp;Карт.</p>
+<section class="sec sec--dark dark st stc" id="start" data-sec="start">
+  <div class="wrap stc__grid">
+    <div class="stc__text">
+      <p class="label" data-rv="fade">Заявка</p>
+      <h2 class="h2 stc__h" data-rv>Остался вопрос? Разберём на&nbsp;примере вашей клиники</h2>
+      <div data-rv style="--d:1"><p class="st__lead">Посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;первого теста в&nbsp;Директе или с&nbsp;сайта и&nbsp;Карт.</p>
 <ul class="ticks st__items">
   <li>Первый тест в&nbsp;Директе: комиссия агентства 0&nbsp;₽, бюджет вы&nbsp;вносите Яндексу</li>
   <li>Сайт и&nbsp;Яндекс Карты: старт 80&nbsp;000&nbsp;₽, сайт входит в&nbsp;эту сумму</li>
@@ -290,7 +320,8 @@
 </ul>
 <p class="st__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
 </div>
-      <form class="fm st__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1"><fieldset class="fm__choice">
+    </div>
+    <form class="fm stc__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1"><fieldset class="fm__choice">
   <legend>Что хотите запустить</legend>
   <div class="fm__opts">
     <label class="fm__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
@@ -323,7 +354,6 @@
 <p class="fm__ok" role="status" tabindex="-1" hidden>Спасибо! Сайт пока в&nbsp;разработке, поэтому заявка никуда не&nbsp;ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
 <p class="stub">Заглушка: форма пока не&nbsp;отправляет заявки</p>
 </form>
-    </div>
   </div>
 </section>
 
@@ -335,7 +365,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -378,6 +408,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Разобрать клинику</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/pages.js" defer></script>
+<script src="../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

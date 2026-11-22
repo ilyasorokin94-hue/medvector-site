@@ -27,7 +27,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/pages.css">
+<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -256,9 +257,12 @@
 </div>
 
 <main id="main">
-<section class="ph ph--type" id="intro" data-sec="hero">
+
+<section class="ph phs" id="intro" data-sec="hero">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки">
+    <div class="phs__grid">
+      <div class="phs__text">
+        <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
     <li><a href="../kompleksnyj-marketing/">Комплексный маркетинг</a></li>
@@ -266,12 +270,29 @@
   </ol>
 </nav>
 
-    <h1 class="ph__h" data-rv>Разработка сайта для стоматологической клиники</h1>
-    <div class="ph__foot">
-      <p class="ph__lead" data-rv style="--d:1">Создаём сайт для клиники с&nbsp;нуля или переделываем старый: семантическое ядро, отдельная страница на&nbsp;каждую услугу, врачи, цены и&nbsp;запись. Оформляем по&nbsp;требованиям к&nbsp;сайтам медицинских организаций. Сайт и&nbsp;домен принадлежат клинике.</p>
-      <div data-rv style="--d:2"><div class="ph__acts">
+        <h1 class="ph__h phs__h" data-rv>Разработка сайта для стоматологической клиники</h1>
+        <p class="ph__lead phs__lead" data-rv style="--d:1">Создаём сайт для клиники с&nbsp;нуля или переделываем старый: семантическое ядро, отдельная страница на&nbsp;каждую услугу, врачи, цены и&nbsp;запись. Оформляем по&nbsp;требованиям к&nbsp;сайтам медицинских организаций. Сайт и&nbsp;домен принадлежат клинике.</p>
+        <div data-rv style="--d:2"><div class="ph__acts">
   <a href="#start" class="btn" data-magnetic data-pick="site">Обсудить сайт</a>
   <a href="#included" class="link">Что входит в сайт</a>
+</div>
+</div>
+      </div>
+      <div class="phs__stage"><div class="ha ha--sajt-dlya-stomatologii" aria-hidden="true">
+  <div class="ha__c ha__c--a ha__br" data-rv style="--d:2">
+    <span class="ha__bar"><i></i><i></i><i></i><span>demo-klinika.ru</span></span>
+    <span class="ha__nav"><b>Стоматология «Демо»</b><span>Услуги</span><span>Врачи</span><span>Цены</span></span>
+    <b class="ha__big">Стоматология для&nbsp;всей семьи</b>
+    <span class="ha__p">Лечение, имплантация, протезирование. Цены на&nbsp;сайте</span>
+    <span class="ha__btn">Записаться онлайн</span>
+    <span class="ha__tiles"><span>Имплантация</span><span>All-on-4</span><span>Коронки и&nbsp;виниры</span></span>
+  </div>
+  <div class="ha__c ha__c--b ha__pn" data-rv style="--d:3">
+    <span class="ha__k ha__dot">Стоматология «Демо»</span>
+    <b class="ha__t">Стоматология рядом с&nbsp;домом</b>
+    <span class="ha__btn">Записаться</span>
+    <span class="ha__rowc">Услуги и&nbsp;цены</span><span class="ha__rowc">Врачи</span><span class="ha__rowc">Отзывы с&nbsp;площадок</span><span class="ha__rowc">Как добраться</span>
+  </div>
 </div>
 </div>
     </div>
@@ -334,7 +355,7 @@
 
 
 
-<section class="sec lk-loss-rows" id="best" data-sec="loss">
+<section class="sec lk-loss-strip" id="best" data-sec="loss">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -343,26 +364,31 @@
   <p class="sh__note" data-rv style="--d:1">По&nbsp;этим признакам можно проверить и&nbsp;свой сайт. Примеры сайтов стоматологий и&nbsp;клиник покажем на&nbsp;разборе и&nbsp;скажем, что из&nbsp;них подойдёт вам.</p>
 </div>
 
-    <ol class="lr">
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">У&nbsp;каждой услуги своя страница</h3><p>На&nbsp;слабом сайте имплантация, брекеты и&nbsp;лечение описаны одним списком. На&nbsp;сильном у&nbsp;каждой услуги отдельная страница: её&nbsp;находит поиск, и&nbsp;на&nbsp;неё можно вести рекламу.</p></div>
-        <p class="lr__fix"><small>Как делаем</small>Список страниц собираем по&nbsp;запросам пациентов вашего города.</p>
+    <ol class="lost" tabindex="0" aria-label="Чем отличаются лучшие сайты стоматологий" data-rv="fade">
+      <li class="lost__i">
+        <h3 class="h3">У&nbsp;каждой услуги своя страница</h3>
+        <p class="lost__ex">На&nbsp;слабом сайте имплантация, брекеты и&nbsp;лечение описаны одним списком. На&nbsp;сильном у&nbsp;каждой услуги отдельная страница: её&nbsp;находит поиск, и&nbsp;на&nbsp;неё можно вести рекламу.</p>
+        <p class="lost__fix"><small>Как делаем</small>Список страниц собираем по&nbsp;запросам пациентов вашего города.</p>
       </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Цена видна сразу</h3><p>Пациент сравнивает три или четыре клиники. Если на&nbsp;странице написано «цену уточняйте по&nbsp;телефону», он&nbsp;уходит туда, где цена указана.</p></div>
-        <p class="lr__fix"><small>Как делаем</small>Показываем цену по&nbsp;этапам. Прайс ведётся в&nbsp;одном месте и&nbsp;не&nbsp;расходится со&nbsp;страницами услуг.</p>
+      <li class="lost__i">
+        <h3 class="h3">Цена видна сразу</h3>
+        <p class="lost__ex">Пациент сравнивает три или четыре клиники. Если на&nbsp;странице написано «цену уточняйте по&nbsp;телефону», он&nbsp;уходит туда, где цена указана.</p>
+        <p class="lost__fix"><small>Как делаем</small>Показываем цену по&nbsp;этапам. Прайс ведётся в&nbsp;одном месте и&nbsp;не&nbsp;расходится со&nbsp;страницами услуг.</p>
       </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Понятно, кто будет лечить</h3><p>Фото врача, образование, стаж и&nbsp;документы. Для пациента это главный довод, для поиска признак того, что медицинскому тексту можно верить.</p></div>
-        <p class="lr__fix"><small>Как делаем</small>Делаем страницу каждого врача и&nbsp;связываем её&nbsp;с&nbsp;услугами, которые он&nbsp;оказывает.</p>
+      <li class="lost__i">
+        <h3 class="h3">Понятно, кто будет лечить</h3>
+        <p class="lost__ex">Фото врача, образование, стаж и&nbsp;документы. Для пациента это главный довод, для поиска признак того, что медицинскому тексту можно верить.</p>
+        <p class="lost__fix"><small>Как делаем</small>Делаем страницу каждого врача и&nbsp;связываем её&nbsp;с&nbsp;услугами, которые он&nbsp;оказывает.</p>
       </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Записаться можно за&nbsp;минуту с&nbsp;телефона</h3><p>Большинство пациентов открывают сайт с&nbsp;телефона. Длинная форма, мелкие кнопки и&nbsp;медленная загрузка стоят клинике заявок.</p></div>
-        <p class="lr__fix"><small>Как делаем</small>Короткая форма, кнопка звонка и&nbsp;мессенджеры на&nbsp;каждом экране. Скорость проверяем на&nbsp;телефоне.</p>
+      <li class="lost__i">
+        <h3 class="h3">Записаться можно за&nbsp;минуту с&nbsp;телефона</h3>
+        <p class="lost__ex">Большинство пациентов открывают сайт с&nbsp;телефона. Длинная форма, мелкие кнопки и&nbsp;медленная загрузка стоят клинике заявок.</p>
+        <p class="lost__fix"><small>Как делаем</small>Короткая форма, кнопка звонка и&nbsp;мессенджеры на&nbsp;каждом экране. Скорость проверяем на&nbsp;телефоне.</p>
       </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Есть сведения, которые требует закон</h3><p>Лицензия, реквизиты, цены, сведения о&nbsp;врачах и&nbsp;контакты контролирующих органов. Их&nbsp;отсутствие это и&nbsp;риск при проверке, и&nbsp;минус к&nbsp;доверию.</p></div>
-        <p class="lr__fix"><small>Как делаем</small>Собираем обязательные разделы по&nbsp;списку, перечень смотрит юрист.</p>
+      <li class="lost__i">
+        <h3 class="h3">Есть сведения, которые требует закон</h3>
+        <p class="lost__ex">Лицензия, реквизиты, цены, сведения о&nbsp;врачах и&nbsp;контакты контролирующих органов. Их&nbsp;отсутствие это и&nbsp;риск при проверке, и&nbsp;минус к&nbsp;доверию.</p>
+        <p class="lost__fix"><small>Как делаем</small>Собираем обязательные разделы по&nbsp;списку, перечень смотрит юрист.</p>
       </li>
     </ol>
     
@@ -371,7 +397,7 @@
 
 
 
-<section class="sec lk-spec-grid sec--fog" id="law" data-sec="spec">
+<section class="sec lk-spec-sheet sec--fog" id="law" data-sec="spec">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -380,14 +406,16 @@
   <p class="sh__note" data-rv style="--d:1">Сайты клиник проверяют Росздравнадзор и&nbsp;Роскомнадзор. Перечень обязательных сведений перед публикацией смотрит юрист.</p>
 </div>
 
-    <ul class="sg">
-      <li data-rv style="--d:0"><h3 class="sg__h">Лицензия</h3><p>Номер, дата, орган, который её&nbsp;выдал, и&nbsp;перечень работ и&nbsp;услуг. Копия лицензии доступна на&nbsp;сайте.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Сведения о&nbsp;клинике</h3><p>Полное название, адрес, ОГРН, режим работы, контакты контролирующих органов.</p></li>
-      <li data-rv style="--d:0"><h3 class="sg__h">Услуги и&nbsp;цены</h3><p>Перечень платных услуг с&nbsp;ценами и&nbsp;условиями их&nbsp;оказания.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Врачи</h3><p>Образование, квалификация и&nbsp;документы каждого врача, график приёма.</p></li>
-      <li data-rv style="--d:0"><h3 class="sg__h">Предупреждение</h3><p>О&nbsp;противопоказаниях и&nbsp;необходимости консультации специалиста там, где сайт рекламирует услуги.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Персональные данные</h3><p>Политика обработки данных и&nbsp;согласие в&nbsp;формах по&nbsp;закону о&nbsp;персональных данных.</p></li>
-    </ul>
+    <div class="spck" data-rv="fade">
+      <ul class="spck__list">
+        <li class="spck__i" style="--n:0"><span class="spck__box" aria-hidden="true"></span><div><h3 class="spck__h">Лицензия</h3><p>Номер, дата, орган, который её&nbsp;выдал, и&nbsp;перечень работ и&nbsp;услуг. Копия лицензии доступна на&nbsp;сайте.</p></div></li>
+        <li class="spck__i" style="--n:1"><span class="spck__box" aria-hidden="true"></span><div><h3 class="spck__h">Сведения о&nbsp;клинике</h3><p>Полное название, адрес, ОГРН, режим работы, контакты контролирующих органов.</p></div></li>
+        <li class="spck__i" style="--n:2"><span class="spck__box" aria-hidden="true"></span><div><h3 class="spck__h">Услуги и&nbsp;цены</h3><p>Перечень платных услуг с&nbsp;ценами и&nbsp;условиями их&nbsp;оказания.</p></div></li>
+        <li class="spck__i" style="--n:3"><span class="spck__box" aria-hidden="true"></span><div><h3 class="spck__h">Врачи</h3><p>Образование, квалификация и&nbsp;документы каждого врача, график приёма.</p></div></li>
+        <li class="spck__i" style="--n:4"><span class="spck__box" aria-hidden="true"></span><div><h3 class="spck__h">Предупреждение</h3><p>О&nbsp;противопоказаниях и&nbsp;необходимости консультации специалиста там, где сайт рекламирует услуги.</p></div></li>
+        <li class="spck__i" style="--n:5"><span class="spck__box" aria-hidden="true"></span><div><h3 class="spck__h">Персональные данные</h3><p>Политика обработки данных и&nbsp;согласие в&nbsp;формах по&nbsp;закону о&nbsp;персональных данных.</p></div></li>
+      </ul>
+    </div>
     <p class="own" data-rv>Полный перечень с&nbsp;названиями документов разобрали в&nbsp;статье <a href="../blog/trebovaniya-k-sajtu-medorganizacii/">Требования к&nbsp;сайту медицинской организации</a>.</p>
 
   </div>
@@ -395,60 +423,52 @@
 
 
 
-<section class="sec lk-steps-line" id="stages" data-sec="steps">
-  <div class="wrap">
-    <div class="sh">
-  <div>
-    <h2 class="h2" data-rv>Этапы работы: каждый вы&nbsp;утверждаете</h2>
-  </div>
-  <p class="sh__note" data-rv style="--d:1">К&nbsp;следующему этапу переходим после вашего согласия. Так в&nbsp;готовом сайте нет неожиданностей.</p>
+<section class="sec lk-steps-rail" id="stages" data-sec="steps" data-look="steps-rail">
+  <div class="wrap stpr">
+    <div class="stpr__head">
+  <h2 class="h2" data-rv>Этапы работы: каждый вы&nbsp;утверждаете</h2>
+  <p class="stpr__head-note" data-rv style="--d:1">К&nbsp;следующему этапу переходим после вашего согласия. Так в&nbsp;готовом сайте нет неожиданностей.</p>
 </div>
 
-    <ol class="sl sl--6" data-rv="fade">
-      <li class="sl__i" style="--i:0">
-        <span class="sl__top"><b class="sl__n">1</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Разбор и&nbsp;структура</h3>
-        <p>Смотрим клинику, конкурентов и&nbsp;запросы пациентов. Вы&nbsp;утверждаете список страниц.</p>
+    <ol class="stpr__list" data-prog data-prog-hook="stpr">
+      <li class="stpr__i" data-rv style="--d:0">
+        
+        <h3 class="stpr__h">Разбор и&nbsp;структура</h3>
+        <p class="stpr__p">Смотрим клинику, конкурентов и&nbsp;запросы пациентов. Вы&nbsp;утверждаете список страниц.</p>
       </li>
-      <li class="sl__i" style="--i:1">
-        <span class="sl__top"><b class="sl__n">2</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Тексты и&nbsp;прототип</h3>
-        <p>Пишем тексты услуг и&nbsp;собираем прототип страниц. Вы&nbsp;проверяете цены, врачей и&nbsp;формулировки.</p>
+      <li class="stpr__i" data-rv style="--d:1">
+        
+        <h3 class="stpr__h">Тексты и&nbsp;прототип</h3>
+        <p class="stpr__p">Пишем тексты услуг и&nbsp;собираем прототип страниц. Вы&nbsp;проверяете цены, врачей и&nbsp;формулировки.</p>
       </li>
-      <li class="sl__i" style="--i:2">
-        <span class="sl__top"><b class="sl__n">3</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Дизайн</h3>
-        <p>Рисуем главную и&nbsp;страницу услуги в&nbsp;стиле клиники. Правки вносим до&nbsp;вёрстки.</p>
+      <li class="stpr__i" data-rv style="--d:0">
+        
+        <h3 class="stpr__h">Дизайн</h3>
+        <p class="stpr__p">Рисуем главную и&nbsp;страницу услуги в&nbsp;стиле клиники. Правки вносим до&nbsp;вёрстки.</p>
       </li>
-      <li class="sl__i" style="--i:3">
-        <span class="sl__top"><b class="sl__n">4</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Вёрстка и&nbsp;наполнение</h3>
-        <p>Собираем сайт, переносим прайс, врачей и&nbsp;фото, подключаем формы и&nbsp;Метрику.</p>
+      <li class="stpr__i" data-rv style="--d:1">
+        
+        <h3 class="stpr__h">Вёрстка и&nbsp;наполнение</h3>
+        <p class="stpr__p">Собираем сайт, переносим прайс, врачей и&nbsp;фото, подключаем формы и&nbsp;Метрику.</p>
       </li>
-      <li class="sl__i" style="--i:4">
-        <span class="sl__top"><b class="sl__n">5</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Проверка и&nbsp;запуск</h3>
-        <p>Проверяем сайт на&nbsp;телефонах, обязательные сведения и&nbsp;скорость. Публикуем на&nbsp;домене клиники.</p>
+      <li class="stpr__i" data-rv style="--d:0">
+        
+        <h3 class="stpr__h">Проверка и&nbsp;запуск</h3>
+        <p class="stpr__p">Проверяем сайт на&nbsp;телефонах, обязательные сведения и&nbsp;скорость. Публикуем на&nbsp;домене клиники.</p>
       </li>
-      <li class="sl__i" style="--i:5">
-        <span class="sl__top"><b class="sl__n">6</b></span>
-        <span class="sl__bar" aria-hidden="true"><i></i></span>
-        <h3 class="sl__h">Передача</h3>
-        <p>Домен, хостинг и&nbsp;доступы оформлены на&nbsp;клинику. Даём инструкцию, как менять цены и&nbsp;врачей.</p>
+      <li class="stpr__i" data-rv style="--d:1">
+        
+        <h3 class="stpr__h">Передача</h3>
+        <p class="stpr__p">Домен, хостинг и&nbsp;доступы оформлены на&nbsp;клинику. Даём инструкцию, как менять цены и&nbsp;врачей.</p>
       </li>
     </ol>
-    
   </div>
+  <div class="wrap"></div>
 </section>
 
 
 
-<section class="sec lk-cmp-table sec--fog" id="compare" data-sec="cmp">
+<section class="sec lk-cmp-cards sec--fog" id="compare" data-sec="cmp">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -457,18 +477,31 @@
   <p class="sh__note" data-rv style="--d:1">Три способа получить сайт клиники. Названий компаний здесь нет.</p>
 </div>
 
-    <div class="ct-wrap" data-rv>
-      <table class="ct ct--3">
-        <caption class="sr">Сравнение способов получить сайт клиники</caption>
-        <thead><tr><td></td><th scope="col">Аренда шаблона</th><th scope="col">Сайт в&nbsp;студии</th><th scope="col">МедВектор</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Сколько стоит</th><td data-label="Аренда шаблона">Абонентская плата каждый месяц</td><td data-label="Сайт в студии">Отдельный проект со&nbsp;своей сметой</td><td data-label="МедВектор">Входит в&nbsp;пакет комплексного маркетинга. Только сайт считаем по&nbsp;заявке</td></tr>
-          <tr><th scope="row">Чей сайт</th><td data-label="Аренда шаблона">Остаётся у&nbsp;подрядчика, пока вы&nbsp;платите</td><td data-label="Сайт в студии">Ваш</td><td data-label="МедВектор">Ваш, с&nbsp;полными правами после оплаты</td></tr>
-          <tr><th scope="row">Сколько ждать</th><td data-label="Аренда шаблона">Быстро, это готовый шаблон</td><td data-label="Сайт в студии">Обычно несколько месяцев</td><td data-label="МедВектор">Первый месяц пакета</td></tr>
-          <tr><th scope="row">Продвижение</th><td data-label="Аренда шаблона">Чаще за&nbsp;доплату</td><td data-label="Сайт в студии">Отдельный договор</td><td data-label="МедВектор">Поиск, Карты и&nbsp;площадки входят в&nbsp;пакет</td></tr>
-          <tr><th scope="row">Требования к&nbsp;медицинскому сайту</th><td data-label="Аренда шаблона">Зависит от&nbsp;шаблона</td><td data-label="Сайт в студии">Зависит от&nbsp;студии</td><td data-label="МедВектор">Проверяем по&nbsp;списку, перечень смотрит юрист</td></tr>
-        </tbody>
-      </table>
+    <div class="cc cc--3" role="group" aria-label="Сравнение способов получить сайт клиники">
+      <article class="cc__card" style="grid-row: span 6; --d: 0" data-rv>
+        <h3 class="cc__h">Аренда шаблона</h3>
+        <div class="cc__row"><p class="cc__k">Сколько стоит</p><p class="cc__v">Абонентская плата каждый месяц</p></div>
+        <div class="cc__row"><p class="cc__k">Чей сайт</p><p class="cc__v">Остаётся у&nbsp;подрядчика, пока вы&nbsp;платите</p></div>
+        <div class="cc__row"><p class="cc__k">Сколько ждать</p><p class="cc__v">Быстро, это готовый шаблон</p></div>
+        <div class="cc__row"><p class="cc__k">Продвижение</p><p class="cc__v">Чаще за&nbsp;доплату</p></div>
+        <div class="cc__row"><p class="cc__k">Требования к&nbsp;медицинскому сайту</p><p class="cc__v">Зависит от&nbsp;шаблона</p></div>
+      </article>
+      <article class="cc__card" style="grid-row: span 6; --d: 1" data-rv>
+        <h3 class="cc__h">Сайт в&nbsp;студии</h3>
+        <div class="cc__row"><p class="cc__k">Сколько стоит</p><p class="cc__v">Отдельный проект со&nbsp;своей сметой</p></div>
+        <div class="cc__row"><p class="cc__k">Чей сайт</p><p class="cc__v">Ваш</p></div>
+        <div class="cc__row"><p class="cc__k">Сколько ждать</p><p class="cc__v">Обычно несколько месяцев</p></div>
+        <div class="cc__row"><p class="cc__k">Продвижение</p><p class="cc__v">Отдельный договор</p></div>
+        <div class="cc__row"><p class="cc__k">Требования к&nbsp;медицинскому сайту</p><p class="cc__v">Зависит от&nbsp;студии</p></div>
+      </article>
+      <article class="cc__card cc__card--key" style="grid-row: span 6; --d: 2" data-rv>
+        <h3 class="cc__h">МедВектор</h3>
+        <div class="cc__row"><p class="cc__k">Сколько стоит</p><p class="cc__v">Входит в&nbsp;пакет комплексного маркетинга. Только сайт считаем по&nbsp;заявке</p></div>
+        <div class="cc__row"><p class="cc__k">Чей сайт</p><p class="cc__v">Ваш, с&nbsp;полными правами после оплаты</p></div>
+        <div class="cc__row"><p class="cc__k">Сколько ждать</p><p class="cc__v">Первый месяц пакета</p></div>
+        <div class="cc__row"><p class="cc__k">Продвижение</p><p class="cc__v">Поиск, Карты и&nbsp;площадки входят в&nbsp;пакет</p></div>
+        <div class="cc__row"><p class="cc__k">Требования к&nbsp;медицинскому сайту</p><p class="cc__v">Проверяем по&nbsp;списку, перечень смотрит юрист</p></div>
+      </article>
     </div>
     
   </div>
@@ -476,7 +509,7 @@
 
 
 
-<section class="sec lk-links-rows" id="together" data-sec="links">
+<section class="sec lk-links-big" id="together" data-sec="links">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -485,10 +518,10 @@
   <p class="sh__note" data-rv style="--d:1">Сайт сам по&nbsp;себе пациентов не&nbsp;приводит. Людей на&nbsp;него ведут реклама, поиск и&nbsp;карточки клиники.</p>
 </div>
 
-    <ul class="lnr">
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../yandex-direkt/">Лендинг под услугу для рекламы</a></h3><p>Для Яндекс Директа делаем посадочную страницу про одну услугу: врач, этапы, цена и&nbsp;запись. Основной сайт клиники при этом не&nbsp;меняем.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../seo-dlya-stomatologii/">SEO-продвижение сайта</a></h3><p>После запуска сайт растёт в&nbsp;поиске по&nbsp;услугам в&nbsp;своём городе: новые страницы, статьи, технические правки.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../yandex-karty/">Яндекс Карты</a></h3><p>Карточка клиники с&nbsp;теми&nbsp;же ценами, врачами и&nbsp;адресом, что на&nbsp;сайте.</p><span class="lnr__go" aria-hidden="true"></span></li>
+    <ul class="likb">
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../yandex-direkt/"><span>Лендинг под услугу для рекламы</span></a></h3><p>Для Яндекс Директа делаем посадочную страницу про одну услугу: врач, этапы, цена и&nbsp;запись. Основной сайт клиники при этом не&nbsp;меняем.</p></li>
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../seo-dlya-stomatologii/"><span>SEO-продвижение сайта</span></a></h3><p>После запуска сайт растёт в&nbsp;поиске по&nbsp;услугам в&nbsp;своём городе: новые страницы, статьи, технические правки.</p></li>
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="../yandex-karty/"><span>Яндекс Карты</span></a></h3><p>Карточка клиники с&nbsp;теми&nbsp;же ценами, врачами и&nbsp;адресом, что на&nbsp;сайте.</p></li>
     </ul>
     <p class="own" data-rv>Название, логотип и&nbsp;вывеска клиники должны совпадать с&nbsp;сайтом. Об&nbsp;этом в&nbsp;статье <a href="../blog/brend-i-vyveska-stomatologii/">о&nbsp;бренде стоматологии</a>.</p>
 
@@ -497,37 +530,31 @@
 
 
 
-<section class="sec lk-pack-cols sec--fog" id="price" data-sec="pack">
-  <div class="wrap">
-    <div class="sh">
-  <div>
-    <h2 class="h2" data-rv>Сколько стоит сайт</h2>
-  </div>
-  <p class="sh__note" data-rv style="--d:1">Сайт мы&nbsp;делаем как часть работы с&nbsp;клиникой, а&nbsp;не&nbsp;как отдельный дорогой проект. Поэтому в&nbsp;пакете он&nbsp;уже учтён.</p>
-</div>
-
-    <div class="pk">
-      <div class="pk__list" data-rv>
-        <h3 class="yn__h">В&nbsp;пакете комплексного маркетинга</h3>
-        <ul class="ticks">
-          <li>Сайт клиники под ключ</li>
-          <li>Упаковка Яндекс Карт, 2ГИС и&nbsp;ПроДокторов</li>
-          <li>Ведение после запуска</li>
-          <li>Возврат оплаты, пока сайт не&nbsp;опубликован, если работа вас не&nbsp;устроила</li>
-        </ul>
-      </div>
-      <div class="pk__card" data-rv style="--d:1">
-        <h3 class="yn__h">Условия</h3>
-        <dl class="pk__terms">
-          <div><dt>Сайт в&nbsp;пакете</dt><dd>входит в&nbsp;цену пакета</dd></div>
-          <div><dt>Только сайт</dt><dd>считаем по&nbsp;заявке, после разбора клиники</dd></div>
-          <div><dt>Редизайн старого сайта</dt><dd>считаем по&nbsp;заявке</dd></div>
-          <div><dt>Абонентская плата за&nbsp;сайт</dt><dd>нет</dd></div>
-          <div><dt>Домен и&nbsp;хостинг</dt><dd>оформлены на&nbsp;клинику</dd></div>
-        </dl>
-        <a href="#start" class="btn" data-magnetic data-pick="site">Обсудить сайт</a>
-      </div>
+<section class="sec lk-pack-statement sec--fog" id="price" data-sec="pack">
+  <div class="wrap pkst">
+    <div class="pkst__head">
+      <h2 class="h2" data-rv>Сколько стоит сайт</h2>
+      <p class="pkst__note" data-rv style="--d:1">Сайт мы&nbsp;делаем как часть работы с&nbsp;клиникой, а&nbsp;не&nbsp;как отдельный дорогой проект. Поэтому в&nbsp;пакете он&nbsp;уже учтён.</p>
     </div>
+    <h3 class="pkst__cap" data-rv>Условия</h3>
+    <dl class="pkst__terms pkst__terms--5">
+      <div data-rv style="--d:0"><dt>Сайт в&nbsp;пакете</dt><dd>входит в&nbsp;цену пакета</dd></div>
+      <div data-rv style="--d:1"><dt>Только сайт</dt><dd>считаем по&nbsp;заявке, после разбора клиники</dd></div>
+      <div data-rv style="--d:2"><dt>Редизайн старого сайта</dt><dd>считаем по&nbsp;заявке</dd></div>
+      <div data-rv style="--d:3"><dt>Абонентская плата за&nbsp;сайт</dt><dd>нет</dd></div>
+      <div data-rv style="--d:4"><dt>Домен и&nbsp;хостинг</dt><dd>оформлены на&nbsp;клинику</dd></div>
+    </dl>
+    <div class="pkst__list" data-rv>
+      <h3 class="pkst__lh">В&nbsp;пакете комплексного маркетинга</h3>
+      <ul class="pkst__ul">
+        <li>Сайт клиники под ключ</li>
+        <li>Упаковка Яндекс Карт, 2ГИС и&nbsp;ПроДокторов</li>
+        <li>Ведение после запуска</li>
+        <li>Возврат оплаты, пока сайт не&nbsp;опубликован, если работа вас не&nbsp;устроила</li>
+      </ul>
+      
+    </div>
+    <div class="pkst__act" data-rv><a href="#start" class="btn" data-magnetic data-pick="site">Обсудить сайт</a></div>
     <p class="own" data-rv>Что входит в&nbsp;пакет и&nbsp;сколько он&nbsp;стоит, смотрите на&nbsp;странице <a href="../kompleksnyj-marketing/">комплексного маркетинга для стоматологии</a>.</p>
 
   </div>
@@ -536,58 +563,56 @@
 
 
 
-<section class="sec lk-faq-acc" id="faq" data-sec="faq">
+<section class="sec sec--dark dark fqb" id="faq" data-sec="faq">
   <div class="wrap">
-    <div class="fq">
-      <div class="fq__head"><div class="sh">
+    <div class="sh">
   <div>
     <h2 class="h2" data-rv>Вопросы о&nbsp;сайте</h2>
   </div>
   <p class="sh__note" data-rv style="--d:1">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
 </div>
-</div>
-      <div class="qa" data-rv>
-        <details class="qa__item" open>
-          <summary><span class="qa__q">Сколько стоит сайт для стоматологии?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Сайт входит в&nbsp;пакет комплексного маркетинга вместе с&nbsp;Яндекс Картами, 2ГИС и&nbsp;ПроДокторов. Если нужен только сайт, стоимость считаем после разбора: она зависит от&nbsp;числа услуг и&nbsp;врачей и&nbsp;от&nbsp;того, собираем сайт с&nbsp;нуля или переделываем старый.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Как заказать сайт для стоматологии?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Оставьте заявку на&nbsp;этой странице. За&nbsp;2&nbsp;рабочих дня посмотрим нынешний сайт и&nbsp;сайты клиник рядом, предложим структуру и&nbsp;назовём стоимость и&nbsp;срок. После договора начинаем с&nbsp;разбора клиники и&nbsp;списка страниц, который вы&nbsp;утверждаете.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Сколько времени занимает разработка?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>В&nbsp;пакете комплексного маркетинга сайт собираем за&nbsp;первый месяц. Срок зависит от&nbsp;того, как быстро клиника присылает цены, фото и&nbsp;сведения о&nbsp;врачах и&nbsp;согласует этапы.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Можно переделать наш старый сайт?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Да. Посмотрим его на&nbsp;разборе. Если структура и&nbsp;движок подходят, переделаем. Если нет, соберём новый и&nbsp;перенесём нужное так, чтобы не&nbsp;потерять позиции в&nbsp;поиске.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Чей сайт и&nbsp;домен?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Клиники. Домен и&nbsp;хостинг сразу оформляем на&nbsp;клинику, сайт с&nbsp;полными правами передаём после оплаты. Абонентской платы за&nbsp;сайт нет. Если перестанем работать вместе, сайт остаётся у&nbsp;вас.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">На&nbsp;чём сделан сайт?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Сайт собираем так, чтобы он&nbsp;быстро открывался на&nbsp;телефоне и&nbsp;переносился на&nbsp;любой хостинг без нашего участия. Цены и&nbsp;врачей клиника меняет сама по&nbsp;инструкции.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Тильда, конструктор или готовый сайт: что выбрать?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Создать сайт для клиники на&nbsp;конструкторе можно быстро, но&nbsp;современного сайта под запросы пациентов из&nbsp;шаблона обычно не&nbsp;получается. За&nbsp;конструктор клиника платит каждый месяц, а&nbsp;структуру и&nbsp;скорость менять трудно. Купить готовый сайт стоматологии можно, только страницы в&nbsp;нём будут такими&nbsp;же, как у&nbsp;других клиник. Мы&nbsp;создаём сайт под одну клинику и&nbsp;передаём его без абонентской платы. Если у&nbsp;вас уже есть сайт на&nbsp;Тильде, на&nbsp;разборе скажем, стоит&nbsp;ли его дорабатывать.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Делаете сайты для медицинских центров?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Да. Сайт для медицинского центра собираем по&nbsp;тем&nbsp;же правилам: страница на&nbsp;каждое направление, врачи, цены, запись и&nbsp;обязательные сведения. Стоматологии остаются нашей основной специализацией.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Нужен&nbsp;ли сайт, если есть карточка на&nbsp;Картах и&nbsp;соцсети?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Да. На&nbsp;сайте пациент сравнивает цены и&nbsp;врачей и&nbsp;записывается, на&nbsp;него ведёт реклама, а&nbsp;обязательные сведения для пациентов удобнее всего держать именно там. Карточка и&nbsp;соцсети сайт дополняют, но&nbsp;не&nbsp;заменяют.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Делаете&nbsp;ли вы&nbsp;лендинги?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Да. Лендинг под одну услугу делаем для рекламы в&nbsp;Яндекс Директе: имплантация, <span class="nw">All-on-4</span>, брекеты и&nbsp;элайнеры. Он&nbsp;входит в&nbsp;первый тест, комиссию агентства на&nbsp;тесте мы&nbsp;не&nbsp;берём.</p></div>
-        </details>
-      </div>
+
+    <div class="fqb__cols">
+      <article class="fqb__i" data-rv style="--d:0">
+        <h3 class="fqb__q">Сколько стоит сайт для стоматологии?</h3>
+        <p class="fqb__a">Сайт входит в&nbsp;пакет комплексного маркетинга вместе с&nbsp;Яндекс Картами, 2ГИС и&nbsp;ПроДокторов. Если нужен только сайт, стоимость считаем после разбора: она зависит от&nbsp;числа услуг и&nbsp;врачей и&nbsp;от&nbsp;того, собираем сайт с&nbsp;нуля или переделываем старый.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:1">
+        <h3 class="fqb__q">Как заказать сайт для стоматологии?</h3>
+        <p class="fqb__a">Оставьте заявку на&nbsp;этой странице. За&nbsp;2&nbsp;рабочих дня посмотрим нынешний сайт и&nbsp;сайты клиник рядом, предложим структуру и&nbsp;назовём стоимость и&nbsp;срок. После договора начинаем с&nbsp;разбора клиники и&nbsp;списка страниц, который вы&nbsp;утверждаете.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:0">
+        <h3 class="fqb__q">Сколько времени занимает разработка?</h3>
+        <p class="fqb__a">В&nbsp;пакете комплексного маркетинга сайт собираем за&nbsp;первый месяц. Срок зависит от&nbsp;того, как быстро клиника присылает цены, фото и&nbsp;сведения о&nbsp;врачах и&nbsp;согласует этапы.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:1">
+        <h3 class="fqb__q">Можно переделать наш старый сайт?</h3>
+        <p class="fqb__a">Да. Посмотрим его на&nbsp;разборе. Если структура и&nbsp;движок подходят, переделаем. Если нет, соберём новый и&nbsp;перенесём нужное так, чтобы не&nbsp;потерять позиции в&nbsp;поиске.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:0">
+        <h3 class="fqb__q">Чей сайт и&nbsp;домен?</h3>
+        <p class="fqb__a">Клиники. Домен и&nbsp;хостинг сразу оформляем на&nbsp;клинику, сайт с&nbsp;полными правами передаём после оплаты. Абонентской платы за&nbsp;сайт нет. Если перестанем работать вместе, сайт остаётся у&nbsp;вас.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:1">
+        <h3 class="fqb__q">На&nbsp;чём сделан сайт?</h3>
+        <p class="fqb__a">Сайт собираем так, чтобы он&nbsp;быстро открывался на&nbsp;телефоне и&nbsp;переносился на&nbsp;любой хостинг без нашего участия. Цены и&nbsp;врачей клиника меняет сама по&nbsp;инструкции.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:0">
+        <h3 class="fqb__q">Тильда, конструктор или готовый сайт: что выбрать?</h3>
+        <p class="fqb__a">Создать сайт для клиники на&nbsp;конструкторе можно быстро, но&nbsp;современного сайта под запросы пациентов из&nbsp;шаблона обычно не&nbsp;получается. За&nbsp;конструктор клиника платит каждый месяц, а&nbsp;структуру и&nbsp;скорость менять трудно. Купить готовый сайт стоматологии можно, только страницы в&nbsp;нём будут такими&nbsp;же, как у&nbsp;других клиник. Мы&nbsp;создаём сайт под одну клинику и&nbsp;передаём его без абонентской платы. Если у&nbsp;вас уже есть сайт на&nbsp;Тильде, на&nbsp;разборе скажем, стоит&nbsp;ли его дорабатывать.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:1">
+        <h3 class="fqb__q">Делаете сайты для медицинских центров?</h3>
+        <p class="fqb__a">Да. Сайт для медицинского центра собираем по&nbsp;тем&nbsp;же правилам: страница на&nbsp;каждое направление, врачи, цены, запись и&nbsp;обязательные сведения. Стоматологии остаются нашей основной специализацией.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:0">
+        <h3 class="fqb__q">Нужен&nbsp;ли сайт, если есть карточка на&nbsp;Картах и&nbsp;соцсети?</h3>
+        <p class="fqb__a">Да. На&nbsp;сайте пациент сравнивает цены и&nbsp;врачей и&nbsp;записывается, на&nbsp;него ведёт реклама, а&nbsp;обязательные сведения для пациентов удобнее всего держать именно там. Карточка и&nbsp;соцсети сайт дополняют, но&nbsp;не&nbsp;заменяют.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:1">
+        <h3 class="fqb__q">Делаете&nbsp;ли вы&nbsp;лендинги?</h3>
+        <p class="fqb__a">Да. Лендинг под одну услугу делаем для рекламы в&nbsp;Яндекс Директе: имплантация, <span class="nw">All-on-4</span>, брекеты и&nbsp;элайнеры. Он&nbsp;входит в&nbsp;первый тест, комиссию агентства на&nbsp;тесте мы&nbsp;не&nbsp;берём.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -652,7 +677,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -695,6 +720,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Обсудить сайт</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/pages.js" defer></script>
+<script src="../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

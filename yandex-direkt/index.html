@@ -27,7 +27,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/pages.css">
+<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -266,21 +267,40 @@
 </div>
 
 <main id="main">
-<section class="ph ph--type" id="intro" data-sec="hero">
+
+<section class="ph phs" id="intro" data-sec="hero">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки">
+    <div class="phs__grid">
+      <div class="phs__text">
+        <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
     <li><span aria-current="page">Яндекс Директ</span></li>
   </ol>
 </nav>
 
-    <h1 class="ph__h" data-rv>Контекстная реклама стоматологии в&nbsp;Яндекс Директе</h1>
-    <div class="ph__foot">
-      <p class="ph__lead" data-rv style="--d:1">Настраиваем и&nbsp;ведём Яндекс Директ для стоматологий: реклама имплантации, <span class="nw">All-on-4</span>, брекетов и&nbsp;элайнеров на&nbsp;Поиске и&nbsp;в&nbsp;Рекламной сети Яндекса. Под каждую услугу делаем лендинг и&nbsp;считаем заявки до&nbsp;записи к&nbsp;врачу. Первый тест проводим без комиссии агентства: вы&nbsp;вносите только рекламный бюджет Яндексу.</p>
-      <div data-rv style="--d:2"><div class="ph__acts">
+        <h1 class="ph__h phs__h" data-rv>Контекстная реклама стоматологии в&nbsp;Яндекс Директе</h1>
+        <p class="ph__lead phs__lead" data-rv style="--d:1">Настраиваем и&nbsp;ведём Яндекс Директ для стоматологий: реклама имплантации, <span class="nw">All-on-4</span>, брекетов и&nbsp;элайнеров на&nbsp;Поиске и&nbsp;в&nbsp;Рекламной сети Яндекса. Под каждую услугу делаем лендинг и&nbsp;считаем заявки до&nbsp;записи к&nbsp;врачу. Первый тест проводим без комиссии агентства: вы&nbsp;вносите только рекламный бюджет Яндексу.</p>
+        <div data-rv style="--d:2"><div class="ph__acts">
   <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить первый тест</a>
   <a href="#start" class="link" data-pick="direct" data-dir="running">Разобрать текущую рекламу</a>
+</div>
+</div>
+      </div>
+      <div class="phs__stage"><div class="ha ha--yandex-direkt" aria-hidden="true">
+  <div class="ha__c ha__c--a ha__q" data-rv style="--d:2"><i class="art__glass"></i><span class="art__typed">имплантация зубов цена</span></div>
+  <div class="ha__c ha__c--b" data-rv style="--d:3">
+    <span class="ha__k">Реклама</span>
+    <b class="ha__t ha__t--link">Имплантация зубов под&nbsp;ключ</b>
+    <span class="ha__url">demo-klinika.ru/implantaciya</span>
+    <span class="ha__p">Имплант, формирователь и&nbsp;коронка. Цена по&nbsp;этапам, рассрочка.</span>
+    <span class="ha__warn">Имеются противопоказания, нужна консультация специалиста</span>
+  </div>
+  <div class="ha__c ha__c--c ha__c--ink" data-rv style="--d:4">
+    <span class="ha__k ha__row">Новая заявка<span>12:04</span></span>
+    <b class="ha__t">Имплантация, консультация</b>
+    <span class="ha__p">Поиск, запрос «имплантация зубов цена»</span>
+  </div>
 </div>
 </div>
     </div>
@@ -393,7 +413,7 @@
 
 
 
-<section class="sec lk-loss-rows sec--fog" id="loss" data-sec="loss">
+<section class="sec lk-loss-index sec--fog" id="loss" data-sec="loss">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -402,35 +422,42 @@
   <p class="sh__note" data-rv style="--d:1">Всё это видно при первом разборе рекламного кабинета. Разбор делаем за&nbsp;2&nbsp;рабочих дня.</p>
 </div>
 
-    <ol class="lr">
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Реклама ведёт на&nbsp;главную страницу сайта</h3><p>Человек ищет «all on 4 цена», а&nbsp;попадает на&nbsp;главную, где имплантация, детский приём и&nbsp;отбеливание вперемешку. Ответа на&nbsp;свой вопрос он&nbsp;не&nbsp;находит и&nbsp;уходит.</p></div>
-        <p class="lr__fix"><small>Что делаем</small>Делаем отдельную страницу под услугу: врач, этапы, полная цена и&nbsp;запись.</p>
-      </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Разные услуги в&nbsp;одной кампании</h3><p>Бюджет уходит на&nbsp;«имплант зуба цена», хотя клинике нужны пациенты на&nbsp;полное восстановление челюсти. У&nbsp;этих пациентов разный чек и&nbsp;разный срок решения.</p></div>
-        <p class="lr__fix"><small>Что делаем</small>Ведём каждую услугу своими кампаниями и&nbsp;отдельной строкой в&nbsp;отчёте.</p>
-      </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Клиника платит за&nbsp;людей, которые не&nbsp;придут</h3><p>В&nbsp;запросах встречаются «имплантация бесплатно», «по&nbsp;ОМС», «обучение имплантологии», «вакансии». Клиника платит за&nbsp;каждый такой переход.</p></div>
-        <p class="lr__fix"><small>Что делаем</small>Каждую неделю убираем такие запросы и&nbsp;показываем в&nbsp;отчёте, что исключили.</p>
-      </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">В&nbsp;отчёте есть клики, но&nbsp;нет записей</h3><p>Подрядчик показывает сотни переходов и&nbsp;«конверсии», а&nbsp;сколько человек записались на&nbsp;консультацию, не&nbsp;знает никто.</p></div>
-        <p class="lr__fix"><small>Что делаем</small>Считаем заявки и&nbsp;записи. В&nbsp;каждом отчёте есть цена заявки и&nbsp;цена записи.</p>
-      </li>
-      <li class="lr__i" data-rv>
-        <div class="lr__what"><h3 class="h3">Карточка на&nbsp;Картах спорит с&nbsp;рекламой</h3><p>В&nbsp;объявлении есть цена и&nbsp;врач, а&nbsp;на&nbsp;Яндекс Картах цен нет, фото мало, отзывы без ответов. Пациент сравнивает и&nbsp;выбирает соседнюю клинику.</p></div>
-        <p class="lr__fix"><small>Что делаем</small>Проверяем карточку до&nbsp;запуска и&nbsp;говорим, что в&nbsp;ней поправить.</p>
-      </li>
-    </ol>
+    <div class="loix" data-look="loss-index">
+      <div class="loix__panes">
+        <article class="loix__p" data-rv>
+          <h3 class="h3 loix__h">Реклама ведёт на&nbsp;главную страницу сайта</h3>
+          <p class="loix__ex">Человек ищет «all on 4 цена», а&nbsp;попадает на&nbsp;главную, где имплантация, детский приём и&nbsp;отбеливание вперемешку. Ответа на&nbsp;свой вопрос он&nbsp;не&nbsp;находит и&nbsp;уходит.</p>
+          <p class="loix__fix"><small>Что делаем</small>Делаем отдельную страницу под услугу: врач, этапы, полная цена и&nbsp;запись.</p>
+        </article>
+        <article class="loix__p" data-rv>
+          <h3 class="h3 loix__h">Разные услуги в&nbsp;одной кампании</h3>
+          <p class="loix__ex">Бюджет уходит на&nbsp;«имплант зуба цена», хотя клинике нужны пациенты на&nbsp;полное восстановление челюсти. У&nbsp;этих пациентов разный чек и&nbsp;разный срок решения.</p>
+          <p class="loix__fix"><small>Что делаем</small>Ведём каждую услугу своими кампаниями и&nbsp;отдельной строкой в&nbsp;отчёте.</p>
+        </article>
+        <article class="loix__p" data-rv>
+          <h3 class="h3 loix__h">Клиника платит за&nbsp;людей, которые не&nbsp;придут</h3>
+          <p class="loix__ex">В&nbsp;запросах встречаются «имплантация бесплатно», «по&nbsp;ОМС», «обучение имплантологии», «вакансии». Клиника платит за&nbsp;каждый такой переход.</p>
+          <p class="loix__fix"><small>Что делаем</small>Каждую неделю убираем такие запросы и&nbsp;показываем в&nbsp;отчёте, что исключили.</p>
+        </article>
+        <article class="loix__p" data-rv>
+          <h3 class="h3 loix__h">В&nbsp;отчёте есть клики, но&nbsp;нет записей</h3>
+          <p class="loix__ex">Подрядчик показывает сотни переходов и&nbsp;«конверсии», а&nbsp;сколько человек записались на&nbsp;консультацию, не&nbsp;знает никто.</p>
+          <p class="loix__fix"><small>Что делаем</small>Считаем заявки и&nbsp;записи. В&nbsp;каждом отчёте есть цена заявки и&nbsp;цена записи.</p>
+        </article>
+        <article class="loix__p" data-rv>
+          <h3 class="h3 loix__h">Карточка на&nbsp;Картах спорит с&nbsp;рекламой</h3>
+          <p class="loix__ex">В&nbsp;объявлении есть цена и&nbsp;врач, а&nbsp;на&nbsp;Яндекс Картах цен нет, фото мало, отзывы без ответов. Пациент сравнивает и&nbsp;выбирает соседнюю клинику.</p>
+          <p class="loix__fix"><small>Что делаем</small>Проверяем карточку до&nbsp;запуска и&nbsp;говорим, что в&nbsp;ней поправить.</p>
+        </article>
+      </div>
+    </div>
     
   </div>
 </section>
 
 
 
-<section class="sec lk-spec-grid" id="check" data-sec="spec">
+<section class="sec lk-spec-sheet" id="check" data-sec="spec">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -439,14 +466,16 @@
   <p class="sh__note" data-rv style="--d:1">Шесть вопросов к&nbsp;подрядчику или к&nbsp;себе, на&nbsp;них уходит минут десять. Если на&nbsp;два вопроса ответа нет, бюджет расходуется вслепую.</p>
 </div>
 
-    <ul class="sg">
-      <li data-rv style="--d:0"><h3 class="sg__h">На&nbsp;кого оформлен кабинет</h3><p>Кабинет Директа и&nbsp;счётчик Метрики должны принадлежать клинике. Иначе при смене подрядчика кампании и&nbsp;статистика остаются у&nbsp;него.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Куда ведут объявления</h3><p>Откройте три своих объявления. Каждое должно вести на&nbsp;страницу той услуги, о&nbsp;которой оно написано, а&nbsp;не&nbsp;на&nbsp;главную.</p></li>
-      <li data-rv style="--d:0"><h3 class="sg__h">Разделены&nbsp;ли услуги</h3><p>Имплантация, <span class="nw">All-on-4</span> и&nbsp;брекеты должны идти отдельными кампаниями со&nbsp;своим бюджетом. Иначе деньги уходят на&nbsp;самые дешёвые переходы.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Есть&nbsp;ли список исключений</h3><p>Попросите показать минус-слова и&nbsp;отчёт по&nbsp;поисковым запросам за&nbsp;месяц. Запросов «бесплатно», «по&nbsp;ОМС» и&nbsp;«вакансии» там быть не&nbsp;должно.</p></li>
-      <li data-rv style="--d:0"><h3 class="sg__h">Что стоит в&nbsp;отчёте</h3><p>В&nbsp;отчёте должны быть заявки, записи и&nbsp;цена каждой. Клики, показы и&nbsp;доля переходов о&nbsp;пациентах ничего не&nbsp;говорят.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Как быстро клиника отвечает</h3><p>Оставьте заявку на&nbsp;своём сайте в&nbsp;рабочее время и&nbsp;засеките время до&nbsp;звонка. Если прошло больше 15&nbsp;минут, часть записей уже потеряна.</p></li>
-    </ul>
+    <div class="spck" data-rv="fade">
+      <ul class="spck__list">
+        <li class="spck__i" style="--n:0"><span class="spck__box" aria-hidden="true"></span><div><h3 class="spck__h">На&nbsp;кого оформлен кабинет</h3><p>Кабинет Директа и&nbsp;счётчик Метрики должны принадлежать клинике. Иначе при смене подрядчика кампании и&nbsp;статистика остаются у&nbsp;него.</p></div></li>
+        <li class="spck__i" style="--n:1"><span class="spck__box" aria-hidden="true"></span><div><h3 class="spck__h">Куда ведут объявления</h3><p>Откройте три своих объявления. Каждое должно вести на&nbsp;страницу той услуги, о&nbsp;которой оно написано, а&nbsp;не&nbsp;на&nbsp;главную.</p></div></li>
+        <li class="spck__i" style="--n:2"><span class="spck__box" aria-hidden="true"></span><div><h3 class="spck__h">Разделены&nbsp;ли услуги</h3><p>Имплантация, <span class="nw">All-on-4</span> и&nbsp;брекеты должны идти отдельными кампаниями со&nbsp;своим бюджетом. Иначе деньги уходят на&nbsp;самые дешёвые переходы.</p></div></li>
+        <li class="spck__i" style="--n:3"><span class="spck__box" aria-hidden="true"></span><div><h3 class="spck__h">Есть&nbsp;ли список исключений</h3><p>Попросите показать минус-слова и&nbsp;отчёт по&nbsp;поисковым запросам за&nbsp;месяц. Запросов «бесплатно», «по&nbsp;ОМС» и&nbsp;«вакансии» там быть не&nbsp;должно.</p></div></li>
+        <li class="spck__i" style="--n:4"><span class="spck__box" aria-hidden="true"></span><div><h3 class="spck__h">Что стоит в&nbsp;отчёте</h3><p>В&nbsp;отчёте должны быть заявки, записи и&nbsp;цена каждой. Клики, показы и&nbsp;доля переходов о&nbsp;пациентах ничего не&nbsp;говорят.</p></div></li>
+        <li class="spck__i" style="--n:5"><span class="spck__box" aria-hidden="true"></span><div><h3 class="spck__h">Как быстро клиника отвечает</h3><p>Оставьте заявку на&nbsp;своём сайте в&nbsp;рабочее время и&nbsp;засеките время до&nbsp;звонка. Если прошло больше 15&nbsp;минут, часть записей уже потеряна.</p></div></li>
+      </ul>
+    </div>
     <p class="own" data-rv>Не хотите проверять сами, <a href="#start" data-pick="direct" data-dir="running">оставьте заявку</a>: разберём рекламный кабинет за 2&nbsp;рабочих дня и&nbsp;покажем, где теряется бюджет.</p>
 
   </div>
@@ -659,31 +688,30 @@
 
 
 
-<section class="sec lk-spec-grid" id="work" data-sec="spec">
-  <div class="wrap">
-    <div class="sh">
-  <div>
-    <h2 class="h2" data-rv>Что ещё входит в&nbsp;работу</h2>
-  </div>
-  <p class="sh__note" data-rv style="--d:1">Всё это есть и&nbsp;на&nbsp;первом тесте, и&nbsp;на&nbsp;ведении после него.</p>
+<section class="sec lk-spec-sticky" id="work" data-sec="spec">
+  <div class="wrap spst">
+    <div class="spst__head">
+      <div class="spst__stick">
+        <h2 class="h2" data-rv>Что ещё входит в&nbsp;работу</h2>
+        <p class="spst__note" data-rv style="--d:1">Всё это есть и&nbsp;на&nbsp;первом тесте, и&nbsp;на&nbsp;ведении после него.</p>
+        <div class="spst__own"><p class="own" data-rv>Что закон требует от&nbsp;рекламы клиники, разобрали в&nbsp;статье <a href="../blog/zakon-o-reklame-medicinskih-uslug/">о&nbsp;рекламе медицинских услуг</a>. Как реклама работает в&nbsp;разных городах, смотрите в&nbsp;<a href="../kejsy/">кейсах</a>. Как описать предложение и&nbsp;что отвечать на&nbsp;звонки, читайте в&nbsp;статьях <a href="../blog/akcii-dlya-stomatologii/">об&nbsp;акциях для стоматологии</a> и&nbsp;<a href="../blog/skripty-administratora-stomatologii/">о&nbsp;скриптах администратора</a>.</p>
 </div>
-
-    <ul class="sg">
-      <li data-rv style="--d:0"><h3 class="sg__h">Поиск и&nbsp;РСЯ</h3><p>На&nbsp;Поиске показываем рекламу тем, кто уже ищет услугу. В&nbsp;Рекламной сети Яндекса возвращаем посетителей лендинга и&nbsp;находим похожую аудиторию. Бюджет между ними делим по&nbsp;цене заявки.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Модерация медицинской рекламы</h3><p>Загружаем в&nbsp;Директ лицензию клиники, ставим предупреждение о&nbsp;противопоказаниях и&nbsp;маркировку рекламы. Результат лечения в&nbsp;текстах не&nbsp;обещаем.</p></li>
-      <li data-rv style="--d:0"><h3 class="sg__h">Интеграция с&nbsp;CRM</h3><p>Заявки с&nbsp;лендинга уходят в&nbsp;CRM клиники или в&nbsp;мессенджер администратора. Подключаем любую систему, с&nbsp;которой работает клиника.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Постоянный менеджер</h3><p>Один человек ведёт клинику с&nbsp;первого дня и&nbsp;знает её&nbsp;цены, врачей и&nbsp;условия.</p></li>
-      <li data-rv style="--d:0"><h3 class="sg__h">Отчёт и&nbsp;созвон каждую неделю</h3><p>Раз в&nbsp;неделю присылаем отчёт и&nbsp;созваниваемся: что сделали, что видим в&nbsp;заявках и&nbsp;что меняем.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Согласование на&nbsp;каждом этапе</h3><p>Структуру лендинга, тексты, дизайн и&nbsp;объявления вы&nbsp;утверждаете до&nbsp;запуска.</p></li>
+      </div>
+    </div>
+    <ul class="spst__list">
+      <li class="spst__i" data-rv><h3 class="spst__h">Поиск и&nbsp;РСЯ</h3><p>На&nbsp;Поиске показываем рекламу тем, кто уже ищет услугу. В&nbsp;Рекламной сети Яндекса возвращаем посетителей лендинга и&nbsp;находим похожую аудиторию. Бюджет между ними делим по&nbsp;цене заявки.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Модерация медицинской рекламы</h3><p>Загружаем в&nbsp;Директ лицензию клиники, ставим предупреждение о&nbsp;противопоказаниях и&nbsp;маркировку рекламы. Результат лечения в&nbsp;текстах не&nbsp;обещаем.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Интеграция с&nbsp;CRM</h3><p>Заявки с&nbsp;лендинга уходят в&nbsp;CRM клиники или в&nbsp;мессенджер администратора. Подключаем любую систему, с&nbsp;которой работает клиника.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Постоянный менеджер</h3><p>Один человек ведёт клинику с&nbsp;первого дня и&nbsp;знает её&nbsp;цены, врачей и&nbsp;условия.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Отчёт и&nbsp;созвон каждую неделю</h3><p>Раз в&nbsp;неделю присылаем отчёт и&nbsp;созваниваемся: что сделали, что видим в&nbsp;заявках и&nbsp;что меняем.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Согласование на&nbsp;каждом этапе</h3><p>Структуру лендинга, тексты, дизайн и&nbsp;объявления вы&nbsp;утверждаете до&nbsp;запуска.</p></li>
     </ul>
-    <p class="own" data-rv>Что закон требует от&nbsp;рекламы клиники, разобрали в&nbsp;статье <a href="../blog/zakon-o-reklame-medicinskih-uslug/">о&nbsp;рекламе медицинских услуг</a>. Как реклама работает в&nbsp;разных городах, смотрите в&nbsp;<a href="../kejsy/">кейсах</a>. Как описать предложение и&nbsp;что отвечать на&nbsp;звонки, читайте в&nbsp;статьях <a href="../blog/akcii-dlya-stomatologii/">об&nbsp;акциях для стоматологии</a> и&nbsp;<a href="../blog/skripty-administratora-stomatologii/">о&nbsp;скриптах администратора</a>.</p>
-
   </div>
 </section>
 
 
 
-<section class="sec lk-yesno-cols sec--fog" id="promise" data-sec="yesno">
+<section class="sec lk-yesno-sheet sec--fog" id="promise" data-sec="yesno">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -692,28 +720,26 @@
   <p class="sh__note" data-rv style="--d:1">Число заявок зависит от&nbsp;города, услуги, цены и&nbsp;того, как быстро клиника отвечает. Поэтому обещаем только то, что зависит от&nbsp;нас.</p>
 </div>
 
-    <div class="yn" data-rv>
-      <div class="yn__col yn__col--no">
-  <h3 class="yn__h">Чего не&nbsp;обещаем</h3>
-  <ul class="ticks yn__list">
-    <li>Не&nbsp;называем число заявок и&nbsp;записей до&nbsp;запуска</li>
-    <li>Не&nbsp;обещаем цену заявки, пока нет своих цифр клиники</li>
-    <li>Не&nbsp;пишем в&nbsp;объявлениях того, что клиника не&nbsp;выполнит</li>
-    <li>Не&nbsp;привязываем оплату к&nbsp;числу записей: записывает администратор клиники</li>
-  </ul>
-</div>
-
-      <div class="yn__col">
-  <h3 class="yn__h">Что записано в&nbsp;договоре</h3>
-  <ul class="ticks yn__list">
-    <li>Кабинет, кампании и&nbsp;статистика оформлены на&nbsp;клинику</li>
-    <li>Цена ведения записана в&nbsp;договоре до&nbsp;старта</li>
-    <li>Отчёт и&nbsp;созвон каждую неделю</li>
-    <li>Тексты, цены и&nbsp;условия согласуем с&nbsp;вами до&nbsp;запуска</li>
-    <li>Порядок выхода из&nbsp;договора записан в&nbsp;нём самом</li>
-  </ul>
-</div>
-
+    <div class="yl" data-rv>
+      <div class="yl__part yl--no">
+        <h3 class="yl__h">Чего не&nbsp;обещаем</h3>
+        <ul class="yl__list">
+          <li>Не&nbsp;называем число заявок и&nbsp;записей до&nbsp;запуска</li>
+          <li>Не&nbsp;обещаем цену заявки, пока нет своих цифр клиники</li>
+          <li>Не&nbsp;пишем в&nbsp;объявлениях того, что клиника не&nbsp;выполнит</li>
+          <li>Не&nbsp;привязываем оплату к&nbsp;числу записей: записывает администратор клиники</li>
+        </ul>
+      </div>
+      <div class="yl__part yl--yes">
+        <h3 class="yl__h">Что записано в&nbsp;договоре</h3>
+        <ul class="yl__list">
+          <li>Кабинет, кампании и&nbsp;статистика оформлены на&nbsp;клинику</li>
+          <li>Цена ведения записана в&nbsp;договоре до&nbsp;старта</li>
+          <li>Отчёт и&nbsp;созвон каждую неделю</li>
+          <li>Тексты, цены и&nbsp;условия согласуем с&nbsp;вами до&nbsp;запуска</li>
+          <li>Порядок выхода из&nbsp;договора записан в&nbsp;нём самом</li>
+        </ul>
+      </div>
     </div>
     
   </div>
@@ -885,7 +911,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -928,6 +954,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Запустить первый тест</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/pages.js" defer></script>
+<script src="../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

@@ -27,7 +27,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/pages.css">
+<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -234,21 +235,41 @@
 </div>
 
 <main id="main">
-<section class="ph ph--type" id="intro" data-sec="hero">
+
+<section class="ph phs" id="intro" data-sec="hero">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки">
+    <div class="phs__grid">
+      <div class="phs__text">
+        <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
     <li><span aria-current="page">Заявки для стоматологии</span></li>
   </ol>
 </nav>
 
-    <h1 class="ph__h" data-rv>Заявки и&nbsp;пациенты для стоматологии без покупки лидов</h1>
-    <div class="ph__foot">
-      <p class="ph__lead" data-rv style="--d:1">Лиды не&nbsp;продаём и&nbsp;не&nbsp;перепродаём. Настраиваем рекламу в&nbsp;кабинете самой клиники: заявки на&nbsp;имплантацию, <span class="nw">All-on-4</span> и&nbsp;ортодонтию приходят только вам, а&nbsp;кабинет и&nbsp;статистика остаются у&nbsp;вас.</p>
-      <div data-rv style="--d:2"><div class="ph__acts">
+        <h1 class="ph__h phs__h" data-rv>Заявки и&nbsp;пациенты для стоматологии без покупки лидов</h1>
+        <p class="ph__lead phs__lead" data-rv style="--d:1">Лиды не&nbsp;продаём и&nbsp;не&nbsp;перепродаём. Настраиваем рекламу в&nbsp;кабинете самой клиники: заявки на&nbsp;имплантацию, <span class="nw">All-on-4</span> и&nbsp;ортодонтию приходят только вам, а&nbsp;кабинет и&nbsp;статистика остаются у&nbsp;вас.</p>
+        <div data-rv style="--d:2"><div class="ph__acts">
   <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить первый тест</a>
   <a href="#compare" class="link">Чем это отличается от покупки лидов</a>
+</div>
+</div>
+      </div>
+      <div class="phs__stage"><div class="ha ha--lidy-dlya-stomatologii" aria-hidden="true">
+  <svg class="ha__path" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M24 22 C 70 22, 78 40, 70 52 S 30 66, 34 84" /></svg>
+  <div class="ha__c ha__c--a" data-rv style="--d:2">
+    <span class="ha__k">Реклама</span>
+    <b class="ha__t ha__t--link">Имплантация зубов под&nbsp;ключ</b>
+    <span class="ha__url">demo-klinika.ru/implantaciya</span>
+  </div>
+  <div class="ha__c ha__c--b ha__call" data-rv style="--d:3">
+    <i class="ha__tel"></i><span><span class="ha__k">Звонок с&nbsp;сайта</span><b class="ha__t">Администратор клиники</b></span>
+  </div>
+  <div class="ha__c ha__c--c ha__c--ink" data-rv style="--d:4">
+    <span class="ha__k ha__row">Запись<span>отметил администратор</span></span>
+    <b class="ha__num">Чт, 15:30</b>
+    <span class="ha__p">Консультация хирурга</span>
+  </div>
 </div>
 </div>
     </div>
@@ -296,7 +317,7 @@
 
 
 
-<section class="sec lk-cmp-table" id="compare" data-sec="cmp">
+<section class="sec lk-cmp-versus" id="compare" data-sec="cmp">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -305,19 +326,41 @@
   <p class="sh__note" data-rv style="--d:1">Сравниваем два способа получать обращения пациентов. Названий компаний здесь нет.</p>
 </div>
 
-    <div class="ct-wrap" data-rv>
-      <table class="ct ct--2">
-        <caption class="sr">Сравнение покупки лидов и собственной рекламы клиники</caption>
-        <thead><tr><td></td><th scope="col">Покупка лидов</th><th scope="col">Своя реклама с&nbsp;МедВектором</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Кому приходит заявка</th><td data-label="Покупка лидов">Одну заявку нередко получают несколько клиник</td><td data-label="Своя реклама с МедВектором">Только вашей клинике</td></tr>
-          <tr><th scope="row">Откуда пришёл человек</th><td data-label="Покупка лидов">Источник обычно не&nbsp;раскрывают</td><td data-label="Своя реклама с МедВектором">Виден запрос, объявление и&nbsp;страница, с&nbsp;которой пришла заявка</td></tr>
-          <tr><th scope="row">Что пациент знает о&nbsp;клинике</th><td data-label="Покупка лидов">Оставил телефон на&nbsp;общем сайте и&nbsp;ждёт звонка от&nbsp;незнакомой клиники</td><td data-label="Своя реклама с МедВектором">Видел ваш лендинг: врача, цену и&nbsp;адрес</td></tr>
-          <tr><th scope="row">За&nbsp;что вы&nbsp;платите</th><td data-label="Покупка лидов">За&nbsp;каждый контакт, в&nbsp;том числе за&nbsp;нецелевой</td><td data-label="Своя реклама с МедВектором">За&nbsp;показы рекламы Яндексу и&nbsp;за&nbsp;работу агентства</td></tr>
-          <tr><th scope="row">Что остаётся у&nbsp;клиники</th><td data-label="Покупка лидов">Ничего: закончилась оплата, закончились лиды</td><td data-label="Своя реклама с МедВектором">Рекламный кабинет, кампании, статистика и&nbsp;лендинг</td></tr>
-          <tr><th scope="row">Кто решает, что обещать пациенту</th><td data-label="Покупка лидов">Продавец лидов, клиника его рекламу не&nbsp;видит</td><td data-label="Своя реклама с МедВектором">Вы: тексты и&nbsp;условия согласуем до&nbsp;запуска</td></tr>
-        </tbody>
-      </table>
+    <div class="vx vx--2" style="--n: 2" role="group" aria-label="Сравнение покупки лидов и собственной рекламы клиники">
+      <div class="vx__top" aria-hidden="true">
+        <p class="vx__col">Покупка лидов</p>
+        <p class="vx__col vx__col--key">Своя реклама с&nbsp;МедВектором</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Кому приходит заявка</span></h3>
+        <p class="vx__v"><span class="vx__c">Покупка лидов</span>Одну заявку нередко получают несколько клиник</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">Своя реклама с&nbsp;МедВектором</span>Только вашей клинике</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Откуда пришёл человек</span></h3>
+        <p class="vx__v"><span class="vx__c">Покупка лидов</span>Источник обычно не&nbsp;раскрывают</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">Своя реклама с&nbsp;МедВектором</span>Виден запрос, объявление и&nbsp;страница, с&nbsp;которой пришла заявка</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Что пациент знает о&nbsp;клинике</span></h3>
+        <p class="vx__v"><span class="vx__c">Покупка лидов</span>Оставил телефон на&nbsp;общем сайте и&nbsp;ждёт звонка от&nbsp;незнакомой клиники</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">Своя реклама с&nbsp;МедВектором</span>Видел ваш лендинг: врача, цену и&nbsp;адрес</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>За&nbsp;что вы&nbsp;платите</span></h3>
+        <p class="vx__v"><span class="vx__c">Покупка лидов</span>За&nbsp;каждый контакт, в&nbsp;том числе за&nbsp;нецелевой</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">Своя реклама с&nbsp;МедВектором</span>За&nbsp;показы рекламы Яндексу и&nbsp;за&nbsp;работу агентства</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Что остаётся у&nbsp;клиники</span></h3>
+        <p class="vx__v"><span class="vx__c">Покупка лидов</span>Ничего: закончилась оплата, закончились лиды</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">Своя реклама с&nbsp;МедВектором</span>Рекламный кабинет, кампании, статистика и&nbsp;лендинг</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Кто решает, что обещать пациенту</span></h3>
+        <p class="vx__v"><span class="vx__c">Покупка лидов</span>Продавец лидов, клиника его рекламу не&nbsp;видит</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">Своя реклама с&nbsp;МедВектором</span>Вы: тексты и&nbsp;условия согласуем до&nbsp;запуска</p>
+      </div>
     </div>
     
   </div>
@@ -325,7 +368,7 @@
 
 
 
-<section class="sec lk-links-rows sec--fog" id="sources" data-sec="links">
+<section class="sec sec--dark dark lk-links-dark" id="sources" data-sec="links">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -334,10 +377,10 @@
   <p class="sh__note" data-rv style="--d:1">Начинаем с&nbsp;Директа: он&nbsp;показывает результат уже на&nbsp;первом тесте. Карты и&nbsp;сайт подключаем, когда клинике нужен постоянный поток без оплаты за&nbsp;каждый переход.</p>
 </div>
 
-    <ul class="lnr">
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../yandex-direkt/">Яндекс Директ</a></h3><p>Самый быстрый источник. Реклама имплантации, <span class="nw">All-on-4</span>, брекетов и&nbsp;элайнеров на&nbsp;Поиске и&nbsp;в&nbsp;Рекламной сети Яндекса. Первые заявки приходят в&nbsp;первые дни после запуска.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../yandex-karty/">Яндекс Карты</a></h3><p>Человек ищет стоматологию рядом и&nbsp;сравнивает карточки. Карточка с&nbsp;ценами, врачами и&nbsp;ответами на&nbsp;отзывы даёт звонки и&nbsp;построенные маршруты.</p><span class="lnr__go" aria-hidden="true"></span></li>
-      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="../seo-dlya-stomatologii/">Сайт клиники в&nbsp;поиске</a></h3><p>Страницы услуг приводят пациентов из&nbsp;Яндекса и&nbsp;Google без оплаты за&nbsp;каждый переход. Этот источник растёт медленнее остальных, зато работает годами.</p><span class="lnr__go" aria-hidden="true"></span></li>
+    <ul class="likd">
+      <li class="likd__i" data-rv style="--d:0"><h3 class="likd__h"><a class="likd__a" href="../yandex-direkt/">Яндекс Директ</a></h3><p>Самый быстрый источник. Реклама имплантации, <span class="nw">All-on-4</span>, брекетов и&nbsp;элайнеров на&nbsp;Поиске и&nbsp;в&nbsp;Рекламной сети Яндекса. Первые заявки приходят в&nbsp;первые дни после запуска.</p><span class="likd__go" aria-hidden="true"></span></li>
+      <li class="likd__i" data-rv style="--d:1"><h3 class="likd__h"><a class="likd__a" href="../yandex-karty/">Яндекс Карты</a></h3><p>Человек ищет стоматологию рядом и&nbsp;сравнивает карточки. Карточка с&nbsp;ценами, врачами и&nbsp;ответами на&nbsp;отзывы даёт звонки и&nbsp;построенные маршруты.</p><span class="likd__go" aria-hidden="true"></span></li>
+      <li class="likd__i" data-rv style="--d:0"><h3 class="likd__h"><a class="likd__a" href="../seo-dlya-stomatologii/">Сайт клиники в&nbsp;поиске</a></h3><p>Страницы услуг приводят пациентов из&nbsp;Яндекса и&nbsp;Google без оплаты за&nbsp;каждый переход. Этот источник растёт медленнее остальных, зато работает годами.</p><span class="likd__go" aria-hidden="true"></span></li>
     </ul>
     <p class="own" data-rv>Что происходит с&nbsp;заявкой после рекламы, разобрали в&nbsp;статье <a href="../blog/voronka-i-pokazateli-kliniki/">о&nbsp;воронке пациентов и&nbsp;показателях клиники</a>.</p>
 
@@ -387,30 +430,29 @@
 
 
 
-<section class="sec lk-spec-grid sec--fog" id="cost" data-sec="spec">
-  <div class="wrap">
-    <div class="sh">
-  <div>
-    <h2 class="h2" data-rv>От&nbsp;чего зависит стоимость заявки</h2>
-  </div>
-  <p class="sh__note" data-rv style="--d:1">Цену заявки нельзя назвать заранее, но&nbsp;можно сказать, что на&nbsp;неё влияет. Свои цифры клиника получает на&nbsp;первом тесте.</p>
-</div>
-
-    <ul class="sg">
-      <li data-rv style="--d:0"><h3 class="sg__h">Услуга</h3><p>Заявка на&nbsp;<span class="nw">All-on-4</span> обычно стоит дороже заявки на&nbsp;брекеты: таких пациентов меньше, а&nbsp;клиник, которые за&nbsp;них борются, больше.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Город</h3><p>В&nbsp;Москве и&nbsp;Санкт-Петербурге переход по&nbsp;рекламе обычно дороже, чем в&nbsp;городе на&nbsp;300 тысяч жителей.</p></li>
-      <li data-rv style="--d:0"><h3 class="sg__h">Цена и&nbsp;условия клиники</h3><p>Понятная цена по&nbsp;этапам и&nbsp;рассрочка дают больше заявок с&nbsp;той&nbsp;же рекламы.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Страница</h3><p>Лендинг с&nbsp;врачом, этапами и&nbsp;ценой превращает в&nbsp;заявки больше переходов, чем главная страница сайта.</p></li>
-      <li data-rv style="--d:0"><h3 class="sg__h">Скорость ответа</h3><p>Заявка, на&nbsp;которую перезвонили через час, чаще всего уже записалась в&nbsp;другую клинику.</p></li>
-      <li data-rv style="--d:1"><h3 class="sg__h">Сезон</h3><p>Спрос на&nbsp;плановое лечение обычно ниже в&nbsp;праздники и&nbsp;летом, и&nbsp;цена заявки в&nbsp;эти недели меняется.</p></li>
+<section class="sec lk-spec-sticky sec--fog" id="cost" data-sec="spec">
+  <div class="wrap spst">
+    <div class="spst__head">
+      <div class="spst__stick">
+        <h2 class="h2" data-rv>От&nbsp;чего зависит стоимость заявки</h2>
+        <p class="spst__note" data-rv style="--d:1">Цену заявки нельзя назвать заранее, но&nbsp;можно сказать, что на&nbsp;неё влияет. Свои цифры клиника получает на&nbsp;первом тесте.</p>
+        <div class="spst__own"></div>
+      </div>
+    </div>
+    <ul class="spst__list">
+      <li class="spst__i" data-rv><h3 class="spst__h">Услуга</h3><p>Заявка на&nbsp;<span class="nw">All-on-4</span> обычно стоит дороже заявки на&nbsp;брекеты: таких пациентов меньше, а&nbsp;клиник, которые за&nbsp;них борются, больше.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Город</h3><p>В&nbsp;Москве и&nbsp;Санкт-Петербурге переход по&nbsp;рекламе обычно дороже, чем в&nbsp;городе на&nbsp;300 тысяч жителей.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Цена и&nbsp;условия клиники</h3><p>Понятная цена по&nbsp;этапам и&nbsp;рассрочка дают больше заявок с&nbsp;той&nbsp;же рекламы.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Страница</h3><p>Лендинг с&nbsp;врачом, этапами и&nbsp;ценой превращает в&nbsp;заявки больше переходов, чем главная страница сайта.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Скорость ответа</h3><p>Заявка, на&nbsp;которую перезвонили через час, чаще всего уже записалась в&nbsp;другую клинику.</p></li>
+      <li class="spst__i" data-rv><h3 class="spst__h">Сезон</h3><p>Спрос на&nbsp;плановое лечение обычно ниже в&nbsp;праздники и&nbsp;летом, и&nbsp;цена заявки в&nbsp;эти недели меняется.</p></li>
     </ul>
-    
   </div>
 </section>
 
 
 
-<section class="sec lk-yesno-cols" id="promise" data-sec="yesno">
+<section class="sec lk-yesno-split" id="promise" data-sec="yesno">
   <div class="wrap">
     <div class="sh">
   <div>
@@ -419,27 +461,25 @@
   <p class="sh__note" data-rv style="--d:1">Число заявок зависит от&nbsp;города, услуги, цены и&nbsp;того, как быстро клиника отвечает. Поэтому цифр до&nbsp;запуска мы&nbsp;не&nbsp;называем.</p>
 </div>
 
-    <div class="yn" data-rv>
-      <div class="yn__col yn__col--no">
-  <h3 class="yn__h">Чего не&nbsp;обещаем</h3>
-  <ul class="ticks yn__list">
-    <li>Не&nbsp;называем число заявок и&nbsp;пациентов до&nbsp;запуска</li>
-    <li>Не&nbsp;продаём лиды поштучно и&nbsp;не&nbsp;перепродаём заявки</li>
-    <li>Не&nbsp;накручиваем заявки ботами и&nbsp;пустыми формами</li>
-    <li>Не&nbsp;привязываем оплату к&nbsp;числу записей: записывает администратор клиники</li>
-  </ul>
-</div>
-
-      <div class="yn__col">
-  <h3 class="yn__h">Что делаем</h3>
-  <ul class="ticks yn__list">
-    <li>Показываем цену заявки и&nbsp;цену записи каждую неделю</li>
-    <li>Отделяем целевые заявки от&nbsp;нецелевых</li>
-    <li>Убираем запросы и&nbsp;площадки, которые приводят случайных людей</li>
-    <li>Говорим прямо, если заявки теряются на&nbsp;звонке</li>
-  </ul>
-</div>
-
+    <div class="ys" data-rv="scale">
+      <div class="ys__half ys--no">
+        <h3 class="ys__h">Чего не&nbsp;обещаем</h3>
+        <ul class="ys__list">
+          <li>Не&nbsp;называем число заявок и&nbsp;пациентов до&nbsp;запуска</li>
+          <li>Не&nbsp;продаём лиды поштучно и&nbsp;не&nbsp;перепродаём заявки</li>
+          <li>Не&nbsp;накручиваем заявки ботами и&nbsp;пустыми формами</li>
+          <li>Не&nbsp;привязываем оплату к&nbsp;числу записей: записывает администратор клиники</li>
+        </ul>
+      </div>
+      <div class="ys__half ys--yes dark">
+        <h3 class="ys__h">Что делаем</h3>
+        <ul class="ys__list">
+          <li>Показываем цену заявки и&nbsp;цену записи каждую неделю</li>
+          <li>Отделяем целевые заявки от&nbsp;нецелевых</li>
+          <li>Убираем запросы и&nbsp;площадки, которые приводят случайных людей</li>
+          <li>Говорим прямо, если заявки теряются на&nbsp;звонке</li>
+        </ul>
+      </div>
     </div>
     
   </div>
@@ -447,37 +487,31 @@
 
 
 
-<section class="sec lk-pack-cols sec--fog" id="test" data-sec="pack">
-  <div class="wrap">
-    <div class="sh">
-  <div>
-    <h2 class="h2" data-rv>Первый тест: комиссия агентства 0&nbsp;₽</h2>
-  </div>
-  <p class="sh__note" data-rv style="--d:1">Качество заявок вы&nbsp;оцениваете сами, до&nbsp;того как начинаете платить агентству.</p>
-</div>
-
-    <div class="pk">
-      <div class="pk__list" data-rv>
-        <h3 class="yn__h">Что вы&nbsp;увидите за&nbsp;тест</h3>
-        <ul class="ticks">
-          <li>Сколько заявок приходит и&nbsp;сколько из&nbsp;них целевые</li>
-          <li>Сколько стоит заявка и&nbsp;запись в&nbsp;вашем городе</li>
-          <li>Какие запросы приводят пациентов, а&nbsp;какие нет</li>
-          <li>Как быстро администраторы отвечают на&nbsp;заявку</li>
-        </ul>
-      </div>
-      <div class="pk__card" data-rv style="--d:1">
-        <h3 class="yn__h">Условия теста</h3>
-        <dl class="pk__terms pk__terms--big">
-          <div><dt>Комиссия агентства</dt><dd>0&nbsp;₽</dd></div>
-          <div><dt>Рекламный бюджет</dt><dd>150&nbsp;000&nbsp;₽, вы&nbsp;вносите его Яндексу</dd></div>
-          <div><dt>Срок</dt><dd>около двух недель</dd></div>
-          <div><dt>Кабинет и&nbsp;статистика</dt><dd>оформлены на&nbsp;клинику</dd></div>
-          <div><dt>После теста</dt><dd>ведение, цена записана в&nbsp;договоре до&nbsp;старта</dd></div>
-        </dl>
-        <a href="#start" class="btn" data-magnetic data-pick="direct">Запустить первый тест</a>
-      </div>
+<section class="sec lk-pack-statement sec--fog" id="test" data-sec="pack">
+  <div class="wrap pkst">
+    <div class="pkst__head">
+      <h2 class="h2" data-rv>Первый тест: комиссия агентства 0&nbsp;₽</h2>
+      <p class="pkst__note" data-rv style="--d:1">Качество заявок вы&nbsp;оцениваете сами, до&nbsp;того как начинаете платить агентству.</p>
     </div>
+    <h3 class="pkst__cap" data-rv>Условия теста</h3>
+    <p class="pkst__big" data-rv><b class="num">0&nbsp;₽</b><span>Комиссия агентства</span></p>
+    <dl class="pkst__terms pkst__terms--4">
+      <div data-rv style="--d:0"><dt>Рекламный бюджет</dt><dd>150&nbsp;000&nbsp;₽, вы&nbsp;вносите его Яндексу</dd></div>
+      <div data-rv style="--d:1"><dt>Срок</dt><dd>около двух недель</dd></div>
+      <div data-rv style="--d:2"><dt>Кабинет и&nbsp;статистика</dt><dd>оформлены на&nbsp;клинику</dd></div>
+      <div data-rv style="--d:3"><dt>После теста</dt><dd>ведение, цена записана в&nbsp;договоре до&nbsp;старта</dd></div>
+    </dl>
+    <div class="pkst__list" data-rv>
+      <h3 class="pkst__lh">Что вы&nbsp;увидите за&nbsp;тест</h3>
+      <ul class="pkst__ul">
+        <li>Сколько заявок приходит и&nbsp;сколько из&nbsp;них целевые</li>
+        <li>Сколько стоит заявка и&nbsp;запись в&nbsp;вашем городе</li>
+        <li>Какие запросы приводят пациентов, а&nbsp;какие нет</li>
+        <li>Как быстро администраторы отвечают на&nbsp;заявку</li>
+      </ul>
+      
+    </div>
+    <div class="pkst__act" data-rv><a href="#start" class="btn" data-magnetic data-pick="direct">Запустить первый тест</a></div>
     <p class="own" data-rv>Как устроен тест, что в&nbsp;него входит и&nbsp;что остаётся у&nbsp;клиники, читайте на&nbsp;странице <a href="../yandex-direkt/">Яндекс Директа для стоматологии</a>.</p>
 
   </div>
@@ -486,62 +520,62 @@
 
 
 
-<section class="sec lk-faq-acc" id="faq" data-sec="faq">
+<section class="sec sec--dark dark fqb" id="faq" data-sec="faq">
   <div class="wrap">
-    <div class="fq">
-      <div class="fq__head"><div class="sh">
+    <div class="sh">
   <div>
     <h2 class="h2" data-rv>Вопросы о&nbsp;заявках</h2>
   </div>
   <p class="sh__note" data-rv style="--d:1">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
 </div>
-</div>
-      <div class="qa" data-rv>
-        <details class="qa__item" open>
-          <summary><span class="qa__q">Сколько стоит заявка на&nbsp;имплантацию?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Зависит от&nbsp;города, цены в&nbsp;клинике и&nbsp;конкурентов. Называть цифру до&nbsp;запуска было&nbsp;бы нечестно: в&nbsp;Москве и&nbsp;в&nbsp;городе на&nbsp;300 тысяч жителей она отличается в&nbsp;разы. За&nbsp;первый тест вы&nbsp;видите цену заявки и&nbsp;цену записи в&nbsp;своём рекламном кабинете.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Можно&nbsp;ли купить лиды для стоматологии у&nbsp;вас?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Нет. Купить лиды можно у&nbsp;лидогенераторов, но&nbsp;такая заявка приходит с&nbsp;чужого сайта и&nbsp;часто уходит сразу нескольким клиникам. Мы&nbsp;настраиваем рекламу в&nbsp;кабинете клиники: вы&nbsp;платите Яндексу за&nbsp;показы и&nbsp;получаете заявки только себе.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Продаёте&nbsp;ли вы&nbsp;лиды поштучно?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Нет. Мы&nbsp;не&nbsp;собираем заявки на&nbsp;своих сайтах и&nbsp;не&nbsp;передаём их&nbsp;клиникам. Реклама идёт от&nbsp;имени вашей клиники и&nbsp;ведёт на&nbsp;вашу страницу, поэтому человек обращается именно к&nbsp;вам.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Можно платить только за&nbsp;записи или за&nbsp;пришедших пациентов?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Нет. Запись зависит не&nbsp;только от&nbsp;рекламы: с&nbsp;пациентом разговаривает администратор клиники, а&nbsp;решение человек принимает после этого разговора. Мы&nbsp;отвечаем за&nbsp;то, чтобы заявки были целевыми, и&nbsp;показываем в&nbsp;отчёте, сколько из&nbsp;них дошло до&nbsp;записи.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Сколько заявок будет в&nbsp;месяц?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Число заявок до&nbsp;запуска не&nbsp;называем. Оно зависит от&nbsp;бюджета, города, услуги и&nbsp;цены. После первого теста у&nbsp;вас есть свои цифры, и&nbsp;следующий месяц планируем уже по&nbsp;ним.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Почему заявки есть, а&nbsp;пациентов нет?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Чаще всего человека теряют на&nbsp;звонке: перезвонили через час, не&nbsp;назвали цену, не&nbsp;предложили время. В&nbsp;отчёте видно, сколько заявок дошло до&nbsp;записи. Если люди теряются на&nbsp;звонке, скажем об&nbsp;этом и&nbsp;разберём с&nbsp;администраторами, как отвечать.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Работаете&nbsp;ли с&nbsp;медицинскими центрами?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Да. Лиды в&nbsp;медицине устроены одинаково: человек ищет услугу, видит объявление и&nbsp;страницу клиники и&nbsp;оставляет заявку. Для медицинского центра так&nbsp;же начинаем с&nbsp;одной услуги и&nbsp;первого теста. Стоматологии остаются нашей основной специализацией.</p></div>
-        </details>
-        <details class="qa__item">
-          <summary><span class="qa__q">Что такое лидогенерация для стоматологии?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-          <div class="qa__a"><p>Так называют привлечение обращений от&nbsp;будущих пациентов: заявок, звонков и&nbsp;сообщений. Мы&nbsp;делаем это рекламой в&nbsp;кабинете клиники, без посредника между клиникой и&nbsp;пациентом.</p></div>
-        </details>
-      </div>
+
+    <div class="fqb__cols">
+      <article class="fqb__i" data-rv style="--d:0">
+        <h3 class="fqb__q">Сколько стоит заявка на&nbsp;имплантацию?</h3>
+        <p class="fqb__a">Зависит от&nbsp;города, цены в&nbsp;клинике и&nbsp;конкурентов. Называть цифру до&nbsp;запуска было&nbsp;бы нечестно: в&nbsp;Москве и&nbsp;в&nbsp;городе на&nbsp;300 тысяч жителей она отличается в&nbsp;разы. За&nbsp;первый тест вы&nbsp;видите цену заявки и&nbsp;цену записи в&nbsp;своём рекламном кабинете.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:1">
+        <h3 class="fqb__q">Можно&nbsp;ли купить лиды для стоматологии у&nbsp;вас?</h3>
+        <p class="fqb__a">Нет. Купить лиды можно у&nbsp;лидогенераторов, но&nbsp;такая заявка приходит с&nbsp;чужого сайта и&nbsp;часто уходит сразу нескольким клиникам. Мы&nbsp;настраиваем рекламу в&nbsp;кабинете клиники: вы&nbsp;платите Яндексу за&nbsp;показы и&nbsp;получаете заявки только себе.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:0">
+        <h3 class="fqb__q">Продаёте&nbsp;ли вы&nbsp;лиды поштучно?</h3>
+        <p class="fqb__a">Нет. Мы&nbsp;не&nbsp;собираем заявки на&nbsp;своих сайтах и&nbsp;не&nbsp;передаём их&nbsp;клиникам. Реклама идёт от&nbsp;имени вашей клиники и&nbsp;ведёт на&nbsp;вашу страницу, поэтому человек обращается именно к&nbsp;вам.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:1">
+        <h3 class="fqb__q">Можно платить только за&nbsp;записи или за&nbsp;пришедших пациентов?</h3>
+        <p class="fqb__a">Нет. Запись зависит не&nbsp;только от&nbsp;рекламы: с&nbsp;пациентом разговаривает администратор клиники, а&nbsp;решение человек принимает после этого разговора. Мы&nbsp;отвечаем за&nbsp;то, чтобы заявки были целевыми, и&nbsp;показываем в&nbsp;отчёте, сколько из&nbsp;них дошло до&nbsp;записи.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:0">
+        <h3 class="fqb__q">Сколько заявок будет в&nbsp;месяц?</h3>
+        <p class="fqb__a">Число заявок до&nbsp;запуска не&nbsp;называем. Оно зависит от&nbsp;бюджета, города, услуги и&nbsp;цены. После первого теста у&nbsp;вас есть свои цифры, и&nbsp;следующий месяц планируем уже по&nbsp;ним.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:1">
+        <h3 class="fqb__q">Почему заявки есть, а&nbsp;пациентов нет?</h3>
+        <p class="fqb__a">Чаще всего человека теряют на&nbsp;звонке: перезвонили через час, не&nbsp;назвали цену, не&nbsp;предложили время. В&nbsp;отчёте видно, сколько заявок дошло до&nbsp;записи. Если люди теряются на&nbsp;звонке, скажем об&nbsp;этом и&nbsp;разберём с&nbsp;администраторами, как отвечать.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:0">
+        <h3 class="fqb__q">Работаете&nbsp;ли с&nbsp;медицинскими центрами?</h3>
+        <p class="fqb__a">Да. Лиды в&nbsp;медицине устроены одинаково: человек ищет услугу, видит объявление и&nbsp;страницу клиники и&nbsp;оставляет заявку. Для медицинского центра так&nbsp;же начинаем с&nbsp;одной услуги и&nbsp;первого теста. Стоматологии остаются нашей основной специализацией.</p>
+      </article>
+      <article class="fqb__i" data-rv style="--d:1">
+        <h3 class="fqb__q">Что такое лидогенерация для стоматологии?</h3>
+        <p class="fqb__a">Так называют привлечение обращений от&nbsp;будущих пациентов: заявок, звонков и&nbsp;сообщений. Мы&nbsp;делаем это рекламой в&nbsp;кабинете клиники, без посредника между клиникой и&nbsp;пациентом.</p>
+      </article>
     </div>
   </div>
 </section>
 
 
 
-<section class="sec sec--azure st st--form" id="start" data-sec="start">
+<section class="sec st sth" id="start" data-sec="start">
   <div class="wrap">
-    <p class="label" data-rv="fade">Заявка</p>
-    <h2 class="h2 st__h" data-rv>Проверим на&nbsp;первом тесте, сколько стоит заявка в&nbsp;вашем городе</h2>
-    <div class="st__grid">
-      <div class="st__text" data-rv><p class="st__lead">Оставьте заявку. За&nbsp;2&nbsp;рабочих дня разберём сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт, и&nbsp;посчитаем бюджет теста.</p>
+   <div class="sth__box">
+    <div class="sth__head">
+      <p class="label" data-rv="fade">Заявка</p>
+      <h2 class="h2 sth__h" data-rv>Проверим на&nbsp;первом тесте, сколько стоит заявка в&nbsp;вашем городе</h2>
+    </div>
+    <div class="sth__text" data-rv style="--d:1"><p class="st__lead">Оставьте заявку. За&nbsp;2&nbsp;рабочих дня разберём сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт, и&nbsp;посчитаем бюджет теста.</p>
 <ul class="ticks st__items">
   <li>Комиссия агентства на&nbsp;первом тесте 0&nbsp;₽</li>
   <li>Рекламный бюджет 150&nbsp;000&nbsp;₽ вы&nbsp;вносите Яндексу напрямую</li>
@@ -549,7 +583,7 @@
 </ul>
 <p class="st__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
 </div>
-      <form class="fm st__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1"><fieldset class="fm__choice">
+    <form class="fm sth__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:2"><fieldset class="fm__choice">
   <legend>Что хотите запустить</legend>
   <div class="fm__opts">
     <label class="fm__opt"><input type="radio" name="service" value="direct" checked><span>Тест Директа</span></label>
@@ -582,7 +616,7 @@
 <p class="fm__ok" role="status" tabindex="-1" hidden>Спасибо! Сайт пока в&nbsp;разработке, поэтому заявка никуда не&nbsp;ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
 <p class="stub">Заглушка: форма пока не отправляет заявки</p>
 </form>
-    </div>
+   </div>
   </div>
 </section>
 
@@ -594,7 +628,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -637,6 +671,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Запустить первый тест</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/pages.js" defer></script>
+<script src="../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

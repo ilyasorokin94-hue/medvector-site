@@ -29,7 +29,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/pages.css">
+<link rel="stylesheet" href="../../assets/css/pages.css?v=d7f99695">
+<link rel="preload" as="image" href="../../assets/img/pages/blog-reklama-1000.webp" imagesrcset="../../assets/img/pages/blog-reklama-640.webp 640w, ../../assets/img/pages/blog-reklama-1000.webp 1000w, ../../assets/img/pages/blog-reklama-1600.webp 1600w" imagesizes="(max-width: 1020px) 100vw, 1180px" fetchpriority="high">
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -249,6 +250,9 @@
         <p class="art-p__lead" data-rv style="--d:1">Эффективная реклама стоматологической клиники получается, когда совпали три вещи: человеку нужна услуга прямо сейчас, объявление отвечает на&nbsp;его вопрос, а&nbsp;страница клиники не&nbsp;заставляет искать цену и&nbsp;врача. Разбираем каналы, тексты и&nbsp;ошибки, на&nbsp;которых клиники теряют бюджет.</p>
         <p class="art-p__meta" data-rv style="--d:2">Обновлено: ноябрь 2026<br>Читать 6&nbsp;мин</p>
       </div>
+      <figure class="art-p__cover" data-rv="scale">
+        <img src="../../assets/img/pages/blog-reklama-1000.webp" srcset="../../assets/img/pages/blog-reklama-640.webp 640w, ../../assets/img/pages/blog-reklama-1000.webp 1000w, ../../assets/img/pages/blog-reklama-1600.webp 1600w" sizes="(max-width: 1020px) 100vw, 1180px" width="1600" height="901" alt="Женщина с телефоном на эскалаторе метро" fetchpriority="high" decoding="async">
+      </figure>
     </div>
   </header>
   <div class="wrap art-p__grid">
@@ -284,12 +288,12 @@
     <tr><th scope="col">Канал</th><th scope="col">Что даёт</th><th scope="col">Когда ждать результат</th></tr>
   </thead>
   <tbody>
-    <tr><th scope="row">Поиск Яндекса (Директ)</th><td>Заявки от&nbsp;людей, которые уже ищут услугу</td><td>С&nbsp;первых дней после запуска</td></tr>
-    <tr><th scope="row">Рекламная сеть Яндекса</th><td>Возврат тех, кто был на&nbsp;странице и&nbsp;не&nbsp;записался, охват похожей аудитории</td><td>Через одну или две недели после Поиска</td></tr>
-    <tr><th scope="row">Яндекс Карты</th><td>Звонки и&nbsp;маршруты от&nbsp;людей, которые ищут клинику рядом</td><td>С&nbsp;первого месяца после оформления карточки</td></tr>
-    <tr><th scope="row">Сайт в&nbsp;поиске (SEO)</th><td>Переходы без оплаты за&nbsp;каждый</td><td>Через несколько месяцев</td></tr>
-    <tr><th scope="row">Площадки с&nbsp;отзывами</th><td>Доверие: пациент проверяет клинику и&nbsp;врача перед записью</td><td>Постепенно, по&nbsp;мере появления отзывов</td></tr>
-    <tr><th scope="row">Реклама рядом с&nbsp;клиникой</th><td>Узнаваемость у&nbsp;жителей района</td><td>Сложно измерить</td></tr>
+    <tr><th scope="row" data-label="Канал">Поиск Яндекса (Директ)</th><td data-label="Что даёт">Заявки от&nbsp;людей, которые уже ищут услугу</td><td data-label="Когда ждать результат">С&nbsp;первых дней после запуска</td></tr>
+    <tr><th scope="row" data-label="Канал">Рекламная сеть Яндекса</th><td data-label="Что даёт">Возврат тех, кто был на&nbsp;странице и&nbsp;не&nbsp;записался, охват похожей аудитории</td><td data-label="Когда ждать результат">Через одну или две недели после Поиска</td></tr>
+    <tr><th scope="row" data-label="Канал">Яндекс Карты</th><td data-label="Что даёт">Звонки и&nbsp;маршруты от&nbsp;людей, которые ищут клинику рядом</td><td data-label="Когда ждать результат">С&nbsp;первого месяца после оформления карточки</td></tr>
+    <tr><th scope="row" data-label="Канал">Сайт в&nbsp;поиске (SEO)</th><td data-label="Что даёт">Переходы без оплаты за&nbsp;каждый</td><td data-label="Когда ждать результат">Через несколько месяцев</td></tr>
+    <tr><th scope="row" data-label="Канал">Площадки с&nbsp;отзывами</th><td data-label="Что даёт">Доверие: пациент проверяет клинику и&nbsp;врача перед записью</td><td data-label="Когда ждать результат">Постепенно, по&nbsp;мере появления отзывов</td></tr>
+    <tr><th scope="row" data-label="Канал">Реклама рядом с&nbsp;клиникой</th><td data-label="Что даёт">Узнаваемость у&nbsp;жителей района</td><td data-label="Когда ждать результат">Сложно измерить</td></tr>
   </tbody>
 </table>
 </section>
@@ -373,9 +377,9 @@
       <nav class="prose__rel" aria-label="Читайте также">
         <h2>Читайте также</h2>
         <ul>
-          <li><a href="../../blog/akcii-dlya-stomatologii/">Акции для стоматологии: какие приводят пациентов, а&nbsp;какие только снижают цену</a></li>
-          <li><a href="../../blog/kak-privlech-pacientov-v-stomatologiyu/">Как привлечь пациентов в&nbsp;стоматологию</a></li>
-          <li><a href="../../blog/socseti-stomatologii/">Соцсети стоматологии: о&nbsp;чём писать и&nbsp;чего ждать</a></li>
+          <li><a href="../../blog/akcii-dlya-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-akcii-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Акции для стоматологии: какие приводят пациентов, а&nbsp;какие только снижают цену</span></a></li>
+          <li><a href="../../blog/kak-privlech-pacientov-v-stomatologiyu/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-privlech-640.webp" width="640" height="367" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Как привлечь пациентов в&nbsp;стоматологию</span></a></li>
+          <li><a href="../../blog/socseti-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-socseti-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Соцсети стоматологии: о&nbsp;чём писать и&nbsp;чего ждать</span></a></li>
         </ul>
       </nav>
     </div>
@@ -479,7 +483,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -522,6 +526,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Разобрать клинику</span></a>
 
 <script src="../../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../../assets/js/pages.js" defer></script>
+<script src="../../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

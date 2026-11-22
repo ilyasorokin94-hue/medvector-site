@@ -29,7 +29,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/pages.css">
+<link rel="stylesheet" href="../../assets/css/pages.css?v=d7f99695">
+<link rel="preload" as="image" href="../../assets/img/pages/blog-yabiznes-1000.webp" imagesrcset="../../assets/img/pages/blog-yabiznes-640.webp 640w, ../../assets/img/pages/blog-yabiznes-1000.webp 1000w, ../../assets/img/pages/blog-yabiznes-1600.webp 1600w" imagesizes="(max-width: 1020px) 100vw, 1180px" fetchpriority="high">
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -241,6 +242,9 @@
         <p class="art-p__lead" data-rv style="--d:1">Карточка организации на&nbsp;Яндекс Картах для многих клиник работает как второй сайт: её&nbsp;открывают чаще, чем главную страницу. Управляют карточкой через Яндекс Бизнес. Разбираем, как её&nbsp;создать и&nbsp;оформить, от&nbsp;чего зависит рейтинг и&nbsp;что даёт рекламная подписка Яндекс Бизнеса.</p>
         <p class="art-p__meta" data-rv style="--d:2">Обновлено: ноябрь 2026<br>Читать 4&nbsp;мин</p>
       </div>
+      <figure class="art-p__cover" data-rv="scale">
+        <img src="../../assets/img/pages/blog-yabiznes-1000.webp" srcset="../../assets/img/pages/blog-yabiznes-640.webp 640w, ../../assets/img/pages/blog-yabiznes-1000.webp 1000w, ../../assets/img/pages/blog-yabiznes-1600.webp 1600w" sizes="(max-width: 1020px) 100vw, 1180px" width="1600" height="1067" alt="Мужчина с телефоном у входа в клинику вечером" fetchpriority="high" decoding="async">
+      </figure>
     </div>
   </header>
   <div class="wrap art-p__grid">
@@ -299,12 +303,12 @@
     <tr><th scope="col">Что</th><th scope="col">Бесплатная карточка</th><th scope="col">С&nbsp;подпиской</th></tr>
   </thead>
   <tbody>
-    <tr><th scope="row">Место в&nbsp;списке</th><td>Зависит от&nbsp;расстояния, полноты карточки, рейтинга и&nbsp;отзывов</td><td>Приоритетное размещение: карточка показывается выше, первое место Яндекс не&nbsp;гарантирует</td></tr>
-    <tr><th scope="row">Метка на&nbsp;карте</th><td>Обычная</td><td>Зелёная, крупнее и&nbsp;заметнее</td></tr>
-    <tr><th scope="row">Витрина, акция, кнопка действия</th><td>Доступно не&nbsp;всё</td><td>Доступны и&nbsp;стоят на&nbsp;видном месте</td></tr>
-    <tr><th scope="row">Соседние клиники в&nbsp;карточке</th><td>Могут показываться в&nbsp;блоке похожих мест</td><td>Блок убирается</td></tr>
-    <tr><th scope="row">Где видна клиника</th><td>Карты и&nbsp;Поиск по&nbsp;своим запросам</td><td>Ещё и&nbsp;рекламные площадки Яндекса</td></tr>
-    <tr><th scope="row">Цена</th><td>0&nbsp;₽</td><td>Считает Яндекс по&nbsp;городу и&nbsp;рубрике, срок от&nbsp;90&nbsp;дней</td></tr>
+    <tr><th scope="row" data-label="Что">Место в&nbsp;списке</th><td data-label="Бесплатная карточка">Зависит от&nbsp;расстояния, полноты карточки, рейтинга и&nbsp;отзывов</td><td data-label="С подпиской">Приоритетное размещение: карточка показывается выше, первое место Яндекс не&nbsp;гарантирует</td></tr>
+    <tr><th scope="row" data-label="Что">Метка на&nbsp;карте</th><td data-label="Бесплатная карточка">Обычная</td><td data-label="С подпиской">Зелёная, крупнее и&nbsp;заметнее</td></tr>
+    <tr><th scope="row" data-label="Что">Витрина, акция, кнопка действия</th><td data-label="Бесплатная карточка">Доступно не&nbsp;всё</td><td data-label="С подпиской">Доступны и&nbsp;стоят на&nbsp;видном месте</td></tr>
+    <tr><th scope="row" data-label="Что">Соседние клиники в&nbsp;карточке</th><td data-label="Бесплатная карточка">Могут показываться в&nbsp;блоке похожих мест</td><td data-label="С подпиской">Блок убирается</td></tr>
+    <tr><th scope="row" data-label="Что">Где видна клиника</th><td data-label="Бесплатная карточка">Карты и&nbsp;Поиск по&nbsp;своим запросам</td><td data-label="С подпиской">Ещё и&nbsp;рекламные площадки Яндекса</td></tr>
+    <tr><th scope="row" data-label="Что">Цена</th><td data-label="Бесплатная карточка">0&nbsp;₽</td><td data-label="С подпиской">Считает Яндекс по&nbsp;городу и&nbsp;рубрике, срок от&nbsp;90&nbsp;дней</td></tr>
   </tbody>
 </table>
 </section>
@@ -324,9 +328,9 @@
       <nav class="prose__rel" aria-label="Читайте также">
         <h2>Читайте также</h2>
         <ul>
-          <li><a href="../../blog/kak-otvechat-na-otzyvy-pacientov/">Как отвечать на&nbsp;отзывы пациентов: правила и&nbsp;примеры</a></li>
-          <li><a href="../../blog/akcii-dlya-stomatologii/">Акции для стоматологии: какие приводят пациентов, а&nbsp;какие только снижают цену</a></li>
-          <li><a href="../../blog/kak-privlech-pacientov-v-stomatologiyu/">Как привлечь пациентов в&nbsp;стоматологию</a></li>
+          <li><a href="../../blog/kak-otvechat-na-otzyvy-pacientov/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-otzyvy-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Как отвечать на&nbsp;отзывы пациентов: правила и&nbsp;примеры</span></a></li>
+          <li><a href="../../blog/akcii-dlya-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-akcii-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Акции для стоматологии: какие приводят пациентов, а&nbsp;какие только снижают цену</span></a></li>
+          <li><a href="../../blog/kak-privlech-pacientov-v-stomatologiyu/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-privlech-640.webp" width="640" height="367" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Как привлечь пациентов в&nbsp;стоматологию</span></a></li>
         </ul>
       </nav>
     </div>
@@ -426,7 +430,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -469,6 +473,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Разобрать клинику</span></a>
 
 <script src="../../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../../assets/js/pages.js" defer></script>
+<script src="../../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

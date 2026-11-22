@@ -29,7 +29,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/pages.css">
+<link rel="stylesheet" href="../../assets/css/pages.css?v=d7f99695">
+<link rel="preload" as="image" href="../../assets/img/pages/blog-trebovaniya-1000.webp" imagesrcset="../../assets/img/pages/blog-trebovaniya-640.webp 640w, ../../assets/img/pages/blog-trebovaniya-1000.webp 1000w, ../../assets/img/pages/blog-trebovaniya-1600.webp 1600w" imagesizes="(max-width: 1020px) 100vw, 1180px" fetchpriority="high">
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -241,6 +242,9 @@
         <p class="art-p__lead" data-rv style="--d:1">Сайт стоматологической клиники или медицинского центра это не&nbsp;только витрина. Часть сведений на&nbsp;нём клиника обязана раскрывать по&nbsp;закону, а&nbsp;за&nbsp;формы записи отвечает как оператор персональных данных. Собрали требования, которые действуют в&nbsp;ноябре 2026&nbsp;года, и&nbsp;список, по&nbsp;которому сайт можно проверить за&nbsp;час.</p>
         <p class="art-p__meta" data-rv style="--d:2">Обновлено: ноябрь 2026<br>Читать 5&nbsp;мин</p>
       </div>
+      <figure class="art-p__cover" data-rv="scale">
+        <img src="../../assets/img/pages/blog-trebovaniya-1000.webp" srcset="../../assets/img/pages/blog-trebovaniya-640.webp 640w, ../../assets/img/pages/blog-trebovaniya-1000.webp 1000w, ../../assets/img/pages/blog-trebovaniya-1600.webp 1600w" sizes="(max-width: 1020px) 100vw, 1180px" width="1600" height="1067" alt="Папка с чистыми листами и очки рядом с закрытым ноутбуком" fetchpriority="high" decoding="async">
+      </figure>
     </div>
   </header>
   <div class="wrap art-p__grid">
@@ -371,9 +375,9 @@
       <nav class="prose__rel" aria-label="Читайте также">
         <h2>Читайте также</h2>
         <ul>
-          <li><a href="../../blog/zakon-o-reklame-medicinskih-uslug/">Закон о&nbsp;рекламе медицинских услуг: что можно и&nbsp;чего нельзя клинике</a></li>
-          <li><a href="../../blog/crm-dlya-stomatologii/">CRM для стоматологии: зачем клинике система и&nbsp;как её&nbsp;выбрать</a></li>
-          <li><a href="../../blog/ekonomika-stomatologii/">Экономика стоматологии: из&nbsp;чего складываются выручка и&nbsp;прибыль</a></li>
+          <li><a href="../../blog/zakon-o-reklame-medicinskih-uslug/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-zakon-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Закон о&nbsp;рекламе медицинских услуг: что можно и&nbsp;чего нельзя клинике</span></a></li>
+          <li><a href="../../blog/crm-dlya-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-crm-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">CRM для стоматологии: зачем клинике система и&nbsp;как её&nbsp;выбрать</span></a></li>
+          <li><a href="../../blog/ekonomika-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-ekonomika-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Экономика стоматологии: из&nbsp;чего складываются выручка и&nbsp;прибыль</span></a></li>
         </ul>
       </nav>
     </div>
@@ -473,7 +477,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -516,6 +520,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Разобрать клинику</span></a>
 
 <script src="../../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../../assets/js/pages.js" defer></script>
+<script src="../../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

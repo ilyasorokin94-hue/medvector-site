@@ -29,7 +29,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/pages.css">
+<link rel="stylesheet" href="../../assets/css/pages.css?v=d7f99695">
+<link rel="preload" as="image" href="../../assets/img/pages/blog-akcii-1000.webp" imagesrcset="../../assets/img/pages/blog-akcii-640.webp 640w, ../../assets/img/pages/blog-akcii-1000.webp 1000w, ../../assets/img/pages/blog-akcii-1600.webp 1600w" imagesizes="(max-width: 1020px) 100vw, 1180px" fetchpriority="high">
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -241,6 +242,9 @@
         <p class="art-p__lead" data-rv style="--d:1">Акция в&nbsp;стоматологии должна давать человеку повод записаться сейчас, а&nbsp;не&nbsp;приучать ждать скидку. Разбираем, какие акции в&nbsp;стоматологии для привлечения клиентов и&nbsp;пациентов работают, как их&nbsp;описать и&nbsp;что проверить перед публикацией.</p>
         <p class="art-p__meta" data-rv style="--d:2">Обновлено: ноябрь 2026<br>Читать 3&nbsp;мин</p>
       </div>
+      <figure class="art-p__cover" data-rv="scale">
+        <img src="../../assets/img/pages/blog-akcii-1000.webp" srcset="../../assets/img/pages/blog-akcii-640.webp 640w, ../../assets/img/pages/blog-akcii-1000.webp 1000w, ../../assets/img/pages/blog-akcii-1600.webp 1600w" sizes="(max-width: 1020px) 100vw, 1180px" width="1600" height="1067" alt="Пациентка берёт открытку из конверта на стойке клиники" fetchpriority="high" decoding="async">
+      </figure>
     </div>
   </header>
   <div class="wrap art-p__grid">
@@ -272,13 +276,13 @@
     <tr><th scope="col">Акция</th><th scope="col">Кому подходит</th><th scope="col">На&nbsp;что обратить внимание</th></tr>
   </thead>
   <tbody>
-    <tr><th scope="row">Консультация с&nbsp;планом лечения по&nbsp;сниженной цене или бесплатно</th><td>Имплантация, ортодонтия, протезирование</td><td>Опишите, что входит: осмотр, снимок, план с&nbsp;ценой</td></tr>
-    <tr><th scope="row">Цена «под ключ» на&nbsp;услугу</th><td>Имплант с&nbsp;коронкой, брекеты на&nbsp;весь срок</td><td>В&nbsp;цену должны входить все этапы, без доплат на&nbsp;приёме</td></tr>
-    <tr><th scope="row">Гигиена по&nbsp;специальной цене для новых пациентов</th><td>Клиники, которым нужен поток первичных пациентов</td><td>Не&nbsp;превращайте в&nbsp;постоянную цену: укажите срок</td></tr>
-    <tr><th scope="row">Снимок или диагностика в&nbsp;подарок при лечении</th><td>Клиники со&nbsp;своим КТ</td><td>Подарок должен быть связан с&nbsp;услугой</td></tr>
-    <tr><th scope="row">Семейное предложение</th><td>Детская стоматология, клиники в&nbsp;жилых районах</td><td>Простые условия: кто считается семьёй и&nbsp;какая скидка</td></tr>
-    <tr><th scope="row">Профилактический осмотр для тех, кто давно не&nbsp;был</th><td>Клиники с&nbsp;большой базой пациентов</td><td>Приглашайте только тех, кто дал согласие на&nbsp;сообщения</td></tr>
-    <tr><th scope="row">Рассрочка без переплаты</th><td>Лечение с&nbsp;высоким чеком</td><td>Если рассрочку даёт банк, его нужно назвать в&nbsp;рекламе</td></tr>
+    <tr><th scope="row" data-label="Акция">Консультация с&nbsp;планом лечения по&nbsp;сниженной цене или бесплатно</th><td data-label="Кому подходит">Имплантация, ортодонтия, протезирование</td><td data-label="На что обратить внимание">Опишите, что входит: осмотр, снимок, план с&nbsp;ценой</td></tr>
+    <tr><th scope="row" data-label="Акция">Цена «под ключ» на&nbsp;услугу</th><td data-label="Кому подходит">Имплант с&nbsp;коронкой, брекеты на&nbsp;весь срок</td><td data-label="На что обратить внимание">В&nbsp;цену должны входить все этапы, без доплат на&nbsp;приёме</td></tr>
+    <tr><th scope="row" data-label="Акция">Гигиена по&nbsp;специальной цене для новых пациентов</th><td data-label="Кому подходит">Клиники, которым нужен поток первичных пациентов</td><td data-label="На что обратить внимание">Не&nbsp;превращайте в&nbsp;постоянную цену: укажите срок</td></tr>
+    <tr><th scope="row" data-label="Акция">Снимок или диагностика в&nbsp;подарок при лечении</th><td data-label="Кому подходит">Клиники со&nbsp;своим КТ</td><td data-label="На что обратить внимание">Подарок должен быть связан с&nbsp;услугой</td></tr>
+    <tr><th scope="row" data-label="Акция">Семейное предложение</th><td data-label="Кому подходит">Детская стоматология, клиники в&nbsp;жилых районах</td><td data-label="На что обратить внимание">Простые условия: кто считается семьёй и&nbsp;какая скидка</td></tr>
+    <tr><th scope="row" data-label="Акция">Профилактический осмотр для тех, кто давно не&nbsp;был</th><td data-label="Кому подходит">Клиники с&nbsp;большой базой пациентов</td><td data-label="На что обратить внимание">Приглашайте только тех, кто дал согласие на&nbsp;сообщения</td></tr>
+    <tr><th scope="row" data-label="Акция">Рассрочка без переплаты</th><td data-label="Кому подходит">Лечение с&nbsp;высоким чеком</td><td data-label="На что обратить внимание">Если рассрочку даёт банк, его нужно назвать в&nbsp;рекламе</td></tr>
   </tbody>
 </table>
 </section>
@@ -321,9 +325,9 @@
       <nav class="prose__rel" aria-label="Читайте также">
         <h2>Читайте также</h2>
         <ul>
-          <li><a href="../../blog/kak-privlech-pacientov-v-stomatologiyu/">Как привлечь пациентов в&nbsp;стоматологию</a></li>
-          <li><a href="../../blog/reklama-stomatologii/">Реклама стоматологии: каналы, примеры, тексты</a></li>
-          <li><a href="../../blog/socseti-stomatologii/">Соцсети стоматологии: о&nbsp;чём писать и&nbsp;чего ждать</a></li>
+          <li><a href="../../blog/kak-privlech-pacientov-v-stomatologiyu/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-privlech-640.webp" width="640" height="367" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Как привлечь пациентов в&nbsp;стоматологию</span></a></li>
+          <li><a href="../../blog/reklama-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-reklama-640.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Реклама стоматологии: каналы, примеры, тексты</span></a></li>
+          <li><a href="../../blog/socseti-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-socseti-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Соцсети стоматологии: о&nbsp;чём писать и&nbsp;чего ждать</span></a></li>
         </ul>
       </nav>
     </div>
@@ -423,7 +427,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -466,6 +470,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Разобрать клинику</span></a>
 
 <script src="../../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../../assets/js/pages.js" defer></script>
+<script src="../../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>
