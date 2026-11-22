@@ -241,7 +241,7 @@
     var paint = function () { $('[data-code]', bar).textContent = code(); };
     sets.forEach(function (set, n) {
       var vs = $$(':scope > .vset__v', set), sh = $('h2, h1', vs[0]);
-      var name = sh ? sh.textContent.trim().replace(/\s+/g, ' ') : set.dataset.type;
+      var name = sh ? sh.textContent.trim().replace(/\s+/g, ' ') : set.dataset.vtype;
       var ui = document.createElement('div'); ui.className = 'vset__bar';
       ui.innerHTML = '<span class="vset__num">' + (n + 1) + '</span><span class="vset__name">' + name.slice(0, 64) + '</span><span class="vset__btns" role="group" aria-label="Варианты секции"></span>';
       var box = $('.vset__btns', ui);

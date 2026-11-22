@@ -11,7 +11,7 @@
 {% macro section(s, url) %}
 {% set three = trio(url, s) %}
 {% if PICK and three.length > 1 %}
-<div class="vset" id="{{ s.id }}" data-vset data-type="{{ s.type }}">
+<div class="vset" id="{{ s.id }}" data-vset data-vtype="{{ s.type }}">
 {% for lk in three %}
   <div class="vset__v" data-v="{{ loop.index }}" data-name="{{ lookName(s.type, lk) }}"{% if not loop.first and PICK != 'all' %} hidden{% endif %}>
 {{ one(extend(s, { id: false, vsuf: loop.index, url: url }), lk) }}
