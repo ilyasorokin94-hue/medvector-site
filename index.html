@@ -320,7 +320,8 @@
     </div>
   </div>
 </section>
-<!-- «Две панели»: Директ и комплекс стоят рядом, под ними услуги по отдельности -->
+<!-- «Две панели»: Директ и комплекс стоят рядом, под ними услуги по отдельности.
+     В каждой панели видеоряд из трёх сцен (.film): файлы в assets/video/, готовит их _tools/film.py -->
 <section class="sec" id="services" data-line="light">
   <div class="sec__body s1">
     <div class="wrap">
@@ -334,6 +335,13 @@
       </div>
       <div class="s1__grid">
         <article class="s1__p" data-rv>
+          <div class="film" data-film="implant,allon4,ortho" data-film-caps="Имплантация|All-on-4|Ортодонтия">
+            <img class="film__still" src="assets/video/implant.webp" width="960" height="540" alt="" loading="lazy" decoding="async">
+            <video class="film__v" muted playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+            <p class="film__cap" data-film-cap>Имплантация</p>
+            <button class="film__btn" type="button" data-film-btn hidden>Пауза</button>
+            <span class="film__stub">Заглушка вместо сцены</span>
+          </div>
           <p class="s1__tag">Быстрый результат</p>
           <h3 class="s1__h">Яндекс Директ</h3>
           <p class="s1__big num">4&nbsp;дня</p>
@@ -348,6 +356,13 @@
           <a href="#start" class="btn" data-magnetic>Обсудить тест</a>
         </article>
         <article class="s1__p s1__p--dark dark" data-rv style="--d:1">
+          <div class="film" data-film="reception,consult,clinic" data-film-caps="Запись в клинику|Консультация|Клиника вечером">
+            <img class="film__still" src="assets/video/reception.webp" width="960" height="540" alt="" loading="lazy" decoding="async">
+            <video class="film__v" muted playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+            <p class="film__cap" data-film-cap>Запись в&nbsp;клинику</p>
+            <button class="film__btn" type="button" data-film-btn hidden>Пауза</button>
+            <span class="film__stub">Заглушка вместо сцены</span>
+          </div>
           <p class="s1__tag">Надолго</p>
           <h3 class="s1__h">Комплексный маркетинг</h3>
           <p class="s1__big num">3&nbsp;месяца</p>

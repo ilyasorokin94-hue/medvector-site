@@ -512,3 +512,71 @@
   });
 
 })();
+
+/* ===== Видеоряд в панелях услуг ([data-film]) =====
+   При открытии страницы видео не грузится: стоит первый кадр. Файл сцены запрашивается, только когда
+   панель навели курсором, а на телефоне когда видеоряд оказался на экране. Сцены идут по кругу. */
+(function () {
+  'use strict';
+  var films = Array.prototype.slice.call(document.querySelectorAll('[data-film]'));
+  if (!films.length || !('IntersectionObserver' in window)) return;
+  var MV = window.MV || {};
+  var conn = navigator.connection || {};
+  var probe = document.createElement('video');
+  /* без видео: отключённая анимация в системе, экономия трафика, очень медленная связь */
+  var stillOnly = MV.reduce || conn.saveData || /2g$/.test(conn.effectiveType || '') || !probe.canPlayType;
+  var ext = !stillOnly && probe.canPlayType('video/webm; codecs="vp9"') ? 'webm' : 'mp4';
+  var hover = !!MV.fine;
+
+  films.forEach(function (box) {
+    var names = box.getAttribute('data-film').split(',');
+    var caps = (box.getAttribute('data-film-caps') || '').split('|');
+    var img = box.querySelector('.film__still'), v = box.querySelector('video');
+    var cap = box.querySelector('[data-film-cap]'), btn = box.querySelector('[data-film-btn]');
+    var panel = box.closest('article') || box;
+    var base = img.getAttribute('src').replace(/[^/]+$/, '');
+    var i = 0, want = !hover, seen = false, loaded = false, broken = false;
+
+    var play = function () {
+      if (!loaded) {
+        loaded = true;
+        v.src = base + names[0] + '.' + ext;
+        names.slice(1).forEach(function (n) { new Image().src = base + n + '.webp'; });
+      }
+      var p = v.play(); if (p && p.catch) p.catch(function () {});
+    };
+    var sync = function () {
+      var on = want && seen;
+      box.classList.toggle('is-live', hover ? want : true);
+      if (stillOnly || broken) return;
+      if (on) play(); else if (loaded) v.pause();
+    };
+
+    v.addEventListener('playing', function () { box.classList.add('is-playing'); });
+    v.addEventListener('error', function () { broken = true; box.classList.remove('is-playing'); if (btn) btn.hidden = true; });
+    /* следующая сцена: под видео уже стоит её первый кадр, поэтому смена выглядит как обычная склейка */
+    v.addEventListener('ended', function () {
+      i = (i + 1) % names.length;
+      img.src = base + names[i] + '.webp';
+      if (cap && caps[i]) cap.textContent = caps[i];
+      box.classList.remove('is-playing');
+      v.src = base + names[i] + '.' + ext;
+      if (want && seen) play();
+    });
+
+    new IntersectionObserver(function (es) { seen = es[es.length - 1].isIntersecting; sync(); }, { threshold: 0.5 }).observe(box);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) { if (loaded) v.pause(); } else sync(); });
+
+    if (hover) {
+      panel.addEventListener('pointerenter', function () { want = true; sync(); });
+      panel.addEventListener('pointerleave', function () { want = false; sync(); });
+      panel.addEventListener('focusin', function () { want = true; sync(); });
+      panel.addEventListener('focusout', function () { if (!panel.matches(':hover')) { want = false; sync(); } });
+    } else if (btn && !stillOnly) {
+      /* на телефоне видео идёт само, поэтому есть кнопка паузы */
+      btn.hidden = false;
+      btn.addEventListener('click', function () { want = !want; btn.textContent = want ? 'Пауза' : 'Запустить'; sync(); });
+    }
+    sync();
+  });
+})();
