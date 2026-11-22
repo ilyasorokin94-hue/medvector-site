@@ -1,5 +1,5 @@
 {# Страница услуги, собранная из блоков. Тексты и порядок блоков задаются в шапке файла страницы (sections).
-   Виды блоков: loss, spec, steps, deflist, cmp, yesno, qrows, pack, links. Оформление прежнее, «Траектория». #}
+   Виды блоков: loss, spec, steps, deflist, demo, cmp, yesno, qrows, pack, links. Оформление прежнее, «Траектория». #}
 {% extends "base.njk" %}
 
 {% block main %}
@@ -37,6 +37,21 @@
       <li class="reveal"><h3 class="h3">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
 {% endfor %}
     </ol>
+{% elif s.type == 'demo' %}
+    <div class="sitebox">
+      <div class="sitebox__pic reveal">
+        {{ b.a_browser('site') }}
+        {{ b.a_phone('site') }}
+      </div>
+      <ol class="deflist">
+{% for r in s.items %}
+        <li class="reveal"><h3 class="h3">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+      </ol>
+    </div>
+{% if s.tag %}
+    <p class="jr__demo"><span class="tag">{{ s.tag }}</span></p>
+{% endif %}
 {% elif s.type == 'cmp' %}
     <div class="cmp-wrap">
       <table class="cmp{% if s.cols.length == 3 %} cmp--4{% endif %}">
