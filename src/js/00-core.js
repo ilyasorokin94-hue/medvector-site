@@ -71,7 +71,12 @@
 
   /* ---------- появление блоков ---------- */
   var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (!e.isIntersecting) return; e.target.classList.add('is-in'); io.unobserve(e.target); });
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var row = e.target.parentElement, side = row && /auto|scroll/.test(getComputedStyle(row).overflowX);
+      // карточки в ленте, которая листается вбок (телефон): появляются всей лентой, иначе те, что за краем экрана, так и остались бы скрытыми
+      (side ? $$(':scope > [data-rv]', row) : [e.target]).forEach(function (el) { el.classList.add('is-in'); io.unobserve(el); });
+    });
   }, { rootMargin: '0px 0px -6% 0px' }) : null;
   var watch = function (scope, replay) {
     $$('[data-rv], .ticks', scope).forEach(function (el) {
