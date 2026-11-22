@@ -875,4 +875,17 @@ button.link { border: 0; cursor: pointer; }
   }
 }
 @keyframes c5turn { from { transform: rotateY(-16deg) rotateX(9deg); } to { transform: rotateY(-3deg) rotateX(1.5deg); } }
+/* сайты «Наклон» на телефоне: стена макетов наклонена, как на компьютере, только мягче, и выезжает из глубины при появлении.
+   Края гаснут градиентом цвета секции, без маски: маска на наклонённом слое тяжела для телефона */
+@media (max-width: 1100px) {
+  #sites { overflow: clip; }
+}
+@media (max-width: 860px) {
+  #sites .w5__wall { position: relative; height: 430px; margin: 30px calc(var(--gut) * -1) -24px; -webkit-mask-image: none; mask-image: none; transform: perspective(1100px) rotateX(24deg) rotateZ(-8deg) scale(1.14); transition: transform 1.5s var(--ease), opacity .9s var(--ease); }
+  #sites .w5__wall::before, #sites .w5__wall::after { content: ''; position: absolute; left: -10%; right: -10%; height: 22%; z-index: 2; pointer-events: none; }
+  #sites .w5__wall::before { top: -1px; background: linear-gradient(var(--ink), rgba(0, 15, 64, 0)); }
+  #sites .w5__wall::after { bottom: -1px; background: linear-gradient(rgba(0, 15, 64, 0), var(--ink)); }
+  #sites .w5__col .mock { font-size: 4.3px; }
+  .js #sites:not(.v-go) .w5__wall { transform: perspective(1100px) rotateX(56deg) rotateZ(-20deg) scale(.9) translateY(110px); opacity: 0; }
+}
 /* ===== Телефон: конец ===== */
