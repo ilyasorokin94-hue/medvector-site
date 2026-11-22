@@ -939,3 +939,5 @@ html:active-view-transition { background: var(--ink); }
 .prose table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.45; }
 .prose th, .prose td { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--line, rgba(0, 0, 0, .12)); text-align: left; vertical-align: top; color: var(--ink-2); }
 .prose thead th, .prose tbody th { font-weight: 500; color: var(--ink); }
+.prose p.prose__meta, .prose p.prose__note { margin-top: 14px; font-size: 15px; color: var(--ink-3, var(--ink-2)); }
+.prose p.prose__note { margin-top: 40px; }
