@@ -168,7 +168,13 @@
       curEl.classList.toggle('is-link', !!link && !text); curEl.classList.toggle('is-text', !!text);
     }, { passive: true });
     document.addEventListener('pointerleave', function () { curOn = false; curEl.classList.remove('is-on'); });
-    MV.frames.push(function () { cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2; curEl.style.transform = 'translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)'; });
+    // курсор догоняет мышь; когда догнал, кадр ничего не пишет в стили
+    var ctf = '';
+    MV.frames.push(function () {
+      if (Math.abs(tx - cx) < 0.15 && Math.abs(ty - cy) < 0.15) { cx = tx; cy = ty; } else { cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2; }
+      var t = 'translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)';
+      if (t !== ctf) { ctf = t; curEl.style.transform = t; }
+    });
   }
 
   /* ---------- прокрутка: прогресс секций и поворот зуба ---------- */
@@ -178,7 +184,8 @@
       var r = el.getBoundingClientRect(), p;
       if (el.dataset.prog === 'pin') p = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
       else p = clamp((vh - r.top) / (vh + r.height), 0, 1);
-      el.style.setProperty('--p', p.toFixed(4));
+      // пишем, только если значение изменилось: каждая запись пересчитывает стили блока
+      var v = p.toFixed(3); if (el.__p !== v) { el.__p = v; el.style.setProperty('--p', v); }
     });
     teeth.forEach(function (t) { if (t.scroll) { var r = t.canvas.getBoundingClientRect(); t.inst.state.extraYaw = (vh / 2 - (r.top + r.height / 2)) / vh * t.scroll; } });
   };
@@ -205,6 +212,43 @@
     var ok = $('[data-form-ok]', f); if (ok) { ok.hidden = false; ok.focus && ok.focus(); }
   });
 
+  /* ---------- видео под первым экраном ----------
+     Страница открывается без него. После загрузки, только на компьютере и при обычной связи, ролик скачивается
+     и проявляется под синим слоем, слово «МедВектор» при этом становится стеклом (.is-film). Ушли с первого экрана: пауза. */
+  (function () {
+    var box = $('[data-hero-film]'); if (!box) return;
+    var v = $('video', box), conn = navigator.connection || {};
+    if (reduce || !fine || innerWidth < 1021 || conn.saveData || /2g|3g/.test(conn.effectiveType || '') || !v.canPlayType || !('IntersectionObserver' in window)) return;
+    var me = document.currentScript || $('script[src*="home.js"]'), src = me && me.getAttribute('src');
+    var base = src ? src.replace(/js\/[^/]*$/, 'video/') : 'assets/video/';
+    var name = base + box.getAttribute('data-hero-film'), seen = true, loaded = false, shown = false;
+    /* кадр-заставка (около 20 КБ) приходит вместе со страницей и ждёт под прозрачным слоем, сам ролик качается после загрузки */
+    v.poster = name + '.webp';
+    var play = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
+    var show = function () { if (shown) return; shown = true; box.classList.add('is-on'); box.parentNode.classList.add('is-film'); };
+    var start = function () {
+      loaded = true;
+      v.src = name + (v.canPlayType('video/webm; codecs="vp9"') ? '.webm' : '.mp4');
+      v.addEventListener('playing', show, { once: true });
+      setTimeout(show, 1200); /* связь медленная: проявляем кадр-заставку, ролик подхватит с него же */
+      if (seen) play();
+    };
+    new IntersectionObserver(function (es) {
+      seen = es[es.length - 1].isIntersecting;
+      if (!loaded) return;
+      if (seen) play(); else v.pause();
+    }, { threshold: 0.15 }).observe(box);
+    document.addEventListener('visibilitychange', function () { if (!loaded) return; if (document.hidden) v.pause(); else if (seen) play(); });
+    var later = function () { (window.requestIdleCallback || function (f) { setTimeout(f, 400); })(start, { timeout: 1500 }); };
+    if (document.readyState === 'complete') later(); else addEventListener('load', later);
+  })();
+
+  /* ---------- секции за экраном ставят свои бесконечные анимации на паузу ---------- */
+  if ('IntersectionObserver' in window) {
+    var offIO = new IntersectionObserver(function (es) { es.forEach(function (e) { e.target.classList.toggle('is-off', !e.isIntersecting); }); }, { rootMargin: '100px 0px' });
+    $$('main > section').forEach(function (s) { offIO.observe(s); });
+  }
+
   /* ---------- запуск ---------- */
   fit(); mountTeeth(); counts(document); watch(document, false); onScroll();
   requestAnimationFrame(loop);
@@ -225,7 +269,7 @@
   main.insertBefore(svg, main.firstChild);
   var COLOR = { light: '#008cd8', fog: '#008cd8', dark: '#2aa8f2', azure: '#ffffff' };
   var BG = { light: '#ffffff', fog: '#f2f4f7', dark: '#000f40', azure: '#008cd8' };
-  var master = null, total = 0, samples = [], drawn = [], pulses = [], dots = [], bands = [], head = null, cur = 0, target = 0, ready = false, R = 30;
+  var total = 0, samples = [], drawn = [], pulses = [], dots = [], bands = [], head = null, cur = 0, target = 0, ready = false, R = 30;
 
   // положение метки относительно main без учёта анимаций transform
   var pos = function (e) { var x = 0, y = 0, n = e; while (n && n !== main) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; } return n === main ? { x: x + 0.5, y: y + 0.5 } : null; };
@@ -254,15 +298,38 @@
       if (c.length > 1) { var k = c[c.length - 2], cr = (l.x - k.x) * (q.y - l.y) - (l.y - k.y) * (q.x - l.x); if (Math.abs(cr) < 0.5 && ((l.x - k.x) * (q.x - l.x) + (l.y - k.y) * (q.y - l.y)) > 0) { c[c.length - 1] = q; continue; } }
       c.push(q);
     }
-    var d = 'M' + c[0].x.toFixed(1) + ' ' + c[0].y.toFixed(1);
+    var r1 = function (v) { return Math.round(v * 10) / 10; };
+    var d = 'M' + r1(c[0].x) + ' ' + r1(c[0].y), poly = [[r1(c[0].x), r1(c[0].y)]];
     for (i = 1; i < c.length; i++) {
       var B = c[i], A = c[i - 1], C = c[i + 1];
-      if (!C) { d += 'L' + B.x.toFixed(1) + ' ' + B.y.toFixed(1); break; }
+      if (!C) { d += 'L' + r1(B.x) + ' ' + r1(B.y); poly.push([r1(B.x), r1(B.y)]); break; }
       var ab = Math.hypot(B.x - A.x, B.y - A.y), bc = Math.hypot(C.x - B.x, C.y - B.y), r = Math.min(R, ab / 2, bc / 2);
-      var p1x = B.x + (A.x - B.x) / ab * r, p1y = B.y + (A.y - B.y) / ab * r, p2x = B.x + (C.x - B.x) / bc * r, p2y = B.y + (C.y - B.y) / bc * r;
-      d += 'L' + p1x.toFixed(1) + ' ' + p1y.toFixed(1) + 'Q' + B.x.toFixed(1) + ' ' + B.y.toFixed(1) + ' ' + p2x.toFixed(1) + ' ' + p2y.toFixed(1);
+      var p1x = r1(B.x + (A.x - B.x) / ab * r), p1y = r1(B.y + (A.y - B.y) / ab * r), p2x = r1(B.x + (C.x - B.x) / bc * r), p2y = r1(B.y + (C.y - B.y) / bc * r), bx = r1(B.x), by = r1(B.y);
+      d += 'L' + p1x + ' ' + p1y + 'Q' + bx + ' ' + by + ' ' + p2x + ' ' + p2y;
+      poly.push([p1x, p1y]);
+      // скругление: кривая разбита на 10 отрезков
+      for (var t = 1; t <= 10; t++) { var u = t / 10, w = 1 - u; poly.push([w * w * p1x + 2 * w * u * bx + u * u * p2x, w * w * p1y + 2 * w * u * by + u * u * p2y]); }
     }
-    return d;
+    return { d: d, poly: poly };
+  };
+
+  // таблица длин по ломаной: точка на заданной длине без обращений к SVG
+  var PX = [], PY = [], PL = [];
+  var table = function (poly) {
+    PX = []; PY = []; PL = []; var L = 0;
+    for (var i = 0; i < poly.length; i++) {
+      if (i) L += Math.hypot(poly[i][0] - poly[i - 1][0], poly[i][1] - poly[i - 1][1]);
+      PX.push(poly[i][0]); PY.push(poly[i][1]); PL.push(L);
+    }
+    return L;
+  };
+  var pointAt = function (l) {
+    var n = PL.length - 1; if (n < 1) return { x: PX[0] || 0, y: PY[0] || 0 };
+    if (l <= 0) return { x: PX[0], y: PY[0] }; if (l >= PL[n]) return { x: PX[n], y: PY[n] };
+    var lo = 0, hi = n;
+    while (hi - lo > 1) { var mid = (lo + hi) >> 1; if (PL[mid] <= l) lo = mid; else hi = mid; }
+    var k = (l - PL[lo]) / ((PL[hi] - PL[lo]) || 1);
+    return { x: PX[lo] + (PX[hi] - PX[lo]) * k, y: PY[lo] + (PY[hi] - PY[lo]) * k };
   };
 
   var rebuild = function () {
@@ -276,22 +343,24 @@
     drawn = []; pulses = []; dots = []; bands = []; ready = false;
     if (pts.length < 2) return;
     R = innerWidth < 720 ? 18 : 30;
-    var d = route(pts), W = main.offsetWidth, defs = el('defs', {});
+    var rr = route(pts), d = rr.d, W = main.offsetWidth, defs = el('defs', {});
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + main.offsetHeight);
     svg.setAttribute('width', W); svg.setAttribute('height', main.offsetHeight);
     svg.appendChild(defs);
-    master = el('path', { d: d, stroke: 'none' }); svg.appendChild(master);
-    total = master.getTotalLength();
+    total = table(rr.poly);
     // выборка длины: для каждой длины наибольшая достигнутая высота
     samples = []; var step = 10, my = -1e9, L, pt;
-    for (L = 0; L <= total; L += step) { pt = master.getPointAtLength(L); if (pt.y > my) my = pt.y; samples.push(my); }
+    for (L = 0; L <= total; L += step) { pt = pointAt(L); if (pt.y > my) my = pt.y; samples.push(my); }
+    var TL = total.toFixed(1);
     Array.prototype.forEach.call(main.querySelectorAll(':scope > section'), function (sec, i) {
       var kind = sec.dataset.line || 'light', col = COLOR[kind] || COLOR.light, top = sec.offsetTop, h = sec.offsetHeight, id = 'vlc' + i;
       var cp = el('clipPath', { id: id }); cp.appendChild(el('rect', { x: -40, y: top, width: W + 80, height: h })); defs.appendChild(cp);
       var g = el('g', { 'clip-path': 'url(#' + id + ')', stroke: col });
       g.appendChild(el('path', { d: d, 'class': 'vl-ghost' }));
-      var p = el('path', { d: d, 'class': 'vl-main' }); g.appendChild(p); drawn.push(p);
-      var pu = el('path', { d: d, 'class': 'vl-pulse', stroke: kind === 'azure' ? '#000f40' : kind === 'dark' ? '#ffffff' : '#000f40' }); g.appendChild(pu); pulses.push(pu);
+      // pathLength: длина в штрихах равна длине по таблице, расчёт и рисунок совпадают
+      var p = el('path', { d: d, 'class': 'vl-main', pathLength: TL }); g.appendChild(p); drawn.push(p);
+      var pu = el('path', { d: d, 'class': 'vl-pulse', pathLength: TL, stroke: kind === 'azure' ? '#000f40' : kind === 'dark' ? '#ffffff' : '#000f40' }); g.appendChild(pu); pulses.push(pu);
+      p.__da = pu.__da = '';
       svg.appendChild(g); bands.push({ top: top, bottom: top + h, col: col, bg: BG[kind] || BG.light });
     });
     var band = function (y) { for (var i = 0; i < bands.length; i++) if (y >= bands[i].top && y < bands[i].bottom) return bands[i]; return bands[0] || { col: COLOR.light, bg: BG.light }; };
@@ -299,9 +368,9 @@
     pts.forEach(function (p) {
       if (!p.node) return;
       var best = 0, bd = 1e9, l, q;
-      for (l = 0; l <= total; l += 6) { q = master.getPointAtLength(l); var dd = (q.x - p.x) * (q.x - p.x) + (q.y - p.y) * (q.y - p.y); if (dd < bd) { bd = dd; best = l; } }
+      for (l = 0; l <= total; l += 4) { q = pointAt(l); var dd = (q.x - p.x) * (q.x - p.x) + (q.y - p.y) * (q.y - p.y); if (dd < bd) { bd = dd; best = l; } }
       var b = band(p.y), c = el('circle', { cx: p.x.toFixed(1), cy: p.y.toFixed(1), r: 5.5, 'class': 'vl-dot', stroke: b.col }); c.style.color = b.col; c.style.fill = b.bg;
-      svg.appendChild(c); dots.push({ el: c, len: best, bg: b.bg, col: b.col });
+      svg.appendChild(c); dots.push({ el: c, len: best, bg: b.bg, col: b.col, on: null });
     });
     head = el('path', { d: 'M-10 -7.5L0 0L-10 7.5', 'class': 'vl-head' }); head.__band = band; svg.appendChild(head);
     cur = Math.min(cur, total); ready = true; frame(performance.now(), true);
@@ -320,17 +389,25 @@
     if (scrollY + innerHeight >= document.documentElement.scrollHeight - 6) target = total;
     if (MV.reduce) cur = target; else cur += (target - cur) * 0.12;
     if (Math.abs(target - cur) < 0.4) cur = target;
-    var da = cur.toFixed(1) + ' ' + (total + 20).toFixed(0), i;
-    for (i = 0; i < drawn.length; i++) drawn[i].style.strokeDasharray = da;
+    var da = cur.toFixed(1) + ' ' + (total + 20).toFixed(0), i, vt = -top - 200, vb = -top + innerHeight + 200, on;
     // импульс бежит по нарисованной части к стрелке
     var pp = MV.reduce ? -1 : (now * 0.34) % (cur + 900), pd = pp > 60 && pp < cur ? '0 ' + (pp - 60).toFixed(1) + ' 60 ' + (total + 20).toFixed(0) : '0 ' + (total + 20).toFixed(0);
-    for (i = 0; i < pulses.length; i++) pulses[i].style.strokeDasharray = pd;
+    for (i = 0; i < drawn.length; i++) {
+      on = bands[i].bottom > vt && bands[i].top < vb;
+      // полосы за экраном не перерисовываем: их догонит первый кадр, когда они появятся
+      if (!on && !force) continue;
+      if (drawn[i].__da !== da) { drawn[i].__da = da; drawn[i].style.strokeDasharray = da; }
+      var pdi = on ? pd : '0 ' + (total + 20).toFixed(0);
+      if (pulses[i].__da !== pdi) { pulses[i].__da = pdi; pulses[i].style.strokeDasharray = pdi; }
+    }
     if (cur > 14) {
-      var a = master.getPointAtLength(cur), b = master.getPointAtLength(cur - 4), ang = Math.atan2(a.y - b.y, a.x - b.x) * 180 / Math.PI;
-      head.setAttribute('transform', 'translate(' + a.x.toFixed(1) + ' ' + a.y.toFixed(1) + ') rotate(' + ang.toFixed(1) + ')');
-      head.setAttribute('stroke', head.__band(a.y).col); head.style.opacity = cur >= total - 1 ? 1 : 1;
-    } else head.style.opacity = 0;
-    for (i = 0; i < dots.length; i++) dots[i].el.style.fill = cur >= dots[i].len ? dots[i].col : dots[i].bg;
+      var a = pointAt(cur), b = pointAt(cur - 4), ang = Math.atan2(a.y - b.y, a.x - b.x) * 180 / Math.PI;
+      var tf = 'translate(' + a.x.toFixed(1) + ' ' + a.y.toFixed(1) + ') rotate(' + ang.toFixed(1) + ')', hc = head.__band(a.y).col;
+      if (head.__tf !== tf) { head.__tf = tf; head.setAttribute('transform', tf); }
+      if (head.__c !== hc) { head.__c = hc; head.setAttribute('stroke', hc); }
+      if (head.__o !== 1) { head.__o = 1; head.style.opacity = 1; }
+    } else if (head.__o !== 0) { head.__o = 0; head.style.opacity = 0; }
+    for (i = 0; i < dots.length; i++) { on = cur >= dots[i].len; if (dots[i].on !== on) { dots[i].on = on; dots[i].el.style.fill = on ? dots[i].col : dots[i].bg; } }
   };
   var rt = 0;
   MV.line = { rebuild: function () { cancelAnimationFrame(rt); rt = requestAnimationFrame(rebuild); }, state: function () { return { cur: cur, total: total }; } };
@@ -427,6 +504,11 @@
     var tab = d && e.target.closest && e.target.closest('[role="tablist"] [data-tab]'); if (!tab) return;
     var tabs = $$('[data-tab]', tab.closest('[role="tablist"]')), next = tabs[(tabs.indexOf(tab) + d + tabs.length) % tabs.length];
     e.preventDefault(); next.click(); next.focus({ preventScroll: true });
+  });
+
+  /* карта регионов: когда круг проявления дошёл до краёв, маску снимаем, чтобы огоньки не тянули её за собой в каждом кадре */
+  $$('.g2__frame').forEach(function (f) {
+    f.addEventListener('transitionend', function (e) { if (e.propertyName === '--g2r' && f.parentElement.classList.contains('is-in')) f.classList.add('is-shown'); });
   });
 
 })();
