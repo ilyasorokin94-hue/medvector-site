@@ -71,7 +71,12 @@
 
   /* ---------- появление блоков ---------- */
   var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (!e.isIntersecting) return; e.target.classList.add('is-in'); io.unobserve(e.target); });
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var row = e.target.parentElement, side = row && /auto|scroll/.test(getComputedStyle(row).overflowX);
+      // карточки в ленте, которая листается вбок (телефон): появляются всей лентой, иначе те, что за краем экрана, так и остались бы скрытыми
+      (side ? $$(':scope > [data-rv]', row) : [e.target]).forEach(function (el) { el.classList.add('is-in'); io.unobserve(el); });
+    });
   }, { rootMargin: '0px 0px -6% 0px' }) : null;
   var watch = function (scope, replay) {
     $$('[data-rv], .ticks', scope).forEach(function (el) {
@@ -158,10 +163,11 @@
         if (focus) btns[i].focus();
       };
       btns.forEach(function (b, i) {
-        b.addEventListener('click', function () { show(i); });
+        // панель выезжает только при переключении: при загрузке первая вкладка стоит на месте
+        b.addEventListener('click', function () { box.classList.add('is-used'); show(i); });
         b.addEventListener('keydown', function (e) {
           var step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
-          if (step) { e.preventDefault(); show((i + step + btns.length) % btns.length, true); }
+          if (step) { e.preventDefault(); box.classList.add('is-used'); show((i + step + btns.length) % btns.length, true); }
         });
       });
       var byHash = function () { var i = panels.findIndex(function (p) { return p && '#' + p.id === location.hash; }); if (i >= 0) show(i); return i >= 0; };
@@ -227,21 +233,53 @@
     $$('main section').forEach(function (s) { offIO.observe(s); });
   }
 
+  /* ---------- содержание статьи: подсвечен раздел, который сейчас читают ---------- */
+  var tocSpy = function () {
+    var links = $$('.art-p__toc a[href^="#"]');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    var byId = {};
+    links.forEach(function (a) { byId[decodeURIComponent(a.hash.slice(1))] = a; });
+    var hs = Object.keys(byId).map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    if (!hs.length) return;
+    var io = new IntersectionObserver(function () {
+      // текущий раздел: последний заголовок, который уже поднялся выше середины экрана
+      var cur = hs[0];
+      hs.forEach(function (h) { if (h.getBoundingClientRect().top < innerHeight * .5) cur = h; });
+      links.forEach(function (a) { a.classList.toggle('is-here', a === byId[cur.id]); });
+    }, { rootMargin: '0px 0px -50% 0px', threshold: [0, 1] });
+    hs.forEach(function (h) { io.observe(h); });
+  };
+
   /* ---------- сборка выбора: у секции три варианта подачи, переключатель над ней, выбор копируется кодом ---------- */
   var pickUI = function () {
     var sets = $$('[data-vset]');
-    if (!sets.length) return;
-    var key = 'mv-pick:' + location.pathname.replace(/\/index\.html$/, '/').split('/').filter(Boolean).slice(-1)[0];
+    // сборка MV_PICK=all показывает все варианты подряд для скриншотов: переключатель не нужен
+    if (!sets.length || document.body.classList.contains('is-pick-all')) return;
+    // выбор хранится по адресу страницы на боевом сайте (из canonical), поэтому одна кнопка собирает выбор со всех страниц
+    var canon = document.querySelector('link[rel=canonical]');
+    var key = 'mv-pick:' + (canon ? new URL(canon.href).pathname : location.pathname);
     var saved = {}; try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) { saved = {}; }
-    var page = (document.querySelector('h1') || {}).textContent || document.title;
     var bar = document.createElement('div'); bar.className = 'pick-bar';
-    bar.innerHTML = '<p class="pick-bar__t">Выбор вариантов: <b data-code></b></p><button type="button" class="pick-bar__btn" data-copy>Скопировать выбор</button><button type="button" class="pick-bar__btn pick-bar__btn--ghost" data-reset>Сбросить</button>';
+    bar.innerHTML = '<p class="pick-bar__t">Выбор вариантов: <b data-code></b> <span data-all></span></p><button type="button" class="pick-bar__btn" data-copy>Скопировать выбор</button><button type="button" class="pick-bar__btn pick-bar__btn--ghost" data-reset>Сбросить</button>';
     document.body.appendChild(bar);
     var code = function () { return sets.map(function (s) { return s.__v || 1; }).join('-'); };
-    var paint = function () { $('[data-code]', bar).textContent = code(); };
+    // все страницы, где выбран не первый вариант: «/yandex-direkt/: intro 2, faq 3»
+    var all = function () {
+      var lines = [];
+      try {
+        for (var i = 0; i < localStorage.length; i++) {
+          var k = localStorage.key(i); if (k.indexOf('mv-pick:/') !== 0) continue;
+          var o = JSON.parse(localStorage.getItem(k) || '{}');
+          var p = Object.keys(o).filter(function (id) { return o[id] > 1; }).map(function (id) { return id + ' ' + o[id]; });
+          if (p.length) lines.push(k.slice(8) + ': ' + p.join(', '));
+        }
+      } catch (e) {}
+      return lines.sort();
+    };
+    var paint = function () { $('[data-code]', bar).textContent = code(); var n = all().length; $('[data-all]', bar).textContent = n ? '(страниц с выбором: ' + n + ')' : ''; };
     sets.forEach(function (set, n) {
       var vs = $$(':scope > .vset__v', set), sh = $('h2, h1', vs[0]);
-      var name = sh ? sh.textContent.trim().replace(/\s+/g, ' ') : set.dataset.type;
+      var name = sh ? sh.textContent.trim().replace(/\s+/g, ' ') : set.dataset.vtype;
       var ui = document.createElement('div'); ui.className = 'vset__bar';
       ui.innerHTML = '<span class="vset__num">' + (n + 1) + '</span><span class="vset__name">' + name.slice(0, 64) + '</span><span class="vset__btns" role="group" aria-label="Варианты секции"></span>';
       var box = $('.vset__btns', ui);
@@ -263,7 +301,7 @@
       show(clamp((saved[set.id || n] || 1) - 1, 0, vs.length - 1), false);
     });
     $('[data-copy]', bar).addEventListener('click', function (e) {
-      var txt = page.trim() + ': ' + code();
+      var lines = all(), txt = 'Выбор вариантов МедВектор\n' + (lines.length ? lines.join('\n') : 'везде первые варианты');
       var done = function () { e.target.textContent = 'Скопировано'; setTimeout(function () { e.target.textContent = 'Скопировать выбор'; }, 1600); };
       if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, function () { prompt('Скопируйте выбор', txt); }); else prompt('Скопируйте выбор', txt);
     });
@@ -273,12 +311,59 @@
   /* ---------- запуск ---------- */
   var boot = function () {
     pickUI();
+    tocSpy();
     mount(document);
     onHeader();
     requestAnimationFrame(loop);
   };
   MV.boot = boot;
 })();
+
+/* потери «Указатель»: на широком экране строит слева список проблем, справа показывает разбор выбранной */
+MV.looks['loss-index'] = function (el) {
+  var panes = [].slice.call(el.querySelectorAll('.loix__p'));
+  if (panes.length < 2 || !window.matchMedia) return;
+  var mq = matchMedia('(min-width: 961px)'), nav = null, btns = [], uid = 'loix' + Math.random().toString(36).slice(2, 7);
+  function set(i, focus) {
+    btns.forEach(function (b, k) { b.setAttribute('aria-selected', k === i ? 'true' : 'false'); b.tabIndex = k === i ? 0 : -1; });
+    panes.forEach(function (p, k) { p.classList.toggle('is-cur', k === i); });
+    if (focus) btns[i].focus();
+  }
+  function on() {
+    nav = document.createElement('div'); nav.className = 'loix__nav'; nav.setAttribute('role', 'tablist');
+    btns = panes.map(function (p, i) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'loix__b'; b.id = uid + 't' + i; p.id = uid + 'p' + i;
+      b.setAttribute('role', 'tab'); b.setAttribute('aria-controls', p.id); p.setAttribute('role', 'tabpanel'); p.setAttribute('aria-labelledby', b.id);
+      b.innerHTML = p.querySelector('.loix__h').innerHTML;
+      b.addEventListener('click', function () { set(i); });
+      b.addEventListener('mouseenter', function () { set(i); });
+      b.addEventListener('keydown', function (e) {
+        var k = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+        if (k) { e.preventDefault(); set((i + k + panes.length) % panes.length, true); }
+      });
+      nav.appendChild(b); return b;
+    });
+    el.insertBefore(nav, el.firstChild); el.classList.add('is-on'); set(0);
+  }
+  function off() {
+    if (!nav) return; nav.remove(); nav = null; btns = []; el.classList.remove('is-on');
+    panes.forEach(function (p) { p.classList.remove('is-cur'); p.removeAttribute('role'); p.removeAttribute('aria-labelledby'); });
+  }
+  function sync() { if (mq.matches) { if (!nav) on(); } else off(); }
+  sync();
+  if (mq.addEventListener) mq.addEventListener('change', sync);
+};
+
+/* шаги «Рельс»: линия заполняется до строки чтения, пройденные шаги отмечаются */
+MV.looks['steps-rail'] = function (el, MV) {
+  if (MV.on.stpr) return;
+  MV.on.stpr = function (list) {
+    var line = innerHeight * 0.62, r = list.getBoundingClientRect();
+    list.style.setProperty('--q', MV.clamp((line - r.top) / Math.max(1, r.height), 0, 1).toFixed(3));
+    var its = list.__its || (list.__its = list.querySelectorAll('.stpr__i'));
+    for (var i = 0; i < its.length; i++) its[i].classList.toggle('is-on', its[i].getBoundingClientRect().top + 10 < line);
+  };
+};
 
 /* запуск: после основы и вариантов секций */
 (function () { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', window.MV.boot); else window.MV.boot(); })();

@@ -29,7 +29,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/pages.css">
+<link rel="stylesheet" href="../../assets/css/pages.css?v=d7f99695">
+<link rel="preload" as="image" href="../../assets/img/pages/blog-utp-1000.webp" imagesrcset="../../assets/img/pages/blog-utp-640.webp 640w, ../../assets/img/pages/blog-utp-1000.webp 1000w, ../../assets/img/pages/blog-utp-1600.webp 1600w" imagesizes="(max-width: 1020px) 100vw, 1180px" fetchpriority="high">
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -241,6 +242,9 @@
         <p class="art-p__lead" data-rv style="--d:1">«Современное оборудование, опытные врачи, доступные цены» пишут о&nbsp;себе почти все клиники, поэтому пациент этих слов не&nbsp;замечает. УТП стоматологии это не&nbsp;слоган, а&nbsp;ответ на&nbsp;вопрос «почему записаться именно сюда», который можно проверить. Разбираем, как его найти и&nbsp;как не&nbsp;нарушить при этом закон о&nbsp;рекламе.</p>
         <p class="art-p__meta" data-rv style="--d:2">Обновлено: ноябрь 2026<br>Читать 3&nbsp;мин</p>
       </div>
+      <figure class="art-p__cover" data-rv="scale">
+        <img src="../../assets/img/pages/blog-utp-1000.webp" srcset="../../assets/img/pages/blog-utp-640.webp 640w, ../../assets/img/pages/blog-utp-1000.webp 1000w, ../../assets/img/pages/blog-utp-1600.webp 1600w" sizes="(max-width: 1020px) 100vw, 1180px" width="1600" height="1067" alt="Синяя зубная щётка среди белых в стаканах на полке" fetchpriority="high" decoding="async">
+      </figure>
     </div>
   </header>
   <div class="wrap art-p__grid">
@@ -264,12 +268,12 @@
     <tr><th scope="col">Группа</th><th scope="col">С&nbsp;чем приходит</th><th scope="col">Что для неё важно</th></tr>
   </thead>
   <tbody>
-    <tr><th scope="row">Острая боль</th><td>Нужно попасть сегодня</td><td>Близко, время приёма, цена первого визита</td></tr>
-    <tr><th scope="row">Имплантация и&nbsp;протезирование</th><td>Выбирает неделями, сравнивает три или четыре клиники</td><td>Врач, цена по&nbsp;этапам, гарантии клиники на&nbsp;работу, рассрочка</td></tr>
-    <tr><th scope="row">Ортодонтия</th><td>Взрослые и&nbsp;родители подростков</td><td>Цена всего лечения, срок, сколько визитов</td></tr>
-    <tr><th scope="row">Родители с&nbsp;детьми</th><td>Ребёнок боится, нужен врач, который умеет с&nbsp;детьми</td><td>Детский врач, как проходит первый визит, лечение во&nbsp;сне</td></tr>
-    <tr><th scope="row">Постоянные пациенты</th><td>Осмотр и&nbsp;гигиена раз в&nbsp;полгода</td><td>Свой врач, удобная запись, напоминания</td></tr>
-    <tr><th scope="row">Пациенты с&nbsp;высоким чеком</th><td>Полное восстановление зубов</td><td>Опыт врача в&nbsp;таких работах, план лечения, сопровождение</td></tr>
+    <tr><th scope="row" data-label="Группа">Острая боль</th><td data-label="С чем приходит">Нужно попасть сегодня</td><td data-label="Что для неё важно">Близко, время приёма, цена первого визита</td></tr>
+    <tr><th scope="row" data-label="Группа">Имплантация и&nbsp;протезирование</th><td data-label="С чем приходит">Выбирает неделями, сравнивает три или четыре клиники</td><td data-label="Что для неё важно">Врач, цена по&nbsp;этапам, гарантии клиники на&nbsp;работу, рассрочка</td></tr>
+    <tr><th scope="row" data-label="Группа">Ортодонтия</th><td data-label="С чем приходит">Взрослые и&nbsp;родители подростков</td><td data-label="Что для неё важно">Цена всего лечения, срок, сколько визитов</td></tr>
+    <tr><th scope="row" data-label="Группа">Родители с&nbsp;детьми</th><td data-label="С чем приходит">Ребёнок боится, нужен врач, который умеет с&nbsp;детьми</td><td data-label="Что для неё важно">Детский врач, как проходит первый визит, лечение во&nbsp;сне</td></tr>
+    <tr><th scope="row" data-label="Группа">Постоянные пациенты</th><td data-label="С чем приходит">Осмотр и&nbsp;гигиена раз в&nbsp;полгода</td><td data-label="Что для неё важно">Свой врач, удобная запись, напоминания</td></tr>
+    <tr><th scope="row" data-label="Группа">Пациенты с&nbsp;высоким чеком</th><td data-label="С чем приходит">Полное восстановление зубов</td><td data-label="Что для неё важно">Опыт врача в&nbsp;таких работах, план лечения, сопровождение</td></tr>
   </tbody>
 </table>
 </section>
@@ -304,12 +308,12 @@
     <tr><th scope="col">Слабо</th><th scope="col">Сильнее</th><th scope="col">Почему</th></tr>
   </thead>
   <tbody>
-    <tr><th scope="row">Доступные цены</th><td>Цена имплантации по&nbsp;этапам записана в&nbsp;договоре до&nbsp;начала лечения</td><td>Можно проверить, снимает страх доплат</td></tr>
-    <tr><th scope="row">Опытные врачи</th><td>Имплантацию проводит хирург, который занимается только ею</td><td>Конкретный факт о&nbsp;враче</td></tr>
-    <tr><th scope="row">Современное оборудование</th><td>КТ&nbsp;делаем в&nbsp;клинике в&nbsp;день консультации</td><td>Понятная польза: не&nbsp;нужно ехать в&nbsp;другой центр</td></tr>
-    <tr><th scope="row">Индивидуальный подход</th><td>На&nbsp;первой консультации вы&nbsp;получаете план лечения с&nbsp;двумя вариантами и&nbsp;ценой каждого</td><td>Описывает, что произойдёт</td></tr>
-    <tr><th scope="row">Лечим без боли</th><td>Перед лечением врач объясняет, какая будет анестезия и&nbsp;чего ждать</td><td>Не&nbsp;обещает результат, который закон запрещает гарантировать</td></tr>
-    <tr><th scope="row">Детская стоматология</th><td>Первый визит ребёнка это знакомство с&nbsp;врачом и&nbsp;кабинетом, без лечения</td><td>Отвечает на&nbsp;главный страх родителей</td></tr>
+    <tr><th scope="row" data-label="Слабо">Доступные цены</th><td data-label="Сильнее">Цена имплантации по&nbsp;этапам записана в&nbsp;договоре до&nbsp;начала лечения</td><td data-label="Почему">Можно проверить, снимает страх доплат</td></tr>
+    <tr><th scope="row" data-label="Слабо">Опытные врачи</th><td data-label="Сильнее">Имплантацию проводит хирург, который занимается только ею</td><td data-label="Почему">Конкретный факт о&nbsp;враче</td></tr>
+    <tr><th scope="row" data-label="Слабо">Современное оборудование</th><td data-label="Сильнее">КТ&nbsp;делаем в&nbsp;клинике в&nbsp;день консультации</td><td data-label="Почему">Понятная польза: не&nbsp;нужно ехать в&nbsp;другой центр</td></tr>
+    <tr><th scope="row" data-label="Слабо">Индивидуальный подход</th><td data-label="Сильнее">На&nbsp;первой консультации вы&nbsp;получаете план лечения с&nbsp;двумя вариантами и&nbsp;ценой каждого</td><td data-label="Почему">Описывает, что произойдёт</td></tr>
+    <tr><th scope="row" data-label="Слабо">Лечим без боли</th><td data-label="Сильнее">Перед лечением врач объясняет, какая будет анестезия и&nbsp;чего ждать</td><td data-label="Почему">Не&nbsp;обещает результат, который закон запрещает гарантировать</td></tr>
+    <tr><th scope="row" data-label="Слабо">Детская стоматология</th><td data-label="Сильнее">Первый визит ребёнка это знакомство с&nbsp;врачом и&nbsp;кабинетом, без лечения</td><td data-label="Почему">Отвечает на&nbsp;главный страх родителей</td></tr>
   </tbody>
 </table>
 </section>
@@ -331,9 +335,9 @@
       <nav class="prose__rel" aria-label="Читайте также">
         <h2>Читайте также</h2>
         <ul>
-          <li><a href="../../blog/akcii-dlya-stomatologii/">Акции для стоматологии: какие приводят пациентов, а&nbsp;какие только снижают цену</a></li>
-          <li><a href="../../blog/kak-privlech-pacientov-v-stomatologiyu/">Как привлечь пациентов в&nbsp;стоматологию</a></li>
-          <li><a href="../../blog/reklama-stomatologii/">Реклама стоматологии: каналы, примеры, тексты</a></li>
+          <li><a href="../../blog/akcii-dlya-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-akcii-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Акции для стоматологии: какие приводят пациентов, а&nbsp;какие только снижают цену</span></a></li>
+          <li><a href="../../blog/kak-privlech-pacientov-v-stomatologiyu/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-privlech-640.webp" width="640" height="367" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Как привлечь пациентов в&nbsp;стоматологию</span></a></li>
+          <li><a href="../../blog/reklama-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-reklama-640.webp" width="640" height="360" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Реклама стоматологии: каналы, примеры, тексты</span></a></li>
         </ul>
       </nav>
     </div>
@@ -433,7 +437,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -476,6 +480,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Разобрать клинику</span></a>
 
 <script src="../../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../../assets/js/pages.js" defer></script>
+<script src="../../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

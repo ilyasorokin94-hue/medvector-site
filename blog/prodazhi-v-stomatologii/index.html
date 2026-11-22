@@ -29,7 +29,8 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/pages.css">
+<link rel="stylesheet" href="../../assets/css/pages.css?v=d7f99695">
+<link rel="preload" as="image" href="../../assets/img/pages/blog-prodazhi-1000.webp" imagesrcset="../../assets/img/pages/blog-prodazhi-640.webp 640w, ../../assets/img/pages/blog-prodazhi-1000.webp 1000w, ../../assets/img/pages/blog-prodazhi-1600.webp 1600w" imagesizes="(max-width: 1020px) 100vw, 1180px" fetchpriority="high">
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -241,6 +242,9 @@
         <p class="art-p__lead" data-rv style="--d:1">Слово «продажи» в&nbsp;медицине многим не&nbsp;нравится, и&nbsp;справедливо: навязывать лечение нельзя. Но&nbsp;пациент, которому не&nbsp;объяснили, что с&nbsp;его зубами и&nbsp;сколько стоит лечение, уходит думать и&nbsp;не&nbsp;возвращается. Продажи в&nbsp;стоматологии это умение объяснить и&nbsp;довести до&nbsp;решения, а&nbsp;не&nbsp;уговорить.</p>
         <p class="art-p__meta" data-rv style="--d:2">Обновлено: ноябрь 2026<br>Читать 3&nbsp;мин</p>
       </div>
+      <figure class="art-p__cover" data-rv="scale">
+        <img src="../../assets/img/pages/blog-prodazhi-1000.webp" srcset="../../assets/img/pages/blog-prodazhi-640.webp 640w, ../../assets/img/pages/blog-prodazhi-1000.webp 1000w, ../../assets/img/pages/blog-prodazhi-1600.webp 1600w" sizes="(max-width: 1020px) 100vw, 1180px" width="1600" height="1067" alt="Врач объясняет пациенту план лечения на модели челюсти" fetchpriority="high" decoding="async">
+      </figure>
     </div>
   </header>
   <div class="wrap art-p__grid">
@@ -272,13 +276,13 @@
     <tr><th scope="col">Этап</th><th scope="col">Кто отвечает</th><th scope="col">Что должно произойти</th></tr>
   </thead>
   <tbody>
-    <tr><th scope="row">Первое обращение</th><td>Администратор</td><td>Человек получил ответ на&nbsp;вопрос и&nbsp;записался на&nbsp;удобное время</td></tr>
-    <tr><th scope="row">Встреча в&nbsp;клинике</th><td>Администратор</td><td>Пациента ждали, документы оформлены без суеты</td></tr>
-    <tr><th scope="row">Консультация</th><td>Врач</td><td>Пациент понял, что с&nbsp;его зубами и&nbsp;какие есть варианты</td></tr>
-    <tr><th scope="row">План лечения</th><td>Врач и&nbsp;куратор</td><td>Этапы, сроки и&nbsp;цена каждого этапа на&nbsp;бумаге</td></tr>
-    <tr><th scope="row">Решение и&nbsp;оплата</th><td>Куратор или администратор</td><td>Обсудили порядок оплаты, рассрочку, записали на&nbsp;первый этап</td></tr>
-    <tr><th scope="row">Лечение</th><td>Врач</td><td>На&nbsp;каждом визите понятно, что сделано и&nbsp;что дальше</td></tr>
-    <tr><th scope="row">После лечения</th><td>Администратор</td><td>Осмотр через полгода, отзыв, рекомендация знакомым</td></tr>
+    <tr><th scope="row" data-label="Этап">Первое обращение</th><td data-label="Кто отвечает">Администратор</td><td data-label="Что должно произойти">Человек получил ответ на&nbsp;вопрос и&nbsp;записался на&nbsp;удобное время</td></tr>
+    <tr><th scope="row" data-label="Этап">Встреча в&nbsp;клинике</th><td data-label="Кто отвечает">Администратор</td><td data-label="Что должно произойти">Пациента ждали, документы оформлены без суеты</td></tr>
+    <tr><th scope="row" data-label="Этап">Консультация</th><td data-label="Кто отвечает">Врач</td><td data-label="Что должно произойти">Пациент понял, что с&nbsp;его зубами и&nbsp;какие есть варианты</td></tr>
+    <tr><th scope="row" data-label="Этап">План лечения</th><td data-label="Кто отвечает">Врач и&nbsp;куратор</td><td data-label="Что должно произойти">Этапы, сроки и&nbsp;цена каждого этапа на&nbsp;бумаге</td></tr>
+    <tr><th scope="row" data-label="Этап">Решение и&nbsp;оплата</th><td data-label="Кто отвечает">Куратор или администратор</td><td data-label="Что должно произойти">Обсудили порядок оплаты, рассрочку, записали на&nbsp;первый этап</td></tr>
+    <tr><th scope="row" data-label="Этап">Лечение</th><td data-label="Кто отвечает">Врач</td><td data-label="Что должно произойти">На&nbsp;каждом визите понятно, что сделано и&nbsp;что дальше</td></tr>
+    <tr><th scope="row" data-label="Этап">После лечения</th><td data-label="Кто отвечает">Администратор</td><td data-label="Что должно произойти">Осмотр через полгода, отзыв, рекомендация знакомым</td></tr>
   </tbody>
 </table>
 </section>
@@ -330,9 +334,9 @@
       <nav class="prose__rel" aria-label="Читайте также">
         <h2>Читайте также</h2>
         <ul>
-          <li><a href="../../blog/crm-dlya-stomatologii/">CRM для стоматологии: зачем клинике система и&nbsp;как её&nbsp;выбрать</a></li>
-          <li><a href="../../blog/ekonomika-stomatologii/">Экономика стоматологии: из&nbsp;чего складываются выручка и&nbsp;прибыль</a></li>
-          <li><a href="../../blog/skripty-administratora-stomatologii/">Скрипты для администратора стоматологии: что говорить и&nbsp;чему учить</a></li>
+          <li><a href="../../blog/crm-dlya-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-crm-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">CRM для стоматологии: зачем клинике система и&nbsp;как её&nbsp;выбрать</span></a></li>
+          <li><a href="../../blog/ekonomika-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-ekonomika-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Экономика стоматологии: из&nbsp;чего складываются выручка и&nbsp;прибыль</span></a></li>
+          <li><a href="../../blog/skripty-administratora-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-skripty-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Скрипты для администратора стоматологии: что говорить и&nbsp;чему учить</span></a></li>
         </ul>
       </nav>
     </div>
@@ -432,7 +436,7 @@
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. Санкт-Петербург, работаем по&nbsp;всей России.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -475,6 +479,6 @@
 <a href="#start" class="mcta" data-magnetic><span>Разобрать клинику</span></a>
 
 <script src="../../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../../assets/js/pages.js" defer></script>
+<script src="../../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>
