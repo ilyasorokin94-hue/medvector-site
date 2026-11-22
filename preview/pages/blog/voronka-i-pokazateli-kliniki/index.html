@@ -26,11 +26,13 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
-<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
-<link rel="stylesheet" href="../../assets/css/trajectory.css">
-<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../../assets/fonts/geologica-latin-text.woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/pages.css?v=d7f99695">
+<link rel="preload" as="image" href="../../assets/img/pages/blog-voronka-1000.webp" imagesrcset="../../assets/img/pages/blog-voronka-640.webp 640w, ../../assets/img/pages/blog-voronka-1000.webp 1000w, ../../assets/img/pages/blog-voronka-1600.webp 1600w" imagesizes="(max-width: 1020px) 100vw, 1180px" fetchpriority="high">
+<!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
+<script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
 <script type="application/ld+json">
 {
@@ -142,47 +144,91 @@
 }
 </script>
 </head>
-<body>
+<body class="pg">
 <a class="skip" href="#main">К содержимому</a>
-<!-- ============ ШАПКА «Траектория»: логотип, четыре пункта, одна кнопка ============ -->
+<!-- ============ ШАПКА как на главной: логотип, «Услуги» с выпадающим списком всех услуг, кейсы, блог, агентство, контакты, одна кнопка ============ -->
 <header class="hdr" id="top">
   <div class="hdr__in">
     <a href="../../" class="hdr__logo" aria-label="МедВектор, на главную">
-      <img src="../../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-l" src="../../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-d" src="../../assets/img/medvector-logo-w.webp" alt="" width="440" height="93">
     </a>
     <nav class="hdr__nav" aria-label="Основное меню">
-      <a href="../../yandex-direkt/">Яндекс Директ</a>
-      <a href="../../kompleksnyj-marketing/">Комплексный маркетинг</a>
+      <div class="drop drop--wide" data-drop>
+        <button type="button" class="drop__btn" aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
+        <div class="drop__panel" id="drop-services">
+          <div class="drop__list drop__cols">
+            <div class="drop__col">
+              <p class="drop__h">Реклама и пациенты</p>
+              <ul>
+                <li><a href="../../yandex-direkt/"><b>Яндекс Директ</b><small>Первый тест без комиссии агентства</small></a></li>
+                <li><a href="../../lidy-dlya-stomatologii/"><b>Заявки для стоматологии</b><small>Пациенты из&nbsp;рекламы без покупки лидов</small></a></li>
+                <li><a href="../../kompleksnyj-marketing/"><b>Комплексный маркетинг</b><small>Отдел маркетинга клиники на&nbsp;аутсорсе</small></a></li>
+                <li><a href="../../medicinskij-marketing/"><b>Медицинский маркетинг</b><small>Клиники и&nbsp;медицинские центры</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Сайт и поиск</p>
+              <ul>
+                <li><a href="../../sajt-dlya-stomatologii/"><b>Сайт для стоматологии</b><small>С&nbsp;нуля или редизайн по&nbsp;требованиям закона</small></a></li>
+                <li><a href="../../seo-dlya-stomatologii/"><b>SEO для стоматологии</b><small>Рост в&nbsp;поиске по&nbsp;услугам в&nbsp;своём городе</small></a></li>
+                <li><a href="../../geo-prodvizhenie/"><b>Продвижение в&nbsp;нейросетях</b><small>Что Алиса и&nbsp;ChatGPT отвечают о&nbsp;клинике</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Карты и репутация</p>
+              <ul>
+                <li><a href="../../yandex-karty/"><b>Яндекс Карты</b><small>Карточка, каталог услуг и&nbsp;ответы на&nbsp;отзывы</small></a></li>
+                <li><a href="../../2gis/"><b>2ГИС</b><small>Карточка клиники и&nbsp;реклама в&nbsp;справочнике</small></a></li>
+                <li><a href="../../prodoktorov/"><b>ПроДокторов</b><small>Профиль клиники и&nbsp;врачей</small></a></li>
+                <li><a href="../../otzyvy-i-reputaciya/"><b>Отзывы и&nbsp;репутация</b><small>Настоящие отзывы и&nbsp;ответы на&nbsp;них</small></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <a href="../../kejsy/">Кейсы</a>
       <a href="../../blog/" aria-current="page">Блог</a>
-      <a href="../../kontakty/">О нас</a>
+      <a href="../../kontakty/">Об агентстве</a>
+      <a href="../../kontakty/#contacts">Контакты</a>
     </nav>
     <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- мобильное меню: тёмный экран, пункты крупно -->
+<!-- мобильное меню: тёмный экран, услуги списком, разделы крупно -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
-    <a href="../../yandex-direkt/">Яндекс Директ</a>
-    <a href="../../kompleksnyj-marketing/">Комплексный маркетинг</a>
-    <a href="../../sajt-dlya-stomatologii/">Сайт для стоматологии</a>
-    <a href="../../yandex-karty/">Яндекс Карты</a>
+    <p class="mnav__h">Услуги</p>
+    <ul class="mnav__sub mnav__sub--all">
+      <li><a href="../../yandex-direkt/">Яндекс Директ</a></li>
+      <li><a href="../../lidy-dlya-stomatologii/">Заявки для стоматологии</a></li>
+      <li><a href="../../kompleksnyj-marketing/">Комплексный маркетинг</a></li>
+      <li><a href="../../medicinskij-marketing/">Медицинский маркетинг</a></li>
+      <li><a href="../../sajt-dlya-stomatologii/">Сайт для стоматологии</a></li>
+      <li><a href="../../seo-dlya-stomatologii/">SEO для стоматологии</a></li>
+      <li><a href="../../geo-prodvizhenie/">Продвижение в&nbsp;нейросетях</a></li>
+      <li><a href="../../yandex-karty/">Яндекс Карты</a></li>
+      <li><a href="../../2gis/">2ГИС</a></li>
+      <li><a href="../../prodoktorov/">ПроДокторов</a></li>
+      <li><a href="../../otzyvy-i-reputaciya/">Отзывы и&nbsp;репутация</a></li>
+    </ul>
     <a href="../../kejsy/">Кейсы</a>
     <a href="../../blog/">Блог</a>
-    <a href="../../kontakty/">О нас</a>
+    <a href="../../kontakty/">Об агентстве</a>
+    <a href="../../kontakty/#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
     <a href="#start" class="btn btn--light">Разобрать клинику</a>
-    <p>Первый тест в&nbsp;Директе без комиссии агентства. Сайт, Яндекс Карты и&nbsp;SEO одной командой.</p>
+    <p>Санкт-Петербург. Работаем с&nbsp;клиниками по&nbsp;всей России.</p>
   </div>
 </div>
 
 <main id="main">
-<section>
-  <div class="wrap">
-    <article class="prose prose--article">
+<article class="art-p">
+  <header class="art-p__head" data-sec="hero">
+    <div class="wrap">
       <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../../">Главная</a></li>
@@ -191,19 +237,28 @@
   </ol>
 </nav>
 
-      <h1>Воронка пациентов: какие показатели считать клинике</h1>
-      <p class="prose__lead">Реклама может приносить сто заявок в&nbsp;месяц и&nbsp;не&nbsp;приносить денег. Чтобы увидеть, где теряются пациенты, клинике нужна воронка: путь от&nbsp;показа объявления до&nbsp;повторного визита, разложенный на&nbsp;шаги. Разбираем, какие показатели считать на&nbsp;каждом шаге и&nbsp;какие инструменты для этого нужны.</p>
-      <p class="prose__meta">Обновлено: ноябрь 2026</p>
-      <nav class="prose__toc" aria-label="Содержание статьи">
-        <p>В&nbsp;статье</p>
-        <ul>
-          <li><a href="#p1">Из&nbsp;каких шагов состоит воронка</a></li>
-          <li><a href="#p2">Главные показатели</a></li>
-          <li><a href="#p3">Сквозная аналитика и&nbsp;коллтрекинг</a></li>
-          <li><a href="#p4">Как возвращать пациентов</a></li>
-          <li><a href="#p5">С&nbsp;чего начать, если учёта нет</a></li>
-        </ul>
-      </nav>
+      <h1 class="art-p__h" data-rv>Воронка пациентов: какие показатели считать клинике</h1>
+      <div class="art-p__sub">
+        <p class="art-p__lead" data-rv style="--d:1">Реклама может приносить сто заявок в&nbsp;месяц и&nbsp;не&nbsp;приносить денег. Чтобы увидеть, где теряются пациенты, клинике нужна воронка: путь от&nbsp;показа объявления до&nbsp;повторного визита, разложенный на&nbsp;шаги. Разбираем, какие показатели считать на&nbsp;каждом шаге и&nbsp;какие инструменты для этого нужны.</p>
+        <p class="art-p__meta" data-rv style="--d:2">Обновлено: ноябрь 2026<br>Читать 4&nbsp;мин</p>
+      </div>
+      <figure class="art-p__cover" data-rv="scale">
+        <img src="../../assets/img/pages/blog-voronka-1000.webp" srcset="../../assets/img/pages/blog-voronka-640.webp 640w, ../../assets/img/pages/blog-voronka-1000.webp 1000w, ../../assets/img/pages/blog-voronka-1600.webp 1600w" sizes="(max-width: 1020px) 100vw, 1180px" width="1600" height="1067" alt="Пациентка идёт из зоны ожидания в кабинет, медсестра открывает дверь" fetchpriority="high" decoding="async">
+      </figure>
+    </div>
+  </header>
+  <div class="wrap art-p__grid">
+    <nav class="art-p__toc" aria-label="Содержание статьи">
+      <p>В&nbsp;статье</p>
+      <ol>
+        <li><a href="#p1">Из&nbsp;каких шагов состоит воронка</a></li>
+        <li><a href="#p2">Главные показатели</a></li>
+        <li><a href="#p3">Сквозная аналитика и&nbsp;коллтрекинг</a></li>
+        <li><a href="#p4">Как возвращать пациентов</a></li>
+        <li><a href="#p5">С&nbsp;чего начать, если учёта нет</a></li>
+      </ol>
+    </nav>
+    <div class="prose prose--article">
       <h2 id="p1">Из&nbsp;каких шагов состоит воронка</h2>
 <p>Воронка продаж в&nbsp;стоматологии длиннее, чем в&nbsp;магазине. Между первым обращением и&nbsp;оплатой лечения могут пройти недели, а&nbsp;главный доход клиника получает на&nbsp;повторных визитах.</p>
 <section class="tbl" aria-label="Таблица: шаги воронки пациентов и показатели на каждом шаге" tabindex="0">
@@ -212,13 +267,13 @@
     <tr><th scope="col">Шаг</th><th scope="col">Что считаем</th><th scope="col">Где теряются люди</th></tr>
   </thead>
   <tbody>
-    <tr><th scope="row">Показ и&nbsp;переход</th><td>Показы, клики, цена клика</td><td>Объявление не&nbsp;отвечает на&nbsp;запрос</td></tr>
-    <tr><th scope="row">Обращение</th><td>Заявки и&nbsp;звонки, доля обращений от&nbsp;переходов</td><td>На&nbsp;странице нет цены, врача, понятной записи</td></tr>
-    <tr><th scope="row">Целевое обращение</th><td>Доля обращений по&nbsp;нужной услуге</td><td>Реклама идёт по&nbsp;общим запросам</td></tr>
-    <tr><th scope="row">Запись</th><td>Доля записей от&nbsp;целевых обращений</td><td>Перезвонили поздно, не&nbsp;назвали цену, нет удобного времени</td></tr>
-    <tr><th scope="row">Визит</th><td>Доля пришедших от&nbsp;записанных</td><td>Не&nbsp;напомнили, записали слишком далеко</td></tr>
-    <tr><th scope="row">Лечение</th><td>Доля принявших план лечения, средний чек</td><td>План непонятен, нет рассрочки, врач не&nbsp;объяснил этапы</td></tr>
-    <tr><th scope="row">Повторный визит</th><td>Доля вернувшихся, выручка на&nbsp;пациента за&nbsp;год</td><td>Никто не&nbsp;позвал на&nbsp;осмотр и&nbsp;продолжение лечения</td></tr>
+    <tr><th scope="row" data-label="Шаг">Показ и&nbsp;переход</th><td data-label="Что считаем">Показы, клики, цена клика</td><td data-label="Где теряются люди">Объявление не&nbsp;отвечает на&nbsp;запрос</td></tr>
+    <tr><th scope="row" data-label="Шаг">Обращение</th><td data-label="Что считаем">Заявки и&nbsp;звонки, доля обращений от&nbsp;переходов</td><td data-label="Где теряются люди">На&nbsp;странице нет цены, врача, понятной записи</td></tr>
+    <tr><th scope="row" data-label="Шаг">Целевое обращение</th><td data-label="Что считаем">Доля обращений по&nbsp;нужной услуге</td><td data-label="Где теряются люди">Реклама идёт по&nbsp;общим запросам</td></tr>
+    <tr><th scope="row" data-label="Шаг">Запись</th><td data-label="Что считаем">Доля записей от&nbsp;целевых обращений</td><td data-label="Где теряются люди">Перезвонили поздно, не&nbsp;назвали цену, нет удобного времени</td></tr>
+    <tr><th scope="row" data-label="Шаг">Визит</th><td data-label="Что считаем">Доля пришедших от&nbsp;записанных</td><td data-label="Где теряются люди">Не&nbsp;напомнили, записали слишком далеко</td></tr>
+    <tr><th scope="row" data-label="Шаг">Лечение</th><td data-label="Что считаем">Доля принявших план лечения, средний чек</td><td data-label="Где теряются люди">План непонятен, нет рассрочки, врач не&nbsp;объяснил этапы</td></tr>
+    <tr><th scope="row" data-label="Шаг">Повторный визит</th><td data-label="Что считаем">Доля вернувшихся, выручка на&nbsp;пациента за&nbsp;год</td><td data-label="Где теряются люди">Никто не&nbsp;позвал на&nbsp;осмотр и&nbsp;продолжение лечения</td></tr>
   </tbody>
 </table>
 </section>
@@ -270,103 +325,109 @@
       <nav class="prose__rel" aria-label="Читайте также">
         <h2>Читайте также</h2>
         <ul>
-          <li><a href="../../blog/crm-dlya-stomatologii/">CRM для стоматологии: зачем клинике система и&nbsp;как её&nbsp;выбрать</a></li>
-          <li><a href="../../blog/ekonomika-stomatologii/">Экономика стоматологии: из&nbsp;чего складываются выручка и&nbsp;прибыль</a></li>
-          <li><a href="../../blog/prodazhi-v-stomatologii/">Продажи в&nbsp;стоматологии: как пациент соглашается на&nbsp;лечение</a></li>
+          <li><a href="../../blog/crm-dlya-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-crm-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">CRM для стоматологии: зачем клинике система и&nbsp;как её&nbsp;выбрать</span></a></li>
+          <li><a href="../../blog/ekonomika-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-ekonomika-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Экономика стоматологии: из&nbsp;чего складываются выручка и&nbsp;прибыль</span></a></li>
+          <li><a href="../../blog/prodazhi-v-stomatologii/"><span class="prose__rel-img"><img src="../../assets/img/pages/blog-prodazhi-640.webp" width="640" height="427" alt="" loading="lazy" decoding="async"></span><span class="prose__rel-t">Продажи в&nbsp;стоматологии: как пациент соглашается на&nbsp;лечение</span></a></li>
         </ul>
       </nav>
-    </article>
+    </div>
   </div>
-</section>
+</article>
 
-<section class="sec sec--fog" id="faq">
+<section class="sec lk-faq-acc sec--fog" id="faq" data-sec="faq">
   <div class="wrap">
-    <div class="shead">
+    <div class="fq">
+      <div class="fq__head"><div class="sh">
   <div>
-    <h2 class="h2">Короткие ответы.</h2>
+    <h2 class="h2" data-rv>Короткие ответы</h2>
   </div>
-  <p class="shead__note">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
+  <p class="sh__note" data-rv style="--d:1">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
 </div>
-
-    <div class="qa">
-  <details class="qa__item" open>
-    <summary><span class="qa__q">Что такое стоимость привлечения пациента?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Это все расходы на&nbsp;рекламу за&nbsp;период, поделённые на&nbsp;число новых пациентов, которые пришли на&nbsp;приём. Считать её&nbsp;по&nbsp;заявкам неправильно: заявка ещё не&nbsp;пациент.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Что такое LTV пациента?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>LTV это сумма, которую пациент приносит клинике за&nbsp;всё время. В&nbsp;стоматологии её&nbsp;считают по&nbsp;оплатам за&nbsp;несколько лет: первый визит часто недорогой, а&nbsp;основное лечение и&nbsp;повторные визиты идут позже.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Нужна&nbsp;ли небольшой клинике сквозная аналитика?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>В&nbsp;полном виде нет. Хватит трёх вещей: заявки с&nbsp;сайта и&nbsp;звонки попадают в&nbsp;один список, у&nbsp;каждой есть источник, администратор отмечает запись и&nbsp;визит. Это уже позволяет сравнивать источники по&nbsp;пациентам.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Какие KPI ставить маркетингу стоматологии?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Число первичных пациентов по&nbsp;нужным услугам и&nbsp;стоимость привлечения одного пациента. Клики, показы и&nbsp;даже заявки это промежуточные цифры: по&nbsp;ним удобно настраивать рекламу, но&nbsp;оценивать по&nbsp;ним результат нельзя.</p></div>
-  </details>
 </div>
-
-  </div>
-</section>
-
-<section class="dark sheet start" id="start" data-dark>
-  <div class="wrap">
-    <h2 class="h2 start__title">Разберём воронку вашей клиники.</h2>
-    <div class="start__grid">
-      <div class="start__text">
-        <p class="lead">Посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;первого теста в&nbsp;Директе или с&nbsp;сайта и&nbsp;Карт.</p>
-        <ul class="plist">
-          <li>Первый тест в&nbsp;Директе: комиссия агентства 0&nbsp;₽, бюджет вы&nbsp;вносите Яндексу</li>
-          <li>Сайт и&nbsp;Яндекс Карты: старт 80&nbsp;000&nbsp;₽, сайт входит в&nbsp;эту сумму</li>
-          <li>Если видим риски для запуска, скажем о&nbsp;них на&nbsp;разборе</li>
-        </ul>
-        <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
+      <div class="qa" data-rv>
+        <details class="qa__item" open>
+          <summary><span class="qa__q">Что такое стоимость привлечения пациента?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Это все расходы на&nbsp;рекламу за&nbsp;период, поделённые на&nbsp;число новых пациентов, которые пришли на&nbsp;приём. Считать её&nbsp;по&nbsp;заявкам неправильно: заявка ещё не&nbsp;пациент.</p></div>
+        </details>
+        <details class="qa__item">
+          <summary><span class="qa__q">Что такое LTV пациента?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>LTV это сумма, которую пациент приносит клинике за&nbsp;всё время. В&nbsp;стоматологии её&nbsp;считают по&nbsp;оплатам за&nbsp;несколько лет: первый визит часто недорогой, а&nbsp;основное лечение и&nbsp;повторные визиты идут позже.</p></div>
+        </details>
+        <details class="qa__item">
+          <summary><span class="qa__q">Нужна&nbsp;ли небольшой клинике сквозная аналитика?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>В&nbsp;полном виде нет. Хватит трёх вещей: заявки с&nbsp;сайта и&nbsp;звонки попадают в&nbsp;один список, у&nbsp;каждой есть источник, администратор отмечает запись и&nbsp;визит. Это уже позволяет сравнивать источники по&nbsp;пациентам.</p></div>
+        </details>
+        <details class="qa__item">
+          <summary><span class="qa__q">Какие KPI ставить маркетингу стоматологии?</span><span class="qa__ic" aria-hidden="true"></span></summary>
+          <div class="qa__a"><p>Число первичных пациентов по&nbsp;нужным услугам и&nbsp;стоимость привлечения одного пациента. Клики, показы и&nbsp;даже заявки это промежуточные цифры: по&nbsp;ним удобно настраивать рекламу, но&nbsp;оценивать по&nbsp;ним результат нельзя.</p></div>
+        </details>
       </div>
-      <form class="form" novalidate action="#" aria-label="Заявка">
-        <fieldset class="form__choice">
-          <legend>Что хотите запустить</legend>
-          <div class="form__opts">
-            <label class="form__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="site"><span>Сайт и&nbsp;Карты</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="unsure" checked><span>Пока не&nbsp;знаю</span></label>
-          </div>
-        </fieldset>
-        <label class="fld form__dir"><span>Услуга для рекламы</span>
-          <select name="direction">
-            <option value="implant">Имплантация</option>
-            <option value="all-on-4">All-on-4, полное восстановление</option>
-            <option value="ortho">Брекеты и&nbsp;элайнеры</option>
-            <option value="running">Реклама уже идёт, нужен разбор</option>
-            <option value="other">Другая услуга</option>
-          </select>
-        </label>
-        <div class="form__row">
-          <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
-          <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
-        </div>
-        <div class="form__row">
-          <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
-          <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
-        </div>
-        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="../../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../../politika/">политики</a></span></label>
-        <div class="form__send">
-          <p class="form__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
-          <button class="btn btn--light" type="submit" data-vend data-magnetic>Отправить заявку</button>
-        </div>
-        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
-      </form>
     </div>
   </div>
 </section>
 
+
+
+
+<section class="sec sec--azure st st--form" id="start" data-sec="start">
+  <div class="wrap">
+    <p class="label" data-rv="fade">Заявка</p>
+    <h2 class="h2 st__h" data-rv>Разберём воронку вашей клиники</h2>
+    <div class="st__grid">
+      <div class="st__text" data-rv><p class="st__lead">Посмотрим сайт, карточку на&nbsp;Картах и&nbsp;рекламу, если она уже идёт. Скажем, с&nbsp;чего начать: с&nbsp;первого теста в&nbsp;Директе или с&nbsp;сайта и&nbsp;Карт.</p>
+<ul class="ticks st__items">
+  <li>Первый тест в&nbsp;Директе: комиссия агентства 0&nbsp;₽, бюджет вы&nbsp;вносите Яндексу</li>
+  <li>Сайт и&nbsp;Яндекс Карты: старт 80&nbsp;000&nbsp;₽, сайт входит в&nbsp;эту сумму</li>
+  <li>Если видим риски для запуска, скажем о&nbsp;них на&nbsp;разборе</li>
+</ul>
+<p class="st__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
+</div>
+      <form class="fm st__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1"><fieldset class="fm__choice">
+  <legend>Что хотите запустить</legend>
+  <div class="fm__opts">
+    <label class="fm__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="site"><span>Сайт и&nbsp;Карты</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="unsure" checked><span>Пока не&nbsp;знаю</span></label>
+  </div>
+</fieldset>
+<label class="fld fm__dir"><span>Услуга для рекламы</span>
+  <select name="direction">
+    <option value="implant">Имплантация</option>
+    <option value="all-on-4">All-on-4, полное восстановление</option>
+    <option value="ortho">Брекеты и&nbsp;элайнеры</option>
+    <option value="running">Реклама уже идёт, нужен разбор</option>
+    <option value="other">Другая услуга</option>
+  </select>
+</label>
+<div class="fm__row">
+  <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
+  <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
+</div>
+<div class="fm__row">
+  <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
+  <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
+</div>
+<label class="fm__c"><input type="checkbox" name="consent" required> <span>Даю <a href="../../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../../politika/">политики</a></span></label>
+<div class="fm__send">
+  <button class="btn" type="submit" data-magnetic>Отправить заявку</button>
+  <p class="fm__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
+</div>
+<p class="fm__ok" role="status" tabindex="-1" hidden>Спасибо! Сайт пока в&nbsp;разработке, поэтому заявка никуда не&nbsp;ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
+<p class="stub">Заглушка: форма пока не&nbsp;отправляет заявки</p>
+</form>
+    </div>
+  </div>
+</section>
+
+
+
 </main>
 
-<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<!-- ============ ПОДВАЛ как на главной: тёмный, три колонки ссылок, знак во всю ширину ============ -->
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Реклама, сайты и&nbsp;Яндекс Карты для стоматологий. Первый тест в&nbsp;Директе без комиссии агентства.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -388,13 +449,13 @@
         <h2>Агентство</h2>
         <a href="../../kejsy/">Кейсы</a>
         <a href="../../blog/">Блог</a>
-        <a href="../../kontakty/">О нас</a>
+        <a href="../../kontakty/">Об агентстве</a>
         <a href="../../kontakty/#contacts">Контакты</a>
         <a href="#start">Оставить заявку</a>
       </nav>
     </div>
     <div class="ftr__mark">
-      <img src="../../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+      <img src="../../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy" decoding="async">
     </div>
     <div class="ftr__bottom">
       <p>© 2026 МедВектор</p>
@@ -406,9 +467,9 @@
   </div>
 </footer>
 <!-- нижняя кнопка на телефоне -->
-<a href="#start" class="mcta"><span>Разобрать клинику</span></a>
+<a href="#start" class="mcta" data-magnetic><span>Разобрать клинику</span></a>
 
 <script src="../../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../../assets/js/trajectory.js" defer></script>
+<script src="../../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>

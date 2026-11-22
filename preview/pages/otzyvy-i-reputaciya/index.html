@@ -24,11 +24,13 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/trajectory.css">
-<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+
+<!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
+<script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
 <script type="application/ld+json">
 {
@@ -157,47 +159,94 @@
 }
 </script>
 </head>
-<body>
+<body class="pg">
 <a class="skip" href="#main">К содержимому</a>
-<!-- ============ ШАПКА «Траектория»: логотип, четыре пункта, одна кнопка ============ -->
+<!-- ============ ШАПКА как на главной: логотип, «Услуги» с выпадающим списком всех услуг, кейсы, блог, агентство, контакты, одна кнопка ============ -->
 <header class="hdr" id="top">
   <div class="hdr__in">
     <a href="../" class="hdr__logo" aria-label="МедВектор, на главную">
-      <img src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-l" src="../assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
+      <img class="lg-d" src="../assets/img/medvector-logo-w.webp" alt="" width="440" height="93">
     </a>
     <nav class="hdr__nav" aria-label="Основное меню">
-      <a href="../yandex-direkt/">Яндекс Директ</a>
-      <a href="../kompleksnyj-marketing/">Комплексный маркетинг</a>
+      <div class="drop drop--wide" data-drop>
+        <button type="button" class="drop__btn" data-here aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
+        <div class="drop__panel" id="drop-services">
+          <div class="drop__list drop__cols">
+            <div class="drop__col">
+              <p class="drop__h">Реклама и пациенты</p>
+              <ul>
+                <li><a href="../yandex-direkt/"><b>Яндекс Директ</b><small>Первый тест без комиссии агентства</small></a></li>
+                <li><a href="../lidy-dlya-stomatologii/"><b>Заявки для стоматологии</b><small>Пациенты из&nbsp;рекламы без покупки лидов</small></a></li>
+                <li><a href="../kompleksnyj-marketing/"><b>Комплексный маркетинг</b><small>Отдел маркетинга клиники на&nbsp;аутсорсе</small></a></li>
+                <li><a href="../medicinskij-marketing/" aria-current="page"><b>Медицинский маркетинг</b><small>Клиники и&nbsp;медицинские центры</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Сайт и поиск</p>
+              <ul>
+                <li><a href="../sajt-dlya-stomatologii/"><b>Сайт для стоматологии</b><small>С&nbsp;нуля или редизайн по&nbsp;требованиям закона</small></a></li>
+                <li><a href="../seo-dlya-stomatologii/"><b>SEO для стоматологии</b><small>Рост в&nbsp;поиске по&nbsp;услугам в&nbsp;своём городе</small></a></li>
+                <li><a href="../geo-prodvizhenie/"><b>Продвижение в&nbsp;нейросетях</b><small>Что Алиса и&nbsp;ChatGPT отвечают о&nbsp;клинике</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Карты и репутация</p>
+              <ul>
+                <li><a href="../yandex-karty/"><b>Яндекс Карты</b><small>Карточка, каталог услуг и&nbsp;ответы на&nbsp;отзывы</small></a></li>
+                <li><a href="../2gis/"><b>2ГИС</b><small>Карточка клиники и&nbsp;реклама в&nbsp;справочнике</small></a></li>
+                <li><a href="../prodoktorov/"><b>ПроДокторов</b><small>Профиль клиники и&nbsp;врачей</small></a></li>
+                <li><a href="../otzyvy-i-reputaciya/"><b>Отзывы и&nbsp;репутация</b><small>Настоящие отзывы и&nbsp;ответы на&nbsp;них</small></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <a href="../kejsy/">Кейсы</a>
       <a href="../blog/">Блог</a>
-      <a href="../kontakty/">О нас</a>
+      <a href="../kontakty/">Об агентстве</a>
+      <a href="../kontakty/#contacts">Контакты</a>
     </nav>
     <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- мобильное меню: тёмный экран, пункты крупно -->
+<!-- мобильное меню: тёмный экран, услуги списком, разделы крупно -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
-    <a href="../yandex-direkt/">Яндекс Директ</a>
-    <a href="../kompleksnyj-marketing/">Комплексный маркетинг</a>
-    <a href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a>
-    <a href="../yandex-karty/">Яндекс Карты</a>
+    <p class="mnav__h">Услуги</p>
+    <ul class="mnav__sub mnav__sub--all">
+      <li><a href="../yandex-direkt/">Яндекс Директ</a></li>
+      <li><a href="../lidy-dlya-stomatologii/">Заявки для стоматологии</a></li>
+      <li><a href="../kompleksnyj-marketing/">Комплексный маркетинг</a></li>
+      <li><a href="../medicinskij-marketing/" aria-current="page">Медицинский маркетинг</a></li>
+      <li><a href="../sajt-dlya-stomatologii/">Сайт для стоматологии</a></li>
+      <li><a href="../seo-dlya-stomatologii/">SEO для стоматологии</a></li>
+      <li><a href="../geo-prodvizhenie/">Продвижение в&nbsp;нейросетях</a></li>
+      <li><a href="../yandex-karty/">Яндекс Карты</a></li>
+      <li><a href="../2gis/">2ГИС</a></li>
+      <li><a href="../prodoktorov/">ПроДокторов</a></li>
+      <li><a href="../otzyvy-i-reputaciya/">Отзывы и&nbsp;репутация</a></li>
+    </ul>
     <a href="../kejsy/">Кейсы</a>
     <a href="../blog/">Блог</a>
-    <a href="../kontakty/">О нас</a>
+    <a href="../kontakty/">Об агентстве</a>
+    <a href="../kontakty/#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
     <a href="#start" class="btn btn--light">Разобрать клинику</a>
-    <p>Первый тест в&nbsp;Директе без комиссии агентства. Сайт, Яндекс Карты и&nbsp;SEO одной командой.</p>
+    <p>Санкт-Петербург. Работаем с&nbsp;клиниками по&nbsp;всей России.</p>
   </div>
 </div>
 
 <main id="main">
-<section class="phero" id="intro">
+
+<section class="ph phs" id="intro" data-sec="hero">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки">
+    <div class="phs__grid">
+      <div class="phs__text">
+        <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
     <li><a href="../medicinskij-marketing/">Медицинский маркетинг</a></li>
@@ -205,110 +254,154 @@
   </ol>
 </nav>
 
-    <h1 class="h1 h1--page">Отзывы и&nbsp;репутация стоматологии в&nbsp;интернете<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span></h1>
-    <div class="phero__foot">
-      <p class="phero__sub">Перед записью пациент читает отзывы на&nbsp;Яндекс Картах, в&nbsp;2ГИС и&nbsp;на&nbsp;ПроДокторов. Мы&nbsp;помогаем клинике получать отзывы от&nbsp;настоящих пациентов, отвечаем на&nbsp;них так, чтобы не&nbsp;нарушить врачебную тайну, и&nbsp;следим за&nbsp;площадками. Отзывы не&nbsp;пишем и&nbsp;не&nbsp;покупаем.</p>
-      <div class="phero__acts">
-        <a href="#start" class="btn" data-magnetic data-pick="unsure">Разобрать отзывы клиники</a>
-        <a href="#white" class="link">Как мы работаем</a>
+        <h1 class="ph__h phs__h" data-rv>Отзывы и&nbsp;репутация стоматологии в&nbsp;интернете</h1>
+        <p class="ph__lead phs__lead" data-rv style="--d:1">Перед записью пациент читает отзывы на&nbsp;Яндекс Картах, в&nbsp;2ГИС и&nbsp;на&nbsp;ПроДокторов. Мы&nbsp;помогаем клинике получать отзывы от&nbsp;настоящих пациентов, отвечаем на&nbsp;них так, чтобы не&nbsp;нарушить врачебную тайну, и&nbsp;следим за&nbsp;площадками. Отзывы не&nbsp;пишем и&nbsp;не&nbsp;покупаем.</p>
+        <div data-rv style="--d:2"><div class="ph__acts">
+  <a href="#start" class="btn" data-magnetic data-pick="unsure">Разобрать отзывы клиники</a>
+  <a href="#white" class="link">Как мы работаем</a>
+</div>
+</div>
       </div>
+      <div class="phs__stage"><div class="ha ha--otzyvy-i-reputaciya" aria-hidden="true">
+  <div class="ha__c ha__c--a" data-rv style="--d:2">
+    <span class="ha__k ha__row">Яндекс Карты<i class="ha__stars"></i></span><i class="ha__l" style="--w:92%"></i><i class="ha__l" style="--w:70%"></i>
+    <span class="ha__nest"><span class="ha__k">Ответ клиники</span><i class="ha__l" style="--w:84%"></i><i class="ha__l" style="--w:50%"></i></span>
+  </div>
+  <div class="ha__c ha__c--b" data-rv style="--d:3">
+    <span class="ha__k ha__row">2ГИС<i class="ha__stars"></i></span><i class="ha__l" style="--w:88%"></i><i class="ha__l" style="--w:60%"></i>
+    <span class="ha__nest"><span class="ha__k">Ответ клиники</span><i class="ha__l" style="--w:76%"></i></span>
+  </div>
+  <div class="ha__c ha__c--c" data-rv style="--d:4">
+    <span class="ha__k ha__row">ПроДокторов<i class="ha__stars"></i></span><i class="ha__l" style="--w:90%"></i><i class="ha__l" style="--w:44%"></i>
+  </div>
+</div>
+</div>
     </div>
+    
   </div>
 </section>
 
 
-<section class="sec sec--fog sheet" id="blocks">
+
+<section class="sec lk-loss-deck sec--fog" id="blocks" data-sec="loss">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Что мешает рейтингу клиники расти.</h2>
+    <h2 class="h2" data-rv>Что мешает рейтингу клиники расти</h2>
   </div>
-  <p class="shead__note">Репутация стоматологической клиники весит больше, чем в&nbsp;других услугах: лечение стоит дорого, выбирают конкретного врача, а&nbsp;отзыв читают годами. При этом рейтинг чаще всего стоит на&nbsp;месте по&nbsp;четырём причинам.</p>
+  <p class="sh__note" data-rv style="--d:1">Репутация стоматологической клиники весит больше, чем в&nbsp;других услугах: лечение стоит дорого, выбирают конкретного врача, а&nbsp;отзыв читают годами. При этом рейтинг чаще всего стоит на&nbsp;месте по&nbsp;четырём причинам.</p>
 </div>
 
-    <ol class="loss">
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Отзыв никто не&nbsp;просит</h3><p>Довольный пациент уходит молча. Пишет тот, кто остался недоволен, и&nbsp;рейтинг показывает клинику хуже, чем она есть.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Встраиваем просьбу об&nbsp;отзыве в&nbsp;работу администратора: когда, кого и&nbsp;какими словами просить.</p>
+    <ul class="lodk">
+      <li class="lodk__i" data-rv style="--d:0">
+        <div class="lodk__top"><h3 class="h3">Отзыв никто не&nbsp;просит</h3><p>Довольный пациент уходит молча. Пишет тот, кто остался недоволен, и&nbsp;рейтинг показывает клинику хуже, чем она есть.</p></div>
+        <p class="lodk__fix"><small>Что делаем</small>Встраиваем просьбу об&nbsp;отзыве в&nbsp;работу администратора: когда, кого и&nbsp;какими словами просить.</p>
       </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Отвечают между делом</h3><p>Администратор отвечает на&nbsp;отзывы, когда есть минута. Негативный отзыв о&nbsp;клинике висит без ответа неделю, и&nbsp;его успевают прочитать десятки человек.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Следим за&nbsp;площадками сами и&nbsp;готовим ответ, клиника только согласует.</p>
+      <li class="lodk__i" data-rv style="--d:1">
+        <div class="lodk__top"><h3 class="h3">Отвечают между делом</h3><p>Администратор отвечает на&nbsp;отзывы, когда есть минута. Негативный отзыв о&nbsp;клинике висит без ответа неделю, и&nbsp;его успевают прочитать десятки человек.</p></div>
+        <p class="lodk__fix"><small>Что делаем</small>Следим за&nbsp;площадками сами и&nbsp;готовим ответ, клиника только согласует.</p>
       </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Отзывы покупали</h3><p>Заказные отзывы площадки находят и&nbsp;удаляют, а&nbsp;карточку помечают или понижают. Доверие после этого вернуть труднее, чем заработать.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Работаем только с&nbsp;настоящими пациентами. Так медленнее, зато рейтинг не&nbsp;обнулится.</p>
+      <li class="lodk__i" data-rv style="--d:0">
+        <div class="lodk__top"><h3 class="h3">Отзывы покупали</h3><p>Заказные отзывы площадки находят и&nbsp;удаляют, а&nbsp;карточку помечают или понижают. Доверие после этого вернуть труднее, чем заработать.</p></div>
+        <p class="lodk__fix"><small>Что делаем</small>Работаем только с&nbsp;настоящими пациентами. Так медленнее, зато рейтинг не&nbsp;обнулится.</p>
       </li>
-      <li class="reveal">
-        <div class="loss__what"><h3 class="h3">Клинику хвалят, а&nbsp;врача не&nbsp;видно</h3><p>Рейтинг общий, а&nbsp;пациент выбирает врача. Про имплантолога, к&nbsp;которому хотят записаться, на&nbsp;площадках три отзыва пятилетней давности.</p></div>
-        <p class="loss__fix"><small>Что делаем</small>Собираем отзывы по&nbsp;врачам и&nbsp;услугам, которые клиника хочет загрузить.</p>
+      <li class="lodk__i" data-rv style="--d:1">
+        <div class="lodk__top"><h3 class="h3">Клинику хвалят, а&nbsp;врача не&nbsp;видно</h3><p>Рейтинг общий, а&nbsp;пациент выбирает врача. Про имплантолога, к&nbsp;которому хотят записаться, на&nbsp;площадках три отзыва пятилетней давности.</p></div>
+        <p class="lodk__fix"><small>Что делаем</small>Собираем отзывы по&nbsp;врачам и&nbsp;услугам, которые клиника хочет загрузить.</p>
+      </li>
+    </ul>
+    
+  </div>
+</section>
+
+
+
+<section class="sec lk-yesno-split" id="white" data-sec="yesno">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Работаем только в&nbsp;белую</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Управление репутацией в&nbsp;интернете часто продают как удаление негатива и&nbsp;публикацию нужных отзывов. Мы&nbsp;так не&nbsp;работаем, и&nbsp;вот почему: площадки это видят, а&nbsp;клиника рискует карточкой.</p>
+</div>
+
+    <div class="ys" data-rv="scale">
+      <div class="ys__half ys--no">
+        <h3 class="ys__h">Чего не&nbsp;делаем</h3>
+        <ul class="ys__list">
+          <li>Не&nbsp;пишем отзывы от&nbsp;имени пациентов</li>
+          <li>Не&nbsp;покупаем отзывы и&nbsp;оценки</li>
+          <li>Не&nbsp;обещаем удалить любой негативный отзыв</li>
+          <li>Не&nbsp;раскрываем в&nbsp;ответах сведения о&nbsp;лечении</li>
+        </ul>
+      </div>
+      <div class="ys__half ys--yes dark">
+        <h3 class="ys__h">Что делаем</h3>
+        <ul class="ys__list">
+          <li>Просим отзыв у&nbsp;пациентов, которые были на&nbsp;приёме</li>
+          <li>Отвечаем на&nbsp;каждый отзыв от&nbsp;имени клиники</li>
+          <li>Оспариваем отзывы, которые нарушают правила площадки</li>
+          <li>Показываем клинике, на&nbsp;что пациенты жалуются чаще всего</li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="sec lk-steps-rail sec--fog" id="collect" data-sec="steps" data-look="steps-rail">
+  <div class="wrap stpr">
+    <div class="stpr__head">
+  <h2 class="h2" data-rv>Сбор отзывов пациентов: как это устроено</h2>
+  <p class="stpr__head-note" data-rv style="--d:1">Вопрос «как получить отзывы о&nbsp;стоматологии» решается не&nbsp;разовой акцией, а&nbsp;порядком, который работает каждый день.</p>
+</div>
+
+    <ol class="stpr__list" data-prog data-prog-hook="stpr">
+      <li class="stpr__i" data-rv style="--d:0">
+        <p class="stpr__when">Момент</p>
+        <h3 class="stpr__h">Когда просить</h3>
+        <p class="stpr__p">Сразу после приёма, которым пациент доволен: закончили лечение, сняли брекеты, поставили коронку. Не&nbsp;через месяц и&nbsp;не&nbsp;всем подряд.</p>
+      </li>
+      <li class="stpr__i" data-rv style="--d:1">
+        <p class="stpr__when">Слова</p>
+        <h3 class="stpr__h">Что говорит администратор</h3>
+        <p class="stpr__p">Короткая просьба без нажима и&nbsp;подсказка, о&nbsp;чём написать: о&nbsp;враче, об&nbsp;услуге, о&nbsp;том, как прошёл приём.</p>
+      </li>
+      <li class="stpr__i" data-rv style="--d:0">
+        <p class="stpr__when">Ссылка</p>
+        <h3 class="stpr__h">Сообщение после визита</h3>
+        <p class="stpr__p">Пациент получает сообщение со&nbsp;ссылкой на&nbsp;карточку и&nbsp;открывает её&nbsp;дома. Отзыв, написанный прямо в&nbsp;клинике, площадка может счесть неестественным.</p>
+      </li>
+      <li class="stpr__i" data-rv style="--d:1">
+        <p class="stpr__when">Площадка</p>
+        <h3 class="stpr__h">Куда вести</h3>
+        <p class="stpr__p">Туда, где отзывов не&nbsp;хватает: на&nbsp;Яндекс Карты, в&nbsp;2ГИС или в&nbsp;профиль врача на&nbsp;ПроДокторов.</p>
+      </li>
+      <li class="stpr__i" data-rv style="--d:0">
+        <p class="stpr__when">Учёт</p>
+        <h3 class="stpr__h">Сколько попросили и&nbsp;сколько получили</h3>
+        <p class="stpr__p">Раз в&nbsp;месяц смотрим, сколько отзывов пришло и&nbsp;по&nbsp;каким врачам, и&nbsp;поправляем порядок.</p>
       </li>
     </ol>
   </div>
+  <div class="wrap"></div>
 </section>
 
-<section class="sec" id="white">
+
+
+<section class="sec lk-cmp-table" id="law" data-sec="cmp">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Работаем только в&nbsp;белую.</h2>
+    <h2 class="h2" data-rv>Негативный отзыв о&nbsp;клинике: что можно удалить и&nbsp;как отвечать</h2>
   </div>
-  <p class="shead__note">Управление репутацией в&nbsp;интернете часто продают как удаление негатива и&nbsp;публикацию нужных отзывов. Мы&nbsp;так не&nbsp;работаем, и&nbsp;вот почему: площадки это видят, а&nbsp;клиника рискует карточкой.</p>
+  <p class="sh__note" data-rv style="--d:1">Работа с&nbsp;негативными отзывами о&nbsp;клинике идёт по&nbsp;правилам площадок и&nbsp;по&nbsp;закону. Удалить можно не&nbsp;всё, а&nbsp;ответить неправильно значит нарушить врачебную тайну.</p>
 </div>
 
-    <div class="yesno">
-      <div class="yesno__col">
-        <h3 class="pack__h">Чего не делаем</h3>
-        <ul class="plist plist--lg plist--no">
-          <li class="reveal"><span>Не&nbsp;пишем отзывы от&nbsp;имени пациентов</span></li>
-          <li class="reveal"><span>Не&nbsp;покупаем отзывы и&nbsp;оценки</span></li>
-          <li class="reveal"><span>Не&nbsp;обещаем удалить любой негативный отзыв</span></li>
-          <li class="reveal"><span>Не&nbsp;раскрываем в&nbsp;ответах сведения о&nbsp;лечении</span></li>
-        </ul>
-      </div>
-      <div class="yesno__col">
-        <h3 class="pack__h">Что делаем</h3>
-        <ul class="plist plist--lg">
-          <li class="reveal"><span>Просим отзыв у&nbsp;пациентов, которые были на&nbsp;приёме</span></li>
-          <li class="reveal"><span>Отвечаем на&nbsp;каждый отзыв от&nbsp;имени клиники</span></li>
-          <li class="reveal"><span>Оспариваем отзывы, которые нарушают правила площадки</span></li>
-          <li class="reveal"><span>Показываем клинике, на&nbsp;что пациенты жалуются чаще всего</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec--fog" id="collect">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Сбор отзывов пациентов: как это устроено.</h2>
-  </div>
-  <p class="shead__note">Вопрос «как получить отзывы о&nbsp;стоматологии» решается не&nbsp;разовой акцией, а&nbsp;порядком, который работает каждый день.</p>
-</div>
-
-    <ol class="incl__list incl__list--5">
-      <li class="reveal"><span class="incl__n">Момент</span><h4>Когда просить</h4><p>Сразу после приёма, которым пациент доволен: закончили лечение, сняли брекеты, поставили коронку. Не&nbsp;через месяц и&nbsp;не&nbsp;всем подряд.</p></li>
-      <li class="reveal"><span class="incl__n">Слова</span><h4>Что говорит администратор</h4><p>Короткая просьба без нажима и&nbsp;подсказка, о&nbsp;чём написать: о&nbsp;враче, об&nbsp;услуге, о&nbsp;том, как прошёл приём.</p></li>
-      <li class="reveal"><span class="incl__n">Ссылка</span><h4>Сообщение после визита</h4><p>Пациент получает сообщение со&nbsp;ссылкой на&nbsp;карточку и&nbsp;открывает её&nbsp;дома. Отзыв, написанный прямо в&nbsp;клинике, площадка может счесть неестественным.</p></li>
-      <li class="reveal"><span class="incl__n">Площадка</span><h4>Куда вести</h4><p>Туда, где отзывов не&nbsp;хватает: на&nbsp;Яндекс Карты, в&nbsp;2ГИС или в&nbsp;профиль врача на&nbsp;ПроДокторов.</p></li>
-      <li class="reveal"><span class="incl__n">Учёт</span><h4>Сколько попросили и&nbsp;сколько получили</h4><p>Раз в&nbsp;месяц смотрим, сколько отзывов пришло и&nbsp;по&nbsp;каким врачам, и&nbsp;поправляем порядок.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="sec" id="law">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Негативный отзыв о&nbsp;клинике: что можно удалить и&nbsp;как отвечать.</h2>
-  </div>
-  <p class="shead__note">Работа с&nbsp;негативными отзывами о&nbsp;клинике идёт по&nbsp;правилам площадок и&nbsp;по&nbsp;закону. Удалить можно не&nbsp;всё, а&nbsp;ответить неправильно значит нарушить врачебную тайну.</p>
-</div>
-
-    <div class="cmp-wrap">
-      <table class="cmp">
+    <div class="ct-wrap" data-rv>
+      <table class="ct ct--2">
         <caption class="sr">Какие отзывы площадки удаляют, какие нет и что учитывать в ответе</caption>
         <thead><tr><td></td><th scope="col">Что это значит</th><th scope="col">Как делаем</th></tr></thead>
         <tbody>
@@ -320,236 +413,317 @@
         </tbody>
       </table>
     </div>
-    <p class="pack__own">Примеры ответов на&nbsp;положительные и&nbsp;отрицательные отзывы разобраны в&nbsp;статье <a href="../blog/kak-otvechat-na-otzyvy-pacientov/">как отвечать на&nbsp;отзывы пациентов</a>.</p>
+    <p class="own" data-rv>Примеры ответов на&nbsp;положительные и&nbsp;отрицательные отзывы разобраны в&nbsp;статье <a href="../blog/kak-otvechat-na-otzyvy-pacientov/">как отвечать на&nbsp;отзывы пациентов</a>.</p>
+
   </div>
 </section>
 
-<section class="sec sec--fog" id="places">
+
+
+<section class="sec lk-spec-grid sec--fog" id="places" data-sec="spec">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Где ведём мониторинг отзывов клиники.</h2>
+    <h2 class="h2" data-rv>Где ведём мониторинг отзывов клиники</h2>
   </div>
-  <p class="shead__note">Состав площадок зависит от&nbsp;города и&nbsp;от&nbsp;того, где пациенты уже пишут о&nbsp;клинике. Начинаем с&nbsp;тех, которые человек видит первыми.</p>
+  <p class="sh__note" data-rv style="--d:1">Состав площадок зависит от&nbsp;города и&nbsp;от&nbsp;того, где пациенты уже пишут о&nbsp;клинике. Начинаем с&nbsp;тех, которые человек видит первыми.</p>
 </div>
 
-    <ul class="spec spec--sm spec--cols">
-      <li class="reveal"><h4>Яндекс Карты</h4><p>Главная площадка для большинства городов: рейтинг виден в&nbsp;поиске Яндекса и&nbsp;в&nbsp;навигаторе.</p></li>
-      <li class="reveal"><h4>2ГИС</h4><p>В&nbsp;ряде городов клинику ищут в&nbsp;2ГИС чаще, чем на&nbsp;Картах. Отзывы там читают так&nbsp;же внимательно.</p></li>
-      <li class="reveal"><h4>ПроДокторов</h4><p>Отзывы о&nbsp;врачах и&nbsp;клинике с&nbsp;проверкой. Здесь формируется репутация врача, а&nbsp;не&nbsp;только клиники.</p></li>
-      <li class="reveal"><h4>НаПоправку и&nbsp;СберЗдоровье</h4><p>Медицинские площадки с&nbsp;записью к&nbsp;врачу. У&nbsp;каждой свои правила публикации отзывов.</p></li>
-      <li class="reveal"><h4>Google Карты, Zoon и&nbsp;сайты отзывов</h4><p>Смотрим их, если они видны по&nbsp;названию клиники в&nbsp;поиске.</p></li>
-      <li class="reveal"><h4>Поиск по&nbsp;названию клиники</h4><p>Что человек видит, когда набирает название клиники и&nbsp;слово «отзывы». Это и&nbsp;называют SERM.</p></li>
+    <ul class="sg">
+      <li data-rv style="--d:0"><h3 class="sg__h">Яндекс Карты</h3><p>Главная площадка для большинства городов: рейтинг виден в&nbsp;поиске Яндекса и&nbsp;в&nbsp;навигаторе.</p></li>
+      <li data-rv style="--d:1"><h3 class="sg__h">2ГИС</h3><p>В&nbsp;ряде городов клинику ищут в&nbsp;2ГИС чаще, чем на&nbsp;Картах. Отзывы там читают так&nbsp;же внимательно.</p></li>
+      <li data-rv style="--d:0"><h3 class="sg__h">ПроДокторов</h3><p>Отзывы о&nbsp;врачах и&nbsp;клинике с&nbsp;проверкой. Здесь формируется репутация врача, а&nbsp;не&nbsp;только клиники.</p></li>
+      <li data-rv style="--d:1"><h3 class="sg__h">НаПоправку и&nbsp;СберЗдоровье</h3><p>Медицинские площадки с&nbsp;записью к&nbsp;врачу. У&nbsp;каждой свои правила публикации отзывов.</p></li>
+      <li data-rv style="--d:0"><h3 class="sg__h">Google Карты, Zoon и&nbsp;сайты отзывов</h3><p>Смотрим их, если они видны по&nbsp;названию клиники в&nbsp;поиске.</p></li>
+      <li data-rv style="--d:1"><h3 class="sg__h">Поиск по&nbsp;названию клиники</h3><p>Что человек видит, когда набирает название клиники и&nbsp;слово «отзывы». Это и&nbsp;называют SERM.</p></li>
     </ul>
+    
   </div>
 </section>
 
-<section class="sec" id="months">
+
+
+<section class="sec lk-cmp-switch" id="months" data-sec="cmp">
   <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Что изменится через месяц, три и&nbsp;полгода.</h2>
-  </div>
-  <p class="shead__note">Репутация не&nbsp;меняется за&nbsp;неделю. Говорим заранее, чего ждать на&nbsp;каждом сроке и&nbsp;чего в&nbsp;это время ещё не&nbsp;будет.</p>
-</div>
-
-    <div class="cmp-wrap">
-      <table class="cmp">
-        <caption class="sr">Что меняется в отзывах клиники через месяц, три месяца и полгода работы</caption>
-        <thead><tr><td></td><th scope="col">Что уже видно</th><th scope="col">Чего ещё не будет</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Через месяц</th><td data-label="Что уже видно">На&nbsp;все отзывы есть ответы, спорные отзывы оспорены, у&nbsp;администраторов есть порядок просьбы об&nbsp;отзыве</td><td data-label="Чего ещё не будет">Рейтинг почти не&nbsp;изменится: новых отзывов ещё мало</td></tr>
-          <tr><th scope="row">Через три месяца</th><td data-label="Что уже видно">Новые отзывы приходят регулярно, свежие стоят выше старых, появились отзывы о&nbsp;нужных врачах</td><td data-label="Чего ещё не будет">Старый негатив ещё виден тем, кто читает все отзывы</td></tr>
-          <tr><th scope="row">Через полгода</th><td data-label="Что уже видно">Рейтинг опирается на&nbsp;свежие отзывы, по&nbsp;названию клиники в&nbsp;поиске видны её&nbsp;карточки с&nbsp;ответами</td><td data-label="Чего ещё не будет">Отрицательные отзывы не&nbsp;исчезнут совсем, и&nbsp;это нормально: карточке без единой жалобы верят меньше</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec--fog" id="serm">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">SERM и&nbsp;ORM: в&nbsp;чём разница.</h2>
-  </div>
-  <p class="shead__note">Оба слова означают управление репутацией в&nbsp;сети, но&nbsp;работу описывают разную. Клинике обычно нужно и&nbsp;то&nbsp;и&nbsp;другое в&nbsp;небольшом объёме.</p>
-</div>
-
-    <div class="cmp-wrap">
-      <table class="cmp">
-        <caption class="sr">Чем SERM отличается от ORM</caption>
-        <thead><tr><td></td><th scope="col">SERM</th><th scope="col">ORM</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Что это</th><td data-label="SERM">Управление репутацией в&nbsp;поисковой выдаче</td><td data-label="ORM">Управление репутацией онлайн в&nbsp;целом</td></tr>
-          <tr><th scope="row">Где работает</th><td data-label="SERM">Первая страница поиска по&nbsp;названию клиники и&nbsp;фамилиям врачей</td><td data-label="ORM">Карты, медицинские площадки, сайты отзывов, соцсети</td></tr>
-          <tr><th scope="row">Что входит</th><td data-label="SERM">Карточки и&nbsp;профили клиники, которые занимают выдачу, отзывы на&nbsp;них</td><td data-label="ORM">Мониторинг, ответы, сбор отзывов, разбор жалоб вместе с&nbsp;клиникой</td></tr>
-          <tr><th scope="row">Когда нужно</th><td data-label="SERM">По&nbsp;названию клиники первым выходит чужой сайт с&nbsp;плохими отзывами</td><td data-label="ORM">Отзывов мало, отвечать некому, рейтинг ниже, чем у&nbsp;соседей</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="limits">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Когда работа с&nbsp;отзывами не&nbsp;поможет.</h2>
-  </div>
-  <p class="shead__note">Честнее сказать об&nbsp;этом до&nbsp;договора, чем через три месяца.</p>
-</div>
-
-    <ol class="deflist">
-      <li class="reveal"><h3 class="h3">Проблема в&nbsp;самом приёме</h3><p>Если пациенты из&nbsp;месяца в&nbsp;месяц жалуются на&nbsp;одно и&nbsp;то&nbsp;же: очереди, грубость, цену не&nbsp;по&nbsp;прайсу. Ответы на&nbsp;отзывы это не&nbsp;закроют, нужно менять причину. Мы&nbsp;покажем, на&nbsp;что жалуются чаще всего.</p></li>
-      <li class="reveal"><h3 class="h3">Нужны отзывы к&nbsp;понедельнику</h3><p>Быстро набрать оценки можно только накруткой. Мы&nbsp;этого не&nbsp;делаем и&nbsp;не&nbsp;советуем: площадки удаляют такие отзывы вместе с&nbsp;доверием к&nbsp;карточке.</p></li>
-      <li class="reveal"><h3 class="h3">Ожидание, что негатив удалят весь</h3><p>Удаляются отзывы, которые нарушают правила. Мнение настоящего пациента останется, и&nbsp;ответ клиники на&nbsp;него читают внимательнее, чем сам отзыв.</p></li>
-      <li class="reveal"><h3 class="h3">В&nbsp;клинике некому просить отзывы</h3><p>Мы&nbsp;готовим слова и&nbsp;сообщения со&nbsp;ссылками, но&nbsp;просит об&nbsp;отзыве администратор или врач. Без этого шага новые отзывы не&nbsp;появятся.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="sec sec--fog" id="price">
-  <div class="wrap">
-    <div class="shead">
-  <div>
-    <h2 class="h2">Сколько стоит работа с&nbsp;отзывами.</h2>
-  </div>
-  <p class="shead__note">Цена зависит от&nbsp;числа площадок, филиалов и&nbsp;врачей, поэтому считаем её&nbsp;после разбора.</p>
-</div>
-
-    <div class="pack">
-      <div>
-        <h3 class="pack__h">Что входит</h3>
-        <ul class="plist plist--lg">
-          <li class="reveal"><span>Мониторинг отзывов клиники на&nbsp;выбранных площадках</span></li>
-          <li class="reveal"><span>Ответы на&nbsp;положительные и&nbsp;отрицательные отзывы</span></li>
-          <li class="reveal"><span>Жалобы на&nbsp;отзывы, которые нарушают правила</span></li>
-          <li class="reveal"><span>Порядок сбора отзывов для администраторов</span></li>
-          <li class="reveal"><span>Отчёт: сколько отзывов, о&nbsp;чём пишут, что изменилось</span></li>
-        </ul>
+    <div class="cs cs--2">
+      <div class="cs__side">
+        <div class="cs__head">
+          <h2 class="h2 cs__h" data-rv>Что изменится через месяц, три и&nbsp;полгода</h2>
+          <p class="cs__note" data-rv style="--d:1">Репутация не&nbsp;меняется за&nbsp;неделю. Говорим заранее, чего ждать на&nbsp;каждом сроке и&nbsp;чего в&nbsp;это время ещё не&nbsp;будет.</p>
+        </div>
+        <form class="cs__form" data-rv style="--d:2">
+          <fieldset class="cs__seg">
+            <legend class="sr">Что меняется в отзывах клиники через месяц, три месяца и полгода работы</legend>
+            <label class="cs__b"><input type="radio" name="col" value="1"><span>Что уже видно</span></label>
+            <label class="cs__b"><input type="radio" name="col" value="2" checked><span>Чего ещё не&nbsp;будет</span></label>
+          </fieldset>
+        </form>
       </div>
-      <div>
-        <h3 class="pack__h">Условия</h3>
-        <dl class="terms terms--plain">
+      <div class="cs__rows">
+        <div class="cs__row" data-rv>
+          <h3 class="cs__k">Через месяц</h3>
+          <div class="cs__vals">
+            <p class="cs__v"><span class="sr">Что уже видно: </span>На&nbsp;все отзывы есть ответы, спорные отзывы оспорены, у&nbsp;администраторов есть порядок просьбы об&nbsp;отзыве</p>
+            <p class="cs__v"><span class="sr">Чего ещё не будет: </span>Рейтинг почти не&nbsp;изменится: новых отзывов ещё мало</p>
+          </div>
+        </div>
+        <div class="cs__row" data-rv>
+          <h3 class="cs__k">Через три месяца</h3>
+          <div class="cs__vals">
+            <p class="cs__v"><span class="sr">Что уже видно: </span>Новые отзывы приходят регулярно, свежие стоят выше старых, появились отзывы о&nbsp;нужных врачах</p>
+            <p class="cs__v"><span class="sr">Чего ещё не будет: </span>Старый негатив ещё виден тем, кто читает все отзывы</p>
+          </div>
+        </div>
+        <div class="cs__row" data-rv>
+          <h3 class="cs__k">Через полгода</h3>
+          <div class="cs__vals">
+            <p class="cs__v"><span class="sr">Что уже видно: </span>Рейтинг опирается на&nbsp;свежие отзывы, по&nbsp;названию клиники в&nbsp;поиске видны её&nbsp;карточки с&nbsp;ответами</p>
+            <p class="cs__v"><span class="sr">Чего ещё не будет: </span>Отрицательные отзывы не&nbsp;исчезнут совсем, и&nbsp;это нормально: карточке без единой жалобы верят меньше</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="sec lk-cmp-versus sec--fog" id="serm" data-sec="cmp">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>SERM и&nbsp;ORM: в&nbsp;чём разница</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Оба слова означают управление репутацией в&nbsp;сети, но&nbsp;работу описывают разную. Клинике обычно нужно и&nbsp;то&nbsp;и&nbsp;другое в&nbsp;небольшом объёме.</p>
+</div>
+
+    <div class="vx vx--2" style="--n: 2" role="group" aria-label="Чем SERM отличается от ORM">
+      <div class="vx__top" aria-hidden="true">
+        <p class="vx__col">SERM</p>
+        <p class="vx__col vx__col--key">ORM</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Что это</span></h3>
+        <p class="vx__v"><span class="vx__c">SERM</span>Управление репутацией в&nbsp;поисковой выдаче</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">ORM</span>Управление репутацией онлайн в&nbsp;целом</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Где работает</span></h3>
+        <p class="vx__v"><span class="vx__c">SERM</span>Первая страница поиска по&nbsp;названию клиники и&nbsp;фамилиям врачей</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">ORM</span>Карты, медицинские площадки, сайты отзывов, соцсети</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Что входит</span></h3>
+        <p class="vx__v"><span class="vx__c">SERM</span>Карточки и&nbsp;профили клиники, которые занимают выдачу, отзывы на&nbsp;них</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">ORM</span>Мониторинг, ответы, сбор отзывов, разбор жалоб вместе с&nbsp;клиникой</p>
+      </div>
+      <div class="vx__row" data-rv>
+        <h3 class="vx__k"><span>Когда нужно</span></h3>
+        <p class="vx__v"><span class="vx__c">SERM</span>По&nbsp;названию клиники первым выходит чужой сайт с&nbsp;плохими отзывами</p>
+        <p class="vx__v vx__v--key"><span class="vx__c">ORM</span>Отзывов мало, отвечать некому, рейтинг ниже, чем у&nbsp;соседей</p>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="sec lk-deflist-side" id="limits" data-sec="deflist">
+  <div class="wrap ds">
+    <div class="ds__side">
+      <h2 class="h2 ds__h" data-rv>Когда работа с&nbsp;отзывами не&nbsp;поможет</h2>
+      <p class="ds__note" data-rv style="--d:1">Честнее сказать об&nbsp;этом до&nbsp;договора, чем через три месяца.</p>
+    </div>
+    <div class="ds__main">
+      <ul class="ds__list">
+        <li class="ds__i" data-rv>
+          <h3 class="ds__t">Проблема в&nbsp;самом приёме</h3>
+          <p>Если пациенты из&nbsp;месяца в&nbsp;месяц жалуются на&nbsp;одно и&nbsp;то&nbsp;же: очереди, грубость, цену не&nbsp;по&nbsp;прайсу. Ответы на&nbsp;отзывы это не&nbsp;закроют, нужно менять причину. Мы&nbsp;покажем, на&nbsp;что жалуются чаще всего.</p>
+        </li>
+        <li class="ds__i" data-rv>
+          <h3 class="ds__t">Нужны отзывы к&nbsp;понедельнику</h3>
+          <p>Быстро набрать оценки можно только накруткой. Мы&nbsp;этого не&nbsp;делаем и&nbsp;не&nbsp;советуем: площадки удаляют такие отзывы вместе с&nbsp;доверием к&nbsp;карточке.</p>
+        </li>
+        <li class="ds__i" data-rv>
+          <h3 class="ds__t">Ожидание, что негатив удалят весь</h3>
+          <p>Удаляются отзывы, которые нарушают правила. Мнение настоящего пациента останется, и&nbsp;ответ клиники на&nbsp;него читают внимательнее, чем сам отзыв.</p>
+        </li>
+        <li class="ds__i" data-rv>
+          <h3 class="ds__t">В&nbsp;клинике некому просить отзывы</h3>
+          <p>Мы&nbsp;готовим слова и&nbsp;сообщения со&nbsp;ссылками, но&nbsp;просит об&nbsp;отзыве администратор или врач. Без этого шага новые отзывы не&nbsp;появятся.</p>
+        </li>
+      </ul>
+      
+    </div>
+  </div>
+</section>
+
+
+
+<section class="sec lk-pack-ticket sec--fog" id="price" data-sec="pack">
+  <div class="wrap">
+    <div class="sh">
+  <div>
+    <h2 class="h2" data-rv>Сколько стоит работа с&nbsp;отзывами</h2>
+  </div>
+  <p class="sh__note" data-rv style="--d:1">Цена зависит от&nbsp;числа площадок, филиалов и&nbsp;врачей, поэтому считаем её&nbsp;после разбора.</p>
+</div>
+
+    <div class="pktk" data-rv="scale">
+      <div class="pktk__a">
+        <h3 class="yn__h">Что входит</h3>
+        <ul class="pktk__ul">
+          <li>Мониторинг отзывов клиники на&nbsp;выбранных площадках</li>
+          <li>Ответы на&nbsp;положительные и&nbsp;отрицательные отзывы</li>
+          <li>Жалобы на&nbsp;отзывы, которые нарушают правила</li>
+          <li>Порядок сбора отзывов для администраторов</li>
+          <li>Отчёт: сколько отзывов, о&nbsp;чём пишут, что изменилось</li>
+        </ul>
+        
+      </div>
+      <div class="pktk__cut" aria-hidden="true"></div>
+      <div class="pktk__b">
+        <h3 class="yn__h">Условия</h3>
+        <dl class="pktk__terms">
           <div><dt>Отдельная услуга</dt><dd>считаем по&nbsp;заявке, после разбора площадок</dd></div>
-          <div><dt>В комплексе</dt><dd>ответы на&nbsp;отзывы входят в&nbsp;комплексный маркетинг</dd></div>
+          <div><dt>В&nbsp;комплексе</dt><dd>ответы на&nbsp;отзывы входят в&nbsp;комплексный маркетинг</dd></div>
           <div><dt>Сроки ответа</dt><dd>записываем в&nbsp;договоре</dd></div>
           <div><dt>Доступы</dt><dd>карточки и&nbsp;профили остаются у&nbsp;клиники</dd></div>
         </dl>
-        <div class="pack__acts">
-          <a href="#start" class="btn" data-magnetic data-pick="unsure">Разобрать отзывы клиники</a>
-        </div>
+        <a href="#start" class="btn" data-magnetic data-pick="unsure">Разобрать отзывы клиники</a>
       </div>
     </div>
-    <p class="pack__own">Отзывы на&nbsp;отдельных площадках ведём в&nbsp;составе услуг <a href="../yandex-karty/">продвижения на&nbsp;Яндекс Картах</a>.</p>
+    <p class="own" data-rv>Отзывы на&nbsp;отдельных площадках ведём в&nbsp;составе услуг <a href="../yandex-karty/">продвижения на&nbsp;Яндекс Картах</a>.</p>
+
   </div>
 </section>
 
-<section class="sec" id="faq">
+
+
+
+<section class="sec fqi" id="faq" data-sec="faq">
   <div class="wrap">
-    <div class="shead">
+    <div class="sh">
   <div>
-    <h2 class="h2">Вопросы об&nbsp;отзывах и&nbsp;репутации.</h2>
+    <h2 class="h2" data-rv>Вопросы об&nbsp;отзывах и&nbsp;репутации</h2>
   </div>
-  <p class="shead__note">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
+  <p class="sh__note" data-rv style="--d:1">Не&nbsp;нашли ответ? Задайте вопрос в&nbsp;заявке, ответим в&nbsp;рабочее время.</p>
 </div>
 
-    <div class="qa">
-  <details class="qa__item" open>
-    <summary><span class="qa__q">Что такое SERM простыми словами?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>SERM это управление репутацией в&nbsp;поисковой выдаче: что человек видит, когда набирает в&nbsp;поиске название клиники или фамилию врача. Для клиники SERM сводится к&nbsp;простым вещам: заполненные карточки на&nbsp;Картах и&nbsp;медицинских площадках, свежие отзывы настоящих пациентов и&nbsp;ответы на&nbsp;них.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Можно&nbsp;ли удалить отзыв о&nbsp;клинике?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Только если он&nbsp;нарушает правила площадки: содержит оскорбления, персональные данные, рекламу или написан о&nbsp;другой клинике. Тогда подаём жалобу. Мнение пациента о&nbsp;цене, враче и&nbsp;результате лечения площадки не&nbsp;удаляют.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Как удалить отзыв на&nbsp;ПроДокторов?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Сама клиника удалить отзыв на&nbsp;ПроДокторов не&nbsp;может. По&nbsp;справке площадки удаление возможно, только если нарушены правила публикации или автор сам отозвал отзыв. Если отзыв кажется недостоверным, в&nbsp;личном кабинете клиники его можно отправить на&nbsp;повторную проверку и&nbsp;приложить подтверждения. Решение принимает площадка.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Вы&nbsp;пишете отзывы сами?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Нет. Мы&nbsp;не&nbsp;пишем и&nbsp;не&nbsp;покупаем отзывы. Все отзывы оставляют пациенты, которые были на&nbsp;приёме, а&nbsp;мы&nbsp;помогаем клинике вовремя и&nbsp;правильно их&nbsp;об&nbsp;этом попросить.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Кто согласует ответы на&nbsp;отзывы?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Клиника. На&nbsp;обычные отзывы отвечаем по&nbsp;согласованным образцам, ответ на&nbsp;жалобу показываем руководителю или главному врачу до&nbsp;публикации. Сроки ответа записываем в&nbsp;договоре.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Занимаетесь&nbsp;ли вы&nbsp;репутацией врача?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Да. Репутация врача складывается из&nbsp;его профиля на&nbsp;ПроДокторов, отзывов с&nbsp;его фамилией на&nbsp;Картах и&nbsp;страницы на&nbsp;сайте клиники. Собираем отзывы по&nbsp;врачам, которых клиника хочет загрузить.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Работаете&nbsp;ли вы&nbsp;с&nbsp;медицинскими центрами, а&nbsp;не&nbsp;только со&nbsp;стоматологиями?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Да. Управление репутацией в&nbsp;медицине устроено одинаково: те&nbsp;же площадки, те&nbsp;же ограничения по&nbsp;врачебной тайне. Отличается только набор врачей и&nbsp;услуг.</p></div>
-  </details>
-  <details class="qa__item">
-    <summary><span class="qa__q">Сколько стоит управление репутацией клиники?</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>Отдельную услугу считаем по&nbsp;заявке: цена зависит от&nbsp;числа площадок, филиалов и&nbsp;врачей. В&nbsp;комплексном маркетинге ответы на&nbsp;отзывы уже входят в&nbsp;пакет.</p></div>
-  </details>
-</div>
-
-  </div>
-</section>
-
-<section class="dark sheet start" id="start" data-dark>
-  <div class="wrap">
-    <h2 class="h2 start__title">Разберём отзывы вашей клиники.</h2>
-    <div class="start__grid">
-      <div class="start__text">
-        <p class="lead">Оставьте заявку и&nbsp;название клиники. За&nbsp;2&nbsp;рабочих дня посмотрим отзывы на&nbsp;Яндекс Картах, в&nbsp;2ГИС и&nbsp;на&nbsp;ПроДокторов и&nbsp;покажем, на&nbsp;что пациенты жалуются и&nbsp;какие отзывы можно оспорить.</p>
-        <ul class="plist">
-          <li>Отзывы только от&nbsp;настоящих пациентов</li>
-          <li>Ответы с&nbsp;учётом врачебной тайны</li>
-          <li>Карточки и&nbsp;профили остаются у&nbsp;клиники</li>
-        </ul>
-        <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
+    <div class="fqi__grid">
+      <nav class="fqi__nav" aria-label="Вопросы">
+        <ol>
+          <li><a href="#fq-1">Что такое SERM простыми словами?</a></li>
+          <li><a href="#fq-2">Можно&nbsp;ли удалить отзыв о&nbsp;клинике?</a></li>
+          <li><a href="#fq-3">Как удалить отзыв на&nbsp;ПроДокторов?</a></li>
+          <li><a href="#fq-4">Вы&nbsp;пишете отзывы сами?</a></li>
+          <li><a href="#fq-5">Кто согласует ответы на&nbsp;отзывы?</a></li>
+          <li><a href="#fq-6">Занимаетесь&nbsp;ли вы&nbsp;репутацией врача?</a></li>
+          <li><a href="#fq-7">Работаете&nbsp;ли вы&nbsp;с&nbsp;медицинскими центрами, а&nbsp;не&nbsp;только со&nbsp;стоматологиями?</a></li>
+          <li><a href="#fq-8">Сколько стоит управление репутацией клиники?</a></li>
+        </ol>
+      </nav>
+      <div class="fqi__list">
+        <article class="fqi__i" id="fq-1" data-rv>
+          <h3 class="fqi__q">Что такое SERM простыми словами?</h3>
+          <p class="fqi__a">SERM это управление репутацией в&nbsp;поисковой выдаче: что человек видит, когда набирает в&nbsp;поиске название клиники или фамилию врача. Для клиники SERM сводится к&nbsp;простым вещам: заполненные карточки на&nbsp;Картах и&nbsp;медицинских площадках, свежие отзывы настоящих пациентов и&nbsp;ответы на&nbsp;них.</p>
+        </article>
+        <article class="fqi__i" id="fq-2" data-rv>
+          <h3 class="fqi__q">Можно&nbsp;ли удалить отзыв о&nbsp;клинике?</h3>
+          <p class="fqi__a">Только если он&nbsp;нарушает правила площадки: содержит оскорбления, персональные данные, рекламу или написан о&nbsp;другой клинике. Тогда подаём жалобу. Мнение пациента о&nbsp;цене, враче и&nbsp;результате лечения площадки не&nbsp;удаляют.</p>
+        </article>
+        <article class="fqi__i" id="fq-3" data-rv>
+          <h3 class="fqi__q">Как удалить отзыв на&nbsp;ПроДокторов?</h3>
+          <p class="fqi__a">Сама клиника удалить отзыв на&nbsp;ПроДокторов не&nbsp;может. По&nbsp;справке площадки удаление возможно, только если нарушены правила публикации или автор сам отозвал отзыв. Если отзыв кажется недостоверным, в&nbsp;личном кабинете клиники его можно отправить на&nbsp;повторную проверку и&nbsp;приложить подтверждения. Решение принимает площадка.</p>
+        </article>
+        <article class="fqi__i" id="fq-4" data-rv>
+          <h3 class="fqi__q">Вы&nbsp;пишете отзывы сами?</h3>
+          <p class="fqi__a">Нет. Мы&nbsp;не&nbsp;пишем и&nbsp;не&nbsp;покупаем отзывы. Все отзывы оставляют пациенты, которые были на&nbsp;приёме, а&nbsp;мы&nbsp;помогаем клинике вовремя и&nbsp;правильно их&nbsp;об&nbsp;этом попросить.</p>
+        </article>
+        <article class="fqi__i" id="fq-5" data-rv>
+          <h3 class="fqi__q">Кто согласует ответы на&nbsp;отзывы?</h3>
+          <p class="fqi__a">Клиника. На&nbsp;обычные отзывы отвечаем по&nbsp;согласованным образцам, ответ на&nbsp;жалобу показываем руководителю или главному врачу до&nbsp;публикации. Сроки ответа записываем в&nbsp;договоре.</p>
+        </article>
+        <article class="fqi__i" id="fq-6" data-rv>
+          <h3 class="fqi__q">Занимаетесь&nbsp;ли вы&nbsp;репутацией врача?</h3>
+          <p class="fqi__a">Да. Репутация врача складывается из&nbsp;его профиля на&nbsp;ПроДокторов, отзывов с&nbsp;его фамилией на&nbsp;Картах и&nbsp;страницы на&nbsp;сайте клиники. Собираем отзывы по&nbsp;врачам, которых клиника хочет загрузить.</p>
+        </article>
+        <article class="fqi__i" id="fq-7" data-rv>
+          <h3 class="fqi__q">Работаете&nbsp;ли вы&nbsp;с&nbsp;медицинскими центрами, а&nbsp;не&nbsp;только со&nbsp;стоматологиями?</h3>
+          <p class="fqi__a">Да. Управление репутацией в&nbsp;медицине устроено одинаково: те&nbsp;же площадки, те&nbsp;же ограничения по&nbsp;врачебной тайне. Отличается только набор врачей и&nbsp;услуг.</p>
+        </article>
+        <article class="fqi__i" id="fq-8" data-rv>
+          <h3 class="fqi__q">Сколько стоит управление репутацией клиники?</h3>
+          <p class="fqi__a">Отдельную услугу считаем по&nbsp;заявке: цена зависит от&nbsp;числа площадок, филиалов и&nbsp;врачей. В&nbsp;комплексном маркетинге ответы на&nbsp;отзывы уже входят в&nbsp;пакет.</p>
+        </article>
       </div>
-      <form class="form" novalidate action="#" aria-label="Заявка">
-        <fieldset class="form__choice">
-          <legend>Что хотите запустить</legend>
-          <div class="form__opts">
-            <label class="form__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="site"><span>Сайт и&nbsp;Карты</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="unsure" checked><span>Пока не&nbsp;знаю</span></label>
-          </div>
-        </fieldset>
-        <label class="fld form__dir"><span>Услуга для рекламы</span>
-          <select name="direction">
-            <option value="implant">Имплантация</option>
-            <option value="all-on-4">All-on-4, полное восстановление</option>
-            <option value="ortho">Брекеты и элайнеры</option>
-            <option value="running">Реклама уже идёт, нужен разбор</option>
-            <option value="other">Другая услуга</option>
-          </select>
-        </label>
-        <div class="form__row">
-          <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
-          <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
-        </div>
-        <div class="form__row">
-          <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
-          <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
-        </div>
-        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../politika/">политики</a></span></label>
-        <div class="form__send">
-          <p class="form__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
-          <button class="btn btn--light" type="submit" data-vend data-magnetic>Отправить заявку</button>
-        </div>
-        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
-      </form>
     </div>
   </div>
 </section>
+
+
+
+<section class="sec sec--azure st st--form" id="start" data-sec="start">
+  <div class="wrap">
+    <p class="label" data-rv="fade">Заявка</p>
+    <h2 class="h2 st__h" data-rv>Разберём отзывы вашей клиники</h2>
+    <div class="st__grid">
+      <div class="st__text" data-rv><p class="st__lead">Оставьте заявку и&nbsp;название клиники. За&nbsp;2&nbsp;рабочих дня посмотрим отзывы на&nbsp;Яндекс Картах, в&nbsp;2ГИС и&nbsp;на&nbsp;ПроДокторов и&nbsp;покажем, на&nbsp;что пациенты жалуются и&nbsp;какие отзывы можно оспорить.</p>
+<ul class="ticks st__items">
+  <li>Отзывы только от&nbsp;настоящих пациентов</li>
+  <li>Ответы с&nbsp;учётом врачебной тайны</li>
+  <li>Карточки и&nbsp;профили остаются у&nbsp;клиники</li>
+</ul>
+<p class="st__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
+</div>
+      <form class="fm st__form" novalidate action="#" aria-label="Заявка" data-form data-rv style="--d:1"><fieldset class="fm__choice">
+  <legend>Что хотите запустить</legend>
+  <div class="fm__opts">
+    <label class="fm__opt"><input type="radio" name="service" value="direct"><span>Тест Директа</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="site"><span>Сайт и&nbsp;Карты</span></label>
+    <label class="fm__opt"><input type="radio" name="service" value="unsure" checked><span>Пока не&nbsp;знаю</span></label>
+  </div>
+</fieldset>
+<label class="fld fm__dir"><span>Услуга для рекламы</span>
+  <select name="direction">
+    <option value="implant">Имплантация</option>
+    <option value="all-on-4">All-on-4, полное восстановление</option>
+    <option value="ortho">Брекеты и элайнеры</option>
+    <option value="running">Реклама уже идёт, нужен разбор</option>
+    <option value="other">Другая услуга</option>
+  </select>
+</label>
+<div class="fm__row">
+  <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
+  <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
+</div>
+<div class="fm__row">
+  <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
+  <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
+</div>
+<label class="fm__c"><input type="checkbox" name="consent" required> <span>Даю <a href="../soglasie/">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="../politika/">политики</a></span></label>
+<div class="fm__send">
+  <button class="btn" type="submit" data-magnetic>Отправить заявку</button>
+  <p class="fm__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
+</div>
+<p class="fm__ok" role="status" tabindex="-1" hidden>Спасибо! Сайт пока в&nbsp;разработке, поэтому заявка никуда не&nbsp;ушла. Когда подключим приём заявок, здесь будет подтверждение.</p>
+<p class="stub">Заглушка: форма пока не отправляет заявки</p>
+</form>
+    </div>
+  </div>
+</section>
+
+
 
 </main>
 
-<!-- ============ ПОДВАЛ «Траектория»: тёмный, логотип во всю ширину ============ -->
+<!-- ============ ПОДВАЛ как на главной: тёмный, три колонки ссылок, знак во всю ширину ============ -->
 <footer class="ftr">
   <div class="wrap">
     <div class="ftr__top ftr__top--3">
-      <p class="ftr__say">Реклама, сайты и&nbsp;Яндекс Карты для стоматологий. Первый тест в&nbsp;Директе без комиссии агентства.</p>
+      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
         <a href="../yandex-direkt/">Яндекс Директ для стоматологии</a>
@@ -571,13 +745,13 @@
         <h2>Агентство</h2>
         <a href="../kejsy/">Кейсы</a>
         <a href="../blog/">Блог</a>
-        <a href="../kontakty/">О нас</a>
+        <a href="../kontakty/">Об агентстве</a>
         <a href="../kontakty/#contacts">Контакты</a>
         <a href="#start">Оставить заявку</a>
       </nav>
     </div>
     <div class="ftr__mark">
-      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+      <img src="../assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy" decoding="async">
     </div>
     <div class="ftr__bottom">
       <p>© 2026 МедВектор</p>
@@ -589,9 +763,9 @@
   </div>
 </footer>
 <!-- нижняя кнопка на телефоне -->
-<a href="#start" class="mcta"><span>Разобрать отзывы</span></a>
+<a href="#start" class="mcta" data-magnetic><span>Разобрать отзывы</span></a>
 
 <script src="../assets/js/vendor/lenis.min.js" defer></script>
-<script src="../assets/js/trajectory.js" defer></script>
+<script src="../assets/js/pages.js?v=69a874ce" defer></script>
 </body>
 </html>
