@@ -1,10 +1,12 @@
 <!-- «Ночная витрина»: тёмный экран, имя агентства во всю ширину, стеклянный зуб поверх букв -->
 <section class="sec sec--dark sec--top dark" id="hero" data-line="dark">
   <div class="sec__body hv hv2 dark">
+    <!-- фон первого экрана: врачи за работой. Видео подгружает home.js после открытия страницы, только на компьютере -->
+    <div class="hv2__film" data-hero-film="hero" aria-hidden="true"><video class="hv2__v" muted playsinline loop preload="none" tabindex="-1"></video></div>
     <div class="wrap hv2__grid">
       <p class="label hv2__label" data-rv="fade">Агентство маркетинга для стоматологий. Санкт-Петербург</p>
       <div class="hv2__stage">
-        <p class="hv2__wm" data-fit data-fit-max="32" aria-hidden="true"><span>МедВектор</span></p>
+        <p class="hv2__wm" data-fit data-fit-max="32" aria-hidden="true"><span><b>МедВектор</b><span class="hv2__glass">МедВектор</span></span></p>
         <i data-vp data-vp-node class="hv2__a"></i>
       </div>
       <h1 class="h2 rvh hv2__h">
