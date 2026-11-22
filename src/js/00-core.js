@@ -255,14 +255,28 @@
     var sets = $$('[data-vset]');
     // сборка MV_PICK=all показывает все варианты подряд для скриншотов: переключатель не нужен
     if (!sets.length || document.body.classList.contains('is-pick-all')) return;
-    var key = 'mv-pick:' + location.pathname.replace(/\/index\.html$/, '/').split('/').filter(Boolean).slice(-1)[0];
+    // выбор хранится по адресу страницы на боевом сайте (из canonical), поэтому одна кнопка собирает выбор со всех страниц
+    var canon = document.querySelector('link[rel=canonical]');
+    var key = 'mv-pick:' + (canon ? new URL(canon.href).pathname : location.pathname);
     var saved = {}; try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) { saved = {}; }
-    var page = (document.querySelector('h1') || {}).textContent || document.title;
     var bar = document.createElement('div'); bar.className = 'pick-bar';
-    bar.innerHTML = '<p class="pick-bar__t">Выбор вариантов: <b data-code></b></p><button type="button" class="pick-bar__btn" data-copy>Скопировать выбор</button><button type="button" class="pick-bar__btn pick-bar__btn--ghost" data-reset>Сбросить</button>';
+    bar.innerHTML = '<p class="pick-bar__t">Выбор вариантов: <b data-code></b> <span data-all></span></p><button type="button" class="pick-bar__btn" data-copy>Скопировать выбор</button><button type="button" class="pick-bar__btn pick-bar__btn--ghost" data-reset>Сбросить</button>';
     document.body.appendChild(bar);
     var code = function () { return sets.map(function (s) { return s.__v || 1; }).join('-'); };
-    var paint = function () { $('[data-code]', bar).textContent = code(); };
+    // все страницы, где выбран не первый вариант: «/yandex-direkt/: intro 2, faq 3»
+    var all = function () {
+      var lines = [];
+      try {
+        for (var i = 0; i < localStorage.length; i++) {
+          var k = localStorage.key(i); if (k.indexOf('mv-pick:/') !== 0) continue;
+          var o = JSON.parse(localStorage.getItem(k) || '{}');
+          var p = Object.keys(o).filter(function (id) { return o[id] > 1; }).map(function (id) { return id + ' ' + o[id]; });
+          if (p.length) lines.push(k.slice(8) + ': ' + p.join(', '));
+        }
+      } catch (e) {}
+      return lines.sort();
+    };
+    var paint = function () { $('[data-code]', bar).textContent = code(); var n = all().length; $('[data-all]', bar).textContent = n ? '(страниц с выбором: ' + n + ')' : ''; };
     sets.forEach(function (set, n) {
       var vs = $$(':scope > .vset__v', set), sh = $('h2, h1', vs[0]);
       var name = sh ? sh.textContent.trim().replace(/\s+/g, ' ') : set.dataset.vtype;
@@ -287,7 +301,7 @@
       show(clamp((saved[set.id || n] || 1) - 1, 0, vs.length - 1), false);
     });
     $('[data-copy]', bar).addEventListener('click', function (e) {
-      var txt = page.trim() + ': ' + code();
+      var lines = all(), txt = 'Выбор вариантов МедВектор\n' + (lines.length ? lines.join('\n') : 'везде первые варианты');
       var done = function () { e.target.textContent = 'Скопировано'; setTimeout(function () { e.target.textContent = 'Скопировать выбор'; }, 1600); };
       if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, function () { prompt('Скопируйте выбор', txt); }); else prompt('Скопируйте выбор', txt);
     });
