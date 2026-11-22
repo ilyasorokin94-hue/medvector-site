@@ -46,3 +46,11 @@
   .vx--n .vx__c { position: static; display: block; width: auto; height: auto; margin-bottom: 4px; overflow: visible; clip-path: none; white-space: normal; font-size: calc(14px * var(--t-k)); color: var(--ink-3); }
   .vx--n .vx__v--key .vx__c { color: var(--vec-ink); }
 }
+/* узкий телефон: две колонки не помещают длинные слова, значения идут друг под другом с подписью колонки, как у трёх колонок */
+@media (max-width: 379px) {
+  .vx--2 .vx__top { display: none; }
+  .vx--2 .vx__row { grid-template-columns: minmax(0, 1fr); row-gap: 14px; }
+  .vx--2 .vx__v, .vx--2 .vx__v:nth-child(2), .vx--2 .vx__v:nth-child(3) { grid-row: auto; grid-column: 1; padding: 0; border: 0; text-align: left; }
+  .vx--2 .vx__c { position: static; display: block; width: auto; height: auto; margin-bottom: 4px; overflow: visible; clip-path: none; white-space: normal; font-size: calc(14px * var(--t-k)); color: var(--ink-3); }
+  .vx--2 .vx__v--key .vx__c { color: var(--vec-ink); }
+}
