@@ -888,4 +888,13 @@ button.link { border: 0; cursor: pointer; }
   #sites .w5__col .mock { font-size: 4.3px; }
   .js #sites:not(.v-go) .w5__wall { transform: perspective(1100px) rotateX(56deg) rotateZ(-20deg) scale(.9) translateY(110px); opacity: 0; }
 }
+/* вопросы списком (телефон и планшет): ответ раскрывается плавно, где браузер это умеет; в остальных открывается сразу, как раньше */
+@supports (interpolate-size: allow-keywords) and selector(::details-content) {
+  #faq .qa { interpolate-size: allow-keywords; }
+  #faq .qa__item::details-content { height: 0; overflow: clip; transition: height .55s var(--ease), content-visibility .55s allow-discrete; }
+  #faq .qa__item[open]::details-content { height: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #faq .qa__item::details-content { transition: none; }
+}
 /* ===== Телефон: конец ===== */

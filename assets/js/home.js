@@ -521,7 +521,8 @@
   MV.frames.push(frame);
   MV.line.rebuild();
   // высота содержимого поменялась (раскрыли вопрос, догрузилась картинка): метки сдвинулись, линию перестраиваем
-  if ('ResizeObserver' in window) { var mh = 0; new ResizeObserver(function () { var h = main.offsetHeight; if (h !== mh) { mh = h; MV.line.rebuild(); } }).observe(main); }
+  // пока вопрос плавно раскрывается, высота меняется каждый кадр: перестраиваем один раз, когда она остановилась
+  if ('ResizeObserver' in window) { var mh = 0, mt = 0; new ResizeObserver(function () { var h = main.offsetHeight; if (h === mh) return; mh = h; clearTimeout(mt); mt = setTimeout(MV.line.rebuild, 90); }).observe(main); }
 })();
 
 /* ===== Секции: указатель кейсов, макеты сайтов, колесо вопросов ===== */
