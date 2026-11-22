@@ -852,4 +852,27 @@ button.link { border: 0; cursor: pointer; }
   /* метки карточки обычной строкой: при переносе запятая остаётся у слова, а не начинает новую строку */
   .ctag { display: block; }
 }
+/* «Как идёт работа»: айфон целиком помещается в экран телефона вместе с цифрами отчёта под ним */
+@media (max-width: 860px) {
+  #process .c5__phone { margin-top: 40px; }
+  #process .cx { max-width: 300px; }
+  #process .cx__view { height: 370px; }
+  #process .c5__chip { margin: 12px 4px 0; padding: 10px 14px; }
+  #process .c5__chip b { font-size: calc(26px * var(--h-k)); }
+  #process .cx__top { padding-right: 10px; }
+  #process .cx__top b { font-size: 13.5px; letter-spacing: -.015em; white-space: nowrap; }
+}
+@media (max-width: 359px) {
+  #process .cx { max-width: 272px; border-radius: 54px; }
+  #process .cx__scr { border-radius: 44px; }
+  #process .cx__view { height: 330px; }
+}
+/* «Объём» на телефоне: мыши нет, поэтому телефон доворачивается к читателю по ходу прокрутки. Анимацию ведёт сам браузер по прокрутке, без скрипта */
+@media (max-width: 860px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    #process .c5__stage { perspective: 1200px; }
+    #process .c5__dev { animation: c5turn linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
+  }
+}
+@keyframes c5turn { from { transform: rotateY(-16deg) rotateX(9deg); } to { transform: rotateY(-3deg) rotateX(1.5deg); } }
 /* ===== Телефон: конец ===== */

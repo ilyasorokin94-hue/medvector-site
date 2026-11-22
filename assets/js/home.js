@@ -320,10 +320,14 @@
     };
     var run = function (i) { if (i < msgs.length) one(i).then(function () { run(i + 1); }); };
     if (reduce || !('IntersectionObserver' in window)) { msgs.forEach(function (m, i) { show(i); m.classList.add('is-read'); }); return; }
+    /* на телефоне телефон проезжает экран за пару секунд: отчёт менеджера уже в ленте, а живая переписка начинается,
+       как только верх телефона показался, поэтому пустого чата никто не увидит */
+    var from = fine ? 0 : 1;
+    if (!fine) show(0);
     var io = new IntersectionObserver(function (es) {
       if (!es[es.length - 1].isIntersecting) return;
-      io.disconnect(); wait(400).then(function () { run(0); });
-    }, { threshold: 0.45 });
+      io.disconnect(); wait(fine ? 400 : 150).then(function () { run(from); });
+    }, fine ? { threshold: 0.45 } : { threshold: 0, rootMargin: '0px 0px -12% 0px' });
     io.observe(ph);
     addEventListener('resize', function () { fit(); });
 
