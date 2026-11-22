@@ -931,7 +931,11 @@ button.link { border: 0; cursor: pointer; }
 @media (hover: none) {
   .hdr__logo { padding: 6px 0; }
   .link::before { content: ''; position: absolute; inset: -4px -6px; }
-  .fm__c { padding: 8px 0; }
+  .fm__c { padding: 8px 0; min-height: 44px; }
+  /* подвал на планшете и телефоне боком: ссылки той же высоты 44 px, что и на узком телефоне */
+  .ftr__col { gap: 0; }
+  .ftr__col a { display: flex; align-items: center; min-height: 44px; }
+  .ftr__bottom a { display: inline-flex; align-items: center; min-height: 44px; }
   /* магнитных кнопок без мыши нет: кнопкам не нужен свой слой видеокарты */
   .btn { will-change: auto; }
 }
