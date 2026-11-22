@@ -44,7 +44,7 @@
     </nav>
 {% endif %}
     <div class="prose prose--article">
-      {{ content | h2ids | safe }}
+      {{ content | h2ids | tlabels | safe }}
 {% if legal %}
       <p class="prose__note">Статья описывает общие требования и не заменяет консультацию юриста. Документы меняются: перед запуском сверяйтесь с действующей редакцией.</p>
 {% endif %}

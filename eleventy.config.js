@@ -126,6 +126,16 @@ module.exports = function (cfg) {
   cfg.addFilter('plain', plain);
   cfg.addFilter('h2ids', c => h2split(c).out);
   cfg.addFilter('h2list', c => h2split(c).items);
+  // таблицы статей: у каждой ячейки подпись её колонки (data-label), на телефоне строка таблицы становится карточкой
+  cfg.addFilter('tlabels', html => String(html || '').replace(/<table>([\s\S]*?)<\/table>/g, (t, body) => {
+    const head = (body.match(/<thead>([\s\S]*?)<\/thead>/) || [])[1] || '';
+    const cols = [...head.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/g)].map(m => m[1].replace(/<[^>]+>/g, '').replace(/"/g, '&quot;').trim());
+    if (!cols.length) return t;
+    return t.replace(/<tbody>([\s\S]*?)<\/tbody>/, (b, rows) => '<tbody>' + rows.replace(/<tr>([\s\S]*?)<\/tr>/g, (r, cells) => {
+      let i = 0;
+      return '<tr>' + cells.replace(/<(td|th)(\s[^>]*)?>/g, (c, tag, at) => `<${tag}${at || ''}${cols[i] ? ` data-label="${cols[i++]}"` : (i++, '')}>`) + '</tr>';
+    }) + '</tbody>');
+  }));
   cfg.addNunjucksGlobal('related', related);
   // картинки страницы по адресу из src/_data/pageart.json: обложка статьи или фото первого экрана
   cfg.addNunjucksGlobal('art', url => readJSON('pageart.json')[url] || {});

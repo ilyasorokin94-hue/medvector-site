@@ -16,3 +16,14 @@
 }
 @media (hover: none) { .prose__rel a:hover .prose__rel-img img { transform: none; } }
 @media (prefers-reduced-motion: reduce) { .prose__rel-img img { transition: none; } }
+
+/* ---------- таблицы статей на телефоне: каждая строка карточкой, у значения подпись колонки ---------- */
+@media (max-width: 640px) {
+  .prose--article .tbl { overflow: visible; border-top: 0; }
+  .prose--article .tbl table, .prose--article .tbl tbody, .prose--article .tbl tr, .prose--article .tbl td, .prose--article .tbl tbody th { display: block; width: auto; }
+  .prose--article .tbl thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .prose--article .tbl tr { margin-bottom: 12px; padding: 18px 18px 6px; border-radius: var(--r); background: var(--fog); }
+  .prose--article .tbl tbody th, .prose--article .tbl td { padding: 0 0 12px; border-bottom: 0; }
+  .prose--article .tbl tbody th { font-weight: 500; font-size: calc(17px * var(--t-k)); color: var(--ink); }
+  .prose--article .tbl td[data-label]::before { content: attr(data-label); display: block; margin-bottom: 2px; font-size: calc(13px * var(--t-k)); color: var(--ink-3); }
+}
