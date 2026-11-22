@@ -580,7 +580,7 @@
 })();
 
 /* ===== Подача секций: начало ===== */
-/* Подача секций: кейсы «Счётчик», услуги «Стопка». Разметка секций прежняя, здесь только появление и движение. */
+/* Подача секций: кейсы «Счётчик», услуги «Стопка», сайты «Наклон». Разметка секций прежняя, здесь только появление и движение. */
 (function () {
   'use strict';
   var MV = window.MV; if (!MV) return;
@@ -639,6 +639,9 @@
     });
   }
 
-  [['cases', cases1], ['services', services3]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
+  /* сайты: «Наклон» */
+  function sites1(sec) { seen(one('.w5__wall', sec), function () { sec.classList.add('v-go'); }, .25); }
+
+  [['cases', cases1], ['services', services3], ['sites', sites1]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
 })();
 /* ===== Подача секций: конец ===== */
