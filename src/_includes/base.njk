@@ -16,7 +16,11 @@
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="{{ 'article' if layout == 'article.njk' else 'website' }}">
+{% if layout == 'article.njk' and datePublished %}
+<meta property="article:published_time" content="{{ datePublished }}">
+<meta property="article:modified_time" content="{{ dateModified or datePublished }}">
+{% endif %}
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="МедВектор">
 <meta property="og:title" content="{{ ogTitle or title }}">
@@ -35,7 +39,7 @@
 
 {% block jsonld %}
 <script type="application/ld+json">
-{{ jsonld(site, page, title, description, crumbs, service, faq) | safe }}
+{{ jsonld(site, page, title, description, crumbs, service, faq, { headline: h1, published: datePublished, modified: dateModified } if layout == 'article.njk' and datePublished else null) | safe }}
 </script>
 {% endblock %}
 </head>

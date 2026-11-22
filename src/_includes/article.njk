@@ -12,12 +12,34 @@
 {% if updated %}
       <p class="prose__meta">Обновлено: {{ updated }}</p>
 {% endif %}
-      {{ content | safe }}
+{% set toc = content | h2list %}
+{% if toc.length > 2 %}
+      <nav class="prose__toc" aria-label="Содержание статьи">
+        <p>В статье</p>
+        <ul>
+{% for i in toc %}
+          <li><a href="#{{ i.id }}">{{ i.text | safe }}</a></li>
+{% endfor %}
+        </ul>
+      </nav>
+{% endif %}
+      {{ content | h2ids | safe }}
 {% if legal %}
       <p class="prose__note">Статья описывает общие требования и не заменяет консультацию юриста. Документы меняются: перед запуском сверяйтесь с действующей редакцией.</p>
 {% endif %}
 {% if next %}
       <p class="prose__next">{{ next.text | t | safe }} <a href="{{ next.url }}">{{ next.link | t | safe }}</a>.</p>
+{% endif %}
+{% set rel = related(collections.all, page.url, topic) %}
+{% if rel.length %}
+      <nav class="prose__rel" aria-label="Читайте также">
+        <h2>Читайте также</h2>
+        <ul>
+{% for a in rel %}
+          <li><a href="{{ a.url }}">{{ a.data.h1 | t | safe }}</a></li>
+{% endfor %}
+        </ul>
+      </nav>
 {% endif %}
     </article>
   </div>
