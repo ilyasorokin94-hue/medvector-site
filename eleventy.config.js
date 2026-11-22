@@ -145,7 +145,7 @@ module.exports = function (cfg) {
 
   // Стили внутренних страниц: основа и блоки из src/css, плюс только те варианты секций, что стоят на страницах.
   // В сборке выбора в файл идут все варианты и панель переключателя.
-  cfg.on('eleventy.after', ({ dir, directories }) => {
+  cfg.on('eleventy.after', ({ dir, directories, results }) => {
     // папка вывода из командной строки (--output) приходит в directories, dir хранит значение из конфига
     const outDir = (directories && directories.output) || dir.output;
     const cssDir = path.join(SRC, 'css');
@@ -155,6 +155,8 @@ module.exports = function (cfg) {
     fs.readdirSync(looksDir).filter(f => f.endsWith('.css')).sort().forEach(f => {
       if (PICK || usedLooks.has(f.slice(0, -4))) out += '\n' + fs.readFileSync(path.join(looksDir, f), 'utf8');
     });
+    // без комментариев и пустых строк: файл легче, правила те же
+    out = out.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s*\n\s*/g, '\n').trim() + '\n';
     const target = path.join(outDir, 'assets', 'css', 'pages.css');
     fs.mkdirSync(path.dirname(target), { recursive: true });
     fs.writeFileSync(target, out);
@@ -168,6 +170,17 @@ module.exports = function (cfg) {
     const jsTarget = path.join(outDir, 'assets', 'js', 'pages.js');
     fs.mkdirSync(path.dirname(jsTarget), { recursive: true });
     fs.writeFileSync(jsTarget, js);
+    // в ссылки на стили и скрипт ставим отпечаток содержимого (?v=…): браузер берёт новый файл сразу после выкладки,
+    // а неизменившийся держит в кеше. Отпечаток меняется только вместе с файлом, поэтому страницы без правок не меняются.
+    const crypto = require('node:crypto');
+    const ver = s => crypto.createHash('sha1').update(s).digest('hex').slice(0, 8);
+    const cssV = ver(out), jsV = ver(js);
+    for (const r of results || []) {
+      if (!r.outputPath || !String(r.outputPath).endsWith('.html') || !fs.existsSync(r.outputPath)) continue;
+      const html = fs.readFileSync(r.outputPath, 'utf8');
+      const next = html.replace(/\/assets\/css\/pages\.css(\?v=\w+)?"/g, `/assets/css/pages.css?v=${cssV}"`).replace(/\/assets\/js\/pages\.js(\?v=\w+)?"/g, `/assets/js/pages.js?v=${jsV}"`);
+      if (next !== html) fs.writeFileSync(r.outputPath, next);
+    }
   });
 
 
