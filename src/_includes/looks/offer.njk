@@ -85,3 +85,125 @@
   </div>
 </section>
 {% endmacro %}
+
+{# «Ноль»: светлый разворот, крупный 0 ₽ слева и счёт сбоку, ниже тест по шагам сверху вниз и развилка после теста #}
+{% macro zero(s) %}
+{% set o = s.o %}
+{{ useLook('offer', 'bill') }}
+<section{{ c.attrs(s, 'lk-offer-zero') }}>
+  <div class="wrap">
+    <div class="ofz">
+      <div class="ofz__main">
+        {{ c.head(s) }}
+        <div class="ofz__big" data-rv style="--d:1">
+          <p class="ofz__zero">0&nbsp;₽</p>
+          <p class="ofz__cap"><b>МедВектору</b>комиссия за&nbsp;работу на&nbsp;первом тесте</p>
+        </div>
+        <div class="ofz__ya" data-rv style="--d:2">
+          <p class="ofz__sum"><span data-count="150000">150&nbsp;000</span>&nbsp;₽</p>
+          <p class="ofz__cap"><b>Яндексу</b>первый рекламный депозит, напрямую в&nbsp;кабинет клиники. Рекомендуем 150&nbsp;000&nbsp;₽, минимум 100&nbsp;000&nbsp;₽</p>
+        </div>
+      </div>
+      <div class="ofz__side">
+        <div class="ofz__inc">
+          <h3 class="sc__title">{{ o.receiptTitle | t | safe }}</h3>
+          <p class="ofz__lead">{{ o.receiptLead | t | safe }}</p>
+        </div>
+        {{ receipt(o) }}
+      </div>
+    </div>
+    <div class="ofz__run">
+      <h3 class="sc__title">{{ o.scaleTitle | t | safe }}</h3>
+      <ol class="ofz__steps">
+{% for x in o.scale %}
+        <li class="ofz__step" data-rv>
+          <span class="ofz__when">{{ x[1] | t | safe }}</span>
+          <div><h4>{{ x[0] | t | safe }}</h4><p>{{ x[2] | t | safe }}</p></div>
+        </li>
+{% endfor %}
+      </ol>
+      <p class="ofz__note">{{ o.scaleNote | t | safe }}</p>
+    </div>
+    <div class="ofz__after">
+      <h3 class="sc__title">{{ o.afterTitle | t | safe }}</h3>
+      <div class="ofz__fork">
+        <div class="ofz__case ofz__case--yes" data-rv><h4>{{ o.after[0][0] | t | safe }}</h4><p>{{ o.after[0][1] | t | safe }}</p></div>
+        <div class="ofz__case" data-rv style="--d:1"><h4>{{ o.after[1][0] | t | safe }}</h4><p>{{ o.after[1][1] | t | safe }}</p></div>
+      </div>
+      <div class="ofz__own" data-rv>
+        <h4>{{ o.ownTitle | t | safe }}</h4>
+        <ul>
+{% for r in o.own %}
+          <li{% if not r[2] %} class="is-no"{% endif %}><span>{{ r[0] | t | safe }}</span><b>{{ r[1] | t | safe }}</b></li>
+{% endfor %}
+        </ul>
+      </div>
+      <p class="ofz__why">{{ o.why | t | safe }}</p>
+      <p class="af__act"><a href="#start" class="btn" data-magnetic data-pick="direct">Запустить первый тест</a></p>
+    </div>
+  </div>
+</section>
+{% endmacro %}
+
+{# «Две недели»: тест как одна дорога слева направо, деньги двумя строками, счёт плитками, после теста две ветки #}
+{% macro weeks(s) %}
+{% set o = s.o %}
+<section class="sec sec--dark dark lk-offer-weeks"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="offer">
+  <div class="wrap">
+    {{ c.head(s, 'ofw__head') }}
+    <dl class="ofw__money">
+      <div class="ofw__m" data-rv>
+        <dt>Яндексу<small>первый рекламный депозит, напрямую в&nbsp;кабинет клиники. Рекомендуем 150&nbsp;000&nbsp;₽, минимум 100&nbsp;000&nbsp;₽</small></dt>
+        <dd><span data-count="150000">150&nbsp;000</span>&nbsp;₽</dd>
+      </div>
+      <div class="ofw__m ofw__m--zero" data-rv style="--d:1">
+        <dt>МедВектору<small>комиссия за&nbsp;работу на&nbsp;первом тесте</small></dt>
+        <dd>0&nbsp;₽</dd>
+      </div>
+    </dl>
+    <div class="ofw__road">
+      <h3 class="ofw__t">{{ o.scaleTitle | t | safe }}</h3>
+      <ol class="ofw__stops" data-rv="fade">
+{% for x in o.scale %}
+        <li class="ofw__stop" style="--i:{{ loop.index0 }}">
+          <span class="ofw__dot" aria-hidden="true"></span>
+          <span class="ofw__when">{{ x[1] | t | safe }}</span>
+          <h4>{{ x[0] | t | safe }}</h4>
+          <p>{{ x[2] | t | safe }}</p>
+        </li>
+{% endfor %}
+      </ol>
+      <p class="ofw__note">{{ o.scaleNote | t | safe }}</p>
+    </div>
+    <div class="ofw__inc">
+      <div class="ofw__inchead">
+        <h3 class="ofw__t">{{ o.receiptTitle | t | safe }}</h3>
+        <p>{{ o.receiptLead | t | safe }}</p>
+      </div>
+      <ul class="ofw__tiles">
+{% for r in o.receipt %}
+        <li data-rv style="--d:{{ loop.index0 }}"><b>0&nbsp;₽</b><h4>{{ r[0] | t | safe }}</h4><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+      </ul>
+      <p class="ofw__total"><span>Комиссия агентства</span><b>0&nbsp;₽</b></p>
+    </div>
+    <div class="ofw__after">
+      <h3 class="ofw__t">{{ o.afterTitle | t | safe }}</h3>
+      <div class="ofw__ways">
+        <div class="ofw__way ofw__way--yes" data-rv><h4>{{ o.after[0][0] | t | safe }}</h4><p>{{ o.after[0][1] | t | safe }}</p></div>
+        <div class="ofw__way" data-rv style="--d:1">
+          <h4>{{ o.after[1][0] | t | safe }}</h4><p>{{ o.after[1][1] | t | safe }}</p>
+          <p class="ofw__ownt">{{ o.ownTitle | t | safe }}</p>
+          <ul class="ofw__own">
+{% for r in o.own %}
+            <li{% if not r[2] %} class="is-no"{% endif %}><span>{{ r[0] | t | safe }}</span><b>{{ r[1] | t | safe }}</b></li>
+{% endfor %}
+          </ul>
+        </div>
+      </div>
+      <p class="ofw__why">{{ o.why | t | safe }}</p>
+      <p class="ofw__act"><a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить первый тест</a></p>
+    </div>
+  </div>
+</section>
+{% endmacro %}
