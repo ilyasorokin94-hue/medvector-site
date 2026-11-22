@@ -214,15 +214,17 @@
 
   /* ---------- видео под первым экраном ----------
      На компьютере при обычной связи ролик ставит маленький скрипт прямо в разметке первого экрана (.is-early), до первой отрисовки,
-     слово «МедВектор» сразу стекло (.is-film). Если его не было, ролик ставится здесь после загрузки. Ушли с первого экрана: пауза. */
+     слово «МедВектор» сразу стекло (.is-film). Если его не было, ролик ставится здесь после загрузки. Ушли с первого экрана: пауза.
+     На телефоне (до 600 px) свой вертикальный ролик: заставка стоит сразу, сам ролик качается после загрузки страницы. */
   (function () {
     var box = $('[data-hero-film]'); if (!box) return;
     var v = $('video', box), conn = navigator.connection || {};
-    if (reduce || !fine || innerWidth < 1021 || conn.saveData || /2g|3g/.test(conn.effectiveType || '') || !v.canPlayType || !('IntersectionObserver' in window)) return;
+    var wide = fine && innerWidth > 1020, small = innerWidth < 601;
+    if (reduce || !(wide || small) || conn.saveData || /2g|3g/.test(conn.effectiveType || '') || !v.canPlayType || !('IntersectionObserver' in window)) return;
     var me = document.currentScript || $('script[src*="home.js"]'), src = me && me.getAttribute('src');
     var base = src ? src.replace(/js\/[^/]*$/, 'video/') : 'assets/video/';
-    var name = base + box.getAttribute('data-hero-film'), seen = true, loaded = false, shown = false;
-    var early = box.classList.contains('is-early'); if (early) loaded = shown = true;
+    var name = base + box.getAttribute('data-hero-film') + (small ? '-m' : ''), seen = true, loaded = false, shown = false;
+    var early = box.classList.contains('is-early'), has = !!v.getAttribute('src'); if (early) shown = true; if (has) loaded = true;
     /* кадр-заставка (около 20 КБ) приходит вместе со страницей и ждёт под прозрачным слоем, сам ролик качается после загрузки */
     v.poster = name + '.webp';
     var play = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
@@ -241,7 +243,7 @@
     }, { threshold: 0.15 }).observe(box);
     document.addEventListener('visibilitychange', function () { if (!loaded) return; if (document.hidden) v.pause(); else if (seen) play(); });
     var later = function () { (window.requestIdleCallback || function (f) { setTimeout(f, 400); })(start, { timeout: 1500 }); };
-    if (early) return;
+    if (has) return;
     if (document.readyState === 'complete') later(); else addEventListener('load', later);
   })();
 
