@@ -8,7 +8,9 @@
 .mbl__card { grid-area: 1 / 1; display: grid; gap: 10px; width: min(100%, 300px); transition: transform 1s var(--ease); }
 .mbl__card .art--map { width: 100%; }
 .mbl__card figcaption { font-size: 14px; font-weight: 500; }
-.mbl__card--before { opacity: .75; filter: grayscale(1); transform: translate(-24%, -10px) rotate(-6deg) scale(.9); }
+.mbl__card--before { transform: translate(-24%, -10px) rotate(-6deg) scale(.9); }
+/* бледнеет только картинка «до», подпись остаётся читаемой */
+.mbl__card--before .art--map { opacity: .75; filter: grayscale(1); }
 .mbl__card--before figcaption { color: var(--ink-3); font-weight: 400; }
 .mbl__card:not(.mbl__card--before) { display: flex; flex-direction: column-reverse; transform: translate(12%, 64px) rotate(3deg); }
 .mbl__card:not(.mbl__card--before) .art--map { box-shadow: 0 40px 80px -40px rgba(0, 15, 64, .55); }
