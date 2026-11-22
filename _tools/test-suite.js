@@ -162,7 +162,8 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
     for (const p of PAGES) {
       await page.goto(root + p.url);
       const r = await page.evaluate(() => ({
-        hidden: [...document.querySelectorAll('main h2, main h3, main p, main li')].filter(e => { const s = getComputedStyle(e); return s.opacity === '0' || s.visibility === 'hidden'; }).length,
+        // значения других колонок в переключателе сравнения (вид «Переключатель») скрыты так же, как вкладки, и открываются кнопками без скрипта
+        hidden: [...document.querySelectorAll('main h2, main h3, main p, main li')].filter(e => { const s = getComputedStyle(e); return (s.opacity === '0' || s.visibility === 'hidden') && !e.closest('.cs__vals'); }).length,
         panels: [...document.querySelectorAll('.tabs__panel, [data-pane]')].filter(e => getComputedStyle(e).display === 'none').length,
       }));
       log('Без JavaScript', `${p.url}: текст и вкладки видны`, r.hidden === 0 && r.panels === 0, `скрыто: ${r.hidden}, вкладок скрыто: ${r.panels}`);
@@ -199,7 +200,7 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
     log('Интерактив', 'ссылка #all-on-4 открывает нужную вкладку', await page.evaluate(() => !document.getElementById('all-on-4').hidden));
     // кнопка с data-pick выбирает услугу и направление в форме
     await open(page, '/yandex-direkt/');
-    await page.click('.phero a[data-dir="running"]');
+    await page.click('#intro a[data-dir="running"]');
     await page.waitForTimeout(300);
     log('Интерактив', '«Разобрать текущую рекламу» выбирает «Реклама уже идёт» в форме', await page.evaluate(() => document.querySelector('#start select[name=direction]').value === 'running'));
     // форма: пустая не отправляется, заполненная показывает «Спасибо»
@@ -210,7 +211,7 @@ const plain = s => s.replace(/\s+/g, ' ').replace(/ /g, ' ').trim();
     await page.fill('#start input[name=city]', 'Казань');
     await page.check('#start input[name=consent]');
     await page.click('#start button[type=submit]');
-    log('Интерактив', 'заполненная форма показывает «Спасибо»', await page.evaluate(() => document.querySelector('#start .form').classList.contains('is-sent') || !!document.querySelector('#start .is-sent')));
+    log('Интерактив', 'заполненная форма показывает «Спасибо»', await page.evaluate(() => { const f = document.querySelector('#start .form'); return (f && f.classList.contains('is-sent')) || !!document.querySelector('#start .is-sent, #start .fm__ok:not([hidden])'); }));
     // форма на «Сайт и Карты»: выбран сайт, направление спрятано
     await open(page, '/kompleksnyj-marketing/');
     log('Интерактив', 'на «Сайт и Карты» в форме выбран сайт', await page.evaluate(() => document.querySelector('#start input[value=site]').checked));
