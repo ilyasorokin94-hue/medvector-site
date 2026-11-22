@@ -753,7 +753,7 @@ button.link { border: 0; cursor: pointer; }
 }
 
 /* ===== Подача секций: начало ===== */
-/* Подача секций: кейсы «Счётчик» */
+/* Подача секций: кейсы «Счётчик», услуги «Стопка» */
 /* кейсы: «Счётчик» */
 #cases .c3__list { position: relative; }
 #cases .c3__mark { display: block; position: absolute; left: 0; right: 0; top: 0; height: var(--mh, 0px); transform: translateY(var(--my, 0px)); border-left: 3px solid var(--vec); background: linear-gradient(90deg, var(--vec-soft), rgba(228, 243, 252, 0) 82%); transition: transform .65s var(--ease), height .65s var(--ease); pointer-events: none; }
@@ -764,4 +764,21 @@ button.link { border: 0; cursor: pointer; }
 #cases .c3__big, #cases .cnums .num { font-variant-numeric: tabular-nums lining-nums; }
 #cases.v-sw .c3__pane:not([hidden]) { animation: s3pane .7s var(--ease) both; }
 @keyframes s3pane { from { opacity: 0; transform: translateX(30px); } }
+/* услуги: «Стопка» */
+@media (min-width: 1101px) {
+  #services .s1__grid { display: block; }
+  #services .s1__p { position: sticky; top: calc(var(--hdr) + 12px); grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: clamp(32px, 5vw, 96px); min-height: min(540px, calc(100vh - var(--hdr) - 48px)); transform-origin: 50% 0; transition: opacity .9s var(--ease); }
+  #services .s1__p + .s1__p { top: calc(var(--hdr) + 34px); margin-top: 28px; box-shadow: 0 -34px 60px -34px rgba(0, 15, 64, .55); }
+  .js #services .s1__p + .s1__p[data-rv] { opacity: 1; }
+  #services .s1__p:first-child { transform: scale(calc(1 - var(--q, 0) * .05)); }
+  #services .s1__p:first-child::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--ink); opacity: calc(var(--q, 0) * .22); pointer-events: none; }
+  #services .s1__tag { grid-area: 1 / 1; }
+  #services .s1__h { grid-area: 2 / 1; }
+  #services .s1__big { grid-area: 3 / 1; }
+  #services .s1__cap { grid-area: 4 / 1; margin-bottom: 0; }
+  #services .s1__p .ticks { grid-column: 2; grid-row: 1 / 4; justify-self: stretch; align-self: end; }
+  #services .s1__terms { grid-column: 2; grid-row: 4; margin-bottom: 0; }
+  #services .s1__p .btn { grid-column: 2; grid-row: 5; margin-top: 26px; }
+  #services .s1__p { position: sticky; }
+}
 /* ===== Подача секций: конец ===== */

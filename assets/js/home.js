@@ -580,14 +580,21 @@
 })();
 
 /* ===== Подача секций: начало ===== */
-/* Подача секций: кейсы «Счётчик». Разметка секций прежняя, здесь только появление и движение. */
+/* Подача секций: кейсы «Счётчик», услуги «Стопка». Разметка секций прежняя, здесь только появление и движение. */
 (function () {
   'use strict';
   var MV = window.MV; if (!MV) return;
   var one = function (s, r) { return (r || document).querySelector(s); };
   var qa = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var reduce = MV.reduce, clamp = MV.clamp;
+  var wide = function () { return innerWidth >= 1101; };
   var el = function (tag, cls, html) { var n = document.createElement(tag); if (cls) n.className = cls; if (html) n.innerHTML = html; n.setAttribute('aria-hidden', 'true'); return n; };
+  var scrollFns = [], tick = false;
+  var runScroll = function () { tick = false; for (var i = 0; i < scrollFns.length; i++) scrollFns[i](); };
+  var reqScroll = function () { if (!tick) { tick = true; requestAnimationFrame(runScroll); } };
+  addEventListener('scroll', reqScroll, { passive: true });
+  addEventListener('resize', reqScroll);
+  var onScroll = function (fn) { scrollFns.push(fn); fn(); };
   var later = function (fn) { requestAnimationFrame(function () { requestAnimationFrame(function () { setTimeout(fn, 40); }); }); };
   // один раз, когда блок показался на экране
   var seen = function (node, cb, th) {
@@ -622,6 +629,16 @@
     seen(one('.c3__view', sec), count, .4);
   }
 
-  [['cases', cases1]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
+  /* услуги: «Стопка» */
+  function services3(sec) {
+    var ps = qa('.s1__p', sec);
+    onScroll(function () {
+      if (!wide()) return;
+      var a = ps[0].getBoundingClientRect(), b = ps[1].getBoundingClientRect(), q = clamp((a.bottom - b.top) / Math.max(1, a.height), 0, 1).toFixed(3);
+      if (ps[0].__q !== q) { ps[0].__q = q; ps[0].style.setProperty('--q', q); }
+    });
+  }
+
+  [['cases', cases1], ['services', services3]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
 })();
 /* ===== Подача секций: конец ===== */
