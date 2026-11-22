@@ -578,3 +578,50 @@
   });
 
 })();
+
+/* ===== Подача секций: начало ===== */
+/* Подача секций: кейсы «Счётчик». Разметка секций прежняя, здесь только появление и движение. */
+(function () {
+  'use strict';
+  var MV = window.MV; if (!MV) return;
+  var one = function (s, r) { return (r || document).querySelector(s); };
+  var qa = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = MV.reduce, clamp = MV.clamp;
+  var el = function (tag, cls, html) { var n = document.createElement(tag); if (cls) n.className = cls; if (html) n.innerHTML = html; n.setAttribute('aria-hidden', 'true'); return n; };
+  var later = function (fn) { requestAnimationFrame(function () { requestAnimationFrame(function () { setTimeout(fn, 40); }); }); };
+  // один раз, когда блок показался на экране
+  var seen = function (node, cb, th) {
+    var io;
+    if (reduce || !('IntersectionObserver' in window)) { cb(); return; }
+    later(function () {
+      io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); cb(); } }); }, { threshold: th || .3 });
+      io.observe(node);
+    });
+  };
+  // число набегает с нуля, вид записи сохраняется: «2 400 ₽», «в 2,7 раза»
+  var roll = function (node, dur) {
+    var src = node.dataset.s3 || (node.dataset.s3 = node.textContent), m = src.match(/\d[\d\u00a0 ]*(?:,\d+)?/);
+    cancelAnimationFrame(node.__raf);
+    if (!m || reduce) { node.textContent = src; return; }
+    var raw = m[0].replace(/[\u00a0 ]+$/, ''), dec = (raw.split(',')[1] || '').length, to = parseFloat(raw.replace(/[\u00a0 ]/g, '').replace(',', '.'));
+    var sep = raw.indexOf('\u00a0') >= 0 ? '\u00a0' : ' ', pre = src.slice(0, m.index), post = src.slice(m.index + raw.length), t0 = performance.now();
+    var fmt = function (v) { var s = v.toFixed(dec).split('.'); s[0] = s[0].replace(/\B(?=(\d{3})+$)/g, sep); return s.join(','); };
+    var step = function (now) { var k = clamp((now - t0) / dur, 0, 1), e = 1 - Math.pow(1 - k, 4); node.textContent = pre + fmt(to * e) + post; if (k < 1) node.__raf = requestAnimationFrame(step); };
+    step(t0);
+  };
+
+  /* кейсы: «Счётчик» */
+  function cases1(sec) {
+    var list = one('.c3__list', sec), grid = one('.c3__grid', sec), mark = el('i', 'c3__mark');
+    list.insertBefore(mark, list.firstChild);
+    var place = function () { var r = one('.c3__row.is-on', list); if (!r) return; list.style.setProperty('--my', r.offsetTop + 'px'); list.style.setProperty('--mh', r.offsetHeight + 'px'); };
+    var count = function () { var p = one('.c3__pane:not([hidden])', sec); if (p) qa('.c3__big, .cnums .num, .ba__r b', p).forEach(function (n, i) { roll(n, 900 + i * 130); }); };
+    // карточка выезжает только при смене города, не при открытии страницы
+    var onClick = function () { sec.classList.add('v-sw'); setTimeout(function () { place(); count(); }, 0); };
+    grid.addEventListener('click', onClick); addEventListener('resize', place); place();
+    seen(one('.c3__view', sec), count, .4);
+  }
+
+  [['cases', cases1]].forEach(function (a) { var s = document.getElementById(a[0]); if (s) a[1](s); });
+})();
+/* ===== Подача секций: конец ===== */
