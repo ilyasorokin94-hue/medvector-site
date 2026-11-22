@@ -1,0 +1,28 @@
+/* шаги «Зигзаг»: линия по центру, шаги по очереди слева и справа от неё */
+.stpz { --szz-bg: var(--paper); position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(56px, 8vw, 128px); }
+.sec--fog .stpz { --szz-bg: var(--fog); }
+.stpz::before { content: ''; position: absolute; left: 50%; top: 6px; bottom: 6px; width: 1px; background: var(--line); }
+.stpz__i { position: relative; padding-bottom: clamp(20px, 2vw, 32px); }
+.stpz__i--l { grid-column: 1; text-align: right; }
+.stpz__i--r { grid-column: 2; }
+.stpz__i::before { content: ''; position: absolute; top: 6px; width: 11px; height: 11px; border: 2px solid var(--vec); border-radius: 50%; background: var(--szz-bg); }
+.stpz__i--l::before { right: calc(clamp(56px, 8vw, 128px) / -2 - 7.5px); }
+.stpz__i--r::before { left: calc(clamp(56px, 8vw, 128px) / -2 - 7.5px); }
+.stpz__i::after { content: ''; position: absolute; top: 13px; width: calc(clamp(56px, 8vw, 128px) / 2 - 20px); height: 1px; background: var(--vec); opacity: .5; }
+.stpz__i--l::after { right: calc(clamp(56px, 8vw, 128px) / -2 + 12px); }
+.stpz__i--r::after { left: calc(clamp(56px, 8vw, 128px) / -2 + 12px); }
+.stpz__in { max-width: 520px; }
+.stpz__i--l .stpz__in { margin-left: auto; }
+.stpz__when { margin-bottom: 8px; font-size: calc(15px * var(--t-k)); line-height: 1.3; color: var(--vec-ink); }
+.stpz__h { font: var(--h-w) calc(clamp(24px, 2.3vw, 34px) * var(--h-k))/1.08 var(--disp); letter-spacing: -.035em; text-wrap: balance; }
+.stpz__p { margin-top: 12px; font-size: calc(17px * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+@media (max-width: 860px) {
+  .stpz { grid-template-columns: minmax(0, 1fr); padding-left: 36px; }
+  .stpz::before { left: 5px; }
+  .stpz__i, .stpz__i--l, .stpz__i--r { grid-column: 1; grid-row: auto !important; text-align: left; padding-bottom: 36px; }
+  .stpz__i:last-child { padding-bottom: 0; }
+  .stpz__i--l::before, .stpz__i--r::before { left: -36px; right: auto; }
+  .stpz__i::after { display: none; }
+  .stpz__in { max-width: none; }
+  .stpz__p { font-size: calc(16px * var(--t-k)); }
+}

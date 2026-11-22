@@ -1,0 +1,19 @@
+/* шаги «Колода»: шаги на карточках, карточки закрепляются у верха экрана и ложатся друг на друга, последняя тёмная */
+.stpd { --sdk-card: var(--fog); display: grid; gap: 16px; }
+.sec--fog .stpd { --sdk-card: var(--paper); }
+.stpd__i { position: sticky; top: calc(var(--hdr) + 24px + var(--i) * 16px); }
+.stpd__card { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px 24px; min-height: clamp(200px, 18vw, 260px); padding: clamp(26px, 3vw, 44px); border-radius: var(--r-lg); background: var(--sdk-card); box-shadow: 0 -1px 0 var(--line), 0 30px 60px -44px rgba(0, 15, 64, .5); }
+.stpd__big { align-self: start; font: var(--h-w) calc(clamp(28px, 3.2vw, 48px) * var(--h-k))/1.02 var(--disp); letter-spacing: var(--h-ls); color: var(--ink); text-wrap: balance; }
+.stpd__body { align-self: end; display: grid; gap: 12px; max-width: 620px; }
+.stpd__h { font-size: calc(clamp(19px, 1.5vw, 22px) * var(--t-k)); font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
+.stpd__p { font-size: calc(17px * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+.stpd__i--end .stpd__card { background: var(--ink); color: #fff; box-shadow: 0 30px 60px -40px rgba(0, 15, 64, .7); }
+.stpd__i--end .stpd__big { color: #fff; }
+.stpd__i--end .stpd__p { color: var(--on-dark-2); }
+@media (max-width: 760px) {
+  .stpd { gap: 10px; }
+  .stpd__i { position: static; }
+  .stpd__card { grid-template-columns: minmax(0, 1fr); min-height: 0; padding: 24px 22px; border-radius: var(--r); }
+  .stpd__body { align-self: start; }
+  .stpd__p { font-size: calc(16px * var(--t-k)); }
+}

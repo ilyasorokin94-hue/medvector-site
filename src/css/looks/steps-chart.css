@@ -1,0 +1,22 @@
+/* шаги «График»: слева шаг, справа лесенка отрезков по периодам; отрезки вырастают, когда строка появилась */
+.stpc { --cols: repeat(var(--n), minmax(0, 1fr)); display: grid; border-top: 1px solid var(--line); }
+.stpc__row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 16px clamp(24px, 4vw, 64px); align-items: center; padding: clamp(22px, 2.4vw, 32px) 0; border-bottom: 1px solid var(--line); }
+.stpc__when { margin-bottom: 6px; font-size: calc(15px * var(--t-k)); line-height: 1.3; color: var(--vec-ink); }
+.stpc__h { font-size: calc(clamp(20px, 1.7vw, 24px) * var(--t-k)); font-weight: 500; line-height: 1.22; letter-spacing: -.02em; }
+.stpc__p { margin-top: 8px; font-size: calc(16px * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+.stpc__track { position: relative; display: grid; grid-template-columns: var(--cols); align-self: stretch; min-height: 44px; align-items: center; background: repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px calc(100% / var(--n))); }
+.stpc__track::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 1px; background: var(--line); }
+.stpc__track i { grid-column: calc(var(--i) + 1) / span 1; height: 14px; margin: 0 6px; border-radius: 99px; background: var(--ink); transform-origin: left; }
+.stpc__row:first-child .stpc__track i { background: var(--vec); }
+.js .stpc__track i { transform: scaleX(0); transition: transform 1.1s var(--ease) .25s; }
+.js .stpc__track.is-in i { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .stpc__track i { transform: none; transition: none; }
+}
+@media (max-width: 760px) {
+  .stpc__row { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .stpc__track { order: -1; min-height: 8px; gap: 4px; background: none; }
+  .stpc__track::after { display: none; }
+  .stpc__track::before { content: ''; grid-row: 1; grid-column: 1 / -1; height: 6px; border-radius: 99px; background: var(--line); }
+  .stpc__track i { grid-row: 1; height: 6px; margin: 0; }
+}
