@@ -15,6 +15,16 @@ const LINKS = {
   complex: ['/kompleksnyj-marketing/', '/#services'],
   cases: ['/kejsy/', '/#examples'],
   about: ['/kontakty/', '/#team'],
+  leads: ['/lidy-dlya-stomatologii/', '/yandex-direkt/'],
+  sites: ['/sajt-dlya-stomatologii/', '/kompleksnyj-marketing/'],
+  seo: ['/seo-dlya-stomatologii/', '/kompleksnyj-marketing/'],
+  maps: ['/yandex-karty/', '/kompleksnyj-marketing/'],
+  blog: ['/blog/', '/'],
+  med: ['/medicinskij-marketing/', '/kompleksnyj-marketing/'],
+  reviews: ['/otzyvy-i-reputaciya/', '/yandex-karty/'],
+  prodoc: ['/prodoktorov/', '/yandex-karty/'],
+  gis: ['/2gis/', '/yandex-karty/'],
+  geo: ['/geo-prodvizhenie/', '/seo-dlya-stomatologii/'],
   policy: ['/politika/', '#'],
   consent: ['/soglasie/', '#'],
   thanks: ['/spasibo/', '#'],
@@ -42,7 +52,7 @@ const typo = s => (s == null ? '' : glue(esc(s)).replace(/All-on-\d|[А-Яа-я�
 const plain = s => String(s == null ? '' : s).replace(/<[^>]+>/g, '').replace(/\*/g, '').replace(/&nbsp;/g, ' ').replace(/ /g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
 
 // Разметка schema.org внутренней страницы: сама страница, хлебные крошки, услуга и вопросы (те же, что видны в тексте).
-const jsonld = (site, page, title, description, crumbs, service, faq) => {
+const jsonld = (site, page, title, description, crumbs, service, faq, article) => {
   const url = site.url + page.url;
   const agency = { '@type': 'ProfessionalService', '@id': site.url + '/#agency', name: site.name, url: site.url + '/' };
   const graph = [];
@@ -50,6 +60,7 @@ const jsonld = (site, page, title, description, crumbs, service, faq) => {
   graph.push({ '@type': 'WebPage', '@id': url, url, name: plain(title), description: plain(description), inLanguage: 'ru', isPartOf: { '@type': 'WebSite', url: site.url + '/', name: site.name } });
   if (crumbs && crumbs.length) graph.push({ '@type': 'BreadcrumbList', itemListElement: [{ name: 'Главная', url: '/' }, ...crumbs].map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: plain(c.name), item: site.url + c.url })) });
   if (service) graph.push({ '@type': 'Service', name: plain(service.name), serviceType: plain(service.type || service.name), description: plain(service.description || description), url, areaServed: 'RU', provider: agency, ...(service.price ? { offers: { '@type': 'Offer', price: String(service.price), priceCurrency: 'RUB', ...(service.priceNote ? { description: plain(service.priceNote) } : {}) } } : {}) });
+  if (article) graph.push({ '@type': 'BlogPosting', '@id': url + '#article', headline: plain(article.headline), description: plain(description), datePublished: article.published, dateModified: article.modified || article.published, inLanguage: 'ru', mainEntityOfPage: { '@id': url }, author: agency, publisher: { ...agency, logo: { '@type': 'ImageObject', url: site.url + '/assets/img/medvector-logo.png' } }, image: site.url + '/assets/img/og-cover.jpg' });
   if (faq && faq.length) graph.push({ '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: plain(f.q), acceptedAnswer: { '@type': 'Answer', text: plain(f.a) } })) });
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2).replace(/</g, '\\u003c');
 };
@@ -63,6 +74,49 @@ const relative = (url, depth) => {
   return pre + rest;
 };
 
+// Статьи блога: содержание по заголовкам второго уровня и похожие статьи (сначала той же темы).
+const h2split = html => { let i = 0; const items = []; const out = String(html || '').replace(/<h2>([\s\S]*?)<\/h2>/g, (m, t) => { i++; items.push({ id: 'p' + i, text: t }); return `<h2 id="p${i}">${t}</h2>`; }); return { out, items }; };
+const TOPICS = ['ads', 'maps', 'law', 'manage', 'start'];
+const related = (all, url, topic, n = 3) => {
+  const arts = (all || []).filter(a => a.data.layout === 'article.njk' && a.url !== url);
+  const dist = a => { const d = Math.abs(TOPICS.indexOf(a.data.topic) - TOPICS.indexOf(topic)); return a.data.topic === topic ? -1 : d; };
+  return arts.sort((a, b) => dist(a) - dist(b) || a.url.localeCompare(b.url)).slice(0, n);
+};
+
+
+// ---------- варианты секций ----------
+// У каждой секции страницы три варианта подачи («вида»). Какие три, задаёт src/_data/looks.json, какой стоит на сайте, src/_data/picks.json.
+// Обычная сборка ставит выбранный вариант. Сборка выбора (MV_PICK=1, см. _tools/pick.sh) ставит все три с переключателем.
+// MV_PICK=all показывает все три варианта подряд, без переключателя: так удобно смотреть их скриншотами.
+const PICK = process.env.MV_PICK || '';
+const readJSON = f => JSON.parse(fs.readFileSync(path.join(SRC, '_data', f), 'utf8'));
+// looks.json плюс части из src/_looks/*.json: у каждой группы видов свой файл, их можно вести параллельно
+const readLooks = () => {
+  const L = readJSON('looks.json');
+  const dir = path.join(SRC, '_looks');
+  if (fs.existsSync(dir)) for (const f of fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort()) {
+    const part = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
+    Object.assign(L.types, part.types || {});
+    Object.assign(L.names, part.names || {});
+    for (const [url, secs] of Object.entries(part.pages || {})) L.pages[url] = Object.assign(L.pages[url] || {}, secs);
+  }
+  return L;
+};
+const usedLooks = new Set();
+const trio = (url, s) => {
+  if (s.looks) return s.looks;
+  const L = readLooks();
+  const byPage = (L.pages[url] || {})[s.id];
+  return byPage || L.types[s.type] || ['base'];
+};
+const chosen = (url, s) => {
+  const P = readJSON('picks.json');
+  const n = +((P[url] || {})[s.id] || 1);
+  const t = trio(url, s);
+  return t[Math.min(Math.max(n, 1), t.length) - 1];
+};
+const lookName = (type, look) => (readLooks().names[type + '-' + look]) || look;
+
 module.exports = function (cfg) {
   cfg.setNunjucksEnvironmentOptions({ trimBlocks: true, lstripBlocks: true });
   cfg.addGlobalData('year', () => new Date().getFullYear());
@@ -70,17 +124,93 @@ module.exports = function (cfg) {
   cfg.addNunjucksGlobal('jsonld', jsonld);
   cfg.addFilter('t', typo);
   cfg.addFilter('plain', plain);
+  cfg.addFilter('h2ids', c => h2split(c).out);
+  cfg.addFilter('h2list', c => h2split(c).items);
+  // таблицы статей: у каждой ячейки подпись её колонки (data-label), на телефоне строка таблицы становится карточкой
+  cfg.addFilter('tlabels', html => String(html || '').replace(/<table>([\s\S]*?)<\/table>/g, (t, body) => {
+    const head = (body.match(/<thead>([\s\S]*?)<\/thead>/) || [])[1] || '';
+    const cols = [...head.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/g)].map(m => m[1].replace(/<[^>]+>/g, '').replace(/"/g, '&quot;').trim());
+    if (!cols.length) return t;
+    return t.replace(/<tbody>([\s\S]*?)<\/tbody>/, (b, rows) => '<tbody>' + rows.replace(/<tr>([\s\S]*?)<\/tr>/g, (r, cells) => {
+      let i = 0;
+      return '<tr>' + cells.replace(/<(td|th)(\s[^>]*)?>/g, (c, tag, at) => `<${tag}${at || ''}${cols[i] ? ` data-label="${cols[i++]}"` : (i++, '')}>`) + '</tr>';
+    }) + '</tbody>');
+  }));
+  cfg.addNunjucksGlobal('related', related);
+  // картинки страницы по адресу из src/_data/pageart.json: обложка статьи или фото первого экрана
+  cfg.addNunjucksGlobal('art', url => readJSON('pageart.json')[url] || {});
   cfg.addFilter('json', v => JSON.stringify(v));
   cfg.addFilter('pad2', n => String(n).padStart(2, '0'));
+
+  cfg.addGlobalData('pick', PICK);
+  cfg.addNunjucksGlobal('PICK', PICK);
+  // точку в конце заголовка секции не показываем: на главной заголовки без точек
+  cfg.addFilter('nodot', v => String(v == null ? '' : v).replace(/\.\s*$/, ''));
+  cfg.addNunjucksGlobal('trio', trio);
+  cfg.addNunjucksGlobal('chosen', chosen);
+  cfg.addNunjucksGlobal('lookName', lookName);
+  cfg.addNunjucksGlobal('useLook', (type, look) => { usedLooks.add(type + '-' + look); return ''; });
+  // копия объекта секции с другими полями: id для варианта, тон фона по порядку
+  cfg.addNunjucksGlobal('extend', (o, extra) => Object.assign({}, o, extra));
+
+  // Стили внутренних страниц: основа и блоки из src/css, плюс только те варианты секций, что стоят на страницах.
+  // В сборке выбора в файл идут все варианты и панель переключателя.
+  cfg.on('eleventy.after', ({ dir, directories, results }) => {
+    // папка вывода из командной строки (--output) приходит в directories, dir хранит значение из конфига
+    const outDir = (directories && directories.output) || dir.output;
+    const cssDir = path.join(SRC, 'css');
+    const parts = fs.readdirSync(cssDir).filter(f => f.endsWith('.css') && (PICK || !f.startsWith('90-'))).sort();
+    let out = parts.map(f => fs.readFileSync(path.join(cssDir, f), 'utf8')).join('\n');
+    const looksDir = path.join(cssDir, 'looks');
+    fs.readdirSync(looksDir).filter(f => f.endsWith('.css')).sort().forEach(f => {
+      if (PICK || usedLooks.has(f.slice(0, -4))) out += '\n' + fs.readFileSync(path.join(looksDir, f), 'utf8');
+    });
+    // без комментариев и пустых строк: файл легче, правила те же
+    out = out.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s*\n\s*/g, '\n').trim() + '\n';
+    const target = path.join(outDir, 'assets', 'css', 'pages.css');
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, out);
+    // скрипт так же: основа, поведение использованных вариантов, запуск
+    const jsDir = path.join(SRC, 'js');
+    let js = fs.readFileSync(path.join(jsDir, '00-core.js'), 'utf8');
+    fs.readdirSync(path.join(jsDir, 'looks')).filter(f => f.endsWith('.js')).sort().forEach(f => {
+      if (PICK || usedLooks.has(f.slice(0, -3))) js += '\n' + fs.readFileSync(path.join(jsDir, 'looks', f), 'utf8');
+    });
+    js += '\n' + fs.readFileSync(path.join(jsDir, '99-run.js'), 'utf8');
+    const jsTarget = path.join(outDir, 'assets', 'js', 'pages.js');
+    fs.mkdirSync(path.dirname(jsTarget), { recursive: true });
+    fs.writeFileSync(jsTarget, js);
+    // в ссылки на стили и скрипт ставим отпечаток содержимого (?v=…): браузер берёт новый файл сразу после выкладки,
+    // а неизменившийся держит в кеше. Отпечаток меняется только вместе с файлом, поэтому страницы без правок не меняются.
+    const crypto = require('node:crypto');
+    const ver = s => crypto.createHash('sha1').update(s).digest('hex').slice(0, 8);
+    const cssV = ver(out), jsV = ver(js);
+    for (const r of results || []) {
+      if (!r.outputPath || !String(r.outputPath).endsWith('.html') || !fs.existsSync(r.outputPath)) continue;
+      const html = fs.readFileSync(r.outputPath, 'utf8');
+      const next = html.replace(/assets\/css\/pages\.css(\?v=\w+)?"/g, `assets/css/pages.css?v=${cssV}"`).replace(/assets\/js\/pages\.js(\?v=\w+)?"/g, `assets/js/pages.js?v=${jsV}"`);
+      if (next !== html) fs.writeFileSync(r.outputPath, next);
+    }
+  });
+
 
   cfg.addTransform('relative-urls', function (content) {
     if (!(this.page.outputPath || '').endsWith('.html')) return content;
     const url = this.page.url || '/';
-    // страница 404 показывается по любому адресу, поэтому её ссылки считаются от корня (см. <base> в шаблоне)
+    // страница 404 показывается по любому адресу, поэтому её ссылки считаются от корня (см. <base> в шаблоне), а сам <base href="/"> не трогаем
     const depth = url.endsWith('/') ? url.split('/').filter(Boolean).length : 0;
     return content
-      .replace(/\b(href|src|action|poster)="(\/(?!\/)[^"]*)"/g, (m, a, u) => `${a}="${relative(u, depth)}"`)
+      .replace(/(?<!<base )\b(href|src|action|poster)="(\/(?!\/)[^"]*)"/g, (m, a, u) => `${a}="${relative(u, depth)}"`)
       .replace(/\b(srcset|imagesrcset)="([^"]*)"/g, (m, a, list) => `${a}="${list.split(',').map(c => { const s = c.trim(); return s.startsWith('/') && !s.startsWith('//') ? relative(s.split(/\s+/)[0], depth) + s.slice(s.split(/\s+/)[0].length) : s; }).join(', ')}"`);
+  });
+
+  // Главная собрана из готовой разметки секций (src/_includes/home), статьи блога написаны готовым HTML: фильтр t к ним не применяется.
+  // Поэтому неразрывные пробелы расставляются по готовой странице: только в тексте между тегами внутри <main>.
+  cfg.addTransform('home-typography', function (content) {
+    if (!(this.page.url === '/' || (this.page.url || '').startsWith('/blog/')) || !(this.page.outputPath || '').endsWith('.html')) return content;
+    const a = content.indexOf('<main'), b = content.indexOf('</main>');
+    if (a < 0 || b < 0) return content;
+    return content.slice(0, a) + content.slice(a, b).replace(/>([^<>]*[А-Яа-яЁё\d][^<>]*)</g, (m, text) => '>' + glue(text) + '<') + content.slice(b);
   });
 
   return {

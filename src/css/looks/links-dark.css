@@ -1,0 +1,22 @@
+/* ссылки «Тёмные плитки»: тёмная секция, плитки по две в ряд, кружок справа внизу заполняется при наведении */
+.likd { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); }
+.likd__i { position: relative; display: flex; flex-direction: column; gap: 12px; min-height: 200px; padding: clamp(24px, 2.6vw, 38px) clamp(24px, 2.6vw, 38px) 30px; border: 1px solid var(--line-dark); border-radius: var(--r-lg); transition: background-color .5s var(--ease), border-color .5s; }
+.likd__i:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.likd__h { padding-right: 56px; font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(24px, 2.2vw, 32px) * var(--h-k)); line-height: 1.1; letter-spacing: -.035em; text-wrap: balance; }
+.likd__a { text-decoration: none; }
+.likd__a::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+.likd__i p { max-width: 560px; color: var(--on-dark-2); font-size: calc(16px * var(--t-k)); line-height: 1.5; }
+.likd__go { position: absolute; right: clamp(24px, 2.6vw, 38px); top: clamp(24px, 2.6vw, 38px); width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line-dark); transition: border-color .4s; }
+.likd__go::after { content: ''; position: absolute; inset: 15px; border-radius: 50%; background: var(--vec-dark); transition: transform .5s var(--ease); }
+.likd__i:hover { background: rgba(255, 255, 255, .05); border-color: rgba(255, 255, 255, .28); }
+.likd__i:hover .likd__go { border-color: var(--vec-dark); }
+.likd__i:hover .likd__go::after { transform: scale(2.2); }
+.likd__i:focus-within { outline: 2px solid var(--vec-dark); outline-offset: 3px; }
+.likd__a:focus-visible { outline: none; }
+@media (max-width: 760px) {
+  .likd { grid-template-columns: minmax(0, 1fr); }
+  .likd__i { min-height: 0; }
+  .likd__go { width: 36px; height: 36px; }
+  .likd__go::after { inset: 13px; }
+}
+@media (prefers-reduced-motion: reduce) { .likd__go::after { transition: none; } }

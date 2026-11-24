@@ -1,0 +1,100 @@
+{
+  "_note": "types: три варианта подачи по умолчанию для каждого вида секции. pages: свои тройки для отдельных секций страниц (ключ: адрес страницы, затем id секции). names: названия вариантов для переключателя.",
+  "types": {
+    "hero": [
+      "type"
+    ],
+    "loss": [
+      "rows"
+    ],
+    "spec": [
+      "grid"
+    ],
+    "steps": [
+      "line"
+    ],
+    "deflist": [
+      "list"
+    ],
+    "demo": [
+      "mock"
+    ],
+    "cmp": [
+      "table"
+    ],
+    "yesno": [
+      "cols"
+    ],
+    "qrows": [
+      "rows"
+    ],
+    "pack": [
+      "cols"
+    ],
+    "links": [
+      "rows"
+    ],
+    "faq": [
+      "acc"
+    ],
+    "start": [
+      "form"
+    ],
+    "offer": [
+      "bill"
+    ],
+    "tabs": [
+      "pills"
+    ],
+    "build": [
+      "cards"
+    ],
+    "report": [
+      "side"
+    ],
+    "plan": [
+      "months"
+    ],
+    "mapbox": [
+      "pair"
+    ],
+    "cases": [
+      "rows"
+    ],
+    "works": [
+      "tiles"
+    ],
+    "founder": [
+      "letter"
+    ],
+    "contacts": [
+      "list"
+    ]
+  },
+  "pages": {},
+  "names": {
+    "hero-type": "Шрифт",
+    "loss-rows": "Строки",
+    "spec-grid": "Сетка",
+    "steps-line": "Линия",
+    "deflist-list": "Список",
+    "demo-mock": "Макет",
+    "cmp-table": "Таблица",
+    "yesno-cols": "Колонки",
+    "qrows-rows": "Строки",
+    "pack-cols": "Две колонки",
+    "links-rows": "Строки",
+    "faq-acc": "Раскрытие",
+    "start-form": "Форма",
+    "offer-bill": "Счёт",
+    "tabs-pills": "Капсула",
+    "build-cards": "Карточки",
+    "report-side": "Отчёт",
+    "plan-months": "Месяцы",
+    "mapbox-pair": "До и после",
+    "cases-rows": "Строки",
+    "works-tiles": "Плитки",
+    "founder-letter": "Письмо",
+    "contacts-list": "Список"
+  }
+}

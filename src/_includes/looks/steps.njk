@@ -1,0 +1,151 @@
+{# Шаги по порядку. Данные: s.items [[срок, заголовок, текст]] или [[заголовок, текст]]. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Линия»: шаги в ряд, над каждым номер и отрезок линии, который заполняется по очереди #}
+{% macro line(s) %}
+<section{{ c.attrs(s, 'lk-steps-line') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ol class="sl sl--{{ s.items.length }}" data-rv="fade">
+{% for r in s.items %}
+      <li class="sl__i" style="--i:{{ loop.index0 }}">
+        <span class="sl__top"><b class="sl__n">{{ loop.index }}</b>{% if r[2] %}<span class="sl__when">{{ r[0] | t | safe }}</span>{% endif %}</span>
+        <span class="sl__bar" aria-hidden="true"><i></i></span>
+        <h3 class="sl__h">{{ (r[1] if r[2] else r[0]) | t | safe }}</h3>
+        <p>{{ (r[2] if r[2] else r[1]) | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ol>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# части шага: подпись (срок или этап) есть только у шагов из трёх полей #}
+{% macro when(r, cls) %}{% if r[2] %}<p class="{{ cls }}">{{ r[0] | t | safe }}</p>{% endif %}{% endmacro %}
+{% macro title(r) %}{{ (r[1] if r[2] else r[0]) | t | safe }}{% endmacro %}
+{% macro text(r) %}{{ (r[2] if r[2] else r[1]) | t | safe }}{% endmacro %}
+
+{# заголовок столбиком: для видов, где заголовок стоит в узкой колонке #}
+{% macro stack(s, cls) %}
+<div class="{{ cls }}">
+{% if s.label %}
+  <p class="label" data-rv="fade">{{ s.label }}</p>
+{% endif %}
+  <h2 class="h2" data-rv>{{ s.title | nodot | t | safe }}</h2>
+{% if s.note %}
+  <p class="{{ cls }}-note" data-rv style="--d:1">{{ s.note | t | safe }}</p>
+{% endif %}
+</div>
+{% endmacro %}
+
+{# «Рельс»: заголовок закреплён слева, шаги справа на вертикальной линии, линия заполняется по мере чтения #}
+{% macro rail(s) %}
+<section{{ c.attrs(s, 'lk-steps-rail') }} data-look="steps-rail">
+  <div class="wrap stpr">
+    {{ stack(s, 'stpr__head') }}
+    <ol class="stpr__list" data-prog data-prog-hook="stpr">
+{% for r in s.items %}
+      <li class="stpr__i" data-rv style="--d:{{ loop.index0 % 2 }}">
+        {{ when(r, 'stpr__when') }}
+        <h3 class="stpr__h">{{ title(r) }}</h3>
+        <p class="stpr__p">{{ text(r) }}</p>
+      </li>
+{% endfor %}
+    </ol>
+  </div>
+  <div class="wrap">{{ c.own(s) }}</div>
+</section>
+{% endmacro %}
+
+{# «Колода»: каждый шаг на своей карточке, карточки закрепляются и ложатся друг на друга; последняя тёмная, это итог #}
+{% macro deck(s) %}
+<section{{ c.attrs(s, 'lk-steps-deck') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ol class="stpd" style="--n:{{ s.items.length }}">
+{% for r in s.items %}
+      <li class="stpd__i{% if loop.last %} stpd__i--end{% endif %}" style="--i:{{ loop.index0 }}">
+        <div class="stpd__card" data-rv="scale">
+          {% if r[2] %}<p class="stpd__big">{{ r[0] | t | safe }}</p>{% else %}<h3 class="stpd__big">{{ r[0] | t | safe }}</h3>{% endif %}
+          <div class="stpd__body">
+{% if r[2] %}
+            <h3 class="stpd__h">{{ r[1] | t | safe }}</h3>
+{% endif %}
+            <p class="stpd__p">{{ text(r) }}</p>
+          </div>
+        </div>
+      </li>
+{% endfor %}
+    </ol>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «График»: слева шаг, справа лесенка отрезков по периодам, как в плане работ #}
+{% macro chart(s) %}
+<section{{ c.attrs(s, 'lk-steps-chart') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ol class="stpc" style="--n:{{ s.items.length }}">
+{% for r in s.items %}
+      <li class="stpc__row" style="--i:{{ loop.index0 }}">
+        <div class="stpc__txt" data-rv>
+          {{ when(r, 'stpc__when') }}
+          <h3 class="stpc__h">{{ title(r) }}</h3>
+          <p class="stpc__p">{{ text(r) }}</p>
+        </div>
+        <span class="stpc__track" aria-hidden="true" data-rv="fade"><i></i></span>
+      </li>
+{% endfor %}
+    </ol>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Зигзаг»: шаги по очереди слева и справа от линии по центру #}
+{% macro zigzag(s) %}
+<section{{ c.attrs(s, 'lk-steps-zigzag') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ol class="stpz">
+{% for r in s.items %}
+      <li class="stpz__i stpz__i--{{ 'l' if loop.index0 % 2 == 0 else 'r' }}" style="grid-row:{{ loop.index }} / span 2">
+        <div class="stpz__in" data-rv="{{ 'left' if loop.index0 % 2 == 0 else '' }}">
+          {{ when(r, 'stpz__when') }}
+          <h3 class="stpz__h">{{ title(r) }}</h3>
+          <p class="stpz__p">{{ text(r) }}</p>
+        </div>
+      </li>
+{% endfor %}
+    </ol>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Лист»: шаги как отмеченные пункты на одном листе в две колонки #}
+{% macro sheet(s) %}
+<section{{ c.attrs(s, 'lk-steps-sheet') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="stps" data-rv>
+      <ol class="stps__list stps__list--{{ 'odd' if s.items.length % 2 else 'even' }}">
+{% for r in s.items %}
+        <li class="stps__i" style="--i:{{ loop.index0 }}">
+          <span class="stps__ck" aria-hidden="true"></span>
+          <div>
+            {{ when(r, 'stps__when') }}
+            <h3 class="stps__h">{{ title(r) }}</h3>
+            <p class="stps__p">{{ text(r) }}</p>
+          </div>
+        </li>
+{% endfor %}
+      </ol>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

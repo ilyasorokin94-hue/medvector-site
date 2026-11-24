@@ -1,0 +1,107 @@
+{# Проблема и что с ней делаем. Данные: s.items [{title, ex, fix}], s.fixLabel. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Строки»: слева что происходит, справа что делаем, строки разделены линиями #}
+{% macro rows(s) %}
+<section{{ c.attrs(s, 'lk-loss-rows') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ol class="lr">
+{% for r in s.items %}
+      <li class="lr__i" data-rv>
+        <div class="lr__what"><h3 class="h3">{{ r.title | t | safe }}</h3><p>{{ r.ex | t | safe }}</p></div>
+        <p class="lr__fix"><small>{{ s.fixLabel or 'Что делаем' }}</small>{{ r.fix | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ol>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Карточки»: две колонки карточек, сверху что происходит, снизу тёмная полоса с тем, что делаем #}
+{% macro deck(s) %}
+<section{{ c.attrs(s, 'lk-loss-deck') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ul class="lodk">
+{% for r in s.items %}
+      <li class="lodk__i" data-rv style="--d:{{ loop.index0 % 2 }}">
+        <div class="lodk__top"><h3 class="h3">{{ r.title | t | safe }}</h3><p>{{ r.ex | t | safe }}</p></div>
+        <p class="lodk__fix"><small>{{ s.fixLabel or 'Что делаем' }}</small>{{ r.fix | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ul>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Тёмный список»: тёмная секция, заголовок закреплён слева, справа крупные формулировки проблем #}
+{% macro dark(s) %}
+<section class="sec sec--dark dark lk-loss-dark"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="{{ s.type }}">
+  <div class="wrap lodr">
+    <div class="lodr__head">
+      <div class="lodr__stick">
+{% if s.label %}
+        <p class="label" data-rv="fade">{{ s.label }}</p>
+{% endif %}
+        <h2 class="h2" data-rv>{{ s.title | nodot | t | safe }}</h2>
+{% if s.note %}
+        <p class="lodr__note" data-rv style="--d:1">{{ s.note | t | safe }}</p>
+{% endif %}
+      </div>
+    </div>
+    <ol class="lodr__list">
+{% for r in s.items %}
+      <li class="lodr__i" data-rv>
+        <h3 class="lodr__t">{{ r.title | t | safe }}</h3>
+        <p class="lodr__ex">{{ r.ex | t | safe }}</p>
+        <p class="lodr__fix"><small>{{ s.fixLabel or 'Что делаем' }}</small>{{ r.fix | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ol>
+    <div class="lodr__own">{{ c.own(s) }}</div>
+  </div>
+</section>
+{% endmacro %}
+
+{# «Указатель»: на компьютере слева список проблем, справа разбор выбранной; на телефоне и без скриптов все разборы подряд #}
+{% macro index(s) %}
+<section{{ c.attrs(s, 'lk-loss-index') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="loix" data-look="loss-index">
+      <div class="loix__panes">
+{% for r in s.items %}
+        <article class="loix__p" data-rv>
+          <h3 class="h3 loix__h">{{ r.title | t | safe }}</h3>
+          <p class="loix__ex">{{ r.ex | t | safe }}</p>
+          <p class="loix__fix"><small>{{ s.fixLabel or 'Что делаем' }}</small>{{ r.fix | t | safe }}</p>
+        </article>
+{% endfor %}
+      </div>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Лента»: карточки в ряд с прокруткой вбок, у каждой внизу то, что делаем #}
+{% macro strip(s) %}
+<section{{ c.attrs(s, 'lk-loss-strip') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ol class="lost" tabindex="0" aria-label="{{ s.title | nodot | escape }}" data-rv="fade">
+{% for r in s.items %}
+      <li class="lost__i">
+        <h3 class="h3">{{ r.title | t | safe }}</h3>
+        <p class="lost__ex">{{ r.ex | t | safe }}</p>
+        <p class="lost__fix"><small>{{ s.fixLabel or 'Что делаем' }}</small>{{ r.fix | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ol>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

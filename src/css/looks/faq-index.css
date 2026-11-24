@@ -1,0 +1,15 @@
+/* ---------- вопросы «Оглавление»: слева вопросы ссылками, справа все ответы открыты ---------- */
+.fqi__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.fqi__nav { grid-column: 1 / 5; position: sticky; top: calc(var(--hdr) + 32px); }
+.fqi__nav ol { display: grid; border-top: 1px solid var(--line); }
+.fqi__nav a { display: block; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: calc(15px * var(--t-k)); line-height: 1.4; color: var(--ink-2); text-decoration: none; transition: color .3s, padding-left .4s var(--ease); }
+.fqi__nav a:hover { padding-left: 8px; color: var(--vec-ink); }
+.fqi__list { grid-column: 6 / 13; display: grid; }
+.fqi__i { padding: 0 0 clamp(28px, 3vw, 44px); margin-bottom: clamp(28px, 3vw, 44px); border-bottom: 1px solid var(--line); scroll-margin-top: calc(var(--hdr) + 24px); }
+.fqi__i:last-child { margin-bottom: 0; }
+.fqi__q { font: 500 calc(clamp(20px, 1.7vw, 26px) * var(--t-k))/1.25 var(--text); letter-spacing: -.02em; color: var(--ink); }
+.fqi__a { max-width: 680px; margin-top: 14px; color: var(--ink-2); }
+@media (max-width: 1020px) {
+  .fqi__nav { display: none; }
+  .fqi__list { grid-column: 1 / -1; }
+}

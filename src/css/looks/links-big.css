@@ -1,0 +1,16 @@
+/* ссылки «Крупный список»: крупные заголовки, описание справа, при наведении под заголовком проходит линия */
+.likb { border-top: 1px solid var(--line); }
+.likb__i { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: end; padding: clamp(24px, 2.8vw, 40px) 0; border-bottom: 1px solid var(--line); }
+.likb__h { grid-column: 1 / 9; font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(28px, 3.4vw, 52px) * var(--h-k)); line-height: 1.04; letter-spacing: var(--h-ls); text-wrap: balance; }
+.likb__a { text-decoration: none; }
+.likb__a span { background: linear-gradient(var(--vec), var(--vec)) left 100% / 0 2px no-repeat; transition: background-size .7s var(--ease), color .3s; }
+.likb__a::after { content: ''; position: absolute; inset: 0; }
+.likb__i p { grid-column: 9 / 13; padding-bottom: 4px; color: var(--ink-2); font-size: calc(16px * var(--t-k)); line-height: 1.5; }
+.likb__i:hover .likb__a span { background-size: 100% 2px; color: var(--vec-ink); }
+.likb__i:focus-within { outline: 2px solid var(--vec); outline-offset: 4px; border-radius: 4px; }
+.likb__a:focus-visible { outline: none; }
+@media (max-width: 860px) {
+  .likb__i { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 12px; }
+  .likb__h, .likb__i p { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) { .likb__a span { transition: none; } }

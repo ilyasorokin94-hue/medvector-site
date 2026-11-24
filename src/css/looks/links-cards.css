@@ -1,0 +1,21 @@
+/* ссылки «Сетка карточек»: до трёх в ряд, вся карточка нажимается */
+.likc { display: grid; grid-template-columns: repeat(auto-fit, minmax(max(280px, calc((100% - 2 * clamp(12px, 1.4vw, 20px)) / 3)), 1fr)); gap: clamp(12px, 1.4vw, 20px); }
+.likc__i { position: relative; display: flex; flex-direction: column; gap: 12px; min-height: 220px; padding: clamp(24px, 2.4vw, 34px) clamp(24px, 2.4vw, 34px) 30px; border-radius: var(--r-lg); background: var(--fog); transition: background-color .5s var(--ease); }
+.sec--fog .likc__i { background: var(--paper); }
+.likc__h { font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(22px, 1.8vw, 26px) * var(--h-k)); line-height: 1.14; letter-spacing: -.03em; text-wrap: balance; }
+.likc__a { text-decoration: none; transition: color .3s; }
+.likc__a::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+.likc__i p { color: var(--ink-2); font-size: calc(16px * var(--t-k)); line-height: 1.5; }
+.likc__bar { position: relative; height: 2px; margin-top: auto; border-radius: 2px; background: var(--line); overflow: hidden; }
+.likc__bar::after { content: ''; position: absolute; inset: 0; background: var(--vec); transform: scaleX(.14); transform-origin: left; transition: transform .8s var(--ease); }
+.likc__i:hover { background: var(--vec-soft); }
+.likc__i:hover .likc__a { color: var(--vec-ink); }
+.likc__i:hover .likc__bar::after { transform: scaleX(1); }
+.likc__i:focus-within { outline: 2px solid var(--vec); outline-offset: 3px; }
+.likc__a:focus-visible { outline: none; }
+@media (max-width: 640px) {
+  .likc { grid-template-columns: minmax(0, 1fr); }
+  .likc__i { min-height: 0; gap: 10px; }
+  .likc__bar { margin-top: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .likc__bar::after { transition: none; } }

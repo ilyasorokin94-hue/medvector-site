@@ -1,0 +1,18 @@
+/* контакты «Полоса»: способ связи одной строкой, офис и часы крупными колонками */
+.cnb { padding: clamp(24px, 3vw, 44px) 0; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); }
+.cnb__ways { display: flex; flex-wrap: wrap; gap: 20px clamp(32px, 5vw, 80px); }
+.cnb__ways div { display: grid; gap: 4px; }
+.cnb__ways dt { font-size: 14px; color: var(--ink-3); }
+.cnb__ways dd { font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(26px, 2.8vw, 44px) * var(--h-k)); letter-spacing: -.035em; }
+.cnb__ways a { text-decoration: none; }
+.cnb__wait { display: grid; gap: 14px; justify-items: start; }
+.cnb__big { max-width: 980px; font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(28px, 3.4vw, 54px) * var(--h-k)); line-height: 1.08; letter-spacing: var(--h-ls); }
+.cnb__big a { color: var(--vec-ink); text-decoration-thickness: 2px; text-underline-offset: 7px; }
+.cnb__meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: clamp(28px, 3vw, 44px); }
+.cnb__meta div { display: grid; align-content: start; gap: 8px; }
+.cnb__meta dt { font-size: 14px; color: var(--ink-3); }
+.cnb__meta dd { font-size: calc(clamp(20px, 1.8vw, 26px) * var(--t-k)); font-weight: 500; line-height: 1.25; letter-spacing: -.02em; }
+@media (max-width: 760px) {
+  .cnb__meta { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .cnb__meta div { padding: 16px 0; border-bottom: 1px solid var(--line); }
+}

@@ -1,0 +1,12 @@
+/* основатель «Письмо»: фото и текст, справа команда */
+.fd { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px clamp(32px, 6vw, 120px); align-items: start; }
+.fd__main { display: grid; gap: 22px; justify-items: start; }
+.fd__ph { display: flex; align-items: center; gap: 18px; }
+.fd__ph img { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 4px var(--paper), 0 0 0 5px var(--vec); }
+.fd__ph figcaption { display: grid; font-weight: 500; }
+.fd__ph small { font-weight: 300; font-size: 14px; color: var(--ink-3); }
+.fd__p { max-width: 640px; font-size: calc(clamp(18px, 1.45vw, 21px) * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+.fd__side .ticks li { font-size: calc(17px * var(--t-k)); }
+@media (max-width: 1020px) {
+  .fd { grid-template-columns: minmax(0, 1fr); }
+}

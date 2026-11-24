@@ -1,0 +1,13 @@
+/* два списка «Лист»: оба списка на одном листе посередине, как страница договора */
+.yl { position: relative; max-width: 880px; margin: 0 auto; padding: clamp(32px, 5vw, 76px) clamp(22px, 5.6vw, 88px); border-top: 3px solid var(--vec); border-radius: 4px 4px var(--r) var(--r); background: var(--paper); box-shadow: 0 0 0 1px var(--line), 0 50px 90px -60px rgba(0, 15, 64, .5); }
+.sec--fog .yl { box-shadow: 0 50px 90px -60px rgba(0, 15, 64, .5); }
+.yl__part + .yl__part { margin-top: clamp(36px, 4vw, 56px); }
+.yl__h { padding-bottom: 14px; border-bottom: 1px solid var(--ink); font: var(--h-w) calc(clamp(21px, 1.9vw, 27px) * var(--h-k))/1.15 var(--disp); letter-spacing: var(--h3-ls); }
+.yl__list li { position: relative; padding: 16px 0 16px 40px; border-bottom: 1px solid var(--line); font-size: calc(18px * var(--t-k)); line-height: 1.5; }
+.yl--no li { color: var(--ink-2); }
+.yl--no li::before { content: ''; position: absolute; left: 2px; top: 20px; width: 17px; height: 17px; border: 1.5px solid var(--ink-3); border-radius: 50%; box-sizing: border-box; background: linear-gradient(45deg, transparent calc(50% - .75px), var(--ink-3) calc(50% - .75px) calc(50% + .75px), transparent calc(50% + .75px)); }
+.yl--yes li::before { content: ''; position: absolute; left: 3px; top: 21px; width: 15px; height: 8px; border-left: 2px solid var(--vec); border-bottom: 2px solid var(--vec); transform: rotate(-45deg); transform-origin: 40% 60%; }
+@media (max-width: 760px) {
+  .yl { padding: 28px 20px 24px; }
+  .yl__list li { padding-left: 34px; font-size: calc(16px * var(--t-k)); }
+}

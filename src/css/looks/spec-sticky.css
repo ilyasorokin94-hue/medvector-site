@@ -1,0 +1,19 @@
+/* пункты «Колонка»: заголовок закреплён слева, пункты крупно справа */
+.spst { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
+.spst__head { grid-column: 1 / 6; }
+.spst__stick { position: sticky; top: calc(var(--hdr) + 40px); }
+.spst__head .h2 { font-size: calc(clamp(32px, 3.7vw, 58px) * var(--h-k)); }
+.spst__note { margin-top: 24px; max-width: 440px; font-size: calc(17px * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+.spst__own .own { max-width: 440px; font-size: calc(16px * var(--t-k)); }
+.spst__own:empty { display: none; }
+.spst__list { grid-column: 7 / 13; }
+.spst__i { display: grid; gap: 12px; padding: clamp(26px, 2.8vw, 40px) 0; border-top: 1px solid var(--line); }
+.spst__i:first-child { padding-top: 0; border-top: 0; }
+.spst__h { font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(24px, 2.2vw, 32px) * var(--h-k)); line-height: 1.12; letter-spacing: -.03em; }
+.spst__i p { color: var(--ink-2); font-size: calc(17px * var(--t-k)); line-height: 1.55; }
+@media (max-width: 960px) {
+  .spst { display: block; }
+  .spst__stick { position: static; }
+  .spst__head { margin-bottom: clamp(32px, 6vw, 48px); }
+  .spst__own .own { margin-top: 20px; }
+}

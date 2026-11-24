@@ -1,0 +1,45 @@
+{# Общие части секций: заголовок, абзац со ссылками в конце, хлебные крошки. #}
+
+{# заголовок секции как на главной: подпись, слева заголовок, справа пояснение #}
+{% macro head(s, cls='') %}
+{% if s.title %}
+<div class="sh{% if cls %} {{ cls }}{% endif %}">
+  <div>
+{% if s.label %}
+    <p class="label" data-rv="fade">{{ s.label }}</p>
+{% endif %}
+    <h2 class="h2" data-rv>{{ s.title | nodot | t | safe }}</h2>
+  </div>
+{% if s.note %}
+  <p class="sh__note" data-rv style="--d:1">{{ s.note | t | safe }}</p>
+{% endif %}
+</div>
+{% endif %}
+{% endmacro %}
+
+{# абзац после блока: куда идти дальше #}
+{% macro own(s) %}
+{% if s.own %}
+<p class="own" data-rv>{{ s.own | t | safe }}{% if s.ownLink %} <a href="{{ s.ownLink[1] }}">{{ s.ownLink[0] | t | safe }}</a>.{% endif %}</p>
+{% endif %}
+{% if s.ownHtml %}
+<p class="own" data-rv>{{ s.ownHtml | safe }}</p>
+{% endif %}
+{% if s.tag %}
+<p class="own"><span class="stub">{{ s.tag }}</span></p>
+{% endif %}
+{% endmacro %}
+
+{# открывающий тег секции: id только у выбранного варианта, тон фона по порядку секций #}
+{% macro attrs(s, cls) %} class="sec {{ cls }}{% if s.tone == 'fog' %} sec--fog{% endif %}"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="{{ s.type }}"{% endmacro %}
+
+{% macro crumbs(items) %}
+<nav class="crumbs" aria-label="Хлебные крошки">
+  <ol>
+    <li><a href="/">Главная</a></li>
+{% for c in items %}
+    <li>{% if loop.last %}<span aria-current="page">{{ c.name }}</span>{% else %}<a href="{{ c.url }}">{{ c.name }}</a>{% endif %}</li>
+{% endfor %}
+  </ol>
+</nav>
+{% endmacro %}

@@ -1,0 +1,85 @@
+{# Ссылки на страницы и статьи с описанием. Данные: s.items [[заголовок, описание, адрес]]. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Строки»: заголовок-ссылка и описание, вся строка нажимается #}
+{% macro rows(s) %}
+<section{{ c.attrs(s, 'lk-links-rows') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ul class="lnr">
+{% for r in s.items %}
+      <li class="lnr__i" data-rv><h3 class="h3"><a class="lnr__a" href="{{ r[2] }}">{{ r[0] | t | safe }}</a></h3><p>{{ r[1] | t | safe }}</p><span class="lnr__go" aria-hidden="true"></span></li>
+{% endfor %}
+    </ul>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Сетка карточек»: карточки до трёх в ряд, вся карточка нажимается, внизу растёт голубая линия #}
+{% macro cards(s) %}
+<section{{ c.attrs(s, 'lk-links-cards') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ul class="likc">
+{% for r in s.items %}
+      <li class="likc__i" data-rv style="--d:{{ loop.index0 % 3 }}"><h3 class="likc__h"><a class="likc__a" href="{{ r[2] }}">{{ r[0] | t | safe }}</a></h3><p>{{ r[1] | t | safe }}</p><span class="likc__bar" aria-hidden="true"></span></li>
+{% endfor %}
+    </ul>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Крупный список»: заголовки набраны крупно, как оглавление журнала, описание справа #}
+{% macro big(s) %}
+<section{{ c.attrs(s, 'lk-links-big') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ul class="likb">
+{% for r in s.items %}
+      <li class="likb__i" data-rv><h3 class="likb__h"><a class="likb__a" href="{{ r[2] }}"><span>{{ r[0] | t | safe }}</span></a></h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+    </ul>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Тёмные плитки»: тёмная секция, ссылки плитками по две в ряд #}
+{% macro dark(s) %}
+<section class="sec sec--dark dark lk-links-dark"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="{{ s.type }}">
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ul class="likd">
+{% for r in s.items %}
+      <li class="likd__i" data-rv style="--d:{{ loop.index0 % 2 }}"><h3 class="likd__h"><a class="likd__a" href="{{ r[2] }}">{{ r[0] | t | safe }}</a></h3><p>{{ r[1] | t | safe }}</p><span class="likd__go" aria-hidden="true"></span></li>
+{% endfor %}
+    </ul>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «С обложками»: карточки статей с обложкой сверху, первая шире остальных, когда карточек пять #}
+{% macro photo(s) %}
+<section{{ c.attrs(s, 'lk-links-photo') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ul class="likp" data-n="{{ s.items.length }}">
+{% for r in s.items %}
+{% set a = art(r[2]) %}
+{% set im = a.cover or a.hero %}
+      <li class="likp__i{% if not im %} likp__i--bare{% endif %}" data-rv style="--d:{{ loop.index0 % 3 }}">
+{% if im %}
+        <div class="likp__img"><img src="{{ im.src }}-640.webp" srcset="{{ im.src }}-640.webp 640w, {{ im.src }}-1000.webp 1000w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, {{ '62vw' if loop.first and s.items.length == 5 else '32vw' }}" width="1600" height="{{ im.h or 1067 }}" alt="" loading="lazy" decoding="async"></div>
+{% endif %}
+        <h3 class="likp__h"><a class="likp__a" href="{{ r[2] }}">{{ r[0] | t | safe }}</a></h3>
+        <p>{{ r[1] | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ul>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

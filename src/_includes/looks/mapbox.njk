@@ -1,0 +1,70 @@
+{# Карточка на Картах до и после. Данные: s.items [[пункт, пояснение]], s.tag. #}
+{% import "looks/_c.njk" as c %}
+{% import "t.njk" as a %}
+
+{# «До и после»: две карточки рядом, справа что меняем #}
+{% macro pair(s) %}
+{{ useLook('spec', 'grid') }}
+<section{{ c.attrs(s, 'lk-mapbox-pair') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="mb">
+      <div class="mb__pic" data-rv="scale">
+        <figure><figcaption>До</figcaption>{{ a.a_map(true) }}</figure>
+        <figure><figcaption>После</figcaption>{{ a.a_map() }}</figure>
+      </div>
+      <ul class="sg sg--one">
+{% for r in s.items %}
+        <li data-rv><h3 class="sg__h">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+      </ul>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Шторка»: карточки до и после наложены, шторку двигают ползунком; что меняем списком рядом #}
+{% macro curtain(s) %}
+<section{{ c.attrs(s, 'lk-mapbox-curtain') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="mbs">
+      <div class="mbs__stage" data-look="mapbox-curtain" data-rv="scale">
+        <div class="mbs__layer mbs__layer--before">{{ a.a_map(true) }}</div>
+        <div class="mbs__layer mbs__layer--after">{{ a.a_map() }}</div>
+        <span class="mbs__line" aria-hidden="true"></span>
+        <span class="mbs__lab" aria-hidden="true">До</span><span class="mbs__lab mbs__lab--r" aria-hidden="true">После</span>
+        <input class="mbs__range" type="range" min="4" max="96" value="50" aria-label="Карточка до и после работы: сдвиньте шторку">
+      </div>
+      <ul class="mbs__list">
+{% for r in s.items %}
+        <li data-rv><h3>{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+      </ul>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Колода»: слева что меняем крупными строками, справа карточка после работы лежит поверх карточки до #}
+{% macro deck(s) %}
+<section{{ c.attrs(s, 'lk-mapbox-deck') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="mbl">
+      <ol class="mbl__list">
+{% for r in s.items %}
+        <li data-rv><h3>{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+      </ol>
+      <div class="mbl__deck" data-rv="scale">
+        <figure class="mbl__card mbl__card--before"><figcaption>До</figcaption>{{ a.a_map(true) }}</figure>
+        <figure class="mbl__card"><figcaption>После</figcaption>{{ a.a_map() }}</figure>
+      </div>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

@@ -1,0 +1,13 @@
+/* крупные пункты «Тёмные плитки»: тёмная полоса, пункты плитками в две колонки */
+.dp { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); }
+.dp__i { display: grid; align-content: start; gap: 14px; padding: clamp(26px, 2.8vw, 44px); border: 1px solid var(--line-dark); border-radius: var(--r-lg); transition: border-color .5s var(--ease), background-color .5s var(--ease); }
+.dp__i:hover { border-color: rgba(42, 168, 242, .55); background: rgba(255, 255, 255, .03); }
+.dp__i:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.dp__h { font: var(--h-w) calc(clamp(22px, 2vw, 30px) * var(--h-k))/1.12 var(--disp); letter-spacing: var(--h3-ls); color: #fff; }
+.dp__i p { max-width: 620px; font-size: calc(17px * var(--t-k)); line-height: 1.55; color: var(--on-dark-2); }
+@media (max-width: 760px) {
+  .dp { grid-template-columns: minmax(0, 1fr); }
+  .dp__i { padding: 24px 22px; border-radius: var(--r); }
+  .dp__h { font-size: calc(21px * var(--h-k)); }
+  .dp__i p { font-size: calc(16px * var(--t-k)); }
+}

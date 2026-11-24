@@ -1,0 +1,30 @@
+/* стартовый пакет «Три карточки»: месяцы карточками рядом, первая тёмная с составом месяца */
+.plc { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 3.5fr) minmax(0, 3.5fr); gap: 16px; align-items: start; }
+.plc__i { display: grid; align-content: start; gap: 10px; padding: clamp(24px, 2.4vw, 36px); border-radius: var(--r-lg); background: var(--fog); border: 1px solid transparent; }
+.sec--fog .plc__i { background: var(--paper); }
+.plc__i--first { background: var(--ink); color: #fff; }
+.sec--fog .plc__i--first { background: var(--ink); }
+.plc__bar { display: block; height: 4px; margin-bottom: 14px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.plc__i--first .plc__bar { background: var(--line-dark); }
+.plc__bar i { display: block; width: var(--w); height: 100%; border-radius: 4px; background: var(--vec); transform: scaleX(0); transform-origin: left; transition: transform 1.3s var(--ease) .4s; }
+.plc__i--first .plc__bar i { background: var(--vec-dark); }
+.plc__i.is-in .plc__bar i, .no-js .plc__bar i { transform: none; }
+.plc__m { font-size: calc(15px * var(--t-k)); color: var(--ink-3); }
+.plc__i--first .plc__m { color: var(--on-dark-2); }
+.plc__sum { font: var(--num-w) calc(clamp(38px, 3.8vw, 60px) * var(--h-k))/1 var(--disp); letter-spacing: var(--h-ls); white-space: nowrap; }
+.plc__txt { font-size: calc(15.5px * var(--t-k)); color: var(--ink-2); }
+.plc__i--first .plc__txt { color: var(--on-dark-2); }
+.plc__rows { margin-top: 14px; }
+.plc__rows h4 { margin-bottom: 6px; font-size: 14px; font-weight: 400; color: var(--on-dark-2); }
+.plc__rows li { display: grid; gap: 2px; padding: 12px 0; border-top: 1px solid var(--line-dark); font-size: calc(15px * var(--t-k)); color: var(--on-dark-2); }
+.plc__rows b { font-weight: 500; color: #fff; }
+.plc__foot { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 24px 40px; margin-top: clamp(32px, 3vw, 48px); }
+.plc__after { max-width: 760px; font-size: calc(clamp(17px, 1.35vw, 19px) * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+@media (max-width: 1020px) {
+  .plc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .plc__i--first { grid-column: 1 / -1; }
+  .plc__foot { grid-template-columns: minmax(0, 1fr); justify-items: start; }
+}
+@media (max-width: 600px) {
+  .plc { grid-template-columns: minmax(0, 1fr); }
+}

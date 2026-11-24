@@ -1,4 +1,4 @@
-{# Общие блоки сайта в дизайне «Траектория». Тексты приходят из шапки файла страницы (front matter).
+{# Хлебные крошки и образцы для вымышленной клиники. Секции страниц лежат в src/_includes/looks.
    Фильтр t расставляет неразрывные пробелы и понимает **полужирный**.
    Образцы (запрос, объявление, страница на телефоне, заявка, запись, карточка на Картах, отчёт) нарисованы вёрсткой
    для вымышленной клиники и подписаны «образец»: настоящие скриншоты встанут на их место, когда появятся. #}
@@ -15,49 +15,6 @@
 </nav>
 {% endmacro %}
 
-{# ---------- заголовок секции: слева заголовок, справа пояснение ---------- #}
-{% macro shead(s) %}
-<div class="shead">
-  <div>
-{% if s.label %}
-    <p class="label">{{ s.label }}</p>
-{% endif %}
-    <h2 class="h2"{% if s.id %} id="{{ s.id }}"{% endif %}>{{ s.title | t | safe }}</h2>
-  </div>
-{% if s.note %}
-  <p class="shead__note">{{ s.note | t | safe }}</p>
-{% endif %}
-</div>
-{% endmacro %}
-
-{# ---------- первый экран внутренней страницы ---------- #}
-{% macro phero(h, crumbItems) %}
-<section class="phero" id="intro">
-  <div class="wrap">
-    {{ crumbs(crumbItems) }}
-    <h1 class="h1 h1--page">{{ h.title | t | safe }}{% if h.arrow != false %}<span class="vec-arrow" data-vstart aria-hidden="true"><svg viewBox="0 0 160 40" preserveAspectRatio="none"><path d="M4 20H160"/><path class="vec-arrow__head" d="M144 6l16 14-16 14"/></svg></span>{% endif %}</h1>
-    <div class="phero__foot">
-      <p class="phero__sub">{{ h.lead | t | safe }}</p>
-{% if h.cta %}
-      <div class="phero__acts">
-        <a href="#start" class="btn" data-magnetic{% if h.pick %} data-pick="{{ h.pick }}"{% endif %}>{{ h.cta }}</a>
-{% if h.cta2 %}
-        <a href="{{ h.cta2url }}" class="link"{% if h.pick2 %} data-pick="{{ h.pick2 }}"{% endif %}{% if h.dir2 %} data-dir="{{ h.dir2 }}"{% endif %}>{{ h.cta2 }}</a>
-{% endif %}
-      </div>
-{% endif %}
-    </div>
-{% if h.facts %}
-    <dl class="pfacts">
-{% for f in h.facts %}
-      <div class="reveal"><dt>{{ f[1] | t | safe }}</dt><dd>{{ f[0] | t | safe }}</dd></div>
-{% endfor %}
-    </dl>
-{% endif %}
-  </div>
-</section>
-{% endmacro %}
-
 {# ---------- образцы для вымышленной клиники ---------- #}
 {% macro a_query(q='имплантация зубов цена') %}
 <div class="art art--query" aria-hidden="true"><i class="art__glass"></i><span class="art__typed" data-type="{{ q }}">{{ q }}</span></div>
@@ -67,7 +24,7 @@
 <div class="art art--ad" aria-hidden="true">
   <span class="art__mark">Реклама</span>
   <b>{{ o.title or 'Имплантация зубов под ключ' }}</b>
-  <span class="art__url">demo-klinika.ru › {{ o.path or 'implantaciya' }}</span>
+  <span class="art__url">demo-klinika.ru/{{ o.path or 'implantaciya' }}</span>
   <span class="art__txt">{{ o.text or 'Имплант, формирователь и коронка. Цена по этапам, рассрочка.' }}</span>
   <span class="art__warn">Имеются противопоказания, нужна консультация специалиста</span>
 </div>
@@ -75,23 +32,23 @@
 
 {% macro a_phone(kind='implant') %}
 <div class="art art--phone" aria-hidden="true">
-  <div class="ph">
-    <span class="ph__top"><i></i>Стоматология «Демо»</span>
+  <div class="pn">
+    <span class="pn__top"><i></i>Стоматология «Демо»</span>
 {% if kind == 'allon4' %}
     <b>Все зубы на 4 имплантах</b>
     <small>Хирург и ортопед на одной консультации, КТ в клинике</small>
-    <span class="ph__btn">Записаться на консультацию</span>
-    <span class="ph__row">Кому подходит метод</span><span class="ph__row">Врач и его опыт</span><span class="ph__row">Этапы и сроки</span><span class="ph__row">Полная цена и рассрочка</span>
+    <span class="pn__btn">Записаться на консультацию</span>
+    <span class="pn__row">Кому подходит метод</span><span class="pn__row">Врач и его опыт</span><span class="pn__row">Этапы и сроки</span><span class="pn__row">Полная цена и рассрочка</span>
 {% elif kind == 'site' %}
     <b>Стоматология рядом с домом</b>
     <small>Лечение, имплантация, детский приём. Цены на сайте</small>
-    <span class="ph__btn">Записаться</span>
-    <span class="ph__row">Услуги и цены</span><span class="ph__row">Врачи</span><span class="ph__row">Отзывы с площадок</span><span class="ph__row">Как добраться</span>
+    <span class="pn__btn">Записаться</span>
+    <span class="pn__row">Услуги и цены</span><span class="pn__row">Врачи</span><span class="pn__row">Отзывы с площадок</span><span class="pn__row">Как добраться</span>
 {% else %}
     <b>Имплантация под ключ</b>
     <small>Имплант, формирователь и коронка: цена по этапам</small>
-    <span class="ph__btn">Записаться</span>
-    <span class="ph__row">Цена по этапам</span><span class="ph__row">Врач и его опыт</span><span class="ph__row">Если мало кости</span><span class="ph__row">Рассрочка</span>
+    <span class="pn__btn">Записаться</span>
+    <span class="pn__row">Цена по этапам</span><span class="pn__row">Врач и его опыт</span><span class="pn__row">Если мало кости</span><span class="pn__row">Рассрочка</span>
 {% endif %}
   </div>
 </div>
@@ -101,7 +58,7 @@
 <div class="art art--lead" aria-hidden="true">
   <span class="art__top">Новая заявка<span>12:04</span></span>
   <b>Имплантация, консультация</b>
-  <span class="art__txt">Поиск · «имплантация зубов цена»</span>
+  <span class="art__txt">Поиск, запрос «имплантация зубов цена»</span>
 </div>
 {% endmacro %}
 
@@ -149,7 +106,7 @@
 {# недельный отчёт: образец для вымышленной клиники, депозит 150 000 ₽ в месяц #}
 {% macro a_report() %}
 <div class="rep">
-  <div class="rep__head"><b>Отчёт за неделю · имплантация</b><span class="tag">образец, клиника вымышленная</span></div>
+  <div class="rep__head"><b>Отчёт за неделю, имплантация</b><span class="tag">образец, клиника вымышленная</span></div>
   <dl class="rep__kpis">
     <div><dt>заявок</dt><dd>9</dd></div>
     <div><dt>записей на консультацию</dt><dd>4</dd></div>
@@ -174,165 +131,3 @@
 </div>
 {% endmacro %}
 
-{# ---------- первый тест, короткая версия для главной: куда идут деньги и что входит в работу.
-   Полные условия (шкала срока, исходы, что остаётся у клиники) стоят на странице Директа ---------- #}
-{% macro offerShort(o) %}
-<div class="brief">
-  <div class="brief__main">
-    <div class="money">
-      <div class="money__row reveal">
-        <p class="money__who">Яндексу<small>первый рекламный депозит, напрямую в&nbsp;кабинет клиники. Рекомендуем 150&nbsp;000&nbsp;₽, минимум 100&nbsp;000&nbsp;₽</small></p>
-        <p class="money__sum"><span data-count="150000" data-sep>150&nbsp;000</span>&nbsp;₽</p>
-        <span class="money__bar" aria-hidden="true"><i></i></span>
-      </div>
-      <div class="money__row money__row--zero reveal">
-        <p class="money__who">МедВектору<small>комиссия за&nbsp;работу на&nbsp;первом тесте</small></p>
-        <p class="money__sum">0&nbsp;₽</p>
-        <span class="money__bar" aria-hidden="true"></span>
-      </div>
-    </div>
-    <p class="brief__why">{{ o.why | t | safe }}</p>
-    <div class="pack__acts">
-      <a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить первый тест</a>
-      <a href="{{ href('direct') }}#test" class="link link--light">Все условия первого теста</a>
-    </div>
-  </div>
-  <div class="rcpt__paper reveal">
-    <p class="rcpt__top"><span>Счёт за первый тест</span><span>МедВектор</span></p>
-    <ul>
-{% for r in o.receipt %}
-      <li><h3>{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p><b>0&nbsp;₽</b></li>
-{% endfor %}
-    </ul>
-    <p class="rcpt__total"><span>Комиссия агентства</span><b>0&nbsp;₽</b></p>
-  </div>
-</div>
-{% endmacro %}
-
-{# ---------- первый тест, полная версия: куда идут деньги, что делаем, чем заканчивается ---------- #}
-{% macro offer(o) %}
-<div class="money">
-  <div class="money__row reveal">
-    <p class="money__who">Яндексу<small>первый рекламный депозит, напрямую в&nbsp;кабинет клиники. Рекомендуем 150&nbsp;000&nbsp;₽, минимум 100&nbsp;000&nbsp;₽</small></p>
-    <p class="money__sum"><span data-count="150000" data-sep>150&nbsp;000</span>&nbsp;₽</p>
-    <span class="money__bar" aria-hidden="true"><i></i></span>
-  </div>
-  <div class="money__row money__row--zero reveal">
-    <p class="money__who">МедВектору<small>комиссия за&nbsp;работу на&nbsp;первом тесте</small></p>
-    <p class="money__sum">0&nbsp;₽</p>
-    <span class="money__bar" aria-hidden="true"></span>
-  </div>
-</div>
-<div class="rcpt">
-  <div class="rcpt__head">
-    <h3 class="incl__title">{{ o.receiptTitle | t | safe }}</h3>
-    <p class="lead">{{ o.receiptLead | t | safe }}</p>
-  </div>
-  <div class="rcpt__paper reveal">
-    <p class="rcpt__top"><span>Счёт за первый тест</span><span>МедВектор</span></p>
-    <ul>
-{% for r in o.receipt %}
-      <li><h4>{{ r[0] | t | safe }}</h4><p>{{ r[1] | t | safe }}</p><b>0&nbsp;₽</b></li>
-{% endfor %}
-    </ul>
-    <p class="rcpt__total"><span>Комиссия агентства</span><b>0&nbsp;₽</b></p>
-  </div>
-</div>
-<div class="incl">
-  <h3 class="incl__title">{{ o.scaleTitle | t | safe }}</h3>
-  <ol class="scale">
-{% for s in o.scale %}
-    <li class="scale__seg reveal" style="--g: {{ s[3] }}">
-      <span class="scale__when"><b>{{ loop.index }}</b>{{ s[1] | t | safe }}</span>
-      <span class="scale__bar{% if loop.index == 3 %} scale__bar--weeks{% endif %}" aria-hidden="true"><i></i></span>
-      <h4>{{ s[0] | t | safe }}</h4>
-      <p>{{ s[2] | t | safe }}</p>
-    </li>
-{% endfor %}
-  </ol>
-  <p class="scale__note">{{ o.scaleNote | t | safe }}</p>
-</div>
-<div class="after">
-  <h3 class="after__title">{{ o.afterTitle | t | safe }}</h3>
-  <div class="after__grid">
-    <div class="after__case reveal"><h4>{{ o.after[0][0] | t | safe }}</h4><p>{{ o.after[0][1] | t | safe }}</p></div>
-    <div class="after__case reveal">
-      <h4>{{ o.after[1][0] | t | safe }}</h4><p>{{ o.after[1][1] | t | safe }}</p>
-      <table class="own">
-        <caption>{{ o.ownTitle | t | safe }}</caption>
-        <tbody>
-{% for r in o.own %}
-          <tr{% if not r[2] %} class="own__no"{% endif %}><th scope="row">{{ r[0] | t | safe }}</th><td>{{ r[1] | t | safe }}</td></tr>
-{% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <p class="after__why">{{ o.why | t | safe }}</p>
-  <p class="after__act"><a href="#start" class="btn btn--light" data-magnetic data-pick="direct">Запустить первый тест</a></p>
-</div>
-{% endmacro %}
-
-{# ---------- вопросы: раскрывающийся список. На широком экране главной скрипт собирает из него колесо ---------- #}
-{% macro qa(items, wheel=false) %}
-<div class="qa"{% if wheel %} data-wheel{% endif %}>
-{% for f in items %}
-  <details class="qa__item"{% if loop.first %} open{% endif %}>
-    <summary><span class="qa__q">{{ f.q | t | safe }}</span><span class="qa__ic" aria-hidden="true"></span></summary>
-    <div class="qa__a"><p>{{ f.a | t | safe }}</p></div>
-  </details>
-{% endfor %}
-</div>
-{% endmacro %}
-
-{# ---------- заявка: одна форма на весь сайт с выбором услуги; линия-вектор заканчивается у кнопки ---------- #}
-{% macro start(d={}) %}
-<section class="dark sheet start" id="start" data-dark>
-  <div class="wrap">
-    <h2 class="h2 start__title">{{ (d.title or 'Оставьте заявку. За 2 рабочих дня разберём клинику и посчитаем запуск.') | t | safe }}</h2>
-    <div class="start__grid">
-      <div class="start__text">
-        <p class="lead">{{ (d.lead or 'Посмотрим сайт, карточку на Картах и рекламу, если она уже идёт. Скажем, с чего начать: с первого теста в Директе или с сайта и Карт.') | t | safe }}</p>
-        <ul class="plist">
-{% for i in (d.items or ['Первый тест в Директе: комиссия 0 ₽, депозит вы вносите Яндексу', 'Сайт и Яндекс Карты: старт 80 000 ₽, сайт входит в эту сумму', 'Если видим риски для запуска, скажем о них на разборе']) %}
-          <li>{{ i | t | safe }}</li>
-{% endfor %}
-        </ul>
-        <p class="start__promise">Заявка ни&nbsp;к&nbsp;чему не&nbsp;обязывает. Ответим в&nbsp;рабочее время по&nbsp;Москве и&nbsp;назовём день, когда разбор будет готов.</p>
-      </div>
-      <form class="form" novalidate action="#" aria-label="Заявка">
-        <fieldset class="form__choice">
-          <legend>Что хотите запустить</legend>
-          <div class="form__opts">
-            <label class="form__opt"><input type="radio" name="service" value="direct"{% if not d.pick or d.pick == 'direct' %} checked{% endif %}><span>Тест Директа</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="site"{% if d.pick == 'site' %} checked{% endif %}><span>Сайт и&nbsp;Карты</span></label>
-            <label class="form__opt"><input type="radio" name="service" value="unsure"{% if d.pick == 'unsure' %} checked{% endif %}><span>Пока не&nbsp;знаю</span></label>
-          </div>
-        </fieldset>
-        <label class="fld form__dir"><span>Услуга для рекламы</span>
-          <select name="direction">
-            <option value="implant">Имплантация</option>
-            <option value="all-on-4">All-on-4, полное восстановление</option>
-            <option value="running">Реклама уже идёт, нужен разбор</option>
-            <option value="other">Другая услуга</option>
-          </select>
-        </label>
-        <div class="form__row">
-          <label class="fld"><span>Имя</span><input type="text" name="name" autocomplete="name" enterkeyhint="next" required></label>
-          <label class="fld"><span>Телефон или Telegram</span><input type="text" name="contact" autocomplete="tel" enterkeyhint="next" required></label>
-        </div>
-        <div class="form__row">
-          <label class="fld"><span>Город</span><input type="text" name="city" autocomplete="address-level2" enterkeyhint="next" required></label>
-          <label class="fld"><span>Сайт или карточка на&nbsp;Картах <small>если есть</small></span><input type="text" name="site" inputmode="url" autocomplete="url" enterkeyhint="done"></label>
-        </div>
-        <label class="form__consent"><input type="checkbox" name="consent" required> <span>Даю <a href="{{ href('consent') }}">согласие на&nbsp;обработку персональных данных</a> на&nbsp;условиях <a href="{{ href('policy') }}">политики</a></span></label>
-        <div class="form__send">
-          <p class="form__after">Ответим в&nbsp;рабочее время. Без рассылок и&nbsp;навязчивых звонков.</p>
-          <button class="btn btn--light" type="submit" data-vend data-magnetic>{{ d.button or 'Отправить заявку' }}</button>
-        </div>
-        <p class="form__ok" role="status"><em>Спасибо!</em> Сайт в&nbsp;разработке: заявка пока никуда не&nbsp;отправлена.</p>
-      </form>
-    </div>
-  </div>
-</section>
-{% endmacro %}

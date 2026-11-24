@@ -1,0 +1,26 @@
+/* пункты «Мозаика»: плитки разного размера, первая высокая и тёмная */
+.spbn { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); }
+.spbn__i { display: flex; flex-direction: column; gap: 10px; min-height: 220px; padding: clamp(24px, 2.4vw, 36px); border-radius: var(--r-lg); background: var(--fog); }
+.sec--fog .spbn__i { background: var(--paper); }
+.spbn__i p { color: var(--ink-2); }
+.spbn__h { font-size: calc(clamp(19px, 1.5vw, 22px) * var(--t-k)); font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
+.spbn__i:first-child { justify-content: flex-end; background: var(--ink) !important; color: #fff; }
+.spbn__i:first-child p { color: var(--on-dark-2); }
+.spbn__i:first-child .spbn__h { font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(28px, 2.8vw, 44px) * var(--h-k)); line-height: 1.06; letter-spacing: -.035em; }
+.spbn__i:first-child::before { content: ''; width: 44px; height: 44px; margin-bottom: auto; border-radius: 50%; background: radial-gradient(circle, var(--vec-dark) 0 5px, transparent 6px), radial-gradient(circle, transparent 0 13px, rgba(42, 168, 242, .5) 14px 15px, transparent 16px), radial-gradient(circle, transparent 0 20px, rgba(42, 168, 242, .25) 21px 22px, transparent 23px); }
+/* первая плитка на две строки, последняя добирает ряд */
+.spbn--4 .spbn__i:first-child, .spbn--5 .spbn__i:first-child, .spbn--6 .spbn__i:first-child, .spbn--7 .spbn__i:first-child, .spbn--8 .spbn__i:first-child { grid-row: span 2; }
+.spbn--4 .spbn__i:last-child, .spbn--7 .spbn__i:last-child { grid-column: span 2; }
+.spbn--6 .spbn__i:last-child { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); column-gap: 24px; align-items: start; min-height: 0; }
+.spbn--8 .spbn__i:last-child { grid-column: span 3; }
+@media (max-width: 960px) {
+  .spbn { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .spbn .spbn__i:first-child { grid-row: auto; grid-column: 1 / -1; min-height: 260px; }
+  .spbn .spbn__i:last-child { grid-column: auto; display: flex; }
+  .spbn--6 .spbn__i:last-child, .spbn--4 .spbn__i:last-child, .spbn--8 .spbn__i:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .spbn { grid-template-columns: minmax(0, 1fr); }
+  .spbn__i { min-height: 0; }
+  .spbn .spbn__i:first-child { min-height: 220px; }
+}

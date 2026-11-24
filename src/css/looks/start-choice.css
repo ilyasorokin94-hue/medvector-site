@@ -1,0 +1,27 @@
+/* ---------- заявка «Выбор»: светло-голубая панель по центру, сначала выбор услуги плитками ---------- */
+.sth__box { max-width: 1120px; margin: 0 auto; padding: clamp(32px, 5vw, 88px) clamp(20px, 5vw, 96px); border-radius: var(--r-lg); background: var(--vec-soft); }
+.sth__head { text-align: center; }
+.sth .label { justify-content: center; }
+.sth__h { max-width: 15em; margin: 0 auto; font-size: calc(clamp(30px, 3.8vw, 60px) * var(--h-k)); }
+.sth__text { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 16px clamp(24px, 3vw, 48px); margin: clamp(28px, 3vw, 44px) 0; }
+.sth__text .st__items { margin-top: 0; grid-row: 1 / 3; grid-column: 2; }
+.sth__text .st__lead { grid-column: 1; }
+.sth__text .st__promise { grid-column: 1; margin-top: 0; }
+.sth .ticks, .sth .ticks li { border-color: rgba(0, 15, 64, .16); }
+.sth__form { box-shadow: 0 40px 80px -56px rgba(0, 15, 64, .5); }
+.sth__form .fm__choice legend { font-size: calc(17px * var(--t-k)); font-weight: 500; color: var(--ink); }
+.sth__form .fm__opts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.sth__form .fm__opt span { justify-content: center; width: 100%; min-height: 76px; padding: 0 14px; border-radius: var(--r); font-size: calc(17px * var(--t-k)); text-align: center; }
+.sth__form .fm__choice { padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+@media (max-width: 860px) {
+  .sth__text { grid-template-columns: minmax(0, 1fr); }
+  .sth__text .st__items, .sth__text .st__lead, .sth__text .st__promise { grid-column: 1; grid-row: auto; }
+  .sth__head { text-align: left; }
+  .sth .label { justify-content: flex-start; }
+  .sth__h { margin: 0; }
+}
+@media (max-width: 560px) {
+  .sth__box { margin: 0 calc(var(--gut) * -1 + 8px); padding: 32px 16px 16px; border-radius: 24px; }
+  .sth__form .fm__opts { grid-template-columns: minmax(0, 1fr); }
+  .sth__form .fm__opt span { min-height: 52px; }
+}

@@ -1,0 +1,11 @@
+/* что собираем «Карточки»: три образца на светлых плашках, под ними шаги линией */
+.bc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-bottom: clamp(56px, 6vw, 96px); }
+.bc__i { display: grid; align-content: start; gap: 12px; }
+.bc__i p { color: var(--ink-2); }
+.bc__pic { display: grid; place-items: center; min-height: 320px; margin-bottom: 12px; padding: 28px; border-radius: var(--r-lg); background: linear-gradient(160deg, var(--vec-soft), var(--fog)); transition: transform .8s var(--ease); }
+.bc__i:hover .bc__pic { transform: translateY(-6px); }
+.bc__pic .art--phone { transform: rotate(-3deg); }
+@media (max-width: 1020px) {
+  .bc { grid-template-columns: minmax(0, 1fr); }
+  .bc__pic { min-height: 260px; }
+}

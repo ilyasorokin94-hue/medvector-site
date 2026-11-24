@@ -1,0 +1,17 @@
+/* вкладки «Капсула»: переключатель с бегущей подложкой, под ним текст, сравнение, группы запросов */
+.tb__list { position: relative; display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 5px; border-radius: 99px; background: var(--paper); border: 1px solid var(--line); margin-bottom: clamp(28px, 3vw, 44px); }
+.sec:not(.sec--fog) .tb__list { background: var(--fog); }
+.tb__btn { min-height: 48px; padding: 0 22px; border: 0; border-radius: 99px; background: none; cursor: pointer; font-size: calc(16px * var(--t-k)); font-weight: 500; color: var(--ink-2); transition: background-color .4s var(--ease), color .3s; }
+.tb__btn:hover { color: var(--ink); }
+.tb__btn[aria-selected="true"] { background: var(--ink); color: #fff; }
+/* панель выезжает при переключении вкладки (класс is-used ставит скрипт по первому нажатию) */
+.is-used .tb__panel { animation: tbIn .7s var(--ease); }
+@keyframes tbIn { from { opacity: 0; transform: translateY(14px); } }
+.tb__lead { max-width: 880px; margin-bottom: clamp(28px, 3vw, 44px); font-size: calc(clamp(18px, 1.45vw, 21px) * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+.tb__cmp { margin-bottom: clamp(32px, 3.4vw, 52px); }
+.tb__gh { margin-top: 8px; }
+.no-js .tb__panel[hidden] { display: block !important; margin-top: 48px; }
+@media (max-width: 600px) {
+  .tb__list { display: flex; border-radius: 22px; }
+  .tb__btn { flex: 1 1 auto; padding: 0 14px; }
+}

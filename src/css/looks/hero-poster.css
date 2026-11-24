@@ -1,0 +1,40 @@
+/* ---------- первый экран «Плакат»: заголовок по центру, рисунок услуги широкой полосой ---------- */
+.php__head { display: grid; justify-items: center; max-width: 1120px; margin: 0 auto; text-align: center; }
+.php__h { max-width: 14em; font-size: calc(clamp(38px, 5.6vw, 96px) * var(--h-k)); }
+.php__lead { max-width: 720px; margin-top: clamp(20px, 2vw, 30px); }
+.php__acts { margin-top: clamp(24px, 2.4vw, 34px); }
+.php__acts .ph__acts { justify-content: center; }
+.php__band { position: relative; container-type: inline-size; margin-top: clamp(40px, 4.4vw, 72px); padding: clamp(28px, 3.6vw, 56px) clamp(16px, 3vw, 48px); overflow: hidden; border-radius: var(--r-lg); background: var(--vec-soft); }
+.php__band .ha { position: relative; inset: auto; display: flex; justify-content: center; align-items: flex-start; gap: 1.6em; font-size: min(1.1cqw, 14.5px); }
+.php__band .ha__c { position: relative; inset: auto; flex: 0 1 24em; width: auto; translate: none; }
+.php__band .ha__c--b { margin-top: 3em; }
+.php__band .ha__c--c { margin-top: 1.2em; }
+.php__band .ha__map, .php__band .ha__radar, .php__band .ha__orb { position: absolute; inset: 0; }
+.php__band .ha__radar, .php__band .ha__orb { width: 100%; height: 100%; }
+.php__band .ha__path { display: none; }
+.php__band .ha__ask { flex-basis: 18em; order: -1; }
+.php__band .ha__ans { flex-basis: 30em; }
+.php__band .ha__br { flex-basis: 34em; }
+.php__band .ha__pn { flex-basis: 15em; }
+.php__band .ha__grid { position: relative; inset: auto; flex: 1; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.php__band .ha__tile { min-height: 8em; }
+.php__band .ha--kompleksnyj-marketing, .php__band .ha--base { flex-wrap: wrap; align-items: center; gap: .8em; }
+.php__band .ha__core { position: relative; left: auto; top: auto; translate: none; order: 3; width: 9em; }
+.php__band .ha__ch { flex: none; position: relative; left: auto; top: auto; translate: none; }
+.php__band .ha__ch:nth-of-type(n + 4) { order: 4; }
+.php__band .ha--kontakty { min-height: 16em; align-items: center; }
+.php .ph__facts { margin-top: clamp(40px, 4vw, 64px); }
+@media (max-width: 720px) {
+  .php__head { justify-items: start; text-align: left; }
+  .php__acts .ph__acts { justify-content: flex-start; }
+  .php__band { padding: 24px 16px; border-radius: 24px; }
+  .php__band .ha { flex-direction: column; align-items: stretch; gap: 12px; font-size: 3.3cqw; }
+  .php__band .ha__c { flex: none; margin-top: 0; }
+  .php__band .ha__c--b { margin-left: 10%; }
+  .php__band .ha__c--c { display: none; }
+  .php__band .ha__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .php__band .ha__tile { min-height: 5.6em; }
+  .php__band .ha__ask { margin-left: 18%; }
+  .php__band .ha--kompleksnyj-marketing, .php__band .ha--base { flex-direction: row; justify-content: center; }
+  .php__band .ha--kontakty .ha__c--c { display: grid; }
+}

@@ -1,0 +1,114 @@
+{# Вкладки по услугам. Данные: s.tabs [{id, label, text, cmp: {cols, rows, caption}, groups, groupsTitle}]. #}
+{% import "looks/_c.njk" as c %}
+{% import "looks/qrows.njk" as q %}
+
+{# «Вкладки»: переключатель-капсула, под ним текст, сравнение и группы запросов #}
+{% macro pills(s) %}
+{{ useLook('qrows', 'rows') }}
+<section{{ c.attrs(s, 'lk-tabs-pills') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="tb" data-tabs>
+      <div class="tb__list" role="tablist" aria-label="Услуга">
+{% for tb in s.tabs %}
+        <button class="tb__btn" type="button" role="tab" id="tab-{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}" aria-controls="{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}" aria-selected="{{ 'true' if loop.first else 'false' }}">{{ tb.label | t | safe }}</button>
+{% endfor %}
+      </div>
+{% for tb in s.tabs %}
+      <div class="tb__panel" id="{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}" role="tabpanel" aria-labelledby="tab-{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}" tabindex="0"{% if not loop.first %} hidden{% endif %}>
+        <p class="tb__lead">{{ tb.text | t | safe }}</p>
+{% if tb.cmp %}
+        <div class="ct-wrap tb__cmp">
+          <table class="ct ct--{{ tb.cmp.cols.length }}">
+            <caption class="sr">{{ tb.cmp.caption }}</caption>
+            <thead><tr><td></td>{% for col in tb.cmp.cols %}<th scope="col">{{ col }}</th>{% endfor %}</tr></thead>
+            <tbody>
+{% for r in tb.cmp.rows %}
+              <tr><th scope="row">{{ r[0] | t | safe }}</th>{% for col in tb.cmp.cols %}<td data-label="{{ col }}">{{ r[loop.index] | t | safe }}</td>{% endfor %}</tr>
+{% endfor %}
+            </tbody>
+          </table>
+        </div>
+{% endif %}
+        <h3 class="yn__h tb__gh">{{ tb.groupsTitle or 'Что ищет пациент и что мы с этим делаем' }}</h3>
+        {{ q.body(tb.groups) }}
+      </div>
+{% endfor %}
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# таблица сравнения внутри направления #}
+{% macro cmp(tb) %}
+{% if tb.cmp %}
+<div class="ct-wrap tb__cmp">
+  <table class="ct ct--{{ tb.cmp.cols.length }}">
+    <caption class="sr">{{ tb.cmp.caption }}</caption>
+    <thead><tr><td></td>{% for col in tb.cmp.cols %}<th scope="col">{{ col }}</th>{% endfor %}</tr></thead>
+    <tbody>
+{% for r in tb.cmp.rows %}
+      <tr><th scope="row">{{ r[0] | t | safe }}</th>{% for col in tb.cmp.cols %}<td data-label="{{ col }}">{{ r[loop.index] | t | safe }}</td>{% endfor %}</tr>
+{% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+{% endmacro %}
+
+{# «Боковое меню»: направления списком слева, выбранное раскрыто справа #}
+{% macro side(s) %}
+{{ useLook('qrows', 'pairs') }}
+{{ useLook('tabs', 'pills') }}
+<section{{ c.attrs(s, 'lk-tabs-side') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="tbs" data-tabs>
+      <div class="tbs__list" role="tablist" aria-label="Услуга" aria-orientation="vertical">
+{% for tb in s.tabs %}
+        <button class="tbs__btn" type="button" role="tab" id="tab-{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}" aria-controls="{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}" aria-selected="{{ 'true' if loop.first else 'false' }}"><span>{{ tb.label | t | safe }}</span></button>
+{% endfor %}
+      </div>
+      <div class="tbs__panels">
+{% for tb in s.tabs %}
+        <div class="tb__panel tbs__panel" id="{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}" role="tabpanel" aria-labelledby="tab-{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}" tabindex="0"{% if not loop.first %} hidden{% endif %}>
+          <p class="tbs__lead">{{ tb.text | t | safe }}</p>
+          {{ cmp(tb) }}
+          <h3 class="yn__h tb__gh">{{ tb.groupsTitle or 'Что ищет пациент и что мы с этим делаем' }}</h3>
+          {{ q.bodyPairs(tb.groups) }}
+        </div>
+{% endfor %}
+      </div>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Стопка»: все направления подряд без переключателя, сверху ссылки на каждое #}
+{% macro stack(s) %}
+{{ useLook('qrows', 'cards') }}
+<section{{ c.attrs(s, 'lk-tabs-stack') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <nav class="tbk__nav" aria-label="Направления">
+{% for tb in s.tabs %}
+      <a href="#{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}">{{ tb.label | t | safe }}</a>
+{% endfor %}
+    </nav>
+{% for tb in s.tabs %}
+    <article class="tbk__i" id="{{ tb.id }}{{ '-' + s.vsuf if s.vsuf }}">
+      <div class="tbk__top">
+        <h3 class="tbk__h" data-rv>{{ tb.label | t | safe }}</h3>
+        <p class="tbk__lead" data-rv style="--d:1">{{ tb.text | t | safe }}</p>
+      </div>
+      {{ cmp(tb) }}
+      <h4 class="yn__h tb__gh">{{ tb.groupsTitle or 'Что ищет пациент и что мы с этим делаем' }}</h4>
+      {{ q.bodyCards(tb.groups) }}
+    </article>
+{% endfor %}
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

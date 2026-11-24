@@ -1,0 +1,9 @@
+/* отчёт «Отчёт»: образец слева, словарь справа */
+.rp { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: clamp(32px, 5vw, 96px); align-items: start; }
+.rp--solo { grid-template-columns: minmax(0, 1040px); }
+.rp__gloss div { display: grid; gap: 4px; padding: 16px 0; border-top: 1px solid var(--line); }
+.rp__gloss dt { font-weight: 500; }
+.rp__gloss dd { color: var(--ink-2); font-size: calc(16px * var(--t-k)); }
+@media (max-width: 1020px) {
+  .rp { grid-template-columns: minmax(0, 1fr); }
+}

@@ -1,0 +1,12 @@
+/* отчёт «Словарь»: слова отчёта крупными строками, под ними образец в рамке */
+.rpn__gloss { margin: 14px 0 clamp(40px, 4vw, 64px); border-top: 1px solid var(--line); }
+.rpn__gloss div { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: baseline; gap: 6px clamp(24px, 4vw, 72px); padding: 18px 0; border-bottom: 1px solid var(--line); }
+.rpn__gloss dt { font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(24px, 2.4vw, 36px) * var(--h-k)); letter-spacing: -.035em; }
+.rpn__gloss dd { font-size: calc(clamp(17px, 1.35vw, 19px) * var(--t-k)); color: var(--ink-2); }
+.rpn__frame { margin-left: auto; width: min(100%, 1040px); padding: clamp(16px, 3vw, 48px); border-radius: calc(var(--r-lg) + 8px); background: var(--vec-soft); }
+.rpn__frame--solo { margin-left: 0; }
+.rpn__frame .rep { border-color: transparent; }
+@media (max-width: 640px) {
+  .rpn__gloss div { grid-template-columns: minmax(0, 1fr); }
+  .rpn__frame { padding: 10px; border-radius: var(--r-lg); }
+}

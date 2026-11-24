@@ -1,0 +1,21 @@
+/* ---------- первый экран «Панель»: синяя панель, справа белая карточка с фактами ---------- */
+.phn__box { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 3.4vw, 64px); align-items: stretch; padding: clamp(28px, 4vw, 72px); border-radius: var(--r-lg); background: var(--vec); color: var(--ink); }
+.phn__main { display: flex; flex-direction: column; justify-content: space-between; gap: clamp(24px, 2.6vw, 40px); min-width: 0; }
+.phn__h { font-size: calc(clamp(36px, 4.6vw, 80px) * var(--h-k)); }
+.phn__lead { color: var(--ink); }
+.phn .link { color: var(--ink); }
+.phn__card { align-self: end; padding: clamp(22px, 2.4vw, 36px); border-radius: calc(var(--r-lg) - 8px); background: var(--paper); box-shadow: 0 40px 80px -50px rgba(0, 15, 64, .6); }
+.phn__facts li { display: grid; gap: 6px; padding: 18px 0; border-top: 1px solid var(--line); }
+.phn__facts li:first-child { padding-top: 0; border-top: 0; }
+.phn__facts li:last-child { padding-bottom: 0; }
+.phn__facts .num { font-size: calc(clamp(30px, 3.2vw, 52px) * var(--h-k)); line-height: 1; color: var(--ink); }
+.phn__facts span { font-size: calc(15px * var(--t-k)); line-height: 1.4; color: var(--ink-2); }
+.phn__say { font-size: calc(clamp(18px, 1.5vw, 22px) * var(--t-k)); line-height: 1.5; color: var(--ink); }
+@media (max-width: 1020px) {
+  .phn__box { grid-template-columns: minmax(0, 1fr); }
+  .phn__card { align-self: stretch; }
+}
+@media (max-width: 560px) {
+  .phn__box { margin: 0 calc(var(--gut) * -1 + 8px); padding: 28px 20px 20px; border-radius: 24px; }
+  .phn__card { padding: 20px; border-radius: 16px; }
+}

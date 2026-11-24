@@ -1,0 +1,220 @@
+{
+  "_note": "Картинки страниц по адресу: hero (первый экран услуги), cover (обложка статьи) и другие места. src без размера и расширения: файлы src-640.webp, src-1000.webp, src-1600.webp. h: высота при ширине 1600. Картинки без текста, в цветах сайта, не скриншоты кабинетов.",
+  "/2gis/": {
+    "hero": {
+      "src": "/assets/img/pages/2gis-hero",
+      "alt": "Мужчина у пешеходного перехода зимой смотрит маршрут в телефоне",
+      "h": 1067
+    }
+  },
+  "/blog/": {
+    "hero": {
+      "src": "/assets/img/pages/blog-hero",
+      "alt": "Руки врача делают заметки в блокноте у окна",
+      "h": 1067
+    }
+  },
+  "/blog/akcii-dlya-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-akcii",
+      "alt": "Пациентка берёт открытку из конверта на стойке клиники",
+      "h": 1067
+    }
+  },
+  "/blog/brend-i-vyveska-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-brend",
+      "alt": "Макет фасада клиники с пустой вывеской и образцы цветов",
+      "h": 833
+    }
+  },
+  "/blog/crm-dlya-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-crm",
+      "alt": "Администратор работает за ноутбуком на стойке клиники",
+      "h": 1067
+    }
+  },
+  "/blog/ekonomika-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-ekonomika",
+      "alt": "Медсестра протирает кресло в кабинете в конце рабочего дня",
+      "h": 1067
+    }
+  },
+  "/blog/kak-otkryt-stomatologiyu/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-otkryt",
+      "alt": "Новый кабинет стоматологии после ремонта, кресло ещё в плёнке",
+      "h": 1067
+    }
+  },
+  "/blog/kak-otvechat-na-otzyvy-pacientov/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-otzyvy",
+      "alt": "Сотрудница клиники пишет ответ в телефоне",
+      "h": 1067
+    }
+  },
+  "/blog/kak-privlech-pacientov-v-stomatologiyu/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-privlech",
+      "alt": "Пациенты ждут приёма в холле стоматологии",
+      "h": 917
+    }
+  },
+  "/blog/nazvanie-dlya-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-nazvanie",
+      "alt": "Пустые карточки с набросками на столе",
+      "h": 1067
+    }
+  },
+  "/blog/prodazhi-v-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-prodazhi",
+      "alt": "Врач объясняет пациенту план лечения на модели челюсти",
+      "h": 1067
+    }
+  },
+  "/blog/reklama-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-reklama",
+      "alt": "Женщина с телефоном на эскалаторе метро",
+      "h": 901
+    }
+  },
+  "/blog/skripty-administratora-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-skripty",
+      "alt": "Администраторы клиники у стойки регистрации, одна говорит по телефону",
+      "h": 1067
+    }
+  },
+  "/blog/socseti-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-socseti",
+      "alt": "Врач записывает видео на телефон, коллега проверяет кадр",
+      "h": 1067
+    }
+  },
+  "/blog/trebovaniya-k-sajtu-medorganizacii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-trebovaniya",
+      "alt": "Папка с чистыми листами и очки рядом с закрытым ноутбуком",
+      "h": 1067
+    }
+  },
+  "/blog/utp-stomatologii/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-utp",
+      "alt": "Синяя зубная щётка среди белых в стаканах на полке",
+      "h": 1067
+    }
+  },
+  "/blog/voronka-i-pokazateli-kliniki/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-voronka",
+      "alt": "Пациентка идёт из зоны ожидания в кабинет, медсестра открывает дверь",
+      "h": 1067
+    }
+  },
+  "/blog/yandex-biznes-dlya-kliniki/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-yabiznes",
+      "alt": "Мужчина с телефоном у входа в клинику вечером",
+      "h": 1067
+    }
+  },
+  "/blog/zakon-o-reklame-medicinskih-uslug/": {
+    "cover": {
+      "src": "/assets/img/pages/blog-zakon",
+      "alt": "Закрытая синяя книга, очки и перьевая ручка на столе",
+      "h": 1067
+    }
+  },
+  "/geo-prodvizhenie/": {
+    "hero": {
+      "src": "/assets/img/pages/geo-hero",
+      "alt": "Мужчина на кухне задаёт вопрос голосовому помощнику в телефоне",
+      "h": 1067
+    }
+  },
+  "/kejsy/": {
+    "hero": {
+      "src": "/assets/img/pages/kejsy-hero",
+      "alt": "Модель челюсти, блокнот, ручка, телефон и кофе на светлом столе",
+      "h": 1067
+    }
+  },
+  "/kompleksnyj-marketing/": {
+    "hero": {
+      "src": "/assets/img/pages/kompleks-hero",
+      "alt": "Главный врач и маркетолог обсуждают план за столом",
+      "h": 1067
+    }
+  },
+  "/kontakty/": {
+    "hero": {
+      "src": "/assets/img/pages/kontakty-hero",
+      "alt": "Вид из окна офиса на набережную Санкт-Петербурга",
+      "h": 1067
+    }
+  },
+  "/lidy-dlya-stomatologii/": {
+    "hero": {
+      "src": "/assets/img/pages/lidy-hero",
+      "alt": "Администратор клиники в гарнитуре записывает пациента",
+      "h": 1067
+    }
+  },
+  "/medicinskij-marketing/": {
+    "hero": {
+      "src": "/assets/img/pages/med-hero",
+      "alt": "Светлый коридор многопрофильного медицинского центра",
+      "h": 1067
+    }
+  },
+  "/otzyvy-i-reputaciya/": {
+    "hero": {
+      "src": "/assets/img/pages/otzyvy-hero",
+      "alt": "Пациент благодарит администратора у стойки клиники",
+      "h": 1067
+    }
+  },
+  "/prodoktorov/": {
+    "hero": {
+      "src": "/assets/img/pages/prodoktorov-hero",
+      "alt": "Стоматолог в синей форме в светлом кабинете",
+      "h": 1067
+    }
+  },
+  "/sajt-dlya-stomatologii/": {
+    "hero": {
+      "src": "/assets/img/pages/sajt-hero",
+      "alt": "Светлая стойка регистрации стоматологии утром",
+      "h": 1067
+    }
+  },
+  "/seo-dlya-stomatologii/": {
+    "hero": {
+      "src": "/assets/img/pages/seo-hero",
+      "alt": "Женщина вечером дома читает с планшета",
+      "h": 1067
+    }
+  },
+  "/yandex-direkt/": {
+    "hero": {
+      "src": "/assets/img/pages/direkt-hero",
+      "alt": "Женщина в зоне ожидания стоматологии смотрит в телефон",
+      "h": 1067
+    }
+  },
+  "/yandex-karty/": {
+    "hero": {
+      "src": "/assets/img/pages/karty-hero",
+      "alt": "Вход в стоматологию на первом этаже жилого дома вечером",
+      "h": 1067
+    }
+  }
+}

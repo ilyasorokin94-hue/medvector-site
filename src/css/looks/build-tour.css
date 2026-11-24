@@ -1,0 +1,26 @@
+/* что собираем «Разворот»: образец во всю ширину, картинка и текст меняются местами, сроки строками */
+.bdt { display: grid; gap: clamp(40px, 5vw, 80px); }
+.bdt__i { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 28px clamp(32px, 5vw, 96px); align-items: center; }
+.bdt__i--r .bdt__pic { order: 2; }
+.bdt__pic { display: grid; place-items: center; min-height: clamp(300px, 30vw, 440px); padding: clamp(24px, 3vw, 48px); border-radius: var(--r-lg); background: var(--fog); overflow: hidden; }
+.sec--fog .bdt__pic { background: var(--paper); }
+.bdt__pic--phone { background: var(--ink); }
+.sec--fog .bdt__pic--phone { background: var(--ink); }
+.bdt__pic--phone .art--phone { box-shadow: 0 0 0 1.5px #3a4466, 0 40px 70px -30px rgba(0, 0, 0, .7); transform: rotate(-4deg); }
+.bdt__pic .art--tree, .bdt__pic .art--flow { width: 100%; max-width: 420px; }
+.bdt__h { margin-bottom: 14px; font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(28px, 2.8vw, 44px) * var(--h-k)); line-height: 1.05; letter-spacing: -.035em; }
+.bdt__txt p { max-width: 520px; font-size: calc(clamp(17px, 1.35vw, 19px) * var(--t-k)); line-height: 1.55; color: var(--ink-2); }
+.bdt__days { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 20px clamp(32px, 5vw, 96px); margin-top: clamp(56px, 6vw, 96px); }
+.bdd li { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 6fr); gap: 6px 24px; padding: 18px 0; border-top: 1px solid var(--line); }
+.bdd li:last-child { border-bottom: 1px solid var(--line); }
+.bdd__when { font-size: calc(15px * var(--t-k)); color: var(--vec-ink); }
+.bdd__h { font-size: calc(18px * var(--t-k)); font-weight: 500; }
+.bdd p { font-size: calc(16px * var(--t-k)); color: var(--ink-2); }
+@media (max-width: 1020px) {
+  .bdt__i, .bdt__days { grid-template-columns: minmax(0, 1fr); }
+  .bdt__i--r .bdt__pic { order: 0; }
+}
+@media (max-width: 640px) {
+  .bdd li { grid-template-columns: minmax(0, 1fr); }
+  .bdt__pic { min-height: 260px; }
+}

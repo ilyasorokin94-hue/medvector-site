@@ -1,0 +1,43 @@
+{
+  "_note": "Особые секции: первый тест Директа, вкладки направлений, подготовка к запуску, отчёт, стартовый пакет, карточка до и после, кейсы, работы, основатель, контакты, группы запросов. Первый вид в тройке стоит на сайте по умолчанию.",
+  "types": {
+    "offer": ["bill", "zero", "weeks"],
+    "tabs": ["pills", "side", "stack"],
+    "qrows": ["rows", "cards", "pairs"],
+    "build": ["cards", "tour", "stage"],
+    "report": ["side", "focus", "notes"],
+    "plan": ["months", "ledger", "cards"],
+    "mapbox": ["pair", "curtain", "deck"],
+    "cases": ["rows", "cards", "headline"],
+    "works": ["tiles", "rail", "index"],
+    "founder": ["letter", "portrait", "word"],
+    "contacts": ["list", "card", "band"]
+  },
+  "pages": {
+    "/kejsy/": { "report": ["focus", "side", "notes"] }
+  },
+  "names": {
+    "offer-zero": "Ноль",
+    "offer-weeks": "Две недели",
+    "tabs-side": "Боковое меню",
+    "tabs-stack": "Все подряд",
+    "qrows-cards": "Карточки",
+    "qrows-pairs": "Запрос и ответ",
+    "build-tour": "Разворот",
+    "build-stage": "Экран",
+    "report-focus": "Крупно",
+    "report-notes": "Словарь",
+    "plan-ledger": "Таблица",
+    "plan-cards": "Три карточки",
+    "mapbox-curtain": "Шторка",
+    "mapbox-deck": "Колода",
+    "cases-cards": "Карточки",
+    "cases-headline": "Заголовки",
+    "works-rail": "Лента",
+    "works-index": "Указатель",
+    "founder-portrait": "Портрет",
+    "founder-word": "Слово основателя",
+    "contacts-card": "Визитка",
+    "contacts-band": "Полоса"
+  }
+}

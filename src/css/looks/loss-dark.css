@@ -1,0 +1,19 @@
+/* потери «Тёмный список»: заголовок закреплён слева, справа крупные формулировки */
+.lodr { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
+.lodr__head { grid-column: 1 / 6; }
+.lodr__stick { position: sticky; top: calc(var(--hdr) + 40px); }
+.lodr__head .h2 { font-size: calc(clamp(32px, 3.7vw, 58px) * var(--h-k)); }
+.lodr__note { margin-top: 24px; max-width: 420px; font-size: calc(17px * var(--t-k)); line-height: 1.5; color: var(--on-dark-2); }
+.lodr__list { grid-column: 7 / 13; border-top: 1px solid var(--line-dark); }
+.lodr__i { display: grid; gap: 14px; padding: clamp(28px, 3vw, 44px) 0; border-bottom: 1px solid var(--line-dark); }
+.lodr__t { font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(24px, 2.3vw, 34px) * var(--h-k)); line-height: 1.12; letter-spacing: -.03em; text-wrap: balance; }
+.lodr__ex { color: var(--on-dark-2); }
+.lodr__fix { display: grid; gap: 4px; margin-top: 6px; padding-left: 18px; border-left: 2px solid var(--vec-dark); font-weight: 500; line-height: 1.45; }
+.lodr__fix small { font-size: 13px; font-weight: 400; color: var(--vec-dark); }
+.lodr__own { grid-column: 7 / 13; }
+.lodr__own:empty { display: none; }
+@media (max-width: 960px) {
+  .lodr { display: block; }
+  .lodr__stick { position: static; }
+  .lodr__head { margin-bottom: clamp(36px, 6vw, 56px); }
+}

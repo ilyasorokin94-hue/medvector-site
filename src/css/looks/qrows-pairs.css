@@ -1,0 +1,12 @@
+/* группы запросов «Запрос и ответ»: запрос в строке поиска слева, ответ справа */
+.qrp { display: grid; gap: 12px; }
+.qrp__i { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); align-items: center; gap: 12px clamp(24px, 4vw, 72px); padding: 14px 0 22px; border-bottom: 1px solid var(--line); }
+.qrp__h { margin-bottom: 10px; font-size: calc(15px * var(--t-k)); font-weight: 500; color: var(--ink-3); }
+.qrp__q { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 10px 22px; border-radius: 28px; background: var(--paper); box-shadow: 0 0 0 1px var(--line), 0 18px 36px -28px rgba(0, 15, 64, .4); font-size: calc(16.5px * var(--t-k)); line-height: 1.35; color: var(--ink); }
+.sec:not(.sec--fog) .qrp__q { background: var(--fog); box-shadow: none; }
+.qrp__q .art__glass { flex: none; }
+.qrp__a { font-size: calc(17px * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+@media (max-width: 860px) {
+  .qrp__i { grid-template-columns: minmax(0, 1fr); }
+  .qrp__q { border-radius: 20px; }
+}

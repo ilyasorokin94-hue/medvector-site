@@ -1,0 +1,248 @@
+{
+  "_note": "Группа «списки»: виды секций loss, spec, links, demo. Первый в тройке стоит по умолчанию.",
+  "types": {
+    "loss": [
+      "rows",
+      "deck",
+      "dark"
+    ],
+    "spec": [
+      "grid",
+      "bento",
+      "sticky"
+    ],
+    "links": [
+      "rows",
+      "cards",
+      "big"
+    ],
+    "demo": [
+      "mock",
+      "stage",
+      "phone"
+    ]
+  },
+  "pages": {
+    "/yandex-direkt/": {
+      "loss": [
+        "index",
+        "rows",
+        "strip"
+      ],
+      "check": [
+        "sheet",
+        "grid",
+        "sticky"
+      ],
+      "work": [
+        "sticky",
+        "bento",
+        "dark"
+      ]
+    },
+    "/yandex-karty/": {
+      "problems": [
+        "deck",
+        "rows",
+        "index"
+      ],
+      "card": [
+        "bento",
+        "sheet",
+        "grid"
+      ],
+      "together": [
+        "rows",
+        "dark",
+        "photo"
+      ]
+    },
+    "/2gis/": {
+      "mistakes": [
+        "strip",
+        "deck",
+        "rows"
+      ]
+    },
+    "/geo-prodvizhenie/": {
+      "errors": [
+        "dark",
+        "index",
+        "deck"
+      ],
+      "work": [
+        "bento",
+        "grid",
+        "dark"
+      ]
+    },
+    "/lidy-dlya-stomatologii/": {
+      "why": [
+        "rows",
+        "dark",
+        "strip"
+      ],
+      "cost": [
+        "sticky",
+        "dark",
+        "grid"
+      ],
+      "sources": [
+        "dark",
+        "cards",
+        "rows"
+      ]
+    },
+    "/medicinskij-marketing/": {
+      "where": [
+        "index",
+        "deck",
+        "dark"
+      ],
+      "clinics": [
+        "dark",
+        "bento",
+        "grid"
+      ],
+      "services": [
+        "cards",
+        "big",
+        "photo"
+      ]
+    },
+    "/otzyvy-i-reputaciya/": {
+      "blocks": [
+        "deck",
+        "strip",
+        "dark"
+      ],
+      "places": [
+        "grid",
+        "bento",
+        "sheet"
+      ]
+    },
+    "/prodoktorov/": {
+      "why": [
+        "dark",
+        "rows",
+        "index"
+      ],
+      "who": [
+        "sticky",
+        "grid",
+        "bento"
+      ],
+      "other": [
+        "bento",
+        "dark",
+        "sheet"
+      ]
+    },
+    "/sajt-dlya-stomatologii/": {
+      "best": [
+        "strip",
+        "index",
+        "rows"
+      ],
+      "law": [
+        "sheet",
+        "sticky",
+        "grid"
+      ],
+      "together": [
+        "big",
+        "cards",
+        "dark"
+      ],
+      "included": [
+        "mock",
+        "stage",
+        "phone"
+      ]
+    },
+    "/seo-dlya-stomatologii/": {
+      "why": [
+        "rows",
+        "dark",
+        "deck"
+      ],
+      "medical": [
+        "sticky",
+        "dark",
+        "bento"
+      ],
+      "together": [
+        "dark",
+        "big",
+        "rows"
+      ]
+    },
+    "/kompleksnyj-marketing/": {
+      "team": [
+        "grid",
+        "dark",
+        "bento"
+      ],
+      "site": [
+        "stage",
+        "mock",
+        "phone"
+      ]
+    },
+    "/kontakty/": {
+      "services": [
+        "big",
+        "rows",
+        "cards"
+      ]
+    },
+    "/blog/": {
+      "ads": [
+        "photo",
+        "cards",
+        "big"
+      ],
+      "maps": [
+        "big",
+        "photo",
+        "dark"
+      ],
+      "law": [
+        "dark",
+        "photo",
+        "big"
+      ],
+      "manage": [
+        "rows",
+        "photo",
+        "big"
+      ],
+      "opening": [
+        "cards",
+        "photo",
+        "big"
+      ]
+    }
+  },
+  "names": {
+    "loss-rows": "Строки",
+    "loss-deck": "Карточки",
+    "loss-dark": "Тёмный список",
+    "loss-index": "Указатель",
+    "loss-strip": "Лента",
+    "spec-grid": "Сетка",
+    "spec-bento": "Мозаика",
+    "spec-sticky": "Колонка",
+    "spec-sheet": "Чек-лист",
+    "spec-dark": "Тёмная сетка",
+    "links-rows": "Строки ссылок",
+    "links-cards": "Сетка карточек",
+    "links-big": "Крупный список",
+    "links-dark": "Тёмные плитки",
+    "demo-mock": "Макет",
+    "demo-stage": "Витрина",
+    "demo-phone": "Телефон",
+    "links-photo": "С обложками"
+  }
+}

@@ -1,0 +1,44 @@
+/* ---------- первый экран «Фото»: тёмный экран под прозрачной шапкой, фото или схема-радар, текст слева внизу ---------- */
+/* фото 3:2, человек справа, слева спокойное место под текст */
+.phf { display: flex; min-height: min(max(640px, 92svh), 960px); padding: clamp(28px, 3vw, 48px) 0 clamp(32px, 3.4vw, 52px); overflow: hidden; }
+main > .phf:first-child { margin-top: calc(-1 * var(--hdr)); padding-top: calc(var(--hdr) + clamp(20px, 2.4vw, 36px)); border-radius: 0 0 var(--r-lg) var(--r-lg); }
+.phf__bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; border-radius: inherit; }
+.phf__img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 70% 40%; }
+.phf--img .phf__bg::before, .phf--img .phf__bg::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+.phf--img .phf__bg::before { background: linear-gradient(90deg, rgba(0, 15, 64, .94) 0, rgba(0, 15, 64, .78) 30%, rgba(0, 15, 64, .26) 62%, rgba(0, 15, 64, .06) 100%); }
+.phf--img .phf__bg::after { background: linear-gradient(180deg, rgba(0, 15, 64, .6) 0, rgba(0, 15, 64, 0) 20%, rgba(0, 15, 64, 0) 64%, rgba(0, 15, 64, .82) 90%, var(--ink) 100%); }
+.phf__radar { position: absolute; right: -6%; top: 50%; width: min(74vw, 1000px); height: auto; translate: 0 -50%; }
+.phf__radar circle, .phf__radar path { fill: none; stroke: rgba(183, 192, 220, .2); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.phf__radar path { stroke: rgba(183, 192, 220, .1); }
+.phf__radar .phf__ring { stroke: rgba(42, 168, 242, .45); stroke-dasharray: 2 9; transform-origin: 300px 300px; animation: phf-turn 120s linear infinite; }
+.phf__radar .phf__pts circle { fill: rgba(183, 192, 220, .55); stroke: none; }
+.phf__radar .phf__me { fill: var(--vec-dark); stroke: var(--ink); stroke-width: 4; }
+@keyframes phf-turn { to { transform: rotate(360deg); } }
+.phf__grid { position: relative; z-index: 2; flex: 1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto 1fr auto auto auto; column-gap: 24px; width: 100%; }
+.phf .crumbs { grid-column: 1 / -1; }
+.phf--img .crumbs { color: rgba(255, 255, 255, .84); }
+.phf__h { grid-column: 1 / 9; grid-row: 3; align-self: end; max-width: 12em; font-size: calc(clamp(38px, 5.4vw, 92px) * var(--h-k)); color: #fff; }
+.phf__say { grid-column: 1 / 7; grid-row: 4; margin-top: clamp(22px, 2.2vw, 32px); }
+.phf__say .ph__lead { max-width: 600px; margin-bottom: clamp(24px, 2.4vw, 32px); color: rgba(255, 255, 255, .88); }
+.phf .ph__facts { grid-column: 1 / -1; grid-row: 5; }
+.phf--img .terms span { color: rgba(255, 255, 255, .8); }
+@media (max-width: 1020px) {
+  .phf__h { grid-column: 1 / -1; }
+  .phf__say { grid-column: 1 / 11; }
+}
+/* на телефоне фото сверху, текст ниже на тёмном */
+@media (max-width: 720px) {
+  .phf { min-height: 0; }
+  main > .phf:first-child { padding-top: calc(var(--hdr) + 16px); }
+  .phf--img .phf__grid { grid-template-rows: auto minmax(200px, 44svh) auto auto auto; }
+  .phf--img .phf__bg { bottom: auto; height: calc(var(--hdr) + 16px + 44svh + 140px); border-radius: 0; }
+  .phf--img .phf__img { object-position: 74% 30%; }
+  .phf--img .phf__bg::before { background: linear-gradient(90deg, rgba(0, 15, 64, .55) 0, rgba(0, 15, 64, 0) 70%); }
+  .phf--img .phf__bg::after { background: linear-gradient(180deg, rgba(0, 15, 64, .7) 0, rgba(0, 15, 64, 0) 22%, rgba(0, 15, 64, 0) 52%, var(--ink) 92%); }
+  .phf:not(.phf--img) .phf__grid { grid-template-rows: auto minmax(150px, 24svh) auto auto auto; }
+  .phf__radar { right: -42%; top: 20%; width: 125vw; }
+  .phf__say { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .phf__radar .phf__ring { animation: none; }
+}

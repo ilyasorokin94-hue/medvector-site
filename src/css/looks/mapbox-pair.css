@@ -1,0 +1,18 @@
+/* карточка до и после «Пара»: две карточки рядом, справа что меняем */
+.mb { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(32px, 5vw, 88px); align-items: start; }
+.mb__pic { position: sticky; top: calc(var(--hdr) + 32px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; padding: clamp(20px, 3vw, 44px); border-radius: var(--r-lg); background: linear-gradient(160deg, var(--vec-soft), var(--fog)); }
+.sec--fog .mb__pic { background: linear-gradient(160deg, var(--vec-soft), #fff); }
+.mb__pic figure { display: grid; gap: 10px; justify-items: center; }
+.mb__pic figure:first-child { transform: scale(.96); }
+/* бледнеет только картинка «до», подпись остаётся читаемой */
+.mb__pic figure:first-child .art--map { opacity: .75; }
+.mb__pic figcaption { justify-self: start; font-size: 14px; color: var(--ink-3); }
+.mb__pic .art--map { width: 100%; }
+.sg--one { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 1020px) {
+  .mb { grid-template-columns: minmax(0, 1fr); }
+  .mb__pic { position: relative; top: 0; }
+}
+@media (max-width: 460px) {
+  .mb__pic { grid-template-columns: minmax(0, 1fr); }
+}

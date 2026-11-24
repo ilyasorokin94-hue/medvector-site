@@ -16,7 +16,11 @@
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="{{ 'article' if layout == 'article.njk' else 'website' }}">
+{% if layout == 'article.njk' and datePublished %}
+<meta property="article:published_time" content="{{ datePublished }}">
+<meta property="article:modified_time" content="{{ dateModified or datePublished }}">
+{% endif %}
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="МедВектор">
 <meta property="og:title" content="{{ ogTitle or title }}">
@@ -27,19 +31,27 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- свои шрифты: два нужных для первого экрана грузятся заранее -->
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/onest-cyrillic-wght-normal.woff2" crossorigin>
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/playfair-display-cyrillic-400-italic.woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/trajectory.css">
-<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/geologica-latin-text.woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/pages.css">
+{% block preload %}
+{# первый экран «Фото»: картинка грузится сразу вместе со стилями, это самый крупный элемент первого экрана #}
+{% set heroArt = (pageart[page.url] or {}).hero %}
+{% if heroArt and hero and not pick and chosen(page.url, { type: 'hero', id: 'intro' }) == 'photo' %}
+<link rel="preload" as="image" href="{{ heroArt.src }}-1000.webp" imagesrcset="{{ heroArt.src }}-640.webp 640w, {{ heroArt.src }}-1000.webp 1000w, {{ heroArt.src }}-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">
+{% endif %}
+{% endblock %}
+<!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
+<script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
 {% block jsonld %}
 <script type="application/ld+json">
-{{ jsonld(site, page, title, description, crumbs, service, faq) | safe }}
+{{ jsonld(site, page, title, description, crumbs, service, faq, { headline: h1, published: datePublished, modified: dateModified } if layout == 'article.njk' and datePublished else null) | safe }}
 </script>
 {% endblock %}
 </head>
-<body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+<body class="pg{% if pick %} is-pick{% endif %}{% if pick == 'all' %} is-pick-all{% endif %}{% if bodyClass %} {{ bodyClass }}{% endif %}">
 <a class="skip" href="#main">К содержимому</a>
 {% include "header-t.njk" %}
 
@@ -50,10 +62,10 @@
 {% include "footer-t.njk" %}
 {% if form != false %}
 <!-- нижняя кнопка на телефоне -->
-<a href="#start" class="mcta"><span>{{ mctaText or 'Начать бесплатно' }}</span></a>
+<a href="#start" class="mcta" data-magnetic><span>{{ mctaText or 'Разобрать клинику' }}</span></a>
 {% endif %}
 
 <script src="/assets/js/vendor/lenis.min.js" defer></script>
-<script src="/assets/js/trajectory.js" defer></script>
+<script src="/assets/js/pages.js" defer></script>
 </body>
 </html>

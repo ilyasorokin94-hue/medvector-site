@@ -1,0 +1,17 @@
+/* потери «Карточки»: две колонки, сверху проблема, снизу тёмная полоса с решением */
+.lodk { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 1.8vw, 24px); }
+.lodk__i { display: flex; flex-direction: column; overflow: hidden; border-radius: var(--r-lg); background: var(--fog); }
+.sec--fog .lodk__i { background: var(--paper); }
+.lodk__top { display: grid; align-content: start; gap: 12px; padding: clamp(26px, 2.6vw, 40px) clamp(24px, 2.6vw, 40px) clamp(24px, 2.4vw, 32px); }
+.lodk__top p { color: var(--ink-2); }
+.lodk__fix { display: grid; gap: 6px; margin-top: auto; padding: 20px clamp(24px, 2.6vw, 40px) 24px; background: var(--ink); color: #fff; font-weight: 500; line-height: 1.45; }
+.lodk__fix small { font-size: 13px; font-weight: 400; color: var(--vec-dark); }
+/* нечётная последняя карточка во всю ширину: проблема слева, решение справа */
+.lodk__i:last-child:nth-child(odd) { grid-column: 1 / -1; flex-direction: row; }
+.lodk__i:last-child:nth-child(odd) .lodk__top { flex: 1 1 58%; }
+.lodk__i:last-child:nth-child(odd) .lodk__fix { flex: 1 1 42%; align-content: center; margin-top: 0; }
+@media (max-width: 860px) {
+  .lodk { grid-template-columns: minmax(0, 1fr); }
+  .lodk__i:last-child:nth-child(odd) { flex-direction: column; }
+  .lodk__i:last-child:nth-child(odd) .lodk__fix { margin-top: auto; }
+}

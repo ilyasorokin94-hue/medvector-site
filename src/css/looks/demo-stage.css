@@ -1,0 +1,24 @@
+/* сайт на образце «Витрина»: крупный экран на широкой подложке, пункты в три колонки под ним */
+.dmst__pic { position: relative; padding: clamp(28px, 4.4vw, 72px) clamp(20px, 4vw, 64px) 0; border-radius: var(--r-lg); background: var(--vec-soft); overflow: hidden; }
+.sec--fog .dmst__pic { background: var(--paper); }
+.dmst__screen { position: relative; max-width: 720px; margin: 0 auto; }
+.dmst__screen .art--browser { max-width: none; border-bottom: 0; border-radius: var(--r) var(--r) 0 0; box-shadow: 0 40px 80px -50px rgba(0, 15, 64, .45); }
+.dmst__screen .art--phone { position: absolute; right: -40px; bottom: -36px; transform: rotate(-3deg); }
+@media (min-width: 1100px) {
+  .dmst__screen { zoom: 1.28; }
+}
+.dmst__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(24px, 3vw, 48px); margin-top: clamp(36px, 4vw, 56px); }
+.dmst__i { display: grid; align-content: start; gap: 8px; padding: 22px 0 26px; border-top: 1px solid var(--line); }
+.dmst__h { font-size: calc(clamp(19px, 1.5vw, 22px) * var(--t-k)); font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
+.dmst__i p { color: var(--ink-2); }
+@media (max-width: 960px) {
+  .dmst__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dmst__screen .art--phone { right: -8px; }
+}
+@media (max-width: 600px) {
+  .dmst__list { grid-template-columns: minmax(0, 1fr); }
+  .dmst__screen .art--phone { width: 128px; right: -14px; bottom: -48px; }
+  .dmst__screen .pn b { font-size: 13px; }
+  .dmst__screen .br__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dmst__screen .br__cards span:nth-child(3) { display: none; }
+}

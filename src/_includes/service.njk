@@ -1,0 +1,13 @@
+{# Страница услуги, собранная из секций. Тексты и порядок секций задаются в шапке файла страницы (sections).
+   Виды секций: loss, spec, steps, deflist, demo, cmp, yesno, qrows, pack, links; у каждой три варианта подачи (src/_includes/looks, src/_data/looks.json). #}
+{% extends "base.njk" %}
+
+{% block main %}
+{% import "sec.njk" as S %}
+{{ S.section({ type: 'hero', id: 'intro', h: hero, crumbs: crumbs, page: section, art: pageart[page.url] }, page.url) }}
+{{ S.list(sections, page.url) }}
+{% if faq %}
+{{ S.section({ type: 'faq', id: 'faq', title: faqTitle or 'Вопросы и ответы', note: 'Не нашли ответ? Задайте вопрос в заявке, ответим в рабочее время.', items: faq, tone: 'fog' if sections.length % 2 == 0 else '' }, page.url) }}
+{% endif %}
+{{ S.section({ type: 'start', id: 'start', d: start or {} }, page.url) }}
+{% endblock %}

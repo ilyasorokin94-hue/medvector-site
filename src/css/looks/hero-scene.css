@@ -1,0 +1,15 @@
+/* ---------- первый экран «Сцена»: слева текст, справа рисунок услуги ---------- */
+.phs__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: center; }
+.phs__text { grid-column: 1 / 7; }
+.phs__h { font-size: calc(clamp(36px, 4.5vw, 76px) * var(--h-k)); }
+.phs__lead { margin: clamp(22px, 2.2vw, 32px) 0 clamp(26px, 2.6vw, 38px); }
+.phs__stage { grid-column: 8 / 13; position: relative; container-type: inline-size; aspect-ratio: 1 / 1.02; overflow: hidden; border-radius: var(--r-lg); background: var(--vec-soft); }
+.phs .ph__facts { margin-top: clamp(48px, 5vw, 80px); }
+@media (max-width: 1020px) {
+  .phs__text, .phs__stage { grid-column: 1 / -1; }
+  .phs__stage { width: 100%; max-width: 560px; margin-top: 40px; }
+}
+@media (max-width: 560px) {
+  .phs__stage { aspect-ratio: 1 / 1.1; border-radius: 24px; }
+  .phs__stage .ha { font-size: 3cqw; }
+}

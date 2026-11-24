@@ -1,0 +1,40 @@
+<!-- «Ночная витрина»: тёмный экран, имя агентства во всю ширину, стеклянный зуб поверх букв -->
+<section class="sec sec--dark sec--top dark" id="hero" data-line="dark">
+  <div class="sec__body hv hv2 dark">
+    <!-- фон первого экрана: врачи за работой. На компьютере широкий ролик, на телефоне вертикальный, только при обычной связи -->
+    <div class="hv2__film" data-hero-film="hero" aria-hidden="true"><video class="hv2__v" muted playsinline loop preload="none" tabindex="-1"></video></div>
+    <!-- на компьютере ролик ставится сразу, ещё до первой отрисовки: экран открывается уже с врачами, без задержки.
+         На телефоне сразу ставится только лёгкий кадр-заставка, сам ролик догружается после страницы -->
+    <script>(function () { var b = document.querySelector('[data-hero-film]'), v = b && b.firstChild, c = navigator.connection || {}, m = function (q) { return matchMedia(q).matches; }, l = document.querySelector('link[href*="home.css"]');
+      var wide = innerWidth > 1020 && m('(hover: hover) and (pointer: fine)'), small = innerWidth < 601;
+      if (!v || !v.canPlayType || !(wide || small) || m('(prefers-reduced-motion: reduce)') || c.saveData || /2g|3g/.test(c.effectiveType || '')) return;
+      var n = (l ? l.getAttribute('href').replace(/css\/[^/]*$/, 'video/') : 'assets/video/') + b.getAttribute('data-hero-film') + (small ? '-m' : '');
+      v.poster = n + '.webp'; b.classList.add('is-on', 'is-early'); b.parentNode.classList.add('is-film', 'is-early'); if (small) return;
+      v.preload = 'auto'; v.src = n + (v.canPlayType('video/webm; codecs="vp9"') ? '.webm' : '.mp4');
+      var p = v.play(); if (p && p.catch) p.catch(function () {}); })();</script>
+    <div class="wrap hv2__grid">
+      <p class="label hv2__label" data-rv="fade"><span>Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург</span></span></p>
+      <div class="hv2__stage">
+        <p class="hv2__wm" data-fit data-fit-max="32" aria-hidden="true"><span><b>МедВектор</b><span class="hv2__glass">МедВектор</span></span></p>
+        <i data-vp data-vp-node class="hv2__a"></i>
+      </div>
+      <h1 class="h2 rvh hv2__h">
+        <span class="ln" style="--l:0"><span>Ведём пациента от&nbsp;запроса</span></span>
+        <span class="ln" style="--l:1"><span>до&nbsp;записи к&nbsp;врачу</span></span>
+      </h1>
+      <div class="hv2__say" data-rv style="--d:3">
+        <p class="lead">Реклама в&nbsp;Яндекс Директе на&nbsp;имплантацию, <span class="nw">All-on-4</span> и&nbsp;ортодонтию. Сайт, Яндекс Карты, 2ГИС и&nbsp;ПроДокторов под ключ.</p>
+        <div class="hv__acts">
+          <a href="#start" class="btn btn--light" data-magnetic>Разобрать клинику</a>
+          <a href="#cases" class="link">Смотреть кейсы</a>
+        </div>
+      </div>
+      <ul class="terms hv2__terms" data-rv style="--d:5">
+        <li><b class="num">0&nbsp;₽</b><span>агентству на&nbsp;первом тесте Директа</span></li>
+        <li><b class="num">4 дня</b><span>максимум от&nbsp;доступов до&nbsp;запуска рекламы</span></li>
+        <li><b class="num">Каждую неделю</b><span>отчёт и&nbsp;созвон с&nbsp;менеджером</span></li>
+      </ul>
+      <i data-vp data-vp-r="z" data-vp-f="0.04" class="vp vp--rb"></i>
+    </div>
+  </div>
+</section>

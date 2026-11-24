@@ -1,0 +1,27 @@
+/* шаги «Рельс»: заголовок закреплён слева, шаги на вертикальной линии справа; линия и точки заполняются по мере чтения */
+.stpr { --srl-bg: var(--paper); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.sec--fog .stpr { --srl-bg: var(--fog); }
+.stpr__head { grid-column: 1 / 6; position: sticky; top: calc(var(--hdr) + 32px); }
+.stpr__head-note { margin-top: 22px; max-width: 440px; font-size: calc(17px * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+.stpr__list { --q: 1; grid-column: 7 / 13; position: relative; display: grid; padding-left: 52px; }
+.js .stpr__list { --q: 0; }
+.stpr__list::before, .stpr__list::after { content: ''; position: absolute; left: 8px; top: 10px; bottom: 10px; width: 1px; background: var(--line); }
+.stpr__list::after { width: 2px; left: 7.5px; background: var(--vec); transform: scaleY(var(--q)); transform-origin: top; }
+.stpr__i { position: relative; padding-bottom: clamp(36px, 4.2vw, 60px); }
+.stpr__i:last-child { padding-bottom: 0; }
+.stpr__i::before { content: ''; position: absolute; z-index: 1; left: -52px; top: 4px; width: 13px; height: 13px; border: 2px solid var(--line); border-radius: 50%; background: var(--srl-bg); transition: border-color .5s var(--ease), background-color .5s var(--ease); }
+.stpr__i.is-on::before, .no-js .stpr__i::before { border-color: var(--vec); background: var(--vec); }
+.stpr__when { margin-bottom: 8px; font-size: calc(15px * var(--t-k)); line-height: 1.3; color: var(--vec-ink); }
+.stpr__h { font-size: calc(clamp(22px, 2vw, 30px) * var(--h3-k)); font-weight: 500; line-height: 1.16; letter-spacing: var(--h3-ls); }
+.stpr__p { margin-top: 12px; max-width: 560px; font-size: calc(17px * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+@media (prefers-reduced-motion: reduce) {
+  .js .stpr__list { --q: 1; }
+  .stpr__i::before { border-color: var(--vec); background: var(--vec); }
+}
+@media (max-width: 900px) {
+  .stpr { display: block; }
+  .stpr__head { position: static; margin-bottom: 40px; }
+  .stpr__list { padding-left: 40px; }
+  .stpr__i::before { left: -40px; }
+  .stpr__p { font-size: calc(16px * var(--t-k)); }
+}

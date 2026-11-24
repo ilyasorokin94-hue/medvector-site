@@ -1,0 +1,127 @@
+{# Что собираем до запуска: три карточки с образцами и шаги подготовки. Данные: s.items [{title, text, art}], s.days [[срок, заголовок, текст]]. #}
+{% import "looks/_c.njk" as c %}
+{% import "t.njk" as a %}
+
+{% macro art(kind) %}
+{% if kind == 'phone' %}
+{{ a.a_phone('allon4') }}
+{% elif kind == 'tree' %}
+<div class="art art--tree" aria-hidden="true">
+  <b>Услуга: All-on-4</b>
+  <span class="tr">Поиск: цена<small>«под ключ», «цена», «стоимость»</small></span>
+  <span class="tr">Поиск: метод<small>сравнения и вопросы о методе</small></span>
+  <span class="tr">Поиск: город и район<small>свой район и соседние города</small></span>
+  <span class="tr">Возврат посетителей<small>были на странице 7 и 30 дней назад</small></span>
+  <span class="tr tr--off">Один имплант<small>другая услуга, свои кампании</small></span>
+</div>
+{% else %}
+<div class="art art--flow" aria-hidden="true">
+  <span class="art__top">Заявка № 128<span>страница All-on-4</span></span>
+  <span class="lf"><span class="is-done">Заявка<small>12:04</small></span><span class="is-done">Звонок<small>через 6 мин</small></span><span class="is-goal">Запись<small>на четверг</small></span><span>Визит<small>отметит клиника</small></span></span>
+  <span class="art__txt">Поиск, кампания «Цена», запрос «all on 4 цена»</span>
+</div>
+{% endif %}
+{% endmacro %}
+
+{# «Карточки»: три карточки с образцами на светлых плашках, под ними шаги подготовки линией #}
+{% macro cards(s) %}
+{{ useLook('steps', 'line') }}
+<section{{ c.attrs(s, 'lk-build-cards') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="bc">
+{% for i in s.items %}
+      <article class="bc__i" data-rv style="--d:{{ loop.index0 }}">
+        <div class="bc__pic">{{ art(i.art) }}</div>
+        <h3 class="h3">{{ i.title | t | safe }}</h3>
+        <p>{{ i.text | t | safe }}</p>
+      </article>
+{% endfor %}
+    </div>
+{% if s.days %}
+    <ol class="sl sl--{{ s.days.length }} bc__days" data-rv="fade">
+{% for r in s.days %}
+      <li class="sl__i" style="--i:{{ loop.index0 }}">
+        <span class="sl__top"><b class="sl__n">{{ loop.index }}</b><span class="sl__when">{{ r[0] | t | safe }}</span></span>
+        <span class="sl__bar" aria-hidden="true"><i></i></span>
+        <h3 class="sl__h">{{ r[1] | t | safe }}</h3>
+        <p>{{ r[2] | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ol>
+{% endif %}
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# шаги подготовки: срок слева, что делаем справа, строками #}
+{% macro dayRows(days, cls) %}
+{% if days %}
+<ol class="{{ cls }}">
+{% for r in days %}
+  <li data-rv><span class="{{ cls }}__when">{{ r[0] | t | safe }}</span><h3 class="{{ cls }}__h">{{ r[1] | t | safe }}</h3><p>{{ r[2] | t | safe }}</p></li>
+{% endfor %}
+</ol>
+{% endif %}
+{% endmacro %}
+
+{# «Разворот»: каждый образец во всю ширину, картинка и текст меняются местами, сроки строками внизу #}
+{% macro tour(s) %}
+<section{{ c.attrs(s, 'lk-build-tour') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="bdt">
+{% for i in s.items %}
+      <article class="bdt__i{% if loop.index0 % 2 %} bdt__i--r{% endif %}">
+        <div class="bdt__pic bdt__pic--{{ i.art }}" data-rv="scale">{{ art(i.art) }}</div>
+        <div class="bdt__txt" data-rv style="--d:1">
+          <h3 class="bdt__h">{{ i.title | t | safe }}</h3>
+          <p>{{ i.text | t | safe }}</p>
+        </div>
+      </article>
+{% endfor %}
+    </div>
+{% if s.days %}
+    <div class="bdt__days">
+      <h3 class="yn__h">Сроки</h3>
+      {{ dayRows(s.days, 'bdd') }}
+    </div>
+{% endif %}
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Экран»: слева закреплённый экран с образцом, он меняется, пока справа идут пункты; сроки таблицей #}
+{% macro stage(s) %}
+<section{{ c.attrs(s, 'lk-build-stage') }} data-look="build-stage">
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="bds">
+      <div class="bds__screen" aria-hidden="true">
+{% for i in s.items %}
+        <div class="bds__art{% if loop.first %} is-on{% endif %}" data-i="{{ loop.index0 }}">{{ art(i.art) }}</div>
+{% endfor %}
+      </div>
+      <ol class="bds__list">
+{% for i in s.items %}
+        <li class="bds__i{% if loop.first %} is-on{% endif %}" data-i="{{ loop.index0 }}">
+          <div class="bds__mini" aria-hidden="true">{{ art(i.art) }}</div>
+          <h3 class="bds__h">{{ i.title | t | safe }}</h3>
+          <p>{{ i.text | t | safe }}</p>
+        </li>
+{% endfor %}
+      </ol>
+    </div>
+{% if s.days %}
+    <div class="bds__days" data-rv>
+{% for r in s.days %}
+      <div class="bds__d"><span>{{ r[0] | t | safe }}</span><h3>{{ r[1] | t | safe }}</h3><p>{{ r[2] | t | safe }}</p></div>
+{% endfor %}
+    </div>
+{% endif %}
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

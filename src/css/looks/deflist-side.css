@@ -1,0 +1,20 @@
+/* крупные пункты «Сбоку»: заголовок слева держится при прокрутке, пункты справа на вертикальной линии */
+.ds { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px clamp(32px, 6vw, 112px); align-items: start; }
+.ds__side { position: sticky; top: calc(var(--hdr) + 32px); }
+.ds__h { font-size: calc(clamp(32px, 3.6vw, 58px) * var(--h-k)); }
+.ds__note { margin-top: 20px; max-width: 480px; font-size: calc(17px * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+.ds__list { position: relative; display: grid; gap: clamp(30px, 3.4vw, 48px); padding-left: 40px; }
+.ds__list::before { content: ''; position: absolute; left: 6px; top: 10px; bottom: 10px; width: 1px; background: var(--line); }
+.ds__i { position: relative; }
+.ds__i::before { content: ''; position: absolute; left: -40px; top: 7px; width: 13px; height: 13px; border: 2px solid var(--vec); border-radius: 50%; background: var(--paper); box-sizing: border-box; }
+.sec--fog .ds__i::before { background: var(--fog); }
+.ds__t { margin-bottom: 10px; font-size: calc(clamp(19px, 1.6vw, 23px) * var(--t-k)); font-weight: 500; line-height: 1.28; letter-spacing: -.015em; }
+.ds__i p { font-size: calc(17px * var(--t-k)); line-height: 1.55; color: var(--ink-2); }
+.ds__main .own { margin-top: 40px; }
+@media (max-width: 900px) {
+  .ds { grid-template-columns: minmax(0, 1fr); }
+  .ds__side { position: static; }
+  .ds__list { padding-left: 32px; }
+  .ds__i::before { left: -32px; }
+  .ds__i p { font-size: calc(16px * var(--t-k)); }
+}

@@ -1,0 +1,15 @@
+/* что остаётся у клиники «Плитки»: образцы на светлых плашках по два в ряд */
+.wk { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 24px; }
+.wk__i { display: grid; align-content: start; gap: 10px; }
+.wk__i p { color: var(--ink-2); }
+.wk__pic { display: grid; place-items: center; min-height: 340px; margin-bottom: 12px; padding: clamp(20px, 3vw, 44px); border-radius: var(--r-lg); background: linear-gradient(160deg, var(--vec-soft), var(--fog)); overflow: hidden; }
+.wk__pic--two { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.wk__pic--two .art--map { width: 100%; }
+.wk__pic--two .art--map:first-child { opacity: .75; }
+@media (max-width: 860px) {
+  .wk { grid-template-columns: minmax(0, 1fr); }
+  .wk__pic { min-height: 260px; }
+}
+@media (max-width: 460px) {
+  .wk__pic--two { grid-template-columns: minmax(0, 1fr); }
+}

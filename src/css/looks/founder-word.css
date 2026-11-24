@@ -1,0 +1,15 @@
+/* основатель «Слово основателя»: тёмный блок, первый абзац крупно, подпись с фото, команда справа */
+.fdq { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px clamp(32px, 6vw, 120px); align-items: start; }
+.fdq__main { display: grid; gap: 24px; }
+.fdq__p { max-width: 640px; font-size: calc(clamp(17px, 1.35vw, 19px) * var(--t-k)); line-height: 1.55; color: var(--on-dark-2); }
+.fdq__p--big { max-width: 760px; font-family: var(--disp); font-weight: 400; font-size: calc(clamp(24px, 2.4vw, 36px) * var(--h-k)); line-height: 1.25; letter-spacing: -.025em; color: #fff; }
+.fdq__sign { display: flex; align-items: center; gap: 16px; margin-top: 8px; padding-top: 24px; border-top: 1px solid var(--line-dark); }
+.fdq__sign img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; }
+.fdq__sign figcaption { display: grid; gap: 2px; font-size: calc(15px * var(--t-k)); color: var(--on-dark-2); }
+.fdq__sign b { font-size: calc(18px * var(--t-k)); font-weight: 500; color: #fff; }
+.fdq__sign .stub { justify-self: start; margin-top: 4px; }
+.fdq__side .ticks li { font-size: calc(17px * var(--t-k)); color: var(--on-dark-2); }
+.fdq__side .ticks b { color: #fff; font-weight: 500; }
+@media (max-width: 1020px) {
+  .fdq { grid-template-columns: minmax(0, 1fr); }
+}

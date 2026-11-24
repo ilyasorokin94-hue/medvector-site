@@ -1,0 +1,21 @@
+/* основатель «Портрет»: фото колонкой слева, текст справа, команда ниже в три колонки */
+.fdp { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 36px clamp(32px, 6vw, 120px); align-items: start; }
+.fdp__ph { display: grid; gap: 14px; justify-items: start; }
+.fdp__ph img { width: min(100%, 256px); height: auto; aspect-ratio: 1; border-radius: var(--r-lg); object-fit: cover; }
+.fdp__ph figcaption { display: grid; gap: 2px; font-size: calc(15px * var(--t-k)); color: var(--ink-3); }
+.fdp__ph b { font-size: calc(19px * var(--t-k)); font-weight: 500; color: var(--ink); }
+.fdp__txt { display: grid; gap: 22px; }
+.fdp__p { max-width: 720px; font-size: calc(clamp(18px, 1.45vw, 21px) * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+.fdp__team { margin-top: clamp(48px, 5vw, 80px); }
+.fdp__team ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 24px; margin-top: 12px; border-top: 1px solid var(--line); }
+.fdp__team li { padding: 18px 0; border-bottom: 1px solid var(--line); font-size: calc(16px * var(--t-k)); color: var(--ink-2); }
+.fdp__team li b { display: block; margin-bottom: 4px; font-weight: 500; color: var(--ink); }
+@media (max-width: 1020px) {
+  .fdp { grid-template-columns: minmax(0, 1fr); }
+  .fdp__ph { grid-template-columns: 112px minmax(0, 1fr); align-items: center; column-gap: 18px; }
+  .fdp__ph img { grid-row: span 2; width: 112px; border-radius: var(--r); }
+  .fdp__team ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .fdp__team ul { grid-template-columns: minmax(0, 1fr); }
+}

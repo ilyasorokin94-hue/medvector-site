@@ -1,0 +1,106 @@
+{# Стартовый пакет комплекса: что входит в первый месяц и платежи по месяцам. Данные: s.rows [[что, пояснение]], s.plan [[месяц, сумма, текст, ширина]], s.cta, s.after. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Месяцы»: тёмный блок, слева состав первого месяца, справа платежи полосами #}
+{% macro months(s) %}
+<section class="sec sec--dark dark lk-plan"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="plan">
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="pl">
+      <div class="pl__list" data-rv>
+        <h3 class="yn__h">{{ s.rowsTitle or 'В первый месяц' }}</h3>
+        <ul class="pl__rows">
+{% for r in s.rows %}
+          <li><h4>{{ r[0] | t | safe }}</h4><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+        </ul>
+      </div>
+      <div class="pl__money" data-rv style="--d:1">
+        <h3 class="yn__h">{{ s.planTitle or 'Сколько это стоит' }}</h3>
+        <ol class="pl__plan">
+{% for p in s.plan %}
+          <li style="--w: {{ p[3] }}"><span class="pl__m">{{ p[0] }}</span><b class="pl__sum">{{ p[1] | t | safe }}</b><span class="pl__bar" aria-hidden="true"><i></i></span><p>{{ p[2] | t | safe }}</p></li>
+{% endfor %}
+        </ol>
+{% if s.cta %}
+        <a href="#start" class="btn btn--light" data-magnetic data-pick="{{ s.pick or 'site' }}">{{ s.cta }}</a>
+{% endif %}
+      </div>
+    </div>
+{% if s.after %}
+    <p class="af__why">{{ s.after | safe }}</p>
+{% endif %}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Таблица»: светлый блок, каждый месяц строкой с суммой, состав первого месяца отдельной карточкой #}
+{% macro ledger(s) %}
+<section{{ c.attrs(s, 'lk-plan-ledger') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="plg">
+      <div class="plg__money">
+        <h3 class="yn__h">{{ s.planTitle or 'Сколько это стоит' }}</h3>
+        <ol class="plg__plan">
+{% for p in s.plan %}
+          <li data-rv style="--d:{{ loop.index0 }}"><span class="plg__m">{{ p[0] }}</span><b class="plg__sum">{{ p[1] | t | safe }}</b><p>{{ p[2] | t | safe }}</p></li>
+{% endfor %}
+        </ol>
+{% if s.cta %}
+        <a href="#start" class="btn" data-magnetic data-pick="{{ s.pick or 'site' }}">{{ s.cta }}</a>
+{% endif %}
+      </div>
+      <div class="plg__card" data-rv style="--d:1">
+        <h3 class="plg__ct">{{ s.rowsTitle or 'В первый месяц' }}</h3>
+        <ul class="ticks">
+{% for r in s.rows %}
+          <li><b>{{ r[0] | t | safe }}</b><span>{{ r[1] | t | safe }}</span></li>
+{% endfor %}
+        </ul>
+      </div>
+    </div>
+{% if s.after %}
+    <p class="plg__after">{{ s.after | safe }}</p>
+{% endif %}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Три карточки»: месяцы карточками рядом, первая тёмная и с составом первого месяца #}
+{% macro cards(s) %}
+<section{{ c.attrs(s, 'lk-plan-cards') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <h3 class="sr">{{ s.planTitle or 'Сколько это стоит' }}</h3>
+    <ol class="plc">
+{% for p in s.plan %}
+      <li class="plc__i{% if loop.first %} plc__i--first dark{% endif %}" data-rv style="--d:{{ loop.index0 }}; --w: {{ p[3] }}">
+        <span class="plc__bar" aria-hidden="true"><i></i></span>
+        <span class="plc__m">{{ p[0] }}</span>
+        <b class="plc__sum">{{ p[1] | t | safe }}</b>
+        <p class="plc__txt">{{ p[2] | t | safe }}</p>
+{% if loop.first and s.rows %}
+        <div class="plc__rows">
+          <h4>{{ s.rowsTitle or 'В первый месяц' }}</h4>
+          <ul>
+{% for r in s.rows %}
+            <li><b>{{ r[0] | t | safe }}</b>{{ r[1] | t | safe }}</li>
+{% endfor %}
+          </ul>
+        </div>
+{% endif %}
+      </li>
+{% endfor %}
+    </ol>
+    <div class="plc__foot">
+{% if s.after %}
+      <p class="plc__after">{{ s.after | safe }}</p>
+{% endif %}
+{% if s.cta %}
+      <a href="#start" class="btn" data-magnetic data-pick="{{ s.pick or 'site' }}">{{ s.cta }}</a>
+{% endif %}
+    </div>
+  </div>
+</section>
+{% endmacro %}

@@ -1,0 +1,68 @@
+{# Группы запросов: о чём спрашивают, примеры запросов, что делаем. Данные: s.items [[группа, запросы, ответ]]. #}
+{% import "looks/_c.njk" as c %}
+
+{% macro body(items) %}
+<ul class="qr">
+{% for g in items %}
+  <li class="qr__i" data-rv><h3 class="qr__h">{{ g[0] | t | safe }}</h3><p class="qr__q">{{ g[1] | t | safe }}</p><p class="qr__a">{{ g[2] | t | safe }}</p></li>
+{% endfor %}
+</ul>
+{% endmacro %}
+
+{# «Строки»: три колонки под линиями, запросы голубым #}
+{% macro rows(s) %}
+<section{{ c.attrs(s, 'lk-qrows-rows') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    {{ body(s.items) }}
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# карточки: группа сверху, запросы со значком поиска, ответ под линией #}
+{% macro bodyCards(items) %}
+<ul class="qrc">
+{% for g in items %}
+  <li class="qrc__i" data-rv style="--d:{{ loop.index0 % 3 }}">
+    <h3 class="qrc__h">{{ g[0] | t | safe }}</h3>
+    <p class="qrc__q"><i class="art__glass" aria-hidden="true"></i><span>{{ g[1] | t | safe }}</span></p>
+    <p class="qrc__a">{{ g[2] | t | safe }}</p>
+  </li>
+{% endfor %}
+</ul>
+{% endmacro %}
+
+{# запрос и ответ: запрос в строке поиска слева, что делаем справа #}
+{% macro bodyPairs(items) %}
+<ul class="qrp">
+{% for g in items %}
+  <li class="qrp__i" data-rv>
+    <div class="qrp__l"><h3 class="qrp__h">{{ g[0] | t | safe }}</h3><p class="qrp__q"><i class="art__glass" aria-hidden="true"></i><span>{{ g[1] | t | safe }}</span></p></div>
+    <p class="qrp__a">{{ g[2] | t | safe }}</p>
+  </li>
+{% endfor %}
+</ul>
+{% endmacro %}
+
+{# «Карточки»: группы запросов карточками по три в ряд #}
+{% macro cards(s) %}
+<section{{ c.attrs(s, 'lk-qrows-cards') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    {{ bodyCards(s.items) }}
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Запрос и ответ»: слева запрос в строке поиска, справа что с ним делаем #}
+{% macro pairs(s) %}
+<section{{ c.attrs(s, 'lk-qrows-pairs') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    {{ bodyPairs(s.items) }}
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

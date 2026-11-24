@@ -1,0 +1,59 @@
+{# Кейсы по городам. Данные: s.items [[город и услуга, что сделали, результат]], s.tag. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Строки»: город и что сделали слева, результат справа на плашке #}
+{% macro rows(s) %}
+{{ useLook('loss', 'rows') }}
+<section{{ c.attrs(s, 'lk-loss-rows') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ol class="lr">
+{% for r in s.items %}
+      <li class="lr__i" data-rv>
+        <div class="lr__what"><h3 class="h3">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></div>
+        <p class="lr__fix"><small>Результат</small>{{ r[2] | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ol>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Карточки»: кейсы плитками, первые два крупнее, результат внизу каждой карточки #}
+{% macro cards(s) %}
+<section{{ c.attrs(s, 'lk-cases-cards') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ul class="csc">
+{% for r in s.items %}
+      <li class="csc__i" data-rv style="--d:{{ loop.index0 % 3 }}">
+        <h3 class="csc__h">{{ r[0] | t | safe }}</h3>
+        <p class="csc__what">{{ r[1] | t | safe }}</p>
+        <p class="csc__res"><small>Результат</small>{{ r[2] | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ul>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Заголовки»: результат крупно как заголовок, город и услуга над ним, что сделали сбоку #}
+{% macro headline(s) %}
+<section{{ c.attrs(s, 'lk-cases-headline') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ol class="csh">
+{% for r in s.items %}
+      <li class="csh__i" data-rv>
+        <h3 class="csh__where">{{ r[0] | t | safe }}</h3>
+        <p class="csh__res">{{ r[2] | t | safe }}</p>
+        <p class="csh__what">{{ r[1] | t | safe }}</p>
+      </li>
+{% endfor %}
+    </ol>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}

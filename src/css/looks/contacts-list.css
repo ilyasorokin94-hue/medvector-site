@@ -1,0 +1,11 @@
+/* контакты «Список»: способы связи крупно, ниже офис и часы */
+.cn { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 24px; border-top: 1px solid var(--line); }
+.cn > div { display: grid; gap: 6px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.cn dt { font-size: 14px; color: var(--ink-3); }
+.cn dd { font-size: calc(clamp(20px, 1.8vw, 26px) * var(--t-k)); font-weight: 500; letter-spacing: -.02em; }
+.cn dd a { text-decoration: none; }
+.cn--wait { display: grid; gap: 14px; padding: 28px 0; }
+.cn__big { font-family: var(--disp); font-weight: var(--h-w); font-size: calc(clamp(26px, 3vw, 44px) * var(--h-k)); line-height: 1.12; letter-spacing: -.035em; }
+.cn__big a { color: var(--vec-ink); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.cn--meta { margin-top: 32px; }
+.cn--meta dd { font-size: calc(18px * var(--t-k)); font-weight: 400; }

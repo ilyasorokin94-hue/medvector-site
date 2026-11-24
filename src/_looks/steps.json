@@ -1,0 +1,32 @@
+{
+  "_note": "Группа «шаги и условия»: виды секций steps и pack. Первый вид в тройке стоит на сайте по умолчанию.",
+  "types": {
+    "steps": ["line", "rail", "deck"],
+    "pack": ["cols", "sticky", "ticket"]
+  },
+  "pages": {
+    "/2gis/": { "card": ["rail", "deck", "line"], "price": ["ticket", "sticky", "cols"] },
+    "/geo-prodvizhenie/": { "path": ["zigzag", "rail", "line"], "month": ["chart", "line", "sheet"], "price": ["strip", "statement", "ticket"] },
+    "/lidy-dlya-stomatologii/": { "target": ["line", "zigzag", "deck"], "test": ["statement", "cols", "strip"] },
+    "/medicinskij-marketing/": { "path": ["zigzag", "line", "rail"], "begin": ["deck", "chart", "line"], "price": ["sticky", "strip", "statement"] },
+    "/otzyvy-i-reputaciya/": { "collect": ["rail", "zigzag", "deck"], "price": ["ticket", "statement", "sticky"] },
+    "/prodoktorov/": { "profile": ["deck", "rail", "sheet"], "price": ["sticky", "ticket", "strip"] },
+    "/sajt-dlya-stomatologii/": { "stages": ["rail", "deck", "chart"], "price": ["statement", "sticky", "ticket"] },
+    "/seo-dlya-stomatologii/": { "work": ["sheet", "deck", "rail"], "months": ["chart", "line", "zigzag"] },
+    "/yandex-karty/": { "first-month": ["chart", "line", "deck"], "monthly": ["sheet", "rail", "zigzag"], "price": ["strip", "cols", "sticky"] },
+    "/kompleksnyj-marketing/": { "audit": ["line", "deck", "zigzag"], "seo": ["sheet", "rail", "deck"] },
+    "/kejsy/": { "template": ["sheet", "rail", "deck"] },
+    "/yandex-direkt/": { "conditions": ["cols", "strip", "ticket"] }
+  },
+  "names": {
+    "steps-rail": "Рельс",
+    "steps-deck": "Колода",
+    "steps-chart": "График",
+    "steps-zigzag": "Зигзаг",
+    "steps-sheet": "Лист",
+    "pack-statement": "Итог",
+    "pack-sticky": "Закреп",
+    "pack-strip": "Полоса",
+    "pack-ticket": "Талон"
+  }
+}

@@ -1,0 +1,22 @@
+/* шаги «Лист»: пункты с отметками на одном листе в две колонки; отметки ставятся по очереди */
+.stps { padding: clamp(10px, 2.2vw, 36px) clamp(22px, 3.4vw, 56px); border-radius: var(--r-lg); background: var(--fog); }
+.sec--fog .stps { background: var(--paper); box-shadow: 0 40px 80px -60px rgba(0, 15, 64, .45); }
+.stps__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(28px, 4vw, 72px); }
+.stps__i { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 18px; align-items: start; padding: clamp(20px, 2vw, 28px) 0; border-bottom: 1px solid var(--line); }
+.stps__list--even .stps__i:nth-last-child(-n+2), .stps__list--odd .stps__i:last-child { border-bottom: 0; }
+.stps__ck { position: relative; width: 30px; height: 30px; border-radius: 50%; background: var(--vec-soft); }
+.stps__ck::after { content: ''; position: absolute; left: 10px; top: 8px; width: 7px; height: 12px; border: solid var(--vec-ink); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+.js .stps .stps__ck::after { clip-path: inset(0 0 100% 0); transition: clip-path .5s var(--ease) calc(.3s + var(--i) * .12s); }
+.js .stps.is-in .stps__ck::after { clip-path: inset(0 0 0 0); }
+.stps__when { margin-bottom: 4px; font-size: calc(14px * var(--t-k)); line-height: 1.3; color: var(--vec-ink); }
+.stps__h { padding-top: 3px; font-size: calc(clamp(19px, 1.5vw, 22px) * var(--t-k)); font-weight: 500; line-height: 1.25; letter-spacing: -.015em; }
+.stps__p { margin-top: 6px; font-size: calc(16px * var(--t-k)); line-height: 1.5; color: var(--ink-2); }
+@media (prefers-reduced-motion: reduce) {
+  .js .stps .stps__ck::after { clip-path: none; transition: none; }
+}
+@media (max-width: 760px) {
+  .stps { padding: 4px 20px; border-radius: var(--r); }
+  .stps__list { grid-template-columns: minmax(0, 1fr); }
+  .stps__list--even .stps__i:nth-last-child(2) { border-bottom: 1px solid var(--line); }
+  .stps__i { gap: 14px; }
+}

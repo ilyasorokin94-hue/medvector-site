@@ -1,0 +1,89 @@
+{# Пункты с пояснением. Данные: s.items [[заголовок, текст]]. #}
+{% import "looks/_c.njk" as c %}
+
+{# «Сетка»: две колонки пунктов под тонкими линиями #}
+{% macro grid(s) %}
+<section{{ c.attrs(s, 'lk-spec-grid') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ul class="sg">
+{% for r in s.items %}
+      <li data-rv style="--d:{{ loop.index0 % 2 }}"><h3 class="sg__h">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+    </ul>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Мозаика»: плитки разного размера, первая тёмная и высокая #}
+{% macro bento(s) %}
+<section{{ c.attrs(s, 'lk-spec-bento') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ul class="spbn spbn--{{ s.items.length }}">
+{% for r in s.items %}
+      <li class="spbn__i" data-rv style="--d:{{ loop.index0 % 3 }}"><h3 class="spbn__h">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+    </ul>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Колонка»: заголовок и пояснение закреплены слева, пункты крупно идут справа #}
+{% macro sticky(s) %}
+<section{{ c.attrs(s, 'lk-spec-sticky') }}>
+  <div class="wrap spst">
+    <div class="spst__head">
+      <div class="spst__stick">
+{% if s.label %}
+        <p class="label" data-rv="fade">{{ s.label }}</p>
+{% endif %}
+        <h2 class="h2" data-rv>{{ s.title | nodot | t | safe }}</h2>
+{% if s.note %}
+        <p class="spst__note" data-rv style="--d:1">{{ s.note | t | safe }}</p>
+{% endif %}
+        <div class="spst__own">{{ c.own(s) }}</div>
+      </div>
+    </div>
+    <ul class="spst__list">
+{% for r in s.items %}
+      <li class="spst__i" data-rv><h3 class="spst__h">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+    </ul>
+  </div>
+</section>
+{% endmacro %}
+
+{# «Чек-лист»: пункты на одном листе, у каждого отметка, которая ставится при появлении #}
+{% macro sheet(s) %}
+<section{{ c.attrs(s, 'lk-spec-sheet') }}>
+  <div class="wrap">
+    {{ c.head(s) }}
+    <div class="spck" data-rv="fade">
+      <ul class="spck__list">
+{% for r in s.items %}
+        <li class="spck__i" style="--n:{{ loop.index0 }}"><span class="spck__box" aria-hidden="true"></span><div><h3 class="spck__h">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></div></li>
+{% endfor %}
+      </ul>
+    </div>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
+
+{# «Тёмная сетка»: тёмная секция, пункты в ячейках таблицы из тонких линий #}
+{% macro dark(s) %}
+<section class="sec sec--dark dark lk-spec-dark"{% if s.id %} id="{{ s.id }}"{% endif %} data-sec="{{ s.type }}">
+  <div class="wrap">
+    {{ c.head(s) }}
+    <ul class="spdk spdk--{{ s.items.length }}">
+{% for r in s.items %}
+      <li class="spdk__i" data-rv style="--d:{{ loop.index0 % 3 }}"><span class="spdk__dot" aria-hidden="true"></span><h3 class="spdk__h">{{ r[0] | t | safe }}</h3><p>{{ r[1] | t | safe }}</p></li>
+{% endfor %}
+    </ul>
+    {{ c.own(s) }}
+  </div>
+</section>
+{% endmacro %}
