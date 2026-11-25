@@ -952,3 +952,19 @@ button.link { border: 0; cursor: pointer; }
   .js #services .s1__p + .s1__p[data-rv] { opacity: 1; }
 }
 /* ===== Телефон: конец ===== */
+
+/* ===== Общая шапка сайта: тот же список услуг, что на внутренних страницах (правила совпадают с src/css/10-page.css) ===== */
+.hdr__nav > a[aria-current]::after, .drop__btn[data-here]::after { transform: scaleX(1); transform-origin: left; }
+.drop--wide { position: static; }
+.drop--wide .drop__panel { left: 50%; top: 100%; width: min(1080px, calc(100vw - 2 * var(--gut))); padding-top: 0; transform: translate(-50%, -8px); }
+.drop--wide.is-open .drop__panel, .no-js .drop--wide:hover .drop__panel, .no-js .drop--wide:focus-within .drop__panel { transform: translate(-50%, 0); }
+.drop__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 8px; padding: 14px; }
+.drop__h { padding: 8px 18px 6px; font-size: 14px; color: var(--ink-3); }
+.drop__list a[aria-current] b { color: var(--vec-ink); }
+.drop__list a[aria-current] { background: var(--fog); }
+.mnav__sub--all { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: 24px; }
+.mnav__nav .mnav__sub--all a { padding: 7px 0; font-size: clamp(18px, 4.8vw, 22px); }
+.mnav__nav a[aria-current] { color: var(--vec-dark); }
+@media (min-width: 560px) {
+  .mnav__sub--all { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

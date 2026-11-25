@@ -37,55 +37,8 @@
 </head>
 <body>
 <a class="skip" href="#main">К содержимому</a>
-<!-- шапка: над тёмным первым экраном прозрачная с белым знаком, после прокрутки светлая -->
-<header class="hdr hdr--over" id="top">
-  <div class="hdr__in">
-    <a href="#top" class="hdr__logo" aria-label="МедВектор, наверх страницы">
-      <img class="lg-l" src="/assets/img/medvector-logo.webp" alt="МедВектор" width="440" height="93">
-      <img class="lg-d" src="/assets/img/medvector-logo-w.webp" alt="" width="440" height="93">
-    </a>
-    <nav class="hdr__nav" aria-label="Основное меню">
-      <div class="drop" data-drop>
-        <button type="button" class="drop__btn" aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
-        <div class="drop__panel" id="drop-services">
-          <ul class="drop__list">
-            <li><a href="#services"><b>Яндекс Директ</b><small>Первый тест без комиссии агентства</small></a></li>
-            <li><a href="#services"><b>Комплексный маркетинг</b><small>Сайт, Карты, 2ГИС и&nbsp;ПроДокторов одним пакетом</small></a></li>
-            <li><a href="#sites"><b>Сайты и&nbsp;лендинги</b><small>Сайт клиники или страница услуги для рекламы</small></a></li>
-            <li><a href="#services"><b>Яндекс Карты и&nbsp;2ГИС</b><small>Карточка клиники, каталог услуг, ответы на&nbsp;отзывы</small></a></li>
-            <li><a href="#services"><b>SEO</b><small>Рост в&nbsp;поиске по&nbsp;услугам в&nbsp;своём городе</small></a></li>
-          </ul>
-        </div>
-      </div>
-      <a href="#cases">Кейсы</a>
-      <a href="#team">Об агентстве</a>
-      <a href="#start">Контакты</a>
-    </nav>
-    <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
-    <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
-  </div>
-</header>
-
-<!-- мобильное меню: тёмный экран, пункты крупно -->
-<div class="mnav" id="mnav" inert>
-  <nav class="mnav__nav" aria-label="Мобильное меню">
-    <p class="mnav__h">Услуги</p>
-    <ul class="mnav__sub">
-      <li><a href="#services">Яндекс Директ</a></li>
-      <li><a href="#services">Комплексный маркетинг</a></li>
-      <li><a href="#sites">Сайты и&nbsp;лендинги</a></li>
-      <li><a href="#services">Яндекс Карты и&nbsp;2ГИС</a></li>
-      <li><a href="#services">SEO</a></li>
-    </ul>
-    <a href="#cases">Кейсы</a>
-    <a href="#team">Об агентстве</a>
-    <a href="#start">Контакты</a>
-  </nav>
-  <div class="mnav__foot">
-    <a href="#start" class="btn btn--light">Разобрать клинику</a>
-    <p>Санкт-Петербург. Работаем с&nbsp;клиниками по&nbsp;всей России.</p>
-  </div>
-</div>
+<!-- шапка и мобильное меню общие со всеми страницами: пункты ведут на страницы услуг, а не к блокам главной -->
+{% include "header-t.njk" %}
 
 <main id="main">
 {{ content | safe }}
