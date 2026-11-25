@@ -44,38 +44,8 @@
 {{ content | safe }}
 </main>
 
-<footer class="ftr">
-  <div class="wrap">
-    <div class="ftr__top">
-      <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
-      <nav class="ftr__col" aria-label="Услуги">
-        <h2>Услуги</h2>
-        <a href="#services">Яндекс Директ</a>
-        <a href="#services">Комплексный маркетинг</a>
-        <a href="#sites">Сайты и&nbsp;лендинги</a>
-        <a href="#services">Яндекс Карты и&nbsp;2ГИС</a>
-        <a href="#services">SEO</a>
-      </nav>
-      <nav class="ftr__col" aria-label="Агентство">
-        <h2>Агентство</h2>
-        <a href="#cases">Кейсы</a>
-        <a href="#team">Об агентстве</a>
-        <a href="#faq">Вопросы</a>
-        <a href="#start">Оставить заявку</a>
-      </nav>
-    </div>
-    <div class="ftr__mark">
-      <img src="/assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
-    </div>
-    <div class="ftr__bottom">
-      <p>© {{ year }} МедВектор</p>
-      <nav aria-label="Документы">
-        <a href="{{ href('policy') }}">Политика обработки персональных данных</a>
-        <a href="{{ href('consent') }}">Согласие на обработку данных</a>
-      </nav>
-    </div>
-  </div>
-</footer>
+{# подвал общий со всеми страницами: ссылки ведут на страницы услуг #}
+{% include "footer-t.njk" %}
 
 <script src="/assets/js/vendor/lenis.min.js" defer></script>
 <script src="/assets/js/home.js" defer></script>
