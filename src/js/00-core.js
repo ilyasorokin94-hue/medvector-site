@@ -112,20 +112,6 @@
       var r = b.getBoundingClientRect();
       b.classList.add('is-mag'); b.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * 0.22).toFixed(1) + 'px,' + ((e.clientY - r.top - r.height / 2) * 0.3).toFixed(1) + 'px)';
     }, { passive: true });
-    var curEl = document.createElement('div'); curEl.className = 'cur'; curEl.setAttribute('aria-hidden', 'true'); curEl.innerHTML = '<i></i>'; document.body.appendChild(curEl);
-    var cx = 0, cy = 0, tx = 0, ty = 0, curOn = false, ctf = '';
-    document.addEventListener('pointermove', function (e) {
-      tx = e.clientX; ty = e.clientY; if (!curOn) { cx = tx; cy = ty; curOn = true; curEl.classList.add('is-on'); }
-      var t = e.target, link = t.closest && t.closest('a, button, summary, label, [role="button"], [data-cur]'), text = t.closest && t.closest('input, textarea, select');
-      curEl.classList.toggle('is-link', !!link && !text); curEl.classList.toggle('is-text', !!text);
-    }, { passive: true });
-    document.addEventListener('pointerleave', function () { curOn = false; curEl.classList.remove('is-on'); });
-    // курсор догоняет мышь; когда догнал, кадр ничего не пишет в стили
-    MV.frames.push(function () {
-      if (Math.abs(tx - cx) < 0.15 && Math.abs(ty - cy) < 0.15) { cx = tx; cy = ty; } else { cx += (tx - cx) * 0.2; cy += (ty - cy) * 0.2; }
-      var t = 'translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)';
-      if (t !== ctf) { ctf = t; curEl.style.transform = t; }
-    });
   }
 
   /* ---------- прокрутка: прогресс секций (--p от 0 до 1) ---------- */
