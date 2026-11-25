@@ -986,3 +986,19 @@ button.link { border: 0; cursor: pointer; }
 @media (min-width: 360px) and (max-width: 480px) {
   .ftr__top--3 { grid-template-columns: 1fr 1fr; }
 }
+
+/* ===== Переходы с главной на страницы услуг: вторая ссылка рядом с кнопкой, заголовок карточки и метки услуг ===== */
+.s1__acts { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
+.s1__h a { text-decoration: none; }
+.s1__h a:hover { color: var(--vec-ink); }
+.dark .s1__h a:hover { color: var(--vec-dark); }
+.chips--nav li { padding: 0; }
+.chips--nav a { display: block; padding: 9px 16px; border-radius: 999px; text-decoration: none; transition: background-color .4s var(--ease), color .4s var(--ease); }
+.chips--nav a:hover { background: var(--ink); color: #fff; }
+@media (min-width: 1101px) {
+  #services .s1__acts { grid-column: 2; grid-row: 5; margin-top: 26px; }
+  #services .s1__acts .btn { margin-top: 0; }
+}
+@media (max-width: 720px) {
+  .chips--nav a { display: flex; align-items: center; min-height: 44px; }
+}
