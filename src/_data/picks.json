@@ -1,3 +1,33 @@
 {
-  "_note": "Выбранный вариант каждой секции: номер 1, 2 или 3 по списку из looks.json. Секции, которых здесь нет, идут первым вариантом."
+  "_note": "Выбранный вариант каждой секции: номер 1, 2 или 3 по списку из looks.json. Секции, которых здесь нет, идут первым вариантом.",
+  "/yandex-direkt/": {
+    "intro": 2
+  },
+  "/yandex-karty/": {
+    "intro": 3
+  },
+  "/2gis/": {
+    "intro": 2
+  },
+  "/otzyvy-i-reputaciya/": {
+    "intro": 2
+  },
+  "/sajt-dlya-stomatologii/": {
+    "intro": 3
+  },
+  "/seo-dlya-stomatologii/": {
+    "intro": 3
+  },
+  "/geo-prodvizhenie/": {
+    "intro": 2
+  },
+  "/medicinskij-marketing/": {
+    "intro": 2
+  },
+  "/kompleksnyj-marketing/": {
+    "intro": 3
+  },
+  "/kejsy/": {
+    "intro": 3
+  }
 }

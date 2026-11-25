@@ -27,8 +27,9 @@
 <!-- шрифт Geologica, как на главной: только нужные начертания и буквы, кириллица и цифры нужны первому экрану -->
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-cyrillic-text.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/geologica-latin-text.woff2" crossorigin>
-<link rel="stylesheet" href="../assets/css/pages.css?v=d7f99695">
+<link rel="stylesheet" href="../assets/css/pages.css?v=2c1c751a">
 
+<link rel="preload" as="image" href="../assets/img/pages/geo-hero-1000.webp" imagesrcset="../assets/img/pages/geo-hero-640.webp 640w, ../assets/img/pages/geo-hero-1000.webp 1000w, ../assets/img/pages/geo-hero-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">
 <!-- блоки появляются по мере прокрутки; если скрипт страницы не загрузился за пять секунд, показываем всё сразу, как без скриптов -->
 <script>document.documentElement.classList.replace('no-js', 'js'); setTimeout(function () { if (!window.MV) document.documentElement.classList.replace('js', 'no-js'); }, 5000);</script>
 
@@ -250,12 +251,12 @@
 </div>
 
 <main id="main">
-
-<section class="ph phs" id="intro" data-sec="hero">
-  <div class="wrap">
-    <div class="phs__grid">
-      <div class="phs__text">
-        <nav class="crumbs" aria-label="Хлебные крошки">
+<section class="ph phf sec--dark dark phf--img" id="intro" data-sec="hero" data-over>
+  <div class="phf__bg">
+    <img class="phf__img" src="../assets/img/pages/geo-hero-1000.webp" srcset="../assets/img/pages/geo-hero-640.webp 640w, ../assets/img/pages/geo-hero-1000.webp 1000w, ../assets/img/pages/geo-hero-1600.webp 1600w" sizes="100vw" width="1600" height="1067" alt="Мужчина на кухне задаёт вопрос голосовому помощнику в телефоне" fetchpriority="high" decoding="async">
+  </div>
+  <div class="wrap phf__grid">
+    <nav class="crumbs" aria-label="Хлебные крошки">
   <ol>
     <li><a href="../">Главная</a></li>
     <li><a href="../medicinskij-marketing/">Медицинский маркетинг</a></li>
@@ -263,24 +264,12 @@
   </ol>
 </nav>
 
-        <h1 class="ph__h phs__h" data-rv>Продвижение клиники в&nbsp;ответах нейросетей</h1>
-        <p class="ph__lead phs__lead" data-rv style="--d:1">Пациенты уже спрашивают у&nbsp;Алисы и&nbsp;ChatGPT, что лучше, имплант или мост, и&nbsp;в&nbsp;какую клинику идти. Нейросеть собирает ответ из&nbsp;сайтов, карт и&nbsp;отзывов. GEO-продвижение помогает сделать так, чтобы о&nbsp;клинике там были верные сведения и&nbsp;чтобы она попадала в&nbsp;рекомендации нейросетей.</p>
-        <div data-rv style="--d:2"><div class="ph__acts">
-  <a href="#start" class="btn" data-magnetic data-pick="unsure">Проверить, что отвечают нейросети</a>
-  <a href="#path" class="link">Как это работает</a>
-</div>
-</div>
-      </div>
-      <div class="phs__stage"><div class="ha ha--geo-prodvizhenie" aria-hidden="true">
-  <div class="ha__c ha__c--a ha__ask" data-rv style="--d:2">Какую клинику выбрать для&nbsp;имплантации рядом с&nbsp;домом?</div>
-  <div class="ha__c ha__c--b ha__ans" data-rv style="--d:3">
-    <span class="ha__k ha__dot">Ассистент</span>
-    <i class="ha__l" style="--w:94%"></i><i class="ha__l" style="--w:82%"></i>
-    <span class="ha__hit">Стоматология «Демо»</span>
-    <i class="ha__l" style="--w:90%"></i><i class="ha__l" style="--w:66%"></i>
-    <span class="ha__k">Источники</span>
-    <span class="ha__tags"><span>demo-klinika.ru</span><span>Яндекс Карты</span><span>ПроДокторов</span></span>
-  </div>
+    <h1 class="ph__h phf__h" data-rv>Продвижение клиники в&nbsp;ответах нейросетей</h1>
+    <div class="phf__say">
+      <p class="ph__lead" data-rv style="--d:1">Пациенты уже спрашивают у&nbsp;Алисы и&nbsp;ChatGPT, что лучше, имплант или мост, и&nbsp;в&nbsp;какую клинику идти. Нейросеть собирает ответ из&nbsp;сайтов, карт и&nbsp;отзывов. GEO-продвижение помогает сделать так, чтобы о&nbsp;клинике там были верные сведения и&nbsp;чтобы она попадала в&nbsp;рекомендации нейросетей.</p>
+      <div data-rv style="--d:2"><div class="ph__acts">
+  <a href="#start" class="btn btn--light" data-magnetic data-pick="unsure">Проверить, что отвечают нейросети</a>
+  <a href="#path" class="link link--light">Как это работает</a>
 </div>
 </div>
     </div>
