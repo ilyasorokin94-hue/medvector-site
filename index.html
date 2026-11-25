@@ -138,7 +138,9 @@
 </head>
 <body>
 <a class="skip" href="#main">К содержимому</a>
-<!-- шапка: над тёмным первым экраном прозрачная с белым знаком, после прокрутки светлая -->
+<!-- шапка и мобильное меню общие со всеми страницами: пункты ведут на страницы услуг, а не к блокам главной -->
+<!-- ============ ШАПКА, общая для главной и внутренних страниц: логотип, «Услуги» с выпадающим списком всех услуг, кейсы, блог, агентство, контакты, одна кнопка ============ -->
+
 <header class="hdr hdr--over" id="top">
   <div class="hdr__in">
     <a href="#top" class="hdr__logo" aria-label="МедВектор, наверх страницы">
@@ -146,41 +148,70 @@
       <img class="lg-d" src="assets/img/medvector-logo-w.webp" alt="" width="440" height="93">
     </a>
     <nav class="hdr__nav" aria-label="Основное меню">
-      <div class="drop" data-drop>
+      <div class="drop drop--wide" data-drop>
         <button type="button" class="drop__btn" aria-expanded="false" aria-controls="drop-services">Услуги<span class="drop__ic" aria-hidden="true"></span></button>
         <div class="drop__panel" id="drop-services">
-          <ul class="drop__list">
-            <li><a href="#services"><b>Яндекс Директ</b><small>Первый тест без комиссии агентства</small></a></li>
-            <li><a href="#services"><b>Комплексный маркетинг</b><small>Сайт, Карты, 2ГИС и&nbsp;ПроДокторов одним пакетом</small></a></li>
-            <li><a href="#sites"><b>Сайты и&nbsp;лендинги</b><small>Сайт клиники или страница услуги для рекламы</small></a></li>
-            <li><a href="#services"><b>Яндекс Карты и&nbsp;2ГИС</b><small>Карточка клиники, каталог услуг, ответы на&nbsp;отзывы</small></a></li>
-            <li><a href="#services"><b>SEO</b><small>Рост в&nbsp;поиске по&nbsp;услугам в&nbsp;своём городе</small></a></li>
-          </ul>
+          <div class="drop__list drop__cols">
+            <div class="drop__col">
+              <p class="drop__h">Реклама и пациенты</p>
+              <ul>
+                <li><a href="yandex-direkt/"><b>Яндекс Директ</b><small>Первый тест без комиссии агентства</small></a></li>
+                <li><a href="lidy-dlya-stomatologii/"><b>Заявки для стоматологии</b><small>Пациенты из&nbsp;рекламы без покупки лидов</small></a></li>
+                <li><a href="kompleksnyj-marketing/"><b>Комплексный маркетинг</b><small>Отдел маркетинга клиники на&nbsp;аутсорсе</small></a></li>
+                <li><a href="medicinskij-marketing/"><b>Медицинский маркетинг</b><small>Клиники и&nbsp;медицинские центры</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Сайт и поиск</p>
+              <ul>
+                <li><a href="sajt-dlya-stomatologii/"><b>Сайт для стоматологии</b><small>С&nbsp;нуля или редизайн по&nbsp;требованиям закона</small></a></li>
+                <li><a href="seo-dlya-stomatologii/"><b>SEO для стоматологии</b><small>Рост в&nbsp;поиске по&nbsp;услугам в&nbsp;своём городе</small></a></li>
+                <li><a href="geo-prodvizhenie/"><b>Продвижение в&nbsp;нейросетях</b><small>Что Алиса и&nbsp;ChatGPT отвечают о&nbsp;клинике</small></a></li>
+              </ul>
+            </div>
+            <div class="drop__col">
+              <p class="drop__h">Карты и репутация</p>
+              <ul>
+                <li><a href="yandex-karty/"><b>Яндекс Карты</b><small>Карточка, каталог услуг и&nbsp;ответы на&nbsp;отзывы</small></a></li>
+                <li><a href="2gis/"><b>2ГИС</b><small>Карточка клиники и&nbsp;реклама в&nbsp;справочнике</small></a></li>
+                <li><a href="prodoktorov/"><b>ПроДокторов</b><small>Профиль клиники и&nbsp;врачей</small></a></li>
+                <li><a href="otzyvy-i-reputaciya/"><b>Отзывы и&nbsp;репутация</b><small>Настоящие отзывы и&nbsp;ответы на&nbsp;них</small></a></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-      <a href="#cases">Кейсы</a>
-      <a href="#team">Об агентстве</a>
-      <a href="#start">Контакты</a>
+      <a href="kejsy/">Кейсы</a>
+      <a href="blog/">Блог</a>
+      <a href="kontakty/">Об агентстве</a>
+      <a href="kontakty/#contacts">Контакты</a>
     </nav>
     <a href="#start" class="btn btn--sm hdr__cta" data-magnetic>Разобрать клинику</a>
     <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button>
   </div>
 </header>
 
-<!-- мобильное меню: тёмный экран, пункты крупно -->
+<!-- мобильное меню: тёмный экран, услуги списком, разделы крупно -->
 <div class="mnav" id="mnav" inert>
   <nav class="mnav__nav" aria-label="Мобильное меню">
     <p class="mnav__h">Услуги</p>
-    <ul class="mnav__sub">
-      <li><a href="#services">Яндекс Директ</a></li>
-      <li><a href="#services">Комплексный маркетинг</a></li>
-      <li><a href="#sites">Сайты и&nbsp;лендинги</a></li>
-      <li><a href="#services">Яндекс Карты и&nbsp;2ГИС</a></li>
-      <li><a href="#services">SEO</a></li>
+    <ul class="mnav__sub mnav__sub--all">
+      <li><a href="yandex-direkt/">Яндекс Директ</a></li>
+      <li><a href="lidy-dlya-stomatologii/">Заявки для стоматологии</a></li>
+      <li><a href="kompleksnyj-marketing/">Комплексный маркетинг</a></li>
+      <li><a href="medicinskij-marketing/">Медицинский маркетинг</a></li>
+      <li><a href="sajt-dlya-stomatologii/">Сайт для стоматологии</a></li>
+      <li><a href="seo-dlya-stomatologii/">SEO для стоматологии</a></li>
+      <li><a href="geo-prodvizhenie/">Продвижение в&nbsp;нейросетях</a></li>
+      <li><a href="yandex-karty/">Яндекс Карты</a></li>
+      <li><a href="2gis/">2ГИС</a></li>
+      <li><a href="prodoktorov/">ПроДокторов</a></li>
+      <li><a href="otzyvy-i-reputaciya/">Отзывы и&nbsp;репутация</a></li>
     </ul>
-    <a href="#cases">Кейсы</a>
-    <a href="#team">Об агентстве</a>
-    <a href="#start">Контакты</a>
+    <a href="kejsy/">Кейсы</a>
+    <a href="blog/">Блог</a>
+    <a href="kontakty/">Об агентстве</a>
+    <a href="kontakty/#contacts">Контакты</a>
   </nav>
   <div class="mnav__foot">
     <a href="#start" class="btn btn--light">Разобрать клинику</a>
@@ -205,7 +236,6 @@
       v.preload = 'auto'; v.src = n + (v.canPlayType('video/webm; codecs="vp9"') ? '.webm' : '.mp4');
       var p = v.play(); if (p && p.catch) p.catch(function () {}); })();</script>
     <div class="wrap hv2__grid">
-      <p class="label hv2__label" data-rv="fade"><span>Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург</span></span></p>
       <div class="hv2__stage">
         <p class="hv2__wm" data-fit data-fit-max="32" aria-hidden="true"><span><b>МедВектор</b><span class="hv2__glass">МедВектор</span></span></p>
         <i data-vp data-vp-node class="hv2__a"></i>
@@ -215,7 +245,6 @@
         <span class="ln" style="--l:1"><span>до&nbsp;записи к&nbsp;врачу</span></span>
       </h1>
       <div class="hv2__say" data-rv style="--d:3">
-        <p class="lead">Реклама в&nbsp;Яндекс Директе на&nbsp;имплантацию, <span class="nw">All-on-4</span> и&nbsp;ортодонтию. Сайт, Яндекс Карты, 2ГИС и&nbsp;ПроДокторов под ключ.</p>
         <div class="hv__acts">
           <a href="#start" class="btn btn--light" data-magnetic>Разобрать клинику</a>
           <a href="#cases" class="link">Смотреть кейсы</a>
@@ -236,10 +265,9 @@
     <div class="wrap g2__grid">
       <i data-vp class="vp vp--xl"></i>
       <div class="g2__head">
-        <p class="label" data-rv="fade">Агентство в&nbsp;цифрах</p>
         <h2 class="h2 rvh"><span class="ln" style="--l:0"><span>Из&nbsp;Петербурга</span></span> <span class="ln" style="--l:1"><span>в&nbsp;20 регионов</span></span></h2>
       </div>
-      <p class="lead g2__lead" data-rv style="--d:2">Занимаемся только медициной, и&nbsp;в&nbsp;первую очередь стоматологиями. Клиники ведём удалённо: кабинеты, отчёты и&nbsp;созвоны раз в&nbsp;неделю.</p>
+      <p class="lead g2__lead" data-rv style="--d:2">Занимаемся только медициной, и&nbsp;в&nbsp;первую очередь стоматологиями. Клиники ведём удалённо: доступ к&nbsp;рекламным кабинетам у&nbsp;вас, отчёт и&nbsp;созвон каждую неделю.</p>
       <figure class="g2__map" data-rv="fade" style="--d:2">
         <div class="g2__frame">
         <div class="g2__art">
@@ -262,7 +290,6 @@
         </div>
         </div>
         <p class="g2__cities">Москва и&nbsp;область, Рязань, Нижний Новгород, Казань, Самара, Уфа, Екатеринбург, Тюмень, Новосибирск, Красноярск, Челябинск, <span class="nw">Ростов-на-Дону</span>, Краснодар, Омск, Воронеж, Пермь, Волгоград, Саратов, Иркутск</p>
-        <figcaption class="stub">Заглушка: города и&nbsp;цифры условные</figcaption>
       </figure>
       <dl class="g2__nums">
         <div data-rv style="--d:3"><dt class="num"><span data-count="40">40</span>+</dt><dd>клиник на&nbsp;ведении</dd></div>
@@ -324,7 +351,10 @@
             <div class="ba"><span class="ba__l">Звонки в&nbsp;месяц</span><p class="ba__r"><small>было</small><i style="--w:31%"></i><b>30</b></p><p class="ba__r ba__r--now"><small>стало</small><i style="--w:100%"></i><b>96</b></p></div>
             <div class="ba"><span class="ba__l">Переходы на&nbsp;сайт</span><p class="ba__r"><small>было</small><i style="--w:37%"></i><b>95</b></p><p class="ba__r ba__r--now"><small>стало</small><i style="--w:100%"></i><b>260</b></p></div>
           </article>
-          <a href="#start" class="btn" data-magnetic>Хочу так&nbsp;же</a>
+          <div class="s1__acts">
+            <a href="#start" class="btn" data-magnetic>Хочу так&nbsp;же</a>
+            <a href="kejsy/" class="link">Все кейсы</a>
+          </div>
         </div>
       </div>
       <p class="stub c__stub">Заглушка: цифры в&nbsp;кейсах условные, названия клиник появятся с&nbsp;их&nbsp;согласия</p>
@@ -332,7 +362,7 @@
     </div>
   </div>
 </section>
-<!-- «Две панели»: Директ и комплекс стоят рядом, под ними услуги по отдельности -->
+<!-- «Две панели»: Директ и комплекс стоят рядом, под ними услуги по отдельности. Заголовки, вторые ссылки и метки ведут на страницы услуг -->
 <section class="sec" id="services" data-line="light">
   <div class="sec__body s1">
     <div class="wrap">
@@ -347,7 +377,7 @@
       <div class="s1__grid">
         <article class="s1__p" data-rv>
           <p class="s1__tag">Быстрый результат</p>
-          <h3 class="s1__h">Яндекс Директ</h3>
+          <h3 class="s1__h"><a href="yandex-direkt/">Яндекс Директ</a></h3>
           <p class="s1__big num">4&nbsp;дня</p>
           <p class="s1__cap">максимум от&nbsp;доступов до&nbsp;первых показов рекламы</p>
           <ul class="ticks">
@@ -357,11 +387,14 @@
             <li>Аккаунт-менеджер, отчёт и&nbsp;созвон каждую неделю</li>
           </ul>
           <p class="s1__terms"><b>Первый тест без комиссии агентства.</b> Вы&nbsp;оплачиваете только рекламный бюджет: 150&nbsp;000&nbsp;₽ примерно на&nbsp;две недели. Условия дальнейшей работы фиксируем в&nbsp;договоре по&nbsp;итогам теста.</p>
-          <a href="#start" class="btn" data-magnetic>Обсудить тест</a>
+          <div class="s1__acts">
+            <a href="#start" class="btn" data-magnetic>Обсудить тест</a>
+            <a href="yandex-direkt/" class="link">Подробнее о&nbsp;Директе</a>
+          </div>
         </article>
         <article class="s1__p s1__p--dark dark" data-rv style="--d:1">
           <p class="s1__tag">Надолго</p>
-          <h3 class="s1__h">Комплексный маркетинг</h3>
+          <h3 class="s1__h"><a href="kompleksnyj-marketing/">Комплексный маркетинг</a></h3>
           <p class="s1__big num">3&nbsp;месяца</p>
           <p class="s1__cap">ведения входит в&nbsp;первый этап</p>
           <ul class="ticks">
@@ -371,12 +404,15 @@
             <li>Ответы на&nbsp;отзывы и&nbsp;SEO в&nbsp;своём городе</li>
           </ul>
           <p class="s1__terms"><b>Вернём деньги, пока сайт не&nbsp;опубликован.</b> Первый этап 80&nbsp;000&nbsp;₽ двумя платежами. <span class="stub">Заглушка: сумма на&nbsp;согласовании</span></p>
-          <a href="#start" class="btn btn--light" data-magnetic>Обсудить комплекс</a>
+          <div class="s1__acts">
+            <a href="#start" class="btn btn--light" data-magnetic>Обсудить комплекс</a>
+            <a href="kompleksnyj-marketing/" class="link">Подробнее о&nbsp;комплексе</a>
+          </div>
         </article>
       </div>
       <div class="solo" data-rv>
         <p class="solo__h">Можно по&nbsp;отдельности</p>
-        <ul class="chips"><li>Яндекс Директ</li><li>Сайт клиники</li><li>Лендинг под услугу</li><li>Яндекс Карты</li><li>2ГИС</li><li>ПроДокторов</li><li>SEO</li><li>Ответы на&nbsp;отзывы</li></ul>
+        <ul class="chips chips--nav"><li><a href="yandex-direkt/">Яндекс Директ</a></li><li><a href="sajt-dlya-stomatologii/">Сайт клиники</a></li><li><a href="sajt-dlya-stomatologii/">Лендинг под услугу</a></li><li><a href="yandex-karty/">Яндекс Карты</a></li><li><a href="2gis/">2ГИС</a></li><li><a href="prodoktorov/">ПроДокторов</a></li><li><a href="seo-dlya-stomatologii/">SEO</a></li><li><a href="otzyvy-i-reputaciya/">Ответы на&nbsp;отзывы</a></li></ul>
       </div>
       <i data-vp class="vp vp--lb"></i>
     </div>
@@ -439,7 +475,10 @@
           <div><dt>Закон о&nbsp;рекламе</dt><dd>требования к&nbsp;медицинским услугам соблюдены</dd></div>
           <div><dt>Заявки</dt><dd>сразу уходят в&nbsp;вашу CRM</dd></div>
         </dl>
-        <a href="#start" class="btn btn--light w5__btn" data-magnetic>Обсудить сайт</a>
+        <div class="s1__acts w5__acts">
+          <a href="#start" class="btn btn--light" data-magnetic>Обсудить сайт</a>
+          <a href="sajt-dlya-stomatologii/" class="link">Подробнее о&nbsp;сайтах</a>
+        </div>
         <p class="stub">Заглушка: макеты нарисованы в&nbsp;коде</p>
       </div>
       <div class="w5__wall" aria-hidden="true">
@@ -556,28 +595,40 @@
 
 </main>
 
+
+<!-- ============ ПОДВАЛ, общий для главной и внутренних страниц: тёмный, три колонки ссылок, знак во всю ширину ============ -->
 <footer class="ftr">
   <div class="wrap">
-    <div class="ftr__top">
+    <div class="ftr__top ftr__top--3">
       <p class="ftr__say">Агентство маркетинга для стоматологий. <span class="nw">Санкт-Петербург,</span> работаем по&nbsp;всей России.</p>
       <nav class="ftr__col" aria-label="Услуги">
         <h2>Услуги</h2>
-        <a href="#services">Яндекс Директ</a>
-        <a href="#services">Комплексный маркетинг</a>
-        <a href="#sites">Сайты и&nbsp;лендинги</a>
-        <a href="#services">Яндекс Карты и&nbsp;2ГИС</a>
-        <a href="#services">SEO</a>
+        <a href="yandex-direkt/">Яндекс Директ для стоматологии</a>
+        <a href="lidy-dlya-stomatologii/">Заявки для стоматологии</a>
+        <a href="kompleksnyj-marketing/">Комплексный маркетинг</a>
+        <a href="sajt-dlya-stomatologii/">Сайт для стоматологии</a>
+        <a href="seo-dlya-stomatologii/">SEO для стоматологии</a>
+        <a href="yandex-karty/">Яндекс Карты</a>
+      </nav>
+      <nav class="ftr__col" aria-label="Площадки и репутация">
+        <h2>Площадки и репутация</h2>
+        <a href="medicinskij-marketing/">Медицинский маркетинг</a>
+        <a href="otzyvy-i-reputaciya/">Отзывы и репутация</a>
+        <a href="prodoktorov/">ПроДокторов</a>
+        <a href="2gis/">2ГИС</a>
+        <a href="geo-prodvizhenie/">Продвижение в нейросетях</a>
       </nav>
       <nav class="ftr__col" aria-label="Агентство">
         <h2>Агентство</h2>
-        <a href="#cases">Кейсы</a>
-        <a href="#team">Об агентстве</a>
-        <a href="#faq">Вопросы</a>
+        <a href="kejsy/">Кейсы</a>
+        <a href="blog/">Блог</a>
+        <a href="kontakty/">Об агентстве</a>
+        <a href="kontakty/#contacts">Контакты</a>
         <a href="#start">Оставить заявку</a>
       </nav>
     </div>
     <div class="ftr__mark">
-      <img src="assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy">
+      <img src="assets/img/medvector-logo-inverse.webp" alt="МедВектор" width="720" height="255" loading="lazy" decoding="async">
     </div>
     <div class="ftr__bottom">
       <p>© 2026 МедВектор</p>

@@ -192,11 +192,6 @@ main { position: relative; display: block; }
 .js .ln > span { display: inline-block; vertical-align: top; transform: translateY(105%); transition: transform 1.15s var(--ease) calc(var(--l, 0) * 110ms + 80ms); }
 .js .is-in .ln > span, .js .ln.is-in > span { transform: none; }
 /* ---------- курсор-стрелка (только мышь): поворачивается по ходу движения ---------- */
-.cur { position: fixed; left: 0; top: 0; z-index: 95; width: 44px; height: 44px; margin: -22px 0 0 -22px; pointer-events: none; opacity: 0; transition: opacity .3s; }
-.cur.is-on { opacity: 1; }
-.cur i { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--vec); transform: scale(.36); transition: transform .5s var(--ease), background-color .4s, border-color .4s; }
-.cur.is-link i { transform: scale(1); background: rgba(0, 140, 216, .12); }
-.cur.is-text { opacity: 0; }
 /* ---------- меньше движения ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto !important; }
@@ -204,7 +199,7 @@ main { position: relative; display: block; }
   *, *::before, *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important; transition-duration: .001s !important; }
 }
 @media print {
-  .hdr, .vecline, .cur { display: none !important; }
+  .hdr, .vecline { display: none !important; }
 }
 /* секция за экраном: бесконечные анимации стоят, браузер не тратит на них кадры */
 .is-off *, .is-off *::before, .is-off *::after { animation-play-state: paused !important; }
@@ -952,3 +947,54 @@ button.link { border: 0; cursor: pointer; }
   .js #services .s1__p + .s1__p[data-rv] { opacity: 1; }
 }
 /* ===== Телефон: конец ===== */
+
+/* ===== Общая шапка сайта: тот же список услуг, что на внутренних страницах (правила совпадают с src/css/10-page.css) ===== */
+.hdr__nav > a[aria-current]::after, .drop__btn[data-here]::after { transform: scaleX(1); transform-origin: left; }
+.drop--wide { position: static; }
+.drop--wide .drop__panel { left: 50%; top: 100%; width: min(1080px, calc(100vw - 2 * var(--gut))); padding-top: 0; transform: translate(-50%, -8px); }
+.drop--wide.is-open .drop__panel, .no-js .drop--wide:hover .drop__panel, .no-js .drop--wide:focus-within .drop__panel { transform: translate(-50%, 0); }
+.drop__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 8px; padding: 14px; }
+.drop__h { padding: 8px 18px 6px; font-size: 14px; color: var(--ink-3); }
+.drop__list a[aria-current] b { color: var(--vec-ink); }
+.drop__list a[aria-current] { background: var(--fog); }
+.mnav__sub--all { display: grid; grid-template-columns: minmax(0, 1fr); column-gap: 24px; }
+.mnav__nav .mnav__sub--all a { padding: 7px 0; font-size: clamp(18px, 4.8vw, 22px); }
+.mnav__nav a[aria-current] { color: var(--vec-dark); }
+@media (min-width: 560px) {
+  .mnav__sub--all { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ===== Общий подвал сайта: три колонки ссылок (правила совпадают с src/css/10-page.css) ===== */
+.ftr__top--3 { grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)); }
+.ftr__top--3 .ftr__say { grid-column: auto; padding-right: 24px; font-size: calc(clamp(22px, 2vw, 30px) * var(--h-k)); }
+.ftr__top--3 .ftr__col { grid-column: auto; }
+@media (max-width: 1100px) {
+  .ftr__top--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 48px; }
+  .ftr__top--3 .ftr__say { grid-column: 1 / -1; padding-right: 0; max-width: 720px; }
+}
+@media (max-width: 640px) {
+  .ftr__top--3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 420px) {
+  .ftr__top--3 { grid-template-columns: 1fr; }
+}
+@media (min-width: 360px) and (max-width: 480px) {
+  .ftr__top--3 { grid-template-columns: 1fr 1fr; }
+}
+
+/* ===== Переходы с главной на страницы услуг: вторая ссылка рядом с кнопкой, заголовок карточки и метки услуг ===== */
+.s1__acts { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
+.s1__h a { text-decoration: none; }
+.s1__h a:hover { color: var(--vec-ink); }
+.dark .s1__h a:hover { color: var(--vec-dark); }
+.chips--nav li { padding: 0; }
+.chips--nav a { display: block; padding: 9px 16px; border-radius: 999px; text-decoration: none; transition: background-color .4s var(--ease), color .4s var(--ease); }
+.chips--nav a:hover { background: var(--ink); color: #fff; }
+@media (min-width: 1101px) {
+  #services .s1__acts { grid-column: 2; grid-row: 5; margin-top: 26px; }
+  #services .s1__acts .btn { margin-top: 0; }
+}
+@media (max-width: 720px) {
+  .chips--nav a { display: flex; align-items: center; min-height: 44px; }
+}
+.w5__acts { margin: 30px 0 18px; }

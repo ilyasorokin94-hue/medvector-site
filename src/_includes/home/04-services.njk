@@ -1,4 +1,4 @@
-<!-- «Две панели»: Директ и комплекс стоят рядом, под ними услуги по отдельности -->
+<!-- «Две панели»: Директ и комплекс стоят рядом, под ними услуги по отдельности. Заголовки, вторые ссылки и метки ведут на страницы услуг -->
 <section class="sec" id="services" data-line="light">
   <div class="sec__body s1">
     <div class="wrap">
@@ -13,7 +13,7 @@
       <div class="s1__grid">
         <article class="s1__p" data-rv>
           <p class="s1__tag">Быстрый результат</p>
-          <h3 class="s1__h">Яндекс Директ</h3>
+          <h3 class="s1__h"><a href="{{ href('direct') }}">Яндекс Директ</a></h3>
           <p class="s1__big num">4 дня</p>
           <p class="s1__cap">максимум от доступов до первых показов рекламы</p>
           <ul class="ticks">
@@ -23,11 +23,14 @@
             <li>Аккаунт-менеджер, отчёт и созвон каждую неделю</li>
           </ul>
           <p class="s1__terms"><b>Первый тест без комиссии агентства.</b> Вы оплачиваете только рекламный бюджет: 150 000 ₽ примерно на две недели. Условия дальнейшей работы фиксируем в договоре по итогам теста.</p>
-          <a href="#start" class="btn" data-magnetic>Обсудить тест</a>
+          <div class="s1__acts">
+            <a href="#start" class="btn" data-magnetic>Обсудить тест</a>
+            <a href="{{ href('direct') }}" class="link">Подробнее о Директе</a>
+          </div>
         </article>
         <article class="s1__p s1__p--dark dark" data-rv style="--d:1">
           <p class="s1__tag">Надолго</p>
-          <h3 class="s1__h">Комплексный маркетинг</h3>
+          <h3 class="s1__h"><a href="{{ href('complex') }}">Комплексный маркетинг</a></h3>
           <p class="s1__big num">3 месяца</p>
           <p class="s1__cap">ведения входит в первый этап</p>
           <ul class="ticks">
@@ -37,12 +40,15 @@
             <li>Ответы на отзывы и SEO в своём городе</li>
           </ul>
           <p class="s1__terms"><b>Вернём деньги, пока сайт не опубликован.</b> Первый этап 80 000 ₽ двумя платежами. <span class="stub">Заглушка: сумма на согласовании</span></p>
-          <a href="#start" class="btn btn--light" data-magnetic>Обсудить комплекс</a>
+          <div class="s1__acts">
+            <a href="#start" class="btn btn--light" data-magnetic>Обсудить комплекс</a>
+            <a href="{{ href('complex') }}" class="link">Подробнее о комплексе</a>
+          </div>
         </article>
       </div>
       <div class="solo" data-rv>
         <p class="solo__h">Можно по отдельности</p>
-        <ul class="chips"><li>Яндекс Директ</li><li>Сайт клиники</li><li>Лендинг под услугу</li><li>Яндекс Карты</li><li>2ГИС</li><li>ПроДокторов</li><li>SEO</li><li>Ответы на отзывы</li></ul>
+        <ul class="chips chips--nav"><li><a href="{{ href('direct') }}">Яндекс Директ</a></li><li><a href="{{ href('sites') }}">Сайт клиники</a></li><li><a href="{{ href('sites') }}">Лендинг под услугу</a></li><li><a href="{{ href('maps') }}">Яндекс Карты</a></li><li><a href="{{ href('gis') }}">2ГИС</a></li><li><a href="{{ href('prodoc') }}">ПроДокторов</a></li><li><a href="{{ href('seo') }}">SEO</a></li><li><a href="{{ href('reviews') }}">Ответы на отзывы</a></li></ul>
       </div>
       <i data-vp class="vp vp--lb"></i>
     </div>
